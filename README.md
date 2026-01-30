@@ -1,4 +1,4 @@
-# [Nombre de la Aplicación]
+# Rip Canary
 
 ## 👥 Miembros del Equipo
 | Nombre y Apellidos | Correo URJC | Usuario GitHub |
@@ -6,7 +6,7 @@
 | Jorge Crespo Lucas | j.cerspo.2024@alumnos.urjc.es | JCL625 |
 | Jaime Gordaliza de la Rosa | j.gordaliza.2024@alumnos.urjc.es | jaimegordaliza64-pixel |
 | Victor Camarero Verdejo | v.camarero.2024@alumnos.urjc.es | vcamarero |
-| Diego Coello López | d.coello.2024@alumnos.urjc.es | [User4] |
+| Diego Coello López | d.coello.2024@alumnos.urjc.es | dcoello4450 |
 
 ---
 
@@ -20,28 +20,28 @@ Indicar las entidades principales que gestionará la aplicación y las relacione
 1. **[Entidad 1]**: Usuario
 2. **[Entidad 2]**: Producto
 3. **[Entidad 3]**: Pedido/Carrito
-4. **[Entidad 4]**: Publicaciones del foro
+4. **[Entidad 4]**: Publicacion
 
 **Relaciones entre entidades:**
 - Usuario - Producto: Un usuario puede comprar un producto o venderlo
 - Carrito - Producto: El carrito de un usuario tiene varios pedidos
-- Carrito - Usuario: Cada usuario tiene su carrito especifico 
+- Carrito - Usuario: Cada usuario tiene su carrito específico 
 - Usuario - Publicaciones del foro: Cada ususario tiene sus publicaciones que puede editar y borrar
 
 ### **Permisos de los Usuarios**
 Describir los permisos de cada tipo de usuario e indicar de qué entidades es dueño:
 
 * **Usuario Anónimo**: 
-  - Permisos: [Ej: Visualización de catálogo, búsqueda de productos, registro]
+  - Permisos: Visualización del foro de informacion, visualización de los productos publicados y registrarse
   - No es dueño de ninguna entidad
 
 * **Usuario Registrado**: 
-  - Permisos: [Ej: Gestión de perfil, realizar pedidos, crear valoraciones]
-  - Es dueño de: [Ej: Sus propios Pedidos, su Perfil de Usuario, sus Valoraciones]
+  - Permisos: Publicar mensajes en el foro, poner a la venta productos, comprar productos, iniciar sesión, editar su perfil y todos los permisos del usuario anónimo
+  - Es dueño de: Su usuario, su carrito de la compra y sus publicaciones, tanto de sus mensajes como de sus productos
 
 * **Administrador**: 
-  - Permisos: [Ej: Gestión completa de productos (CRUD), visualización de estadísticas, moderación de contenido]
-  - Es dueño de: [Ej: Productos, Categorías, puede gestionar todos los Pedidos y Usuarios]
+  - Permisos: Eliminar mensajes y productos de la pagina, añadir nuevas funcionalidades, acceder a la base de datos de usuarios y productos, banear usuarios y todos los permisos de losdemás usuarios
+  - Es dueño de:  Productos y publicaciones
 
 ### **Imágenes**
 Indicar qué entidades tendrán asociadas una o varias imágenes:
