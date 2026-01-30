@@ -3,31 +3,30 @@
 ## 👥 Miembros del Equipo
 | Nombre y Apellidos | Correo URJC | Usuario GitHub |
 |:--- |:--- |:--- |
-| [Nombre 1] | [email1]@alumnos.urjc.es | [User1] |
-| [Nombre 2] | [email2]@alumnos.urjc.es | [User2] |
-| [Nombre 3] | [email3]@alumnos.urjc.es | [User3] |
-| [Nombre 4] | [email4]@alumnos.urjc.es | [User4] |
+| Jorge Crespo Lucas | j.cerspo.2024@alumnos.urjc.es | JCL625 |
+| Jaime Gordaliza de la Rosa | j.gordaliza.2024@alumnos.urjc.es | jaimegordaliza64-pixel |
+| Victor Camarero Verdejo | v.camarero.2024@alumnos.urjc.es | vcamarero |
+| Diego Coello López | d.coello.2024@alumnos.urjc.es | [User4] |
 
 ---
 
 ## 🎭 **Preparación: Definición del Proyecto**
 
 ### **Descripción del Tema**
-[Escribe aquí una descripción breve y concisa de qué trata tu aplicación, el sector al que pertenece y qué valor aporta al usuario].
-
+Página de imformatica que tiene un foro para la compartir ideas de informatica, vulnerabilidades... Y comprar y vender productos de informatica ya sea hardware o software.
 ### **Entidades**
 Indicar las entidades principales que gestionará la aplicación y las relaciones entre ellas:
 
-1. **[Entidad 1]**: [Ej: Usuario]
-2. **[Entidad 2]**: [Ej: Producto]
-3. **[Entidad 3]**: [Ej: Pedido]
-4. **[Entidad 4]**: [Ej: Categoría]
+1. **[Entidad 1]**: Usuario
+2. **[Entidad 2]**: Producto
+3. **[Entidad 3]**: Pedido/Carrito
+4. **[Entidad 4]**: Publicaciones del foro
 
 **Relaciones entre entidades:**
-- [Ej: Usuario - Pedido: Un usuario puede tener múltiples pedidos (1:N)]
-- [Ej: Pedido - Producto: Un pedido puede contener múltiples productos y un producto puede estar en múltiples pedidos (N:M)]
-- [Ej: Producto - Categoría: Un producto pertenece a una categoría (N:1)]
-- [Descripción de otras relaciones relevantes]
+- Usuario - Producto: Un usuario puede comprar un producto o venderlo
+- Carrito - Producto: El carrito de un usuario tiene varios pedidos
+- Carrito - Usuario: Cada usuario tiene su carrito especifico 
+- Usuario - Publicaciones del foro: Cada ususario tiene sus publicaciones que puede editar y borrar
 
 ### **Permisos de los Usuarios**
 Describir los permisos de cada tipo de usuario e indicar de qué entidades es dueño:
@@ -47,9 +46,9 @@ Describir los permisos de cada tipo de usuario e indicar de qué entidades es du
 ### **Imágenes**
 Indicar qué entidades tendrán asociadas una o varias imágenes:
 
-- **[Entidad con imágenes 1]**: [Ej: Usuario - Una imagen de avatar por usuario]
-- **[Entidad con imágenes 2]**: [Ej: Producto - Múltiples imágenes por producto (galería)]
-- **[Entidad con imágenes 3]**: [Ej: Categoría - Una imagen representativa por categoría]
+- **[Entidad con imágenes 1]**: Usuario una imagen de perfil
+- **[Entidad con imágenes 2]**: Producto Múltiples imágenes por producto
+- **[Entidad con imágenes 3]**: Publicaciones del foro con multiples imagenes también
 
 ---
 
