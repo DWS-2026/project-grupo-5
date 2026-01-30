@@ -9,26 +9,37 @@
     <title>Shop</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand- bg-dark navbar-dark">
-        <div class="container-fluid d-flex align-items-center flex-column flex-md-row flex-md-nowrap">
-            <a class="navbar-brand flex-grow-1" href="#">
-                <img src="Logo.png" alt="Logo" width="30" height="38">
-            </a>
-           <div class="d-flex flex-grow-1 justify-content-between">
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
-            </form>
-            <div class="dropdown">
-                <a class="btn btn-link p-0 text-white border-0 shadow-none" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-person-circle fs-2"></i> </a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="#">Iniciar sesión</a></li>
-                    <li><a class="dropdown-item" href="#">Registrarse</a></li>
-                </ul>
+    <header>
+
+        <nav class="navbar navbar-expand- bg-dark navbar-dark">
+            <div class="container-fluid d-flex align-items-center">
+
+                <!-- Logo Image -->
+                <a class="navbar-brand" href="#">
+                    <img src="Logo.png" alt="Logo" width="30" height="38">
+                </a>
+
+                <!-- Search bar -->
+                <div class="d-flex flex-grow-1 justify-content-center">
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                        <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
+                    </form>
+                </div>
+
+                <!-- User Image -->
+                <div class="dropdown justify-content-end">
+                    <a class="btn btn-link p-0 text-white border-0 shadow-none" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle fs-2"></i> </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#">Iniciar sesión</a></li>
+                        <li><a class="dropdown-item" href="#">Registrarse</a></li>
+                    </ul>
+                </div>
+
             </div>
-            </div>
-        </div>
-    </nav>
+        </nav>
+
+    </header>
 </body>
 </html>
