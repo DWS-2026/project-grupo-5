@@ -1,4 +1,4 @@
-# Rip Canary
+# CanaryShop
 
 ## 👥 Miembros del Equipo
 | Nombre y Apellidos | Correo URJC | Usuario GitHub |
@@ -13,34 +13,35 @@
 ## 🎭 **Preparación: Definición del Proyecto**
 
 ### **Descripción del Tema**
-Página de imformatica que tiene un foro para la compartir ideas de informatica, vulnerabilidades... Y comprar y vender productos de informatica ya sea hardware o software.
+Tienda de productos de informática en la que cada usuario puede comprar y poner en venta productos de software y hardware.
 ### **Entidades**
 Indicar las entidades principales que gestionará la aplicación y las relaciones entre ellas:
 
 1. **[Entidad 1]**: Usuario
 2. **[Entidad 2]**: Producto
 3. **[Entidad 3]**: Pedido/Carrito
-4. **[Entidad 4]**: Publicacion
+4. **[Entidad 4]**: Reseña
 
 **Relaciones entre entidades:**
 - Usuario - Producto: Un usuario puede comprar un producto o venderlo
 - Carrito - Producto: El carrito de un usuario tiene varios pedidos
 - Carrito - Usuario: Cada usuario tiene su carrito específico 
-- Usuario - Publicaciones del foro: Cada ususario tiene sus publicaciones que puede editar y borrar
+- Usuario - Reseña: Cada usuario publica reseñas
+- Producto - Reseña: Cada producto tiene varias reseñas
 
 ### **Permisos de los Usuarios**
 Describir los permisos de cada tipo de usuario e indicar de qué entidades es dueño:
 
 * **Usuario Anónimo**: 
-  - Permisos: Visualización del foro de informacion, visualización de los productos publicados y registrarse
+  - Permisos: Visualización de los productos publicados, visualización de sus reseñas y registrarse
   - No es dueño de ninguna entidad
 
 * **Usuario Registrado**: 
-  - Permisos: Publicar mensajes en el foro, poner a la venta productos, comprar productos, iniciar sesión, editar su perfil y todos los permisos del usuario anónimo
-  - Es dueño de: Su usuario, su carrito de la compra y sus publicaciones, tanto de sus mensajes como de sus productos
+  - Permisos: Publicar reseñas, poner a la venta productos, comprar productos, iniciar sesión, editar su perfil y todos los permisos del usuario anónimo
+  - Es dueño de: Su usuario, su carrito de la compra y sus publicaciones, tanto de sus reseñas como de sus productos
 
 * **Administrador**: 
-  - Permisos: Eliminar mensajes y productos de la pagina, añadir nuevas funcionalidades, acceder a la base de datos de usuarios y productos, banear usuarios y todos los permisos de losdemás usuarios
+  - Permisos: Eliminar reseñas y productos de la pagina, añadir nuevas funcionalidades, acceder a la base de datos de usuarios y productos, banear usuarios y todos los permisos de los demás usuarios
   - Es dueño de:  Productos y publicaciones
 
 ### **Imágenes**
@@ -48,7 +49,7 @@ Indicar qué entidades tendrán asociadas una o varias imágenes:
 
 - **[Entidad con imágenes 1]**: Usuario una imagen de perfil
 - **[Entidad con imágenes 2]**: Producto Múltiples imágenes por producto
-- **[Entidad con imágenes 3]**: Publicaciones del foro con multiples imagenes también
+- **[Entidad con imágenes 3]**: Reseñas con multiples imagenes también
 
 ---
 
