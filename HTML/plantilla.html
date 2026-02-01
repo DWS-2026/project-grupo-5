@@ -13,8 +13,8 @@
 
     <header class="bg-transparent">
 
-        <nav class="navbar navbar-expand- bg-dark navbar-dark rounded-5">
-            <div class="container-fluid d-flex align-items-center">
+        <nav class="navbar mx-4 bg-dark navbar-dark rounded-5">
+            <div class="container-fluid d-flex flex-column flex-md-row justify-content-between align-items-center px-4">
 
                 <!-- Logo Image -->
                 <a class="navbar-brand" href="#">
@@ -22,18 +22,16 @@
                 </a>
 
                 <!-- Search bar -->
-                <div class="d-flex flex-grow-1 justify-content-center">
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                        <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
-                    </form>
-                </div>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                    <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
+                </form>
 
                 <!-- User Image -->
                 <div class="dropstart justify-content-end">
                     <a class="btn btn-link p-0 text-white border-0 shadow-none" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-person-circle fs-2"></i> </a>
-                    <ul class="dropdown-menu dropdown-menu-dark border-0 shadow d-flex custom-horizontal-menu">
+                    <ul class="dropdown-menu dropdown-menu-dark border-0 me-4 shadow">
                         <li><a class="dropdown-item" href="#">Iniciar sesión</a></li>
                         <li><a class="dropdown-item" href="#">Registrarse</a></li>
                     </ul>
