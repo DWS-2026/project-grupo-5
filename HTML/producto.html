@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link type="text/css" rel="stylesheet" href="../CSS/plantilla.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Shop</title>
+</head>
+<body class="bg-dark min-vh-100 py-2 bg-opacity-75">
+
+    <header class="bg-transparent">
+
+        <nav class="navbar mx-4 bg-body navbar-dark rounded-5">
+            <div class="container-fluid d-flex flex-column flex-md-row justify-content-between align-items-center px-4">
+
+                <!-- Logo Image -->
+                <a class="navbar-brand" href="#">
+                    <img src="../images/logo.png" alt="Logo" width="150" height="40">
+                </a>
+
+                <!-- Search bar -->
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                    <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
+                </form>
+
+                <!-- User Image -->
+                <div class="dropstart justify-content-end">
+                    <a class="btn btn-link p-0 text-white border-0 shadow-none" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle fs-2"></i> </a>
+                    <ul class="dropdown-menu dropdown-menu-dark border-0 me-4 shadow">
+                        <li><a class="dropdown-item" href="#">Iniciar sesión</a></li>
+                        <li><a class="dropdown-item" href="#">Registrarse</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+
+    </header>
+    <main>
+        <!-- Botón de retorno -->
+        <div class="container d-flex flex-column flex-md-row my-4 p-4 p-md-0">
+            <a href="#" class="btn btn-secondary btn-lg flex-grow-1">< Volver</a>
+        </div>
+        <!-- Contenido del producto -->
+        <div class="container d-flex flex-column align-items-center bg-body my-4 p-4 rounded-3">
+            <!-- Imágenes del producto -->
+            <div id="productImages" class="carousel slide align-self-center w-75">
+                <div class="carousel-indicators"> 
+                    <button type="button" data-bs-target="#productImages" data-bs-slide-to="0" aria-label="Imagen 1" aria-current="true" class="active"></button>
+                    <button type="button" data-bs-target="#productImages" data-bs-slide-to="1" aria-label="Imagen 2"></button>
+                    <button type="button" data-bs-target="#productImages" data-bs-slide-to="2" aria-label="Imagen 3"></button>
+                    <button type="button" data-bs-target="#productImages" data-bs-slide-to="3" aria-label="Imagen 4"></button>
+                </div>
+                <div class="carousel-inner d-flex rounded">
+                    <div class="carousel-item active h-100">
+                        <img class="img-fluid rounded h-100 d-block mx-auto" src="../images/product-1.webp" alt="Test">
+                    </div>
+                    <div class="carousel-item h-100">
+                        <img class="img-fluid rounded h-100 d-block mx-auto" src="../images/product-2.webp" alt="Test">
+                    </div>
+                    <div class="carousel-item h-100">
+                        <img class="img-fluid rounded h-100 d-block mx-auto" src="../images/product-3.webp" alt="Test">
+                    </div>
+                    <div class="carousel-item h-100">
+                        <img class="img-fluid rounded h-100 d-block mx-auto" src="../images/product-4.webp" alt="Test">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#productImages" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#productImages" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                </button>
+            </div>
+            <!-- Título y precio -->
+            <div class="d-flex flex-md-row flex-column align-items-center">
+                <h3 class="display-3 text-white">Producto de ejemplo</h1>
+                <div class="rounded text-white bg-success ms-3 p-2">
+                    <h2 class="m-0">30,99€</h2>
+                </div>
+            </div>
+            <!-- Valoración del producto -->
+            <span class="text-primary my-2">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star"></i>
+                <span class="text-white">(4.3)</span>
+            </span>
+            <!-- Vendedor -->
+            <h3  class="text-white">Vendido por: <a href="#" class="link-light link-opacity-75-hover link-underline link-underline-opacity-0">Usuario <i class="bi bi-person-circle"></i></a></i></h4>
+            <!-- Botones de comprar -->
+            <div class="my-2 d-flex flex-row gap-3">
+                <button class="btn btn-primary btn-lg">Comprar ahora</button>
+                <button class="btn btn-secondary btn-lg">Añadir al carrito</button>
+            </div>
+            <!-- Descripción -->
+            <h2 class="text-white">Descripción del producto:</h2>
+            <div class="text-white bg-body-secondary rounded-3 my-4">
+                <p class="my-4 mx-4">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida faucibus dui eu consequat. Morbi ante metus, pretium eget egestas non, finibus lacinia quam. Fusce nunc nulla, efficitur non laoreet non, tincidunt ac nisl. In tincidunt justo nulla, sed facilisis ante ultrices in. Proin a gravida massa. Donec in risus dignissim, tincidunt dolor ac, pellentesque felis. Mauris iaculis arcu ut libero viverra semper. Maecenas ac porttitor sapien, nec tempus orci. Sed justo neque, volutpat vel fringilla eu, pretium id dolor. Aliquam nulla justo, feugiat at placerat sed, facilisis eu turpis. Aenean porta sagittis lacus non bibendum.
+                    Aenean et mattis urna. Praesent vel placerat dolor, id venenatis tellus. Pellentesque est neque, accumsan ac nibh at, posuere tempus purus. Pellentesque mattis elementum odio quis congue. Aliquam erat volutpat. Etiam nec fringilla risus. Curabitur in libero a elit semper viverra.
+                    Phasellus eleifend volutpat mollis. Morbi pellentesque interdum pretium. Proin tincidunt arcu a arcu laoreet, sit amet porta libero eleifend. Quisque dictum, leo nec sagittis suscipit, tortor erat rhoncus dui, dapibus mollis lorem ipsum et diam. Duis auctor rhoncus ex quis dapibus. Aenean aliquam nibh sed consequat bibendum. Donec malesuada tincidunt neque. Fusce sit amet feugiat lorem. Curabitur nec volutpat risus. Praesent sed lacus sem. Maecenas congue, massa vel hendrerit eleifend, augue lectus vestibulum ipsum, a rhoncus ipsum metus in risus. Sed eget sagittis lacus, a iaculis magna.
+                    Nunc finibus, enim sit amet tincidunt aliquam, dolor erat convallis lectus, a suscipit tortor purus quis nibh. Cras eget neque pulvinar, porttitor urna ut, pretium nunc. Suspendisse pharetra ipsum non quam rutrum, vel lobortis diam posuere. Aliquam erat volutpat. Nullam nunc nunc, bibendum quis tempus ut, mattis quis neque. Maecenas ut fermentum elit. Nam nec gravida enim. Ut rhoncus turpis libero, aliquet imperdiet est ultricies vitae.
+                    Curabitur et odio purus. Sed venenatis, libero vitae tincidunt pharetra, metus augue commodo urna, non pretium augue massa vitae tortor. Vestibulum aliquam sagittis purus quis congue. Duis bibendum eget quam vitae ultricies. Vivamus molestie, tellus at egestas suscipit, ante dui aliquam ligula, eu sagittis mi felis congue nibh. Maecenas gravida efficitur purus non bibendum. Donec dignissim suscipit tortor sed viverra. Ut metus mauris, ullamcorper et lacus non, ornare suscipit diam. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent scelerisque nisi accumsan consectetur viverra. Praesent aliquam sollicitudin erat, tincidunt convallis risus euismod a. Fusce quis felis a arcu placerat vestibulum vitae hendrerit lorem. Etiam sed suscipit justo, placerat convallis dui. 
+                </p>
+            </div>
+            <!-- Reseñas -->
+            <h2 class="text-white my-4">Reseñas del producto:</h2>
+            <div class="container d-flex flex-column align-items-center p-0 gap-3">
+                <!-- Alerta por usuario invitado -->
+                <!-- <div class="alert alert-warning w-100" role="alert">
+                    Necesitas iniciar sesión para publicar una reseña.
+                </div> -->
+                <!-- Alerta por artículo no comprado -->
+                <!-- <div class="alert alert-warning w-100" role="alert">
+                    Debes comprar el artículo para publicar una reseña.
+                </div> -->
+                <!-- Formulario de reseña -->
+                <form class="text-white container bg-body-secondary rounded p-4">
+                    <div class="my-2">
+                        <label for="reviewTitle" class="form-label">Título de la reseña</label>
+                        <input type="text" id="reviewTitle" class="form-control">
+                    </div>
+                    <div class="my-2">
+                        <label for="reviewStars" class="form-label">Valoración</label>
+                        <div id="reviewStars" class="d-flex gap-1">
+                            <div class="form-check form-check-inline m-0 p-0">
+                                <input type="radio" class="btn-check" id="star1" autocomplete="off">
+                                <label for="star1" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
+                            </div>
+                            <div class="form-check form-check-inline m-0 p-0">
+                                <input type="radio" class="btn-check" id="star2" autocomplete="off">
+                                <label for="star2" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
+                            </div>
+                            <div class="form-check form-check-inline m-0 p-0">
+                                <input type="radio" class="btn-check" id="star3" autocomplete="off">
+                                <label for="star3" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
+                            </div>
+                            <div class="form-check form-check-inline m-0 p-0">
+                                <input type="radio" class="btn-check" id="star4" autocomplete="off">
+                                <label for="star4" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
+                            </div>
+                            <div class="form-check form-check-inline m-0 p-0">
+                                <input type="radio" class="btn-check" id="star5" autocomplete="off">
+                                <label for="star5" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-2">
+                        <label for="reviewBody" class="form-label">Contenido</label>
+                        <textarea id="reviewBody" class="form-control"></textarea>
+                    </div>
+                    <div class="my-2">
+                        <label for="reviewFiles" class="form-label">Archivos adjuntos</label>
+                        <input class="form-control" type="file" id="reviewFiles" multiple>
+                    </div>
+                    <button class="btn btn-primary my-2 mx-1" type="submit">Enviar</button>
+                    <button class="btn btn-danger my-2" type="reset">Cancelar</button>
+                </form>
+                <div class="card text-white bg-body-secondary">
+                    <div class="card-body">
+                        <h5 class="card-title mb-2">Recomendado</h5>
+                        <span class="text-primary">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </span>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ultrices hendrerit nibh, id faucibus lorem. Morbi quis tristique arcu, quis semper sapien. Duis tincidunt vel sapien quis dapibus. Integer ultricies metus vel magna gravida bibendum. Mauris molestie condimentum risus, pellentesque consectetur ligula euismod in. Suspendisse interdum purus eu varius faucibus. Maecenas vel urna nec arcu auctor dignissim. Sed eu dolor sem. Aenean hendrerit consequat nunc non elementum. Nullam hendrerit neque ante, a laoreet risus ullamcorper in. Proin nisl ipsum, tempus ut hendrerit molestie, ullamcorper quis turpis. Etiam dictum, nulla ac bibendum tempor, ligula velit feugiat elit, vitae tincidunt libero libero a est. Donec et lectus molestie, egestas tellus eget, fermentum justo. Praesent hendrerit elit eu eros faucibus consectetur. Quisque nec aliquam ante, convallis fermentum dui.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a class="link-light link-underline link-underline-opacity-0 link-opacity-75-hover" href="#"><h5><i class="bi bi-person-circle mx-2"></i>Usuario 2</h5></a>
+                    </div>
+                </div>
+                <div class="card text-white bg-body-secondary">
+                    <div class="card-body">
+                        <h5 class="card-title mb-2">Mala calidad</h5>
+                        <span class="text-primary">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                        </span>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ultrices hendrerit nibh, id faucibus lorem. Morbi quis tristique arcu, quis semper sapien. Duis tincidunt vel sapien quis dapibus. Integer ultricies metus vel magna gravida bibendum. Mauris molestie condimentum risus, pellentesque consectetur ligula euismod in. Suspendisse interdum purus eu varius faucibus. Maecenas vel urna nec arcu auctor dignissim. Sed eu dolor sem. Aenean hendrerit consequat nunc non elementum. Nullam hendrerit neque ante, a laoreet risus ullamcorper in. Proin nisl ipsum, tempus ut hendrerit molestie, ullamcorper quis turpis. Etiam dictum, nulla ac bibendum tempor, ligula velit feugiat elit, vitae tincidunt libero libero a est. Donec et lectus molestie, egestas tellus eget, fermentum justo. Praesent hendrerit elit eu eros faucibus consectetur. Quisque nec aliquam ante, convallis fermentum dui.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a class="link-light link-underline link-underline-opacity-0 link-opacity-75-hover" href="#"><h5><i class="bi bi-person-circle mx-2"></i>Usuario 3</h5></a>
+                    </div>
+                </div>
+                <button class="btn btn-primary my-4">Ver más</button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
