@@ -1,0 +1,74 @@
+:root {
+    /* Variables de los colores de la paleta de la aplicación */
+    --bg: #202020;
+    --overlay-bg: #2A2A2A;
+    --item-bg: #313131;
+    --item-disabled: #3A3A3A;
+    --text: #ebebeb;
+    --green: #249926;
+    --yellow: #d4a01c;
+    --red: #d12e2e;
+    --green-dark: #1E8220;
+    --red-dark: #B22727;
+    --yellow-dark: #B48817;
+}
+
+#productImages > .carousel-inner {
+    height: 30vh;
+}
+.text-white {
+    color: var(--text) !important;
+}
+.bg-dark {
+    background-color: var(--bg) !important;
+}
+.bg-body {
+    background-color: var(--overlay-bg) !important;
+}
+.bg-body-secondary {
+    background-color: var(--item-bg) !important;
+}
+.bg-body-tertiary {
+    background-color: var(--item-disabled) !important;
+}
+.bg-success {
+    background-color: var(--green) !important;
+}
+.btn-primary {
+    --bs-btn-bg: var(--green);
+    --bs-btn-border-color: var(--green);
+    --bs-btn-hover-bg: var(--green-dark);
+    --bs-btn-hover-border-color: var(--green-dark)
+}
+.btn-secondary {
+    --bs-btn-bg: var(--item-bg);
+    --bs-btn-border-color: var(--item-bg);
+    --bs-btn-hover-bg: var(--bg);
+    --bs-btn-hover-border-color: var(--bg);
+
+}
+.btn-danger {
+    --bs-btn-bg: var(--red);
+    --bs-btn-border-color: var(--red);
+}
+.text-primary {
+    color: var(--green) !important;
+}
+.alert-warning {
+    background-color: transparent;
+    border-color: var(--yellow);
+    color: var(--yellow);
+}
+.form-control {
+    background-color: var(--item-disabled);
+    color: var(--text);
+    border-color: var(--item-disabled);
+}
+.form-control:focus {
+    background-color: var(--item-disabled);
+    border-color: var(--item-disabled);
+    color: var(--text);
+}
+::placeholder {
+    color: var(--text) !important;
+}
