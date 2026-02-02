@@ -34,6 +34,13 @@
 .bg-success {
     background-color: var(--green) !important;
 }
+.btn-outline-success {
+    --bs-btn-color: var(--green);
+    --bs-btn-border-color: var(--green);
+    --bs-btn-hover-bg: var(--green-dark);
+    --bs-btn-hover-color: var(--text);
+    --bs-btn-hover-border-color: var(--green-dark)
+}
 .btn-primary {
     --bs-btn-bg: var(--green);
     --bs-btn-border-color: var(--green);
@@ -45,7 +52,6 @@
     --bs-btn-border-color: var(--item-bg);
     --bs-btn-hover-bg: var(--bg);
     --bs-btn-hover-border-color: var(--bg);
-
 }
 .btn-danger {
     --bs-btn-bg: var(--red);
