@@ -12,6 +12,8 @@
 
 <body class="bg-dark min-vh-100 py-2 bg-opacity-75">
 
+    <div class="bg-grid"></div>
+
     <header class="bg-transparent">
 
         <!-- Medium devices navbar -->
@@ -38,6 +40,27 @@
                 <div class="justify-content-end d-flex flex-row flex-nowrap">
                     <a href="#"><button type="button" class="btn btn-primary rounded-end rounded-5">Log in</button></a>
                     <a href="#"><button type="button" class="btn btn-outline-primary rounded-start rounded-5">Sign up</button></a>
+                </div>
+                
+                <!-- User Image -->
+                <div class="justify-content-end hidden">
+                    <button class="btn btn-secundary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+                        <img src="userImage" alt="user image" onerror="this.src='../images/logo2.png';" class="rounded-circle" width="45" height="35">
+                    </button>
+
+                    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+                    <div class="offcanvas-header bg-body text-white">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        
+                    </div>
+                    <div class="offcanvas-body bg-body d-flex flex-column">
+                        <img src="userImage" alt="user image" onerror="this.src='../images/logo2.png';" class="rounded-circle align-self-center" width="150" height="150">
+                        <a class="text-decoration-none text-white" href="#"><i class="bi bi-house"></i><t></t>    Home</a>
+                        <a class="text-decoration-none text-white" href="#"><i class="bi bi-plus-circle"></i>    Sell ​​item</a>
+                        <a class="text-decoration-none text-white" href="#"><i class="bi bi-cart2"></i>    Shopping cart</a>
+                        <a class="text-decoration-none text-white" href="#"><i class="bi bi-person-circle"></i>    Show profile</a>
+                    </div>
+                    </div>
                 </div>
 
             </div>

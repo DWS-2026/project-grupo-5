@@ -130,3 +130,7 @@
 .btn-outline-primary:hover {
     color: var(--text);
 }
+/* Hidden objects */
+.hidden {
+    display: none !important;
+}
