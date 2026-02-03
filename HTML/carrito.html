@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link type="text/css" rel="stylesheet" href="../CSS/plantilla.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Shop</title>
+</head>
+
+<body class="bg-dark min-vh-100 py-2 bg-opacity-75">
+
+    <header class="bg-transparent">
+
+        <!-- Medium devices navbar -->
+        <nav class="navbar mx-4 bg-body navbar-dark rounded-bottom rounded-5 d-none d-md-block">
+            <div class="container-fluid d-flex flex-row flex-nowrap justify-content-between align-items-center px-4">
+               
+                <!-- Logo Image -->
+                <a class="navbar-brand" href="#">
+                    <img src="../images/logo.png" alt="Logo" width="150" height="40">
+                </a>
+
+                <form class="d-flex me-4" role="search">
+                    <!-- Categories button -->
+                    <button class="btn btn-secondary me-2" type="button" data-bs-toggle="collapse" data-bs-target="#categoriesMenu">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <!-- Search bar -->
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                    <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
+
+                </form>
+
+                <!-- Log in or sign up -->
+                <div class="justify-content-end d-flex flex-row flex-nowrap">
+                    <a href="#"><button type="button" class="btn btn-primary rounded-end rounded-5">Log in</button></a>
+                    <a href="#"><button type="button" class="btn btn-outline-primary rounded-start rounded-5">Sign up</button></a>
+                </div>
+
+            </div>
+        </nav>
+
+        <!-- Mobile navbar -->
+        <nav class="navbar mx-4 bg-body navbar-dark rounded-bottom rounded-5 d-md-none">
+            <div class="container-fluid d-flex flex-column justify-content-between align-items-center px-4">
+               
+                <!-- Logo Image -->
+                <div class="flex-fill " style="max-width: 750px;">
+                    <a class="navbar-brand" href="#">
+                        <img src="../images/logo.png" alt="Logo" width="150" height="40">
+                    </a>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center flex-fill">
+                    
+                    
+                    <form class="d-flex me-4" role="search">
+                        <!-- Categories button -->
+                        <button class="btn btn-secondary me-2" type="button" data-bs-toggle="collapse" data-bs-target="#categoriesMenu">
+                            <i class="bi bi-list"></i>
+                        </button>
+                        <!-- Search bar -->
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                        <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
+
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Categories -->
+        <div class="collapse mx-4 bg-body-secondary rounded-top rounded-5" id="categoriesMenu">
+            <div class="p-4">
+                <h5 class="h4 text-white">Categorías</h5>
+                <div class="d-flex flex-row flex-wrap align-items-center text-white">
+                    <div class="p-2"><a href="#" class="nav-link">Hardware</a></div>
+                    <div class="p-2"><a href="#" class="nav-link">Software</a></div>
+                    <div class="p-2"><a href="#" class="nav-link">Microcontroller</a></div>
+                    <div class="p-2"><a href="#" class="nav-link">Peripherals</a></div>
+                    <div class="p-2"><a href="#" class="nav-link">Hacking</a></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile bottom navbar -->
+        <nav class="navbar mx-4 bg-body navbar-dark rounded-bottom fixed-bottom rounded-5 d-md-none">
+            <div class="container-fluid d-flex flex-row justify-content-between align-items-center px-4">
+                <a class="btn btn-secondary" href="#" role="button"><i class="bi bi-house"></i></a>
+                <a class="btn btn-secondary" href="#" role="button"><i class="bi bi-plus-circle"></i></a>
+                <a class="btn btn-secondary" href="#" role="button"><i class="bi bi-cart2"></i></a>
+                <a class="btn btn-secondary" href="#" role="button"><i class="bi bi-person-circle"></i></a>
+            </div>
+        </nav>
+
+        
+    </header>
+    <main>
+        <div class="container bg-body d-flex flex-column my-4 p-4 rounded gap-4">
+            <!-- Product Cards -->
+            <div class="d-flex flex-column gap-2" id="cartProducts">
+                <div class="card bg-body-secondary text-white p-4">
+                    <a href="../HTML/producto.html" class="link-light link-underline link-underline-opacity-0">
+                        <!-- Image-Content separator -->
+                        <div class="d-flex gap-3">
+                            <img src="../images/product-1.webp" class="img-fluid rounded" style="height: 15vh">
+                            <!-- Product content -->
+                            <div class="d-flex flex-column card-body gap-3">
+                                <!-- Title and price -->
+                                <span class="card-title d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2">
+                                    <h4 class="mb-0">Product 1</h4>
+                                    <span class="text-bg-primary p-2 rounded fs-5" style="width: fit-content">
+                                        39,99€
+                                    </span>
+                                </span>
+                                <!-- Vendor details -->
+                                <h5 class="card-subtitle">
+                                    Sold By: 
+                                    <a class="link-light link-opacity-75-hover link-underline link-underline-opacity-0"  href="#">
+                                        <i class="bi bi-person-circle"></i>
+                                        User
+                                    </a>
+                                </h5>
+                                <!-- Amount changer -->
+                                <div class="d-flex gap-3 align-items-center align-self-end">
+                                    <button class="btn btn-danger">-</button>
+                                    1
+                                    <button class="btn btn-primary">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="card bg-body-secondary text-white p-4">
+                    <a href="../HTML/producto.html" class="link-light link-underline link-underline-opacity-0">
+                        <!-- Image-Content separator -->
+                        <div class="d-flex gap-3">
+                            <img src="../images/product-1.webp" class="img-fluid rounded" style="height: 15vh">
+                            <!-- Product content -->
+                            <div class="d-flex flex-column card-body gap-3">
+                                <!-- Title and price -->
+                                <span class="card-title d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2">
+                                    <h4 class="mb-0">Product 1</h4>
+                                    <span class="text-bg-primary p-2 rounded fs-5" style="width: fit-content">
+                                        39,99€
+                                    </span>
+                                </span>
+                                <!-- Vendor details -->
+                                <h5 class="card-subtitle">
+                                    Sold By: 
+                                    <a class="link-light link-opacity-75-hover link-underline link-underline-opacity-0"  href="#">
+                                        <i class="bi bi-person-circle"></i>
+                                        User
+                                    </a>
+                                </h5>
+                                <!-- Amount changer -->
+                                <div class="d-flex gap-3 align-items-center align-self-end">
+                                    <button class="btn btn-danger">-</button>
+                                    1
+                                    <button class="btn btn-primary">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="card bg-body-secondary text-white p-4">
+                    <a href="../HTML/producto.html" class="link-light link-underline link-underline-opacity-0">
+                        <!-- Image-Content separator -->
+                        <div class="d-flex gap-3">
+                            <img src="../images/product-1.webp" class="img-fluid rounded" style="height: 15vh">
+                            <!-- Product content -->
+                            <div class="d-flex flex-column card-body gap-3">
+                                <!-- Title and price -->
+                                <span class="card-title d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2">
+                                    <h4 class="mb-0">Product 1</h4>
+                                    <span class="text-bg-primary p-2 rounded fs-5" style="width: fit-content">
+                                        39,99€
+                                    </span>
+                                </span>
+                                <!-- Vendor details -->
+                                <h5 class="card-subtitle">
+                                    Sold By: 
+                                    <a class="link-light link-opacity-75-hover link-underline link-underline-opacity-0"  href="#">
+                                        <i class="bi bi-person-circle"></i>
+                                        User
+                                    </a>
+                                </h5>
+                                <!-- Amount changer -->
+                                <div class="d-flex gap-3 align-items-center align-self-end">
+                                    <button class="btn btn-danger">-</button>
+                                    1
+                                    <button class="btn btn-primary">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <span class="d-flex align-items-center justify-content-between text-white m-4">
+                <h3>Total:</h3>
+                <span class="text-bg-primary rounded p-2 fs-3">
+                    119.97€
+                </span>
+            </span>
+            <button class="btn btn-primary btn-lg ">Buy Now</button>
+        </div>
+    </main>
+</body>
+</html>

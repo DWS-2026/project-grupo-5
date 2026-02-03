@@ -19,6 +19,9 @@
 .text-white {
     color: var(--text) !important;
 }
+.text-bg-primary {
+    background-color: var(--green) !important;
+}
 .bg-dark {
     background-color: var(--bg) !important;
 }
