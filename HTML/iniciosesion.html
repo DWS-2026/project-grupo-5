@@ -11,39 +11,116 @@
 </head>
 <body class="bg-dark min-vh-100 py-2 bg-opacity-75">
 
+    <!-- Dinamic Background -->
+    <div class="bg-grid"></div>
+
     <header class="bg-transparent">
 
-        <nav class="navbar mx-4 bg-body navbar-dark rounded-5">
-            <div class="container-fluid d-flex flex-column flex-md-row justify-content-between align-items-center px-4">
-
+        <!-- Medium devices navbar -->
+        <nav class="navbar mx-4 bg-body navbar-dark rounded-bottom rounded-5 d-none d-md-block">
+            <div class="container-fluid d-flex flex-row flex-nowrap justify-content-between align-items-center px-4">
+               
                 <!-- Logo Image -->
-                <div class="flex-fill" style="max-width: 750px;">
+                <a class="navbar-brand" href="#">
+                    <img src="../images/logo.png" alt="Logo" width="150" height="40">
+                </a>
+
+                <form class="d-flex me-4" role="search">
+                    <!-- Categories button -->
+                    <button class="btn btn-secondary me-2" type="button" data-bs-toggle="collapse" data-bs-target="#categoriesMenu">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <!-- Search bar -->
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                    <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
+
+                </form>
+
+                <!-- Log in or sign up -->
+                <div class="justify-content-end d-flex flex-row flex-nowrap">
+                    <a href="#"><button type="button" class="btn btn-primary rounded-end rounded-5">Log in</button></a>
+                    <a href="#"><button type="button" class="btn btn-outline-primary rounded-start rounded-5">Sign up</button></a>
+                </div>
+                
+                <!-- User Image -->
+                <div class="justify-content-end hidden">
+                    <button class="btn btn-secundary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+                        <img src="userImage" alt="user image" onerror="this.src='../images/logo2.png';" class="rounded-circle" width="45" height="35">
+                    </button>
+
+                    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+                    <div class="offcanvas-header bg-body text-white">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        
+                    </div>
+                    <div class="offcanvas-body bg-body d-flex flex-column">
+                        <img src="userImage" alt="user image" onerror="this.src='../images/logo2.png';" class="rounded-circle align-self-center" width="150" height="150">
+                        <a class="text-decoration-none text-white" href="#"><i class="bi bi-house"></i><t></t>    Home</a>
+                        <a class="text-decoration-none text-white" href="#"><i class="bi bi-plus-circle"></i>    Sell ​​item</a>
+                        <a class="text-decoration-none text-white" href="#"><i class="bi bi-cart2"></i>    Shopping cart</a>
+                        <a class="text-decoration-none text-white" href="#"><i class="bi bi-person-circle"></i>    Show profile</a>
+                    </div>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+
+        <!-- Mobile navbar -->
+        <nav class="navbar mx-4 bg-body navbar-dark rounded-bottom rounded-5 d-md-none">
+            <div class="container-fluid d-flex flex-column justify-content-between align-items-center px-4">
+               
+                <!-- Logo Image -->
+                <div class="flex-fill " style="max-width: 750px;">
                     <a class="navbar-brand" href="#">
-                        <img class="img-fluid" src="../images/logo.png" alt="Logo" width="150" height="40">
+                        <img src="../images/logo.png" alt="Logo" width="150" height="40">
                     </a>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center flex-fill">
-                    <!-- Search bar -->
+                    
+                    
                     <form class="d-flex me-4" role="search">
+                        <!-- Categories button -->
+                        <button class="btn btn-secondary me-2" type="button" data-bs-toggle="collapse" data-bs-target="#categoriesMenu">
+                            <i class="bi bi-list"></i>
+                        </button>
+                        <!-- Search bar -->
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
                         <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
-                    </form>
 
-                    <!-- User Image -->
-                    <div class="dropstart">
-                        <a class="btn btn-link p-0 text-white border-0 shadow-none" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-circle fs-2"></i> </a>
-                        <ul class="dropdown-menu dropdown-menu-dark border-0 me-4 shadow">
-                            <li><a class="dropdown-item" href="#">Log in</a></li>
-                            <li><a class="dropdown-item" href="#">Sign in</a></li>
-                        </ul>
-                    </div>
+                    </form>
                 </div>
             </div>
         </nav>
 
+        <!-- Categories -->
+        <div class="collapse mx-4 bg-body-secondary rounded-top rounded-5" id="categoriesMenu">
+            <div class="p-4">
+                <h5 class="h4 text-white">Categorías</h5>
+                <div class="d-flex flex-row flex-wrap align-items-center text-white">
+                    <div class="p-2"><a href="#" class="nav-link">Hardware</a></div>
+                    <div class="p-2"><a href="#" class="nav-link">Software</a></div>
+                    <div class="p-2"><a href="#" class="nav-link">Microcontroller</a></div>
+                    <div class="p-2"><a href="#" class="nav-link">Peripherals</a></div>
+                    <div class="p-2"><a href="#" class="nav-link">Hacking</a></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile bottom navbar -->
+        <nav class="navbar mx-4 bg-body navbar-dark rounded-bottom fixed-bottom rounded-5 d-md-none">
+            <div class="container-fluid d-flex flex-row justify-content-between align-items-center px-4">
+                <a class="btn btn-secondary" href="#" role="button"><i class="bi bi-house"></i></a>
+                <a class="btn btn-secondary" href="#" role="button"><i class="bi bi-plus-circle"></i></a>
+                <a class="btn btn-secondary" href="#" role="button"><i class="bi bi-cart2"></i></a>
+                <a class="btn btn-secondary" href="#" role="button"><i class="bi bi-person-circle"></i></a>
+            </div>
+        </nav>
+
+        
     </header>
+    
         <main class="container d-flex justify-content-center align-items-center mt-3 pt-2" style="min-height: 80vh;">
     <div class="col-12 col-md-6 col-lg-4">
         <div class="card bg-dark text-white border-secondary shadow-lg rounded-4">

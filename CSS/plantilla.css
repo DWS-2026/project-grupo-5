@@ -1,5 +1,5 @@
 :root {
-    /* Variables de los colores de la paleta de la aplicación */
+    /* Colors vars */
     --bg: #202020;
     --overlay-bg: #2A2A2A;
     --item-bg: #313131;
@@ -75,6 +75,62 @@
     border-color: var(--item-disabled);
     color: var(--text);
 }
+
 ::placeholder {
     color: var(--text) !important;
+}
+
+/* Dynamic background */
+
+.bg-grid {
+
+    /* Dimension of the animation */
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    z-index: -1;
+
+    /* Background grid with fading effect */
+    background-image:
+            linear-gradient(var(--item-bg) 1px, transparent 1px),
+            linear-gradient(90deg, var(--item-bg) 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-position: center center;
+
+    mask-image: radial-gradient(ellipse at center, black, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black, transparent 80%);
+    animation: grid-move 20s linear infinite;
+    opacity: 0.6;
+}
+
+/* Animation */
+@keyframes grid-move {
+    0% {
+        transform: perspective(500px) rotateX(30deg) translateY(0);
+    }
+    100% {
+        transform: perspective(500px) rotateX(30deg) translateY(50px);
+    }
+}
+
+/* Top bar shadow */
+.navbar {
+    border: 1px solid var(--item-disabled) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+.btn-outline-primary {
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: var(--green);
+    color: var(--green);
+    --bs-btn-hover-bg: var(--green);
+    --bs-btn-hover-border-color: transparent;
+}
+.btn-outline-primary:hover {
+    color: var(--text);
+}
+/* Hidden objects */
+.hidden {
+    display: none !important;
 }
