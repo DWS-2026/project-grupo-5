@@ -78,3 +78,13 @@
 ::placeholder {
     color: var(--text) !important;
 }
+.btn-outline-primary {
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: var(--green);
+    color: var(--green);
+    --bs-btn-hover-bg: var(--green);
+    --bs-btn-hover-border-color: transparent;
+}
+.btn-outline-primary:hover {
+    color: var(--text);
+}
