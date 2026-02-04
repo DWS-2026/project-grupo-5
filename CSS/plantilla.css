@@ -222,3 +222,15 @@
 #reviewFiles div {
     height: 6em;
 }
+/* Admin panel buttons */
+.btn-admin {
+    color: var(--text) !important;
+    transition: 0.3s;
+}
+.btn-admin:hover {
+    background-color: var(--overlay-bg);
+}
+.btn-admin.active {
+    background-color: var(--green-dark) !important;
+    border-color: transparent !important;
+}
