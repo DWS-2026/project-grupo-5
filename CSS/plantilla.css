@@ -234,3 +234,14 @@
     background-color: var(--green-dark) !important;
     border-color: transparent !important;
 }
+
+.error-display {
+    border: none !important;
+    background: transparent !important;
+    margin-bottom: 1rem;
+}
+
+.form-check-input:checked {
+    background-color: var(--green);
+    border-color: var(--green);
+}

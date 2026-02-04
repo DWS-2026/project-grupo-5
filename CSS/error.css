@@ -1,0 +1,21 @@
+/* ---------------- Style for error code ---------------- */
+.error-code {
+    font-size: clamp(5rem, 15vw, 10rem);
+    font-weight: 800;
+    margin: 0;
+    line-height: 1;
+    color: var(--green);
+
+    /* Shiny style */
+    text-shadow:
+            0 0 20px rgba(36, 153, 38, 0.3),
+            0 0 40px rgba(36, 153, 38, 0.1);
+
+    /* Animation */
+    animation: error-glow 3s infinite ease-in-out;
+}
+
+@keyframes error-glow {
+    0%, 100% { opacity: 1; filter: drop-shadow(0 0 10px var(--green)); }
+    50% { opacity: 0.8; filter: drop-shadow(0 0 25px var(--green)); }
+}
