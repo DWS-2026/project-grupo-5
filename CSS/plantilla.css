@@ -83,7 +83,7 @@
     color: var(--text) !important;
 }
 
-/* ---------------- Dynamic background ---------------- */
+/* Dynamic background */
 
 .bg-grid {
 
@@ -137,31 +137,100 @@
 .hidden {
     display: none !important;
 }
-
-/* ---------------- Style for error code ---------------- */
-.error-code {
-    font-size: clamp(5rem, 15vw, 10rem);
-    font-weight: 800;
-    margin: 0;
-    line-height: 1;
+/* Top bar shadow */
+.navbar {
+    border: 1px solid var(--item-disabled) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+.btn-outline-primary {
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: var(--green);
     color: var(--green);
-
-    /* Shiny style */
-    text-shadow:
-            0 0 20px rgba(36, 153, 38, 0.3),
-            0 0 40px rgba(36, 153, 38, 0.1);
-
-    /* Animation */
-    animation: error-glow 3s infinite ease-in-out;
+    --bs-btn-hover-bg: var(--green);
+    --bs-btn-hover-border-color: transparent;
+}
+.btn-outline-primary:hover {
+    color: var(--text);
+}
+/* Hidden objects */
+.hidden {
+    display: none !important;
 }
 
-@keyframes error-glow {
-    0%, 100% { opacity: 1; filter: drop-shadow(0 0 10px var(--green)); }
-    50% { opacity: 0.8; filter: drop-shadow(0 0 25px var(--green)); }
+/* Square label */
+.upload-label {
+    width: 100%;
+    height: 250px;
+    border: 2px dashed var(--item-disabled);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: var(--item-disabled);
 }
 
-.error-display {
-    border: none !important;
-    background: transparent !important;
-    margin-bottom: 1rem;
+.upload-label:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+    border-color: var(--green); /* Color verde como tu botón de Log in */
+    transform: scale(1.01);
+}
+
+/* Plus icon in the label*/
+.upload-content i {
+    font-size: 3rem;
+    color: var(--item-disabled);
+}
+
+.upload-label:hover i {
+    color: var(--green);
+}
+/* Images */
+.preview-card {
+    position: relative;
+    height: 120px;
+}
+
+.preview-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--item-bg);
+}
+
+/* X button on the images */
+.btn-remove {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background: rgba(0, 0, 0, 0.5);
+    color: var(--red);
+    border: none;
+    border-radius: 30%;
+    font-size: 14px;
+    cursor: pointer;
+}
+.btn-remove:hover {
+    background: rgba(0, 0, 0, 1);
+    color: var(--red-dark);
+    transform: scale(1.01);
+}
+
+#reviewFiles div {
+    height: 6em;
+}
+/* Admin panel buttons */
+.btn-admin {
+    color: var(--text) !important;
+    transition: 0.3s;
+}
+.btn-admin:hover {
+    background-color: var(--overlay-bg);
+}
+.btn-admin.active {
+    background-color: var(--green-dark) !important;
+    border-color: transparent !important;
 }

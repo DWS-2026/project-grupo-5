@@ -128,7 +128,7 @@
         <!-- Product Content -->
         <div class="container d-flex flex-column align-items-center bg-body my-4 p-4 rounded-3">
             <!-- Product Images -->
-            <div id="productImages" class="carousel slide align-self-center w-75">
+            <div id="productImages" class="carousel slide align-self-center w-100 p-3">
                 <div class="carousel-indicators"> 
                     <button type="button" data-bs-target="#productImages" data-bs-slide-to="0" aria-label="Imagen 1" aria-current="true" class="active"></button>
                     <button type="button" data-bs-target="#productImages" data-bs-slide-to="1" aria-label="Imagen 2"></button>
@@ -137,22 +137,22 @@
                 </div>
                 <div class="carousel-inner d-flex rounded">
                     <div class="carousel-item active h-100">
-                        <img class="img-fluid rounded h-100 d-block mx-auto" src="../images/product-1.webp" alt="Test">
+                        <img class="h-100 rounded d-block mx-auto" src="https://picsum.photos/400?random=1" alt="Test">
                     </div>
                     <div class="carousel-item h-100">
-                        <img class="img-fluid rounded h-100 d-block mx-auto" src="../images/product-2.webp" alt="Test">
+                        <img class="h-100 rounded d-block mx-auto" src="https://picsum.photos/1920/1080?random=2" alt="Test">
                     </div>
                     <div class="carousel-item h-100">
-                        <img class="img-fluid rounded h-100 d-block mx-auto" src="../images/product-3.webp" alt="Test">
+                        <img class="h-100 rounded d-block mx-auto" src="https://picsum.photos/1080/1920?random=3" alt="Test">
                     </div>
                     <div class="carousel-item h-100">
-                        <img class="img-fluid rounded h-100 d-block mx-auto" src="../images/product-4.webp" alt="Test">
+                        <img class="h-100 rounded d-block mx-auto" src="https://picsum.photos/200?random=4" alt="Test">
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#productImages" data-bs-slide="prev">
+                <button class="carousel-control-prev bg-body-secondary rounded align-self-center p-3" type="button" style="width: fit-content; height: fit-content;" data-bs-target="#productImages" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#productImages" data-bs-slide="next">
+                <button class="carousel-control-next bg-body-secondary rounded align-self-center p-3" type="button" style="width: fit-content; height: fit-content;" type="button" data-bs-target="#productImages" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 </button>
             </div>
@@ -174,6 +174,11 @@
             </span>
             <!-- Vendor -->
             <h4  class="text-white">Sold by: <a href="#" class="link-light link-opacity-75-hover link-underline link-underline-opacity-0">User <i class="bi bi-person-circle"></i></a></i></h4>
+            <!-- Product Stock -->
+            <h6 class="text-white">
+                5
+                in stock
+            </h6>
             <!-- Buy Buttons -->
             <div class="my-2 d-flex flex-row gap-3">
                 <button class="btn btn-primary btn-lg">Buy Now</button>
@@ -203,10 +208,12 @@
                 </div> -->
                 <!-- Review form -->
                 <form class="text-white container bg-body-secondary rounded p-4">
+                    <!-- Review title  -->
                     <div class="my-2">
                         <label for="reviewTitle" class="form-label">Review title</label>
                         <input type="text" id="reviewTitle" class="form-control">
                     </div>
+                    <!-- Review rating -->
                     <div class="my-2">
                         <label for="reviewStars" class="form-label">Rating</label>
                         <div id="reviewStars" class="d-flex gap-1">
@@ -232,13 +239,36 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Review content -->
                     <div class="my-2">
                         <label for="reviewBody" class="form-label">Content</label>
                         <textarea id="reviewBody" class="form-control"></textarea>
                     </div>
-                    <div class="my-2">
-                        <label for="reviewFiles" class="form-label">Attachments</label>
-                        <input class="form-control" type="file" id="reviewFiles" multiple>
+                    <!-- Review files -->
+                     <label class="form-label">Attachments</label>
+                    <div class="container-fluid px-0">
+                        <div class="row row-cols-4 row-cols-md-6 gy-2 gx-2" id="reviewFiles">
+                            <div class="flex-grow-1">
+                                <input type="file" id="file-input" accept="image/*" hidden multiple>
+                                <label for="file-input" class="upload-label h-100 rounded">
+                                    <div class="upload-content d-flex align-items-center">
+                                        <i class="bi bi-plus-square-dotted"></i>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="preview-card">
+                                <img class="img-fluid h-100 rounded" src="https://picsum.photos/200/200?random=1" alt="">
+                                <button class="btn-remove"><i class="bi bi-x-lg"></i></button>
+                            </div>
+                            <div class="preview-card">
+                                <img class="img-fluid h-100 rounded" src="https://picsum.photos/200/200?random=2" alt="">
+                                <button class="btn-remove"><i class="bi bi-x-lg"></i></button>
+                            </div>
+                            <div class="preview-card">
+                                <img class="img-fluid h-100 rounded" src="https://picsum.photos/200/200?random=3" alt="">
+                                <button class="btn-remove"><i class="bi bi-x-lg"></i></button>
+                            </div>
+                        </div>
                     </div>
                     <button class="btn btn-primary my-2 mx-1" type="submit">Send</button>
                     <button class="btn btn-danger my-2" type="reset">Cancel</button>
