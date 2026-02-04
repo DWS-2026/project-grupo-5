@@ -208,10 +208,12 @@
                 </div> -->
                 <!-- Review form -->
                 <form class="text-white container bg-body-secondary rounded p-4">
+                    <!-- Review title  -->
                     <div class="my-2">
                         <label for="reviewTitle" class="form-label">Review title</label>
                         <input type="text" id="reviewTitle" class="form-control">
                     </div>
+                    <!-- Review rating -->
                     <div class="my-2">
                         <label for="reviewStars" class="form-label">Rating</label>
                         <div id="reviewStars" class="d-flex gap-1">
@@ -237,13 +239,36 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Review content -->
                     <div class="my-2">
                         <label for="reviewBody" class="form-label">Content</label>
                         <textarea id="reviewBody" class="form-control"></textarea>
                     </div>
-                    <div class="my-2">
-                        <label for="reviewFiles" class="form-label">Attachments</label>
-                        <input class="form-control" type="file" id="reviewFiles" multiple>
+                    <!-- Review files -->
+                     <label class="form-label">Attachments</label>
+                    <div class="container-fluid px-0">
+                        <div class="row row-cols-4 row-cols-md-6 gy-2 gx-2" id="reviewFiles">
+                            <div class="flex-grow-1">
+                                <input type="file" id="file-input" accept="image/*" hidden multiple>
+                                <label for="file-input" class="upload-label h-100 rounded">
+                                    <div class="upload-content d-flex align-items-center">
+                                        <i class="bi bi-plus-square-dotted"></i>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="preview-card">
+                                <img class="img-fluid h-100 rounded" src="https://picsum.photos/200/200?random=1" alt="">
+                                <button class="btn-remove"><i class="bi bi-x-lg"></i></button>
+                            </div>
+                            <div class="preview-card">
+                                <img class="img-fluid h-100 rounded" src="https://picsum.photos/200/200?random=2" alt="">
+                                <button class="btn-remove"><i class="bi bi-x-lg"></i></button>
+                            </div>
+                            <div class="preview-card">
+                                <img class="img-fluid h-100 rounded" src="https://picsum.photos/200/200?random=3" alt="">
+                                <button class="btn-remove"><i class="bi bi-x-lg"></i></button>
+                            </div>
+                        </div>
                     </div>
                     <button class="btn btn-primary my-2 mx-1" type="submit">Send</button>
                     <button class="btn btn-danger my-2" type="reset">Cancel</button>

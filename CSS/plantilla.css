@@ -181,7 +181,6 @@
 /* Plus icon in the label*/
 .upload-content i {
     font-size: 3rem;
-    display: block;
     color: var(--item-disabled);
 }
 
@@ -218,4 +217,8 @@
     background: rgba(0, 0, 0, 1);
     color: var(--red-dark);
     transform: scale(1.01);
+}
+
+#reviewFiles div {
+    height: 6em;
 }
