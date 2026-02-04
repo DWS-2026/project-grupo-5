@@ -117,27 +117,23 @@
                 <a class="btn btn-secondary" href="#" role="button"><i class="bi bi-person-circle"></i></a>
             </div>
         </nav>
-
-
         
     </header>
 
     <main>
+
         <!-- Admin panel in medium devices -->
         <div class="d-flex flex-md-row flex-column flex-wrap">
             <nav class="sidebar d-flex flex-column p-3 vh-100 bg-body-secondary mx-4 col-2 d-none d-md-block">
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
-                        <a href="admin.html" class="btn btn-admin "><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
+                        <a href="adminDashboard.html" class="btn btn-admin "><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="btn btn-admin "><i class="bi bi-cpu me-2"></i> Products</a>
+                        <a href="adminProducts.html" class="btn btn-admin "><i class="bi bi-cpu me-2"></i>Reported products</a>
                     </li>
                     <li class="nav-item">
-                        <a href="AdminUsers.html" class="btn btn-admin active"><i class="bi bi-people me-2"></i> Users</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="btn btn-admin "><i class="bi bi-exclamation-triangle me-2"></i> Reports</a>
+                        <a href="#" class="btn btn-admin active"><i class="bi bi-people me-2"></i>Reported users</a>
                     </li>
                 </ul>
             </nav>
@@ -145,8 +141,9 @@
             <!-- Users of the web -->
             <div class="mx-4 bg-body-secondary my-md-5 my-4  rounded-5 w-md-50 d-flex flex-column flex-fill shadow-lg">
 
-                <div class="align-self-center text-primary my-1">
-                    <h2 class="my-2">Users </h2>
+               <div class="align-self-center align-items-center text-primary d-flex flex-row my-1 col-md-3">
+                        <input class="form-control me-2 ms-3 my-2" type="search" placeholder="Search" aria-label="Search"/>
+                        <button class="btn btn-outline-success me-3" type="submit"><i class="bi bi-search"></i></button>
                 </div>
 
                 <!-- Each user -->
@@ -244,19 +241,19 @@
                 <!-- Pages of users -->
                 <nav class="my-3">
 
-                 <ul class="pagination justify-content-center flex-fill">
-                    <li class="page-item">
-                        <a class="page-link bg-body-tertiary text-white border-dark border-opacity-25 rounded-5 rounded-end" href="#">Previous</a>
-                    </li>
-                    <li class="page-item"><a class="page-link bg-body-tertiary text-white border-dark border-opacity-25" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link bg-body-tertiary text-white border-dark border-opacity-25" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link bg-body-tertiary text-white border-dark border-opacity-25" href="#">3</a></li>
-                    <li class="page-item disabled"><a class="page-link bg-body-tertiary text-white border-dark border-opacity-25">...</a></li>
-                    <li class="page-item"><a class="page-link bg-body-tertiary text-white border-dark border-opacity-25" href="#">50</a></li>
-                    <li class="page-item">
-                        <a class="page-link bg-body-tertiary text-white border-dark border-opacity-25 rounded-5 rounded-start" href="#">Next</a>
-                    </li>
-                </ul>
+                    <ul class="pagination justify-content-center flex-fill">
+                        <li class="page-item">
+                            <a class="page-link bg-body-tertiary text-white border-dark border-opacity-25 rounded-5 rounded-end" href="#">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link bg-body-tertiary text-white border-dark border-opacity-25" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link bg-body-tertiary text-white border-dark border-opacity-25" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link bg-body-tertiary text-white border-dark border-opacity-25" href="#">3</a></li>
+                        <li class="page-item disabled"><a class="page-link bg-body-tertiary text-white border-dark border-opacity-25">...</a></li>
+                        <li class="page-item"><a class="page-link bg-body-tertiary text-white border-dark border-opacity-25" href="#">50</a></li>
+                        <li class="page-item">
+                            <a class="page-link bg-body-tertiary text-white border-dark border-opacity-25 rounded-5 rounded-start" href="#">Next</a>
+                        </li>
+                    </ul>
 
                 </nav>
 
@@ -264,10 +261,9 @@
 
             <!-- Admin buttons in mobile -->
             <div class="align-self-center d-flex flex-row justify-content-between  px-4 pb-5 col-11 my-4 d-md-none">
-                    <a href="admin.html" class="btn btn-lg btn-admin bg-body-secondary"  role="button"><i class="bi bi-speedometer2"></i></a>
-                    <a href="#" class="btn btn-lg btn-admin bg-body-secondary"  role="button"><i class="bi bi-cpu"></i></a>
-                    <a href="AdminUsers.html" class="btn btn-lg btn-admin active"  role="button"><i class="bi bi-people"></i></a>
-                    <a href="#" class="btn btn-lg btn-admin bg-body-secondary" role="button"><i class="bi bi-exclamation-triangle"></i></a>
+                    <a href="adminDashboard.html" class="btn btn-lg btn-admin bg-body-secondary"  role="button"><i class="bi bi-speedometer2"></i></a>
+                    <a href="adminProducts.html" class="btn btn-lg btn-admin bg-body-secondary"  role="button"><i class="bi bi-cpu"></i></a>
+                    <a href="#" class="btn btn-lg btn-admin active"  role="button"><i class="bi bi-people"></i></a>
             </div>
 
         </div>
