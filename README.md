@@ -64,14 +64,14 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 
 ![Diagrama de Navegación](images/navigation-diagram.jpeg)
 
-> [Descripción opcional del flujo de navegación: Ej: "El usuario puede acceder desde la página principal a todas las secciones mediante el menú de navegación. Los usuarios anónimos solo tienen acceso a las páginas públicas, mientras que los registrados pueden acceder a su perfil y panel de usuario."]
+> Cualquier usuario, registrado o no, puede ver los productos en el listado y acceder a la página de cualquier producto para ver sus detalles, tanto precio como valoración y reseñas. También puede mirar los perfiles de otros usuarios, tanto de vendedores como de personas que hayan publicado reseñas. Si el usuario no tiene sesión abierta, puede iniciar sesión a través de un botón en la cabecera, o bien crear una cuenta. Con la sesión abierta, puede mirar su perfil y editarlo, y también puede subir un producto a la venta. También puede añadir productos a su carrito o comprarlos de manera directa. Si el usuario es administrador, tiene acceso al panel de admin, donde puede ver productos que han sido reportados, notificaciones de eventos y un listado de usuarios, tanto de los que han sido reportados como el listado general de usuarios
 
 ### **Capturas de Pantalla y Descripción de Páginas**
 
 #### **1. Página Principal / Home**
 ![Página Principal](images/index.png)
 
-> [Descripción breve: Pantalla que aparece nada mas entrar en la página se este logueado o no. Contiene los productos y una barra con el logo, una barra de busqueda para buscar productos y la foto del perfil del ususario si esta logueado o dos botones uno para iniciar sesion y otro para registrarse]
+> [Descripción breve: Pantalla que aparece nada más entrar en la página se este logueado o no. Contiene los productos y una barra con el logo, una barra de busqueda para buscar productos y la foto del perfil del ususario si esta logueado o dos botones uno para iniciar sesion y otro para registrarse]
 
 ![Página Principal](images/usuario.png)
 
@@ -84,23 +84,23 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 
 ![Página Principal](images/adminDashboard.png)
 
-> [Descripción breve: Pantalla que aparece si se es administrador y se pulsa el boton del panel de administrador. En esta pantalla aparece la foto, la descripcion del administrador, su ID y las 5 notificaciones mas recientes]
+> [Descripción breve: Pantalla que aparece si se es administrador y se pulsa el botón del panel de administrador. En esta pantalla aparece la foto, la descripcion del administrador, su ID y las 5 notificaciones más recientes]
 
 ![Página Principal](images/adminProducts.png)
 
-> [Descripción breve: Pantalla que aparece si se es administrador y se pulsa el boton de productos reportados aqui aparecen todos los productos reportados con la descripcion del reporte]
+> [Descripción breve: Pantalla que aparece si se es administrador y se pulsa el botón de productos reportados. Aquí aparecen todos los productos reportados con la descripcion del reporte]
 
 ![Página Principal](images/adminAllUsers.png)
 
-> [Descripción breve: Pantalla que aparece si se es administrador y se pulsa el boton de All users en esta pantalla se pueden ver todos los usuarios y editarlos o banearlos]
+> [Descripción breve: Pantalla que aparece si se es administrador y se pulsa el botón de All Users. En esta pantalla se pueden ver todos los usuarios y editarlos o banearlos]
 
 ![Página Principal](images/adminReportedUsers.png)
 
-> [Descripción breve: Pantalla que aparece si se es administrador y se pulsa el boton de Reported users en esta pantalla se pueden ver los usuarios reportados y la descripcion del reporte se puede editar o banear los usuarios]
+> [Descripción breve: Pantalla que aparece si se es administrador y se pulsa el botón de Reported Users. En esta pantalla se pueden ver los usuarios reportados y la descripcion del reporte se puede editar o banear los usuarios]
 
 ![Página Principal](images/carrito.png)
 
-> [Descripción breve: Pantalla que aparece si se esta logueado y se pulsa el boton del carrito. Contiene los productos añadidos al carrito y un boton para proceder al pago]
+> [Descripción breve: Pantalla que aparece si se esta logueado y se pulsa el botón del carrito. Contiene los productos añadidos al carrito y un boton para proceder al pago]
 
 ![Página Principal](images/error.png)
 
@@ -108,23 +108,16 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 
 ![Página Principal](images/iniciosesion1.png)
 
-> [Descripción breve: Pantalla que aparece si se pulsa el boton de iniciar sesion]
+> [Descripción breve: Pantalla que aparece si se pulsa el botón de iniciar sesion]
 
 ![Página Principal](images/iniciosesion2.png)
 
-> [Descripción breve: Pantalla que aparece si se pulsa el boton de registrarse]
+> [Descripción breve: Pantalla que aparece si se pulsa el botón de registrarse]
 
 ![Página Principal](images/producto1.png)
 ![Página Principal](images/producto2.png)
 
-> [Descripción breve: Pantalla que aparece si se pulsa un prodcuto. Esta pantalla contiene imagenes del prudcto, nombre, precio, usuario que la vende, cantidad disponible, valoraciones, tres botones uno para añadir al carrito otro para comprarlo y otro para darle a favoritos, la descripcion del producto y las reseñas. Puedes reportar el producto e incluso poner reseñas si ya lo has comprado]
-
-![Página Principal](images/producto2.png)
-
-> [Descripción breve: Pantalla que aparece si se pulsa un prodcuto. Esta pantalla contiene imagenes del prudcto, nombre, precio, usuario que la vende, cantidad disponible, valoraciones, tres botones uno para añadir al carrito otro para comprarlo y otro para darle a favoritos, la descripcion del producto y las reseñas. Puedes reportar el producto e incluso poner reseñas si ya lo has comprado]
-
-
-#### **AQUÍ AÑADIR EL RESTO DE PÁGINAS**
+> [Descripción breve: Pantalla que aparece si se pulsa un producto. Esta pantalla contiene imagenes del producto, nombre, precio, usuario que la vende, cantidad disponible, valoraciones, tres botones uno para añadir al carrito otro para comprarlo y otro para darle a favoritos, la descripción del producto y las reseñas. Puedes reportar el producto e incluso poner reseñas si ya lo has comprado]
 
 ### **Participación de Miembros en la Práctica 1**
 
