@@ -135,17 +135,17 @@ He añadido las pantallas de producto y de carrito, he creado el esquema de colo
 
 ---
 
-#### **Alumno 2 - [Nombre Completo]**
+#### **Alumno 2 - Jaime Gordaliza de la Rosa**
 
 [Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Añadido página de inicio de sesión y registro](https://github.com/DWS-2026/project-grupo-5/commit/7d8a0b67f9ef55c68dbac8a4b52e266d060e1114)  | [iniciosesion.html]((https://github.com/DWS-2026/project-grupo-5/blob/main/CSS/iniciosesion.html.css)  |
+|2| [pantalla de usuario y escalada a movil, arreglo fallo iniciosesion](https://github.com/DWS-2026/project-grupo-5/commit/2ac59f07d446f809e3b24c17afd2b50f838f45ba)  | [usuario.html](https://github.com/DWS-2026/project-grupo-5/blob/main/HTML/usuario.html)   |
+|3| [admin panel boton](https://github.com/DWS-2026/project-grupo-5/commit/ed386b7ebf678661c86525054d5840c7d937f176)  | [adminDashboard.html y mas ficheros](https://github.com/DWS-2026/project-grupo-5/blob/main/HTML/adminDashboard.html)   |
+|4| [Enlazados los botones de movil añadido log out en las pantallas admin y cambio de fotos entres otras cosas](https://github.com/DWS-2026/project-grupo-5/commit/5f1434036362eeb98c90c536939b0981063de34e)  | [addSale.html y mas ficheros](https://github.com/DWS-2026/project-grupo-5/blob/main/HTML/addSale.html)   |
+|5| [boton de admin en movil en todas las pantallas y reajustes de faalos en el escalado a movil](https://github.com/DWS-2026/project-grupo-5/commit/e08a13eb3d410a1106f09c43afe8ed58331b8a0a)  | [adminProducts.html y más ficheros](https://github.com/DWS-2026/project-grupo-5/blob/main/HTML/adminProducts.html)   |
 
 ---
 
