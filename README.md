@@ -77,7 +77,6 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 
 > [Descripción breve: Pantalla que aparece cuando se ve el propio perfil o el de otro usuario a diferencia la pantalla de otro usuario tiene el boton de reportar. Contiene informacion del perfil y los productos que se tienen a la venta]
 
-
 ![Página Principal](images/addSale.png)
 
 > [Descripción breve: Pantalla que aparece cuando se quiere poner algo nuevo a la venta se puede añadir fotos del producto, el nombre, el precio, una descripcion del producto y la cantidad de ese producto que se vende]
@@ -149,17 +148,17 @@ He añadido las pantallas de producto y de carrito, he creado el esquema de colo
 
 ---
 
-#### **Alumno 3 - [Nombre Completo]**
+#### **Alumno 3 - Jorge Crespo Lucas**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+He añádido la pantalla del menu principal donde visualizar todos los productos. También he añadido la pantalla de poner producto a la venta o de editarlo. Y por ultimo he añadido las pantallas del menu de administración junto con la de productos reportados y usuarios reportados. Hice que la plantilla se escalase correctamente a mobil. 
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Añadida la página de todos los productos](https://github.com/DWS-2026/dws-2026-project-base/commit/f4c2db19d3db22418db1cbf79ef9691045d11a05)  | [inedex.html](https://github.com/DWS-2026/project-grupo-5/blob/main/HTML/index.html)   |
+|2| [Añadida la página de crear un producto o de editarlo](https://github.com/DWS-2026/dws-2026-project-base/commit/651bbf15e7e98ec73eed2463ddf5993d4f10ca68)  | [addSale.html](https://github.com/DWS-2026/project-grupo-5/blob/main/HTML/addSale.html)   |
+|3| [Termine las pantallas de administración del panel principal la de usuarios y productos reportados](https://github.com/DWS-2026/dws-2026-project-base/commit/12af24d767c019d41083efda19d09859ac92cfbe)  | [adminDashboard.html adminProducts.html adminReportedUsers](https://github.com/DWS-2026/project-grupo-5/blob/main/HTML/adminDashboard.html) (https://github.com/DWS-2026/project-grupo-5/blob/main/HTML/adminProducts.html) (https://github.com/DWS-2026/project-grupo-5/blob/main/HTML/adminReportedUsers.html)  |
+|4| [Escale la plantilla general a movil](https://github.com/DWS-2026/dws-2026-project-base/commit/4c8df3edfe3affa129659c3e760cd46156140705#diff-be7b3a1c52a0be1a659a45281dd6563627565b4a585f11c730b2bd019eca9117)  | [plantilla.html](https://github.com/DWS-2026/project-grupo-5/blob/main/HTML/plantilla.html)   |
+|5| [Añadidos los botones de reportar y de agregar a favoritos](https://github.com/DWS-2026/dws-2026-project-base/commit/eb75896624afde9a879f12c2b0554fde2cc30f97)  | [producto.html](https://github.com/DWS-2026/project-grupo-5/blob/main/HTML/producto.html)   |
 
 ---
 
