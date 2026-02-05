@@ -136,7 +136,7 @@ He añadido las pantallas de producto y de carrito, he creado el esquema de colo
 
 #### **Alumno 2 - Jaime Gordaliza de la Rosa**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+He añadido las pantallas de inicio de sesion y registro además de realizar numerosos ajustes y correccion de errores en todas las pantallas, he enlazado la mayoria de pantallas entre si y además de escalar a movil todo lo que he realizado. He añadido también los botones de admin y de enlace entre paginas que tambien están escalados a movil, entre otras cosas.
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
@@ -150,7 +150,7 @@ He añadido las pantallas de producto y de carrito, he creado el esquema de colo
 
 #### **Alumno 3 - Jorge Crespo Lucas**
 
-He añádido la pantalla del menu principal donde visualizar todos los productos. También he añadido la pantalla de poner producto a la venta o de editarlo. Y por ultimo he añadido las pantallas del menu de administración junto con la de productos reportados y usuarios reportados. Hice que la plantilla se escalase correctamente a mobil. 
+He añádido la pantalla del menu principal donde visualizar todos los productos. También he añadido la pantalla de poner producto a la venta o de editarlo. Y por ultimo he añadido las pantallas del menu de administración junto con la de productos reportados y usuarios reportados. Hice que la plantilla se escalase correctamente a movil. 
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
