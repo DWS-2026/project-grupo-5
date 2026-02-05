@@ -97,28 +97,29 @@
         </nav>
     </header>
     <main>
-        <ul class="container-fluid mt-4">
-            <ul class="nav flex-md-row flex-column ms-1">
-                <ul class="nav flex-column col-md-2 align-items-center">
+        <div class="container-fluid py-4 mb-4 px-4">
+            <div class="row row-cols-1 row-cols-md-3 justify-content-between align-items-center align-items-md-start">
+                <!-- User data -->
+                <div class="col col-md-auto d-flex flex-column align-items-center">
                     <!--User image-->
                     <img src="../images/user.jpg" alt="Foto de perfil" class="rounded-circle d-block" width="200" height="200">
                         <input type="file" id="file-input" accept="image/*" hidden multiple>
-                        <label for="file-input" class="text-white mt-3 btn border-0">
+                        <label for="file-input" class="btn btn-secondary mt-3 btn border-0">
                             <!--Change photo-->
                             <i class="bi bi-pencil-square"></i> Edit
                         </label>
-                        <!--User info-->
-                    <div class="card shadow-lg mt-4" style="width: 15rem; border-radius: 20px; overflow: hidden;">
-                        <div class="card-body text-center align-items-center">
+                    <!--User info-->
+                    <div class="card shadow-lg bg-body mt-4 rounded-5 text-white border-0">
+                        <div class="card-body text-center">
                             <h5 class="card-title fw-bold">Username</h5>
-                            <p class="text-muted mb-1">name@ejemplo.com</p>
-                            <p class="card-text small text-secondary">Account created in XXXX</p>
+                            <p class="mb-1">name@ejemplo.com</p>
+                            <p class="card-text small">Account created in XXXX</p>
                         </div>
-                        <div class="card-footer bg-light d-flex justify-content-around py-3">
+                        <div class="card-footer bg-body-secondary rounded-top rounded-5 d-flex justify-content-around py-3">
                             <div class="text-center">
-                                <h6 class="mb-0">Nº Orders</h6>
-                                <h6 class="mb-0">Nº Sales</h6>
-                                <div id="reviewStars" class="d-flex gap-1">
+                                <h6 class="mb-0">Nº Orders: 219</h6>
+                                <h6 class="mb-0">Nº Sales: 12</h6>
+                                <div id="reviewStars" class="d-flex gap-1 align-items-center">
                                     <div class="form-check form-check-inline m-0 p-0">
                                         <input type="radio" class="btn-check" id="star1" autocomplete="off">
                                         <label for="star1" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star-fill"></i></label>
@@ -139,86 +140,88 @@
                                         <input type="radio" class="btn-check" id="star5" autocomplete="off">
                                         <label for="star5" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
                                     </div>
+                                    (3.7)
                                 </div>
                             </div>
-                        </div>
                     </div>
-                    <!-- Report button-->
-                    <button class="btn  btn-danger mt-4 "><i class="bi bi-flag-fill"></i> Report</button>
-                    <div class="mt-4 d-flex flex-column w-100 hidden">
-                        <textarea class="form-control mb-2" placeholder="Describe el motivo del reporte..." rows="5"></textarea>
-                        <button type="submit" class="btn btn-sm btn-primary align-self-center">Enviar Reporte</button>
-                    </div>
-                </ul>
-                <!--User products-->
-                <div class="col-md-2 col-10 align-self-center align-self-md-start my-2">
-                    <a href="../HTML/producto.html" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
-                        <div class="card shadow-sm bg-body-secondary align-items-center">
-                            <img src="productPthoto" alt="product Photo" onerror="this.src='../images/logo2.png';"width="200" height="200">
-                            <div class="card-body text-white">
-                                <h5 class="card-title">Product</h5>
-                                <p class="card-text">Product Description</p>
-                            </div>
-                        </div>
-                    </a>
                 </div>
-                <div class="col-md-2 col-10 align-self-center align-self-md-start my-2">
-                    <a href="../HTML/producto.html" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
-                        <div class="card shadow-sm bg-body-secondary align-items-center">
-                            <img src="productPthoto" alt="product Photo" onerror="this.src='../images/logo2.png';"width="200" height="200">
-                            <div class="card-body text-white">
-                                <h5 class="card-title">Product</h5>
-                                <p class="card-text">Product Description</p>
-                            </div>
-                        </div>
-                    </a>
+                <!-- Report button-->
+                <button class="btn  btn-danger mt-4 "><i class="bi bi-flag-fill"></i> Report</button>
+                <div class="mt-4 d-flex flex-column w-100 hidden">
+                    <textarea class="form-control mb-2" placeholder="Describe el motivo del reporte..." rows="5"></textarea>
+                    <button type="submit" class="btn btn-sm btn-primary align-self-center">Enviar Reporte</button>
                 </div>
-                <div class="col-md-2 col-10 align-self-center align-self-md-start my-2">
-                    <a href="../HTML/producto.html" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
-                        <div class="card shadow-sm bg-body-secondary align-items-center">
-                            <img src="productPthoto" alt="product Photo" onerror="this.src='../images/logo2.png';"width="200" height="200">
-                            <div class="card-body text-white">
-                                <h5 class="card-title">Product</h5>
-                                <p class="card-text">Product Description</p>
-                            </div>
-                        </div>
-                    </a>
                 </div>
-                    <div class="col-md-2 col-10 align-self-center align-self-md-start my-2">
+                <!-- User product container -->
+                <div class="col d-flex flex-column gap-4 align-items-center flex-fill">
+                    <h5 class="display-5 text-white">Recent Products</h5>
+                    <!-- Products -->
+                    <div class="d-flex flex-column flex-md-row align-items-center justify-content-evenly w-100 gap-2">
                         <a href="../HTML/producto.html" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
-                            <div class="card shadow-sm bg-body-secondary align-items-center">
-                                <img src="productPthoto" alt="product Photo" onerror="this.src='../images/logo2.png';"width="200" height="200">
+                            <div class="card shadow-sm bg-body align-items-center flex-grow-1">
+                                <img class="img-fluid" src="productPhoto" alt="product Photo" onerror="this.src='../images/logo2.png'" width="200" height="200">
                                 <div class="card-body text-white">
                                     <h5 class="card-title">Product</h5>
                                     <p class="card-text">Product Description</p>
                                 </div>
                             </div>
-                            <li class="col nav-item ms-auto">
-                                <a class=" link-light nav-link text-end" href="../HTML/index.html">See all my products</a>
-                            </li>
+                        </a>
+                        <a href="../HTML/producto.html" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
+                            <div class="card shadow-sm bg-body align-items-center flex-grow-1">
+                                <img class="img-fluid" src="productPhoto" alt="product Photo" onerror="this.src='../images/logo2.png'" width="200" height="200">
+                                <div class="card-body text-white">
+                                    <h5 class="card-title">Product</h5>
+                                    <p class="card-text">Product Description</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="../HTML/producto.html" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
+                            <div class="card shadow-sm bg-body align-items-center flex-grow-1">
+                                <img class="img-fluid" src="productPhoto" alt="product Photo" onerror="this.src='../images/logo2.png'" width="200" height="200">
+                                <div class="card-body text-white">
+                                    <h5 class="card-title">Product</h5>
+                                    <p class="card-text">Product Description</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="../HTML/producto.html" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden d-md-none d-xl-block">
+                            <div class="card shadow-sm bg-body align-items-center flex-grow-1">
+                                <img class="img-fluid" src="productPhoto" alt="product Photo" onerror="this.src='../images/logo2.png'" width="200" height="200">
+                                <div class="card-body text-white">
+                                    <h5 class="card-title">Product</h5>
+                                    <p class="card-text">Product Description</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="../HTML/producto.html" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden d-md-none d-xl-block">
+                            <div class="card shadow-sm bg-body align-items-center flex-grow-1">
+                                <img class="img-fluid" src="productPhoto" alt="product Photo" onerror="this.src='../images/logo2.png'" width="200" height="200">
+                                <div class="card-body text-white">
+                                    <h5 class="card-title">Product</h5>
+                                    <p class="card-text">Product Description</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="../HTML/producto.html" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden d-md-none d-xl-block">
+                            <div class="card shadow-sm bg-body align-items-center flex-grow-1">
+                                <img class="img-fluid" src="productPhoto" alt="product Photo" onerror="this.src='../images/logo2.png'" width="200" height="200">
+                                <div class="card-body text-white">
+                                    <h5 class="card-title">Product</h5>
+                                    <p class="card-text">Product Description</p>
+                                </div>
+                            </div>
                         </a>
                     </div>
-                    <!--Links to other pages-->
-                <ul class="nav flex-md-column flex-row pb-5 align-items-start ms-auto">
-                    <li class="nav-item ms-auto">
-                        <a class="bi bi-house text-white link-light nav-link" href="../HTML/index.html"> Home</a>
-                    </li>
-                    <li class="nav-item ms-auto">
-                        <a class="bi bi-cart text-white link-light nav-link" href="../HTML/carrito.html"> Cart</a>
-                    </li>
-                    <li class="nav-item ms-auto">
-                        <a class="bi bi-heart link-light nav-link" href="#"> Favourites</a>
-                    </li>
-                    <li class="nav-item ms-auto">
-                        <a class="bi bi-plus link-light nav-link" href="../HTML/addSale.html"> Add product</a>
-                    </li>
+                    <a class="btn btn-primary" href="../HTML/index.html">See all products</a>
+                </div>
+                <div class="col col-md-auto nav flex-md-column flex-row justify-content-around align-items-md-end">
+                    <a class="bi bi-house text-white link-light nav-link" href="../HTML/index.html"> Home</a>
+                    <a class="bi bi-cart text-white link-light nav-link" href="../HTML/carrito.html"> Cart</a>
+                    <a class="bi bi-heart link-light nav-link" href="#"> Favourites</a>
+                    <a class="bi bi-plus link-light nav-link" href="../HTML/addSale.html"> Add product</a>
                     <a class="bi bi-code-slash link-success nav-link hidden" href="../HTML/adminDashboard.html"> Admin panel</a>
-                    <li class="nav-item ms-auto">
-                        <a class=" link-danger nav-link bi bi-box-arrow-left" href="#"> Log out</a>
-                    </li>
-                </ul>
-            </ul>
-        </ul>
+                    <a class="link-danger nav-link bi bi-box-arrow-left" href="#"> Log out</a>
+                </div>
+            </div>
+        </div>
     </main>
-</body>
-</html>
