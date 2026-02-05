@@ -34,33 +34,10 @@
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
                     <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
 
-                </form>
-
-                <!-- Log in or sign up -->
-                <div class="justify-content-end d-flex flex-row flex-nowrap">
-                    <a href="#"><button type="button" class="btn btn-primary rounded-end rounded-5">Log in</button></a>
-                    <a href="#"><button type="button" class="btn btn-outline-primary rounded-start rounded-5">Sign up</button></a>
-                </div>
-                
+                </form>                
                 <!-- User Image -->
-                <div class="justify-content-end hidden">
-                    <button class="btn btn-secundary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
-                        <img src="userImage" alt="user image" onerror="this.src='../images/logo2.png';" class="rounded-circle" width="45" height="35">
-                    </button>
-
-                    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-                    <div class="offcanvas-header bg-body text-white">
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                        
-                    </div>
-                    <div class="offcanvas-body bg-body d-flex flex-column">
-                        <img src="userImage" alt="user image" onerror="this.src='../images/logo2.png';" class="rounded-circle align-self-center" width="150" height="150">
-                        <a class="text-decoration-none text-white" href="#"><i class="bi bi-house"></i><t></t>    Home</a>
-                        <a class="text-decoration-none text-white" href="#"><i class="bi bi-plus-circle"></i>    Sell ​​item</a>
-                        <a class="text-decoration-none text-white" href="#"><i class="bi bi-cart2"></i>    Shopping cart</a>
-                        <a class="text-decoration-none text-white" href="#"><i class="bi bi-person-circle"></i>    Show profile</a>
-                    </div>
-                    </div>
+                <div class="justify-content-end">
+                    <img src="userImage" alt="user image" onerror="this.src='../images/user.jpg';" class="rounded-circle" width="45" height="35">
                 </div>
 
             </div>
@@ -117,17 +94,16 @@
                 <a class="btn btn-secondary" href="#" role="button"><i class="bi bi-person-circle"></i></a>
             </div>
         </nav>
-
-        
     </header>
     <main>
          <ul class="container-fluid mt-4">
             <ul class="nav flex-md-row flex-column ms-1">
                 <ul class="nav flex-column col-md-2 align-items-center">
                     <img src="../images/user.jpg" alt="Foto de perfil" class="rounded-circle d-block" width="200" height="200">
-                    <li class="nav-item">
-                        <a class="link-light nav-link bi bi-pencil-square ms-auto" href="#"> Edit</a>
-                    </li>
+                        <input type="file" id="file-input" accept="image/*" hidden multiple>
+                        <label for="file-input" class="text-white mt-3 btn border-0">
+                            <i class="bi bi-pencil-square"></i> Edit
+                        </label>
                     <div class="card shadow-lg mt-4" style="width: 15rem; border-radius: 20px; overflow: hidden;">
                         <div class="card-body text-center align-items-center">
                             <h5 class="card-title fw-bold">Username</h5>
@@ -207,11 +183,14 @@
                                 </div>
                             </div>
                             <li class="col nav-item ms-auto">
-                                <a class=" link-light nav-link" href="../HTML/index.html">See all my products</a>
+                                <a class=" link-light nav-link text-end" href="../HTML/index.html">See all my products</a>
                             </li>
                         </a>
                     </div>
-            <ul class="nav flex-column align-items-start ms-auto">
+            <ul class="nav flex-md-column flex-row pb-5 align-items-start ms-auto">
+                <li class="nav-item ms-auto">
+            <a class="bi bi-house text-white link-light nav-link" href="../HTML/index.html"> Home</a>
+        </li>
         <li class="nav-item ms-auto">
             <a class="bi bi-cart text-white link-light nav-link" href="../HTML/carrito.html"> Cart</a>
         </li>
