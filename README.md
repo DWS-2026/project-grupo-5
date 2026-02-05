@@ -5,7 +5,7 @@
 |:--- |:--- |:--- |
 | Jorge Crespo Lucas | j.cerspo.2024@alumnos.urjc.es | JCL625 |
 | Jaime Gordaliza de la Rosa | j.gordaliza.2024@alumnos.urjc.es | jaimegordaliza64-pixel |
-| Victor Camarero Verdejo | v.camarero.2024@alumnos.urjc.es | vcamarero |
+| Victor Camarero Verdejo | v.camarero.2024@alumnos.urjc.es | vcamarero, misperception |
 | Diego Coello López | d.coello.2024@alumnos.urjc.es | dcoello4450 |
 
 ---
