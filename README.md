@@ -162,17 +162,16 @@ He añádido la pantalla del menu principal donde visualizar todos los productos
 
 ---
 
-#### **Alumno 4 - [Nombre Completo]**
+#### **Alumno 4 - Diego Coello López**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+He contribuido al diseño principal de la página web creando el fondo dínamico que está presente en todas las páginas. También he añadido las pantallas de pago y la de error. Y por último, he corregido alguno que otro error y he enlazado algunos botones con sus htmls correspondientes.
 
-| Nº    | Commits      | Files      |
-|:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+| Nº    |                                                                                              Commits                                                                                               |                                                                                                                                                                                  Files                                                                                                                                                                   |
+|:------------: |:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|1| [He mejorado el diseño de la página añadiendo un fondo dinámico y poniendo sombras a la barra.](https://github.com/DWS-2026/dws-2026-project-base/commit/3955bf4d46a359024b34b4e51ba877eb37f3c08d) |                                                                                               [index.html](https://github.com/DWS-2026/project-grupo-5/blob/main/HTML/index.html) [plantilla.css](https://github.com/DWS-2026/project-grupo-5/blob/main/CSS/plantilla.css)                                                                               |
+|2|                                   [He enlazado las páginas.](https://github.com/DWS-2026/dws-2026-project-base/commit/bf3e82ddf8189db6e5ab51950aa257b713e0fae4)                                    | [index.html](https://github.com/DWS-2026/project-grupo-5/blob/main/HTML/index.html) [plantilla.css](https://github.com/DWS-2026/project-grupo-5/blob/main/CSS/plantilla.css) [iniciosesion.html](https://github.com/DWS-2026/project-grupo-5/blob/main/HTML/iniciosesion.html) [producto.html](https://github.com/DWS-2026/project-grupo-5/blob/main/HTML/producto.html) |
+|3|                    [Página de pago y de errores. De momento solo la de 404](https://github.com/DWS-2026/dws-2026-project-base/commit/646af98793dd6d668ba691b88b2e344f131cc0ea)                     |          [error.html](https://github.com/DWS-2026/project-grupo-5/blob/main/HTML/error.html) [payment.html](https://github.com/DWS-2026/project-grupo-5/blob/main/HTML/payment.html) [plantilla.css](https://github.com/DWS-2026/project-grupo-5/blob/main/CSS/plantilla.css) [error.css](https://github.com/DWS-2026/project-grupo-5/blob/main/CSS/error.css) |
+|4|                                     [Corrección de errores](https://github.com/DWS-2026/dws-2026-project-base/commit/95a665ded8b23e7b8e6cadf491bf6057ee1d8444)                                     |                                                                                                                                          [Todos los archivos HTML](https://github.com/DWS-2026/project-grupo-5/tree/main/HTML)                                                                                                                           |
 
 ---
 
