@@ -121,17 +121,17 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 
 ### **Participación de Miembros en la Práctica 1**
 
-#### **Alumno 1 - [Nombre Completo]**
+#### **Alumno 1 - Víctor Camarero Verdejo**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+He añadido las pantallas de producto y de carrito, he creado el esquema de color de la página, he corregido errores de alineamiento en la página de usuario, he creado el menú contextual de usuarios en el panel de admin y he modificado la página de añadir productos para incluir información sobre el stock del producto a subir, entre otros cambios.
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Añadido página de producto](https://github.com/DWS-2026/project-grupo-5/commit/a1281cb7d411c4d44128fcbfeedc72a7e9f2fc50)  | [producto.html](https://github.com/DWS-2026/project-grupo-5/blob/main/HTML/producto.html)   |
+|2| [Añadido página de carrito](https://github.com/DWS-2026/project-grupo-5/commit/c593693b039b8622b5f510b63fb8b9737c8d19a0)  | [carrito.html](https://github.com/DWS-2026/project-grupo-5/blob/main/HTML/carrito.html)   |
+|3| [Definido tema de colores](https://github.com/DWS-2026/project-grupo-5/commit/9f194d949e857be89bd758ab82601bd1082b535a)  | [plantilla.css](https://github.com/DWS-2026/project-grupo-5/blob/main/CSS/plantilla.css)   |
+|4| [Arreglado espaciado de productos del usuario](https://github.com/DWS-2026/project-grupo-5/commit/299e5f886824d60d7580604befd632993a4ed17d)  | [usuario.html](https://github.com/DWS-2026/project-grupo-5/blob/main/HTML/usuario.html)   |
+|5| [Añadido selector de stock y precio en el producto](https://github.com/DWS-2026/project-grupo-5/commit/3a72c04450bbe8c59202990eb0a7864241d132ca)  | [addSale.html](https://github.com/DWS-2026/project-grupo-5/commits/main/HTML/addSale.html)   |
 
 ---
 
