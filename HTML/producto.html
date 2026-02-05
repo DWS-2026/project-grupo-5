@@ -229,7 +229,7 @@
                     You need to buy the product to publish a review.
                 </div>
                 <!-- Review form -->
-                <form class="text-white container bg-body rounded p-4">
+                <form class="text-white container bg-body rounded p-4" id="reviewForm">
                     <!-- Review title  -->
                     <div class="my-2">
                         <label for="reviewTitle" class="form-label">Review title</label>
@@ -240,34 +240,35 @@
                         <label for="reviewStars" class="form-label">Rating</label>
                         <div id="reviewStars" class="d-flex gap-1">
                             <div class="form-check form-check-inline m-0 p-0">
-                                <input type="radio" class="btn-check" id="star1" autocomplete="off">
+                                <input type="radio" class="btn-check star" id="star1" autocomplete="off">
                                 <label for="star1" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
                             </div>
                             <div class="form-check form-check-inline m-0 p-0">
-                                <input type="radio" class="btn-check" id="star2" autocomplete="off">
+                                <input type="radio" class="btn-check star" id="star2" autocomplete="off">
                                 <label for="star2" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
                             </div>
                             <div class="form-check form-check-inline m-0 p-0">
-                                <input type="radio" class="btn-check" id="star3" autocomplete="off">
+                                <input type="radio" class="btn-check star" id="star3" autocomplete="off">
                                 <label for="star3" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
                             </div>
                             <div class="form-check form-check-inline m-0 p-0">
-                                <input type="radio" class="btn-check" id="star4" autocomplete="off">
+                                <input type="radio" class="btn-check star" id="star4" autocomplete="off">
                                 <label for="star4" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
                             </div>
                             <div class="form-check form-check-inline m-0 p-0">
-                                <input type="radio" class="btn-check" id="star5" autocomplete="off">
+                                <input type="radio" class="btn-check star" id="star5" autocomplete="off">
                                 <label for="star5" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
                             </div>
                         </div>
                     </div>
+                    <script src="../JS/starHandler.js"></script>
                     <!-- Review content -->
                     <div class="my-2">
                         <label for="reviewBody" class="form-label">Content</label>
                         <textarea id="reviewBody" class="form-control"></textarea>
                     </div>
                     <!-- Review files -->
-                     <label class="form-label">Attachments</label>
+                    <label class="form-label">Attachments</label>
                     <div class="container-fluid px-0">
                         <div class="row row-cols-4 row-cols-md-6 gy-2 gx-2" id="reviewFiles">
                             <div class="flex-grow-1">
