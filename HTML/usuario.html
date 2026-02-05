@@ -96,7 +96,7 @@
         </nav>
     </header>
     <main>
-         <ul class="container-fluid mt-4">
+        <ul class="container-fluid mt-4">
             <ul class="nav flex-md-row flex-column ms-1">
                 <ul class="nav flex-column col-md-2 align-items-center">
                     <!--User image-->
@@ -141,6 +141,12 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <!-- Report button-->
+                    <button class="btn  btn-danger mt-4 "><i class="bi bi-flag-fill"></i> Report</button>
+                    <div class="mt-4 d-flex flex-column w-100 hidden">
+                        <textarea class="form-control mb-2" placeholder="Describe el motivo del reporte..." rows="5"></textarea>
+                        <button type="submit" class="btn btn-sm btn-primary align-self-center">Enviar Reporte</button>
                     </div>
                 </ul>
                 <!--User products-->
@@ -192,27 +198,26 @@
                         </a>
                     </div>
                     <!--Links to other pages-->
-            <ul class="nav flex-md-column flex-row pb-5 align-items-start ms-auto">
-                <li class="nav-item ms-auto">
-            <a class="bi bi-house text-white link-light nav-link" href="../HTML/index.html"> Home</a>
-        </li>
-        <li class="nav-item ms-auto">
-            <a class="bi bi-cart text-white link-light nav-link" href="../HTML/carrito.html"> Cart</a>
-        </li>
-        <li class="nav-item ms-auto">
-            <a class="bi bi-heart link-light nav-link" href="#"> Favourites</a>
-        </li>
-        <li class="nav-item ms-auto">
-            <a class="bi bi-plus link-light nav-link" href="../HTML/addSale.html"> Add product</a>
-        </li>
-        <a class="bi bi-code-slash link-success nav-link hidden" href="../HTML/adminDashboard.html"> Admin panel</a>
-        <li class="nav-item ms-auto">
-            <a class=" link-danger nav-link bi bi-box-arrow-left" href="#"> Log out</a>
-        </li>
-        </ul>
+                <ul class="nav flex-md-column flex-row pb-5 align-items-start ms-auto">
+                    <li class="nav-item ms-auto">
+                        <a class="bi bi-house text-white link-light nav-link" href="../HTML/index.html"> Home</a>
+                    </li>
+                    <li class="nav-item ms-auto">
+                        <a class="bi bi-cart text-white link-light nav-link" href="../HTML/carrito.html"> Cart</a>
+                    </li>
+                    <li class="nav-item ms-auto">
+                        <a class="bi bi-heart link-light nav-link" href="#"> Favourites</a>
+                    </li>
+                    <li class="nav-item ms-auto">
+                        <a class="bi bi-plus link-light nav-link" href="../HTML/addSale.html"> Add product</a>
+                    </li>
+                    <a class="bi bi-code-slash link-success nav-link hidden" href="../HTML/adminDashboard.html"> Admin panel</a>
+                    <li class="nav-item ms-auto">
+                        <a class=" link-danger nav-link bi bi-box-arrow-left" href="#"> Log out</a>
+                    </li>
+                </ul>
             </ul>
         </ul>
-            </div>
-        </main>
+    </main>
 </body>
 </html>

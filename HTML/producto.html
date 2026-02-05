@@ -177,7 +177,7 @@
                 <span class="text-white">(4.3)</span>
             </span>
             <!-- Vendor -->
-            <h4  class="text-white">Sold by: <a href="#" class="link-light link-opacity-75-hover link-underline link-underline-opacity-0">User <i class="bi bi-person-circle"></i></a></i></h4>
+            <h4  class="text-white">Sold by: <a href="../HTML/usuario.html" class="link-light link-opacity-75-hover link-underline link-underline-opacity-0">User <i class="bi bi-person-circle"></i></a></i></h4>
             <!-- Product Stock -->
             <h6 class="text-white">
                 5
@@ -185,8 +185,10 @@
             </h6>
             <!-- Buy Buttons -->
             <div class="my-2 d-flex flex-row gap-3">
-                <button class="btn btn-primary btn-lg">Buy Now</button>
+                <a href="../HTML/payment.html"><button class="btn btn-primary btn-lg">Buy Now</button></a>
                 <button class="btn btn-secondary btn-lg">Add to Cart</button>
+                <!-- Favourite button -->
+                <button class="btn btn-favourite btn-lg"><i class="bi bi-heart"></i><i class="bi bi-heart-fill hidden"></i></button>
             </div>
             <!-- Product Description -->
             <h2 class="text-white">Product description:</h2>
@@ -198,6 +200,12 @@
                     Nunc finibus, enim sit amet tincidunt aliquam, dolor erat convallis lectus, a suscipit tortor purus quis nibh. Cras eget neque pulvinar, porttitor urna ut, pretium nunc. Suspendisse pharetra ipsum non quam rutrum, vel lobortis diam posuere. Aliquam erat volutpat. Nullam nunc nunc, bibendum quis tempus ut, mattis quis neque. Maecenas ut fermentum elit. Nam nec gravida enim. Ut rhoncus turpis libero, aliquet imperdiet est ultricies vitae.
                     Curabitur et odio purus. Sed venenatis, libero vitae tincidunt pharetra, metus augue commodo urna, non pretium augue massa vitae tortor. Vestibulum aliquam sagittis purus quis congue. Duis bibendum eget quam vitae ultricies. Vivamus molestie, tellus at egestas suscipit, ante dui aliquam ligula, eu sagittis mi felis congue nibh. Maecenas gravida efficitur purus non bibendum. Donec dignissim suscipit tortor sed viverra. Ut metus mauris, ullamcorper et lacus non, ornare suscipit diam. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent scelerisque nisi accumsan consectetur viverra. Praesent aliquam sollicitudin erat, tincidunt convallis risus euismod a. Fusce quis felis a arcu placerat vestibulum vitae hendrerit lorem. Etiam sed suscipit justo, placerat convallis dui. 
                 </p>
+            </div>
+            <!-- Report button-->
+            <button class="btn  btn-danger mt-4 "><i class="bi bi-flag-fill"></i> Report</button>
+            <div class="mt-4 d-flex flex-column w-100 hidden">
+                <textarea class="form-control mb-2" placeholder="Describe el motivo del reporte..." rows="5"></textarea>
+                <button type="submit" class="btn btn-sm btn-primary align-self-center">Enviar Reporte</button>
             </div>
             <!-- Reviews -->
             <h2 class="text-white my-4">Product reviews:</h2>
