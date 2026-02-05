@@ -3,7 +3,7 @@
 ## 👥 Miembros del Equipo
 | Nombre y Apellidos | Correo URJC | Usuario GitHub |
 |:--- |:--- |:--- |
-| Jorge Crespo Lucas | j.cerspo.2024@alumnos.urjc.es | JCL625 |
+| Jorge Crespo Lucas | j.crespo.2024@alumnos.urjc.es | JCL625 |
 | Jaime Gordaliza de la Rosa | j.gordaliza.2024@alumnos.urjc.es | jaimegordaliza64-pixel |
 | Victor Camarero Verdejo | v.camarero.2024@alumnos.urjc.es | vcamarero, misperception |
 | Diego Coello López | d.coello.2024@alumnos.urjc.es | dcoello4450 |
@@ -69,9 +69,60 @@ Diagrama que muestra cómo se navega entre las diferentes páginas de la aplicac
 ### **Capturas de Pantalla y Descripción de Páginas**
 
 #### **1. Página Principal / Home**
-![Página Principal](images/home-page.png)
+![Página Principal](images/index.png)
 
-> [Descripción breve: Ej: "Página de inicio que muestra los productos destacados, categorías principales y un banner promocional. Incluye barra de navegación y acceso a registro/login para usuarios no autenticados."]
+> [Descripción breve: Pantalla que aparece nada mas entrar en la página se este logueado o no. Contiene los productos y una barra con el logo, una barra de busqueda para buscar productos y la foto del perfil del ususario si esta logueado o dos botones uno para iniciar sesion y otro para registrarse]
+
+![Página Principal](images/usuario.png)
+
+> [Descripción breve: Pantalla que aparece cuando se ve el propio perfil o el de otro usuario a diferencia la pantalla de otro usuario tiene el boton de reportar. Contiene informacion del perfil y los productos que se tienen a la venta]
+
+
+![Página Principal](images/addSale.png)
+
+> [Descripción breve: Pantalla que aparece cuando se quiere poner algo nuevo a la venta se puede añadir fotos del producto, el nombre, el precio, una descripcion del producto y la cantidad de ese producto que se vende]
+
+![Página Principal](images/adminDashboard.png)
+
+> [Descripción breve: Pantalla que aparece si se es administrador y se pulsa el boton del panel de administrador. En esta pantalla aparece la foto, la descripcion del administrador, su ID y las 5 notificaciones mas recientes]
+
+![Página Principal](images/adminProducts.png)
+
+> [Descripción breve: Pantalla que aparece si se es administrador y se pulsa el boton de productos reportados aqui aparecen todos los productos reportados con la descripcion del reporte]
+
+![Página Principal](images/adminAllUsers.png)
+
+> [Descripción breve: Pantalla que aparece si se es administrador y se pulsa el boton de All users en esta pantalla se pueden ver todos los usuarios y editarlos o banearlos]
+
+![Página Principal](images/adminReportedUsers.png)
+
+> [Descripción breve: Pantalla que aparece si se es administrador y se pulsa el boton de Reported users en esta pantalla se pueden ver los usuarios reportados y la descripcion del reporte se puede editar o banear los usuarios]
+
+![Página Principal](images/carrito.png)
+
+> [Descripción breve: Pantalla que aparece si se esta logueado y se pulsa el boton del carrito. Contiene los productos añadidos al carrito y un boton para proceder al pago]
+
+![Página Principal](images/error.png)
+
+> [Descripción breve: Pantalla que aparece si ha ocurrido un error 404]
+
+![Página Principal](images/iniciosesion1.png)
+
+> [Descripción breve: Pantalla que aparece si se pulsa el boton de iniciar sesion]
+
+![Página Principal](images/iniciosesion2.png)
+
+> [Descripción breve: Pantalla que aparece si se pulsa el boton de registrarse]
+
+![Página Principal](images/producto1.png)
+![Página Principal](images/producto2.png)
+
+> [Descripción breve: Pantalla que aparece si se pulsa un prodcuto. Esta pantalla contiene imagenes del prudcto, nombre, precio, usuario que la vende, cantidad disponible, valoraciones, tres botones uno para añadir al carrito otro para comprarlo y otro para darle a favoritos, la descripcion del producto y las reseñas. Puedes reportar el producto e incluso poner reseñas si ya lo has comprado]
+
+![Página Principal](images/producto2.png)
+
+> [Descripción breve: Pantalla que aparece si se pulsa un prodcuto. Esta pantalla contiene imagenes del prudcto, nombre, precio, usuario que la vende, cantidad disponible, valoraciones, tres botones uno para añadir al carrito otro para comprarlo y otro para darle a favoritos, la descripcion del producto y las reseñas. Puedes reportar el producto e incluso poner reseñas si ya lo has comprado]
+
 
 #### **AQUÍ AÑADIR EL RESTO DE PÁGINAS**
 
