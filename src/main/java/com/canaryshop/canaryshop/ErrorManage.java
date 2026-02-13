@@ -13,14 +13,19 @@ public class ErrorManage implements ErrorController{
 
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request, Model model) {
-        model.addAttribute("message", "An error occurred while processing your request.");
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
         if (status != null){ 
             Integer statusCode = Integer.valueOf(status.toString());
 
-            if (statusCode == HttpStatus.NOT_FOUND.value()){
-                return "error";
+            if (statusCode == HttpStatus.BAD_REQUEST.value()){
+                model.addAttribute("error400", true);
+            } else if (statusCode == HttpStatus.NOT_FOUND.value()){
+                model.addAttribute("error404", true);
+            }else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()){
+                model.addAttribute("error500", true);
+            }else {
+                model.addAttribute("errorDefault", true);
             }
         }
 

@@ -8,7 +8,7 @@
     <link type="text/css" rel="stylesheet" href="plantilla.css">
     <link type="text/css" rel="stylesheet" href="error.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Shop</title>
+    <title>CanaryShop</title>
 </head>
 
 <body class="bg-dark min-vh-100 py-2 bg-opacity-75">
@@ -137,6 +137,21 @@
 
     <main class="container d-flex flex-column align-items-center justify-content-center text-center" style="min-height: 80vh;">
 
+        {{#error400}}
+        <div class="error-display">
+            <h1 class="error-code">400</h1>
+        </div>
+
+        <h2 class="text-white fw-bold">PÁGINA INCORRECTA</h2>
+        <p class="text-white-50 mb-4">Parece que los datos enviados no son válidos. Revisa el formulario.</p>
+
+        <div class="d-flex gap-3">
+            <a href="index" class="btn btn-primary btn-lg px-5">Inicio</a>
+            <button onclick="history.back()" class="btn btn-secondary btn-lg px-4">Volver</button>
+        </div>
+        {{/error400}}
+
+        {{#error404}}
         <div class="error-display">
             <h1 class="error-code">404</h1>
         </div>
@@ -148,6 +163,37 @@
             <a href="index" class="btn btn-primary btn-lg px-5">Inicio</a>
             <button onclick="history.back()" class="btn btn-secondary btn-lg px-4">Volver</button>
         </div>
+        {{/error404}}
+
+        {{#error500}}
+        <div class="error-display">
+            <h1 class="error-code">500</h1>
+        </div>
+
+        <h2 class="text-white fw-bold">ERROR INTERNO DEL SERVIDOR</h2>
+        <p class="text-white-50 mb-4">Algo se rompió en nuestro servidor. Estamos trabajando para arreglarlo.</p>
+
+        <div class="d-flex gap-3">
+            <a href="index" class="btn btn-primary btn-lg px-5">Inicio</a>
+            <button onclick="history.back()" class="btn btn-secondary btn-lg px-4">Volver</button>
+        </div>
+        {{/error500}}
+
+        {{#errorDefault}}
+        <div class="error-display">
+            <h1 class="error-code">ERROR</h1>
+        </div>
+
+        <h2 class="text-white fw-bold">ERROR DESCONOCIDO</h2>
+        <p class="text-white-50 mb-4">Ha ocurrido un error desconocido. Por favor, inténtelo más tarde.</p>
+
+        <div class="d-flex gap-3">
+            <a href="index" class="btn btn-primary btn-lg px-5">Inicio</a>
+            <button onclick="history.back()" class="btn btn-secondary btn-lg px-4">Volver</button>
+        </div>
+        {{/errorDefault}}
+
+        
     </main>
 
 </body>
