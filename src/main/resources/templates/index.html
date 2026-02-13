@@ -21,7 +21,7 @@
             <div class="container-fluid d-flex flex-row flex-nowrap justify-content-between align-items-center px-4">
                
                 <!-- Logo Image -->
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="index">
                     <img src="logo.png" alt="Logo" width="150" height="40">
                 </a>
 
@@ -38,8 +38,8 @@
 
                 <!-- Log in or sign up -->
                 <div class="justify-content-end d-flex flex-row flex-nowrap">
-                    <a href="iniciosesion.html"><button type="button" class="btn btn-primary rounded-end rounded-5">Log in</button></a>
-                    <a href="iniciosesion.html"><button type="button" class="btn btn-outline-primary rounded-start rounded-5">Sign up</button></a>
+                    <a href="login"><button type="button" class="btn btn-primary rounded-end rounded-5 {{#showLogin}}active{{/showLogin}}">Log in</button></a>
+                    <a href="register"><button type="button" class="btn btn-outline-primary rounded-start rounded-5 {{#showRegister}}active{{/showRegister}}">Sign up</button></a>
                 </div>
                 
                 <!-- User Image -->
@@ -55,10 +55,10 @@
                     </div>
                     <div class="offcanvas-body bg-body d-flex flex-column">
                         <img src="user.jpg" alt="user image" onerror="this.src='logo2.png';" class="rounded-circle align-self-center" width="150" height="150">
-                        <a class="text-decoration-none text-white" href="index.html"><i class="bi bi-house"></i><t></t>    Home</a>
-                        <a class="text-decoration-none text-white" href="addSale.html"><i class="bi bi-plus-circle"></i>    Add product</a>
-                        <a class="text-decoration-none text-white" href="carrito.html"><i class="bi bi-cart2"></i>    Shopping cart</a>
-                        <a class="text-decoration-none text-white" href="usuario.html"><i class="bi bi-person-circle"></i>    Show profile</a>
+                            <a class="text-decoration-none text-white" href="index"><i class="bi bi-house"></i><t></t>    Home</a>
+                            <a class="text-decoration-none text-white" href="addSale"><i class="bi bi-plus-circle"></i>    Add product</a>
+                            <a class="text-decoration-none text-white" href="carrito"><i class="bi bi-cart2"></i>    Shopping cart</a>
+                            <a class="text-decoration-none text-white" href="usuario"><i class="bi bi-person-circle"></i>    Show profile</a>
                         <div class="justify-content-end d-flex flex-fill">
                             <a class="text-decoration-none link-danger align-self-end" href="#"><b><i class="bi bi-box-arrow-left"></i> Log out</b></a>
                         </div>
@@ -75,7 +75,7 @@
                
                 <!-- Logo Image -->
                 <div class="flex-fill " style="max-width: 750px;">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="index">
                         <img src="logo.png" alt="Logo" width="150" height="40">
                     </a>
                 </div>
@@ -115,18 +115,18 @@
         <nav class="navbar mx-4 bg-body navbar-dark rounded-bottom fixed-bottom rounded-5 d-md-none">
             <!-- Logged-in user -->
             <div class="container-fluid d-flex flex-row justify-content-between align-items-center px-4 hidden">
-                <a class="btn btn-secondary" href="index.html" role="button"><i class="bi bi-house"></i></a>
-                <a class="btn btn-secondary" href="addSale.html" role="button"><i class="bi bi-plus-circle"></i></a>
-                <a class="btn btn-secondary" href="carrito.html" role="button"><i class="bi bi-cart2"></i></a>
-                <a class="btn btn-secondary link-success hidden" href="adminDashboard.html" role="button"><i class="bi bi-wrench"></i></a>
-                <a class="btn btn-secondary" href="usuario.html" role="button"><i class="bi bi-person-circle"></i></a>
+                <a class="btn btn-secondary" href="index" role="button"><i class="bi bi-house"></i></a>
+                <a class="btn btn-secondary" href="addSale" role="button"><i class="bi bi-plus-circle"></i></a>
+                <a class="btn btn-secondary" href="carrito" role="button"><i class="bi bi-cart2"></i></a>
+                <a class="btn btn-secondary link-success hidden" href="adminDashboard" role="button"><i class="bi bi-wrench"></i></a>
+                <a class="btn btn-secondary" href="usuario" role="button"><i class="bi bi-person-circle"></i></a>
             </div>
             <!-- User not logged in -->
             <div class="container-fluid justify-content-between d-flex flex-row flex-nowrap align-items-center ">
-                <a class="btn btn-secondary btn-lg ms-3" href="index.html" role="button"><i class="bi bi-house"></i></a>
+                <a class="btn btn-secondary btn-lg ms-3" href="index" role="button"><i class="bi bi-house"></i></a>
                 <div class="md-3">
-                    <a href="iniciosesion.html"><button type="button" class="btn btn-primary btn-lg rounded-end rounded-5">Log in</button></a>
-                    <a href="iniciosesion.html"><button type="button" class="btn btn-outline-primary btn-lg rounded-start rounded-5 ">Sign up</button></a>
+                    <a href="iniciosesion"><button type="button" class="btn btn-primary btn-lg rounded-end rounded-5">Log in</button></a>
+                    <a href="iniciosesion"><button type="button" class="btn btn-outline-primary btn-lg rounded-start rounded-5 ">Sign up</button></a>
                 </div>
             </div>
         </nav>
@@ -144,7 +144,7 @@
                     
 
                     <div class="col">
-                        <a href="producto.html" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
+                        <a href="producto" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
                             <div class="card shadow-sm bg-body-secondary">
                                 <img src="productPthoto"  alt="product Pthoto" onerror="this.src='logo2.png';">
                                 <div class="card-body text-white">
@@ -156,7 +156,7 @@
                     </div>
 
                     <div class="col">
-                        <a href="producto.html" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
+                        <a href="producto" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
                             <div class="card shadow-sm bg-body-secondary">
                                 <img src="productPthoto" alt="product Pthoto" onerror="this.src='logo2.png';">
                                 <div class="card-body text-white">
@@ -168,7 +168,7 @@
                     </div>
 
                     <div class="col">
-                        <a href="producto.html" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
+                        <a href="producto" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
                             <div class="card shadow-sm bg-body-secondary">
                                 <img src="productPthoto" alt="product Pthoto" onerror="this.src='logo2.png';">
                                 <div class="card-body text-white">
@@ -181,7 +181,7 @@
                     </div>
 
                     <div class="col">
-                        <a href="producto.html" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
+                        <a href="producto" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
                             <div class="card shadow-sm bg-body-secondary">
                                 <img src="productPthoto" alt="product Pthoto" onerror="this.src='logo2.png';">
                                 <div class="card-body text-white">
@@ -194,7 +194,7 @@
                     </div>
                         
                     <div class="col">
-                        <a href="producto.html" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
+                        <a href="producto" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
                             <div class="card shadow-sm bg-body-secondary">
                                 <img src="productPthoto" alt="product Pthoto" onerror="this.src='logo2.png';">
                                 <div class="card-body text-white">
@@ -207,7 +207,7 @@
                     </div>
 
                     <div class="col">
-                        <a href="producto.html" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
+                        <a href="producto" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
                             <div class="card shadow-sm bg-body-secondary">
                                 <img src="productPthoto" alt="product Pthoto" onerror="this.src='logo2.png';">
                                 <div class="card-body text-white">
@@ -220,7 +220,7 @@
                     </div>
 
                     <div class="col">
-                        <a href="producto.html" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
+                        <a href="producto" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
                             <div class="card shadow-sm bg-body-secondary">
                                 <img src="productPthoto" alt="product Pthoto" onerror="this.src='logo2.png';">
                                 <div class="card-body text-white">
@@ -233,7 +233,7 @@
                     </div>
 
                     <div class="col">
-                        <a href="producto.html" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
+                        <a href="producto" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
                             <div class="card shadow-sm bg-body-secondary">
                                 <img src="productPthoto" alt="product Pthoto" onerror="this.src='logo2.png';">
                                 <div class="card-body text-white">
@@ -246,7 +246,7 @@
                     </div>
 
                     <div class="col">
-                        <a href="producto.html" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
+                        <a href="producto" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
                             <div class="card shadow-sm bg-body-secondary">
                                 <img src="productPthoto" alt="product Pthoto" onerror="this.src='logo2.png';">
                                 <div class="card-body text-white">
@@ -259,7 +259,7 @@
                     </div>
 
                     <div class="col">
-                        <a href="producto.html" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
+                        <a href="producto" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
                             <div class="card shadow-sm bg-body-secondary">
                                 <img src="productPthoto" alt="product Pthoto" onerror="this.src='logo2.png';">
                                 <div class="card-body text-white">
@@ -272,7 +272,7 @@
                     </div>
 
                     <div class="col">
-                        <a href="producto.html" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
+                        <a href="producto" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
                             <div class="card shadow-sm bg-body-secondary">
                                 <img src="productPhoto" alt="product Pthoto" onerror="this.src='logo2.png';">
                                 <div class="card-body text-white">
@@ -285,7 +285,7 @@
                     </div>
 
                     <div class="col">
-                        <a href="producto.html" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
+                        <a href="producto" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
                             <div class="card shadow-sm bg-body-secondary">
                                 <img src="foto1" alt="foto1" onerror="this.src='logo2.png';">
                                 <div class="card-body text-white">
