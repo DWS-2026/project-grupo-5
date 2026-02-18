@@ -1,17 +1,10 @@
 package com.canaryshop.canaryshop;
 
-import java.sql.Blob;
 import java.util.LinkedList;
 import java.util.List;
 
+import jakarta.persistence.*;
 import org.springframework.data.annotation.Id;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Lob;
-import jakarta.persistence.OneToMany;
 
 @Entity
 
@@ -26,27 +19,30 @@ public class Product {
     private String description;
     private Double price;
     private Integer stock;
-    private String vendetor;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private LinkedList<Review> reviewList= new LinkedList<>();
-    private float valoration;
+    private LinkedList<Review> reviewList = new LinkedList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    private LinkedList<Image> productImages = new LinkedList<>();
+
+    @ManyToOne
+    private User vendor;
+
+    private float rating;
     private Integer reported;
 
     protected Product() {}
-    public Product(String name, String description, Double price, Integer stock, String vendetor, String urlImage) {
+    public Product(String name, String description, Double price, Integer stock) {
         this.name= name;
         this.description = description;
         this.price = price;
         this.stock = stock;
-        this.vendetor = vendetor;
-        this.urlImage = urlImage;
         this.reported=0;
-        this.valoration=0;
+        this.rating =0;
     }
 
-    public String getUrlImage() {
-        return urlImage;
+    public List<Image> getImages() {
+        return images;
     }
 
     public String getName() {
@@ -65,16 +61,16 @@ public class Product {
         return stock;
     }
 
-    public String getVendetor() {
-        return vendetor;
+    public User getVendor() {
+        return vendor;
     }
 
     public List<Review> getReviewList() {
         return reviewList;
     }
 
-    public float getValoration() {
-        return valoration;
+    public float getRating() {
+        return rating;
     }
     
     public void report(){
@@ -89,12 +85,12 @@ public class Product {
     }
     public void addReview(Review review){
         this.reviewList.add(review);
-        this.calulateValoration(review.getValoration());
+        this.calculateRating(review.getRating());
     }
-    private void calulateValoration(Integer reviewValoration){
-        float tmp=this.valoration*reviewList.size()-1;
-        tmp+=reviewValoration.floatValue();
-        this.valoration=Math.round((tmp/this.reviewList.size())*10.0)/10; 
+    private void calculateRating(Integer reviewRating){
+        float tmp=this.rating *(reviewList.size()-1);
+        tmp+=reviewRating.floatValue();
+        this.rating =tmp/this.reviewList.size();
     }
     
 }

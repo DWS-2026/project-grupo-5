@@ -1,11 +1,9 @@
 package com.canaryshop.canaryshop;
 
+import jakarta.persistence.*;
 import org.springframework.stereotype.Indexed;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+
+import java.util.LinkedList;
 
 @Entity
 @Table(name = "users")
@@ -18,6 +16,9 @@ public class User {
     private String username;
     private String email;
     private String password;
+
+    @OneToMany(mappedBy="vendor", cascade=CascadeType.ALL)
+    private LinkedList<Product> products;
     
     public String getUsername() {
         return username;

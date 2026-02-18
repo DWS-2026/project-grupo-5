@@ -1,10 +1,9 @@
 package com.canaryshop.canaryshop;
 
+import jakarta.persistence.*;
 import org.springframework.data.annotation.Id;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import java.util.LinkedList;
 
 @Entity
 public class Review {
@@ -14,17 +13,20 @@ public class Review {
     private long id;
     private String description;
     private String author;
-    private Integer valoration;
+    private Integer rating;
     private String name;
+
+    @OneToMany(cascade=CascadeType.ALL)
+    private LinkedList<Image> images;
 
     
     protected Review() {}
 
-    public Review(String description, String author, Integer valoration, String name) {
+    public Review(String description, String author, Integer rating, String name) {
 
         this.description = description;
         this.author = author;
-        this.valoration = valoration;
+        this.rating = rating;
         this.name = name;
     }
     public String getName() {
@@ -36,14 +38,14 @@ public class Review {
     public String getAuthor() {
         return author;
     }
-    public Integer getValoration() {
-        return valoration;
+    public Integer getRating() {
+        return rating;
     }
     public void setDescription(String description) {
         this.description = description;
     }
-    public void setValoration(Integer valoration) {
-        this.valoration = valoration;
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
     public void setName(String name) {
         this.name = name;
