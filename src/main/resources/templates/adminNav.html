@@ -1,0 +1,40 @@
+<!-- Admin panel in medium devices -->
+<nav class="sidebar d-flex flex-column p-3 vh-100 bg-body-secondary mx-4 col-2 d-none d-md-block">
+  <ul class="nav nav-pills flex-column">
+    <li class="nav-item">
+      <a href="adminDashboard" class="btn btn-admin {{#dashboard}}active{{/dashboard}}"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
+    </li>
+    <li class="nav-item">
+      <a href="adminProducts.html" class="btn btn-admin {{#products}}active{{/products}}"><i class="bi bi-cpu me-2"></i>Reported products</a>
+    </li>
+    <li class="nav-item dropend">
+      <button class="btn btn-admin dropdown-toggle {{#users}}active{{/users}}" data-bs-toggle="dropdown" role="button" aria-expanded="false"><i class="bi bi-people me-2"></i>Users</button>
+      <ul class="dropdown-menu bg-body">
+        <li>
+          <a href="#" class="dropdown-item btn-admin link-light rounded {{#all}}active{{/all}}">All users</a>
+        </li>
+        <li>
+          <a href="adminReportedUsers" class="dropdown-item btn-admin link-light rounded {{#reported}}active{{/reported}}">Reported users</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+<!-- Admin buttons in mobile -->
+<div class="align-self-center d-flex flex-row justify-content-between px-4 col-11 mt-5 d-md-none">
+  <a href="adminDashboard" class="btn btn-lg btn-admin bg-body-secondary {{#dashboard}}active{{/dashboard}}"><i class="bi bi-speedometer2"></i></a>
+  <a href="adminProducts" class="btn btn-lg btn-admin bg-body-secondary {{#products}}active{{/products}}"  role="button"><i class="bi bi-cpu"></i></a>
+  <li class="dropdown">
+    <button class="btn btn-lg btn-admin dropdown-toggle {{#users}}active{{/users}}" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+      <i class="bi bi-people"></i>
+    </button>
+    <ul class="dropdown-menu bg-body">
+      <li>
+        <a href="#" class="dropdown-item btn-admin rounded link-light {{#all}}active{{/all}}">All users</a>
+      </li>
+      <li>
+        <a href="adminReportedUsers" class="dropdown-item btn-admin rounded link-light {{#reported}}active{{/reported}}">Reported users</a>
+      </li>
+    </ul>
+  </li>
+</div>
