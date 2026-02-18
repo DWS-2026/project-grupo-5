@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 public class IndexManage {
     @GetMapping({"/", "/index"})
     public String index(Model model) {
-        model.addAttribute("message", "Hello, World!");
         return "index";
     }
     
