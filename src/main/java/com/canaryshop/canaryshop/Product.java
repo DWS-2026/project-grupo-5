@@ -14,16 +14,16 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @OneToMany(cascade = CascadeType.ALL)
-    private LinkedList<Image> images;
+    private final List<Image> images = new LinkedList<>();
     private String name;
     private String description;
     private Double price;
     private Integer stock;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private LinkedList<Review> reviewList = new LinkedList<>();
+    private final List<Review> reviewList = new LinkedList<>();
     @OneToMany(cascade = CascadeType.ALL)
-    private LinkedList<Image> productImages = new LinkedList<>();
+    private final List<Image> productImages = new LinkedList<>();
 
     @ManyToOne
     private User vendor;
@@ -72,11 +72,14 @@ public class Product {
     public float getRating() {
         return rating;
     }
+    public long getId(){
+        return id;
+    }
     
     public void report(){
         this.reported+=1;
     }
-    public void serReports(){
+    public void resetReports(){
         this.reported=0;
     }
 
