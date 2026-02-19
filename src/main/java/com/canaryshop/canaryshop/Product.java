@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
 
 @Entity
 

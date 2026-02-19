@@ -25,11 +25,11 @@
             {{^user}}
             <!-- Log in or sign up -->
             <div class="justify-content-end d-flex flex-row flex-nowrap">
-                <a href="iniciosesion">
-                    <button type="button" class="btn btn-primary rounded-end rounded-5">Log in</button>
+                <a href="/login">
+                    <button type="button" class="btn btn-primary rounded-end rounded-5 {{#showLogin}}active{{/showLogin}}">Log in</button>
                 </a>
-                <a href="iniciosesion">
-                    <button type="button" class="btn btn-outline-primary rounded-start rounded-5">Sign up</button>
+                <a href="/register">
+                    <button type="button" class="btn btn-outline-primary rounded-start rounded-5 {{#showRegister}}active{{/showRegister}}">Sign up</button>
                 </a>
             </div>
             {{/user}}

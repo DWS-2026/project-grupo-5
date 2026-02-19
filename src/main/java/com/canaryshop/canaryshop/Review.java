@@ -1,7 +1,6 @@
 package com.canaryshop.canaryshop;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
 
 import java.util.LinkedList;
 

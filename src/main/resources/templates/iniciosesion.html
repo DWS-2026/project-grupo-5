@@ -28,44 +28,58 @@
                 </ul>
                 
                 <div class="tab-content" id="pills-tabContent">
-                    <!--Log in-->
+                    
                     {{#showLogin}}
                     <div class="tab-pane fade show active" id="pills-login" role="tabpanel">
-                        <form>
+                        <form action="/login" method="POST">
                             <div class="mb-3">
                                 <label class="form-label">Email</label>
-                                <input type="email" class="form-control bg-dark text-white" placeholder="name@example.com">
+                                <input type="email" name="email" class="form-control bg-dark text-white" placeholder="name@example.com" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Password</label>
-                                <input type="password" class="form-control bg-dark text-white" placeholder="••••••••">
+                                <input type="password" name="password" class="form-control bg-dark text-white" placeholder="••••••••" required>
                             </div>
+
+                            {{#error}}
+                            <div class="alert alert-danger py-2 mt-2" role="alert">
+                                <small>{{error}}</small>
+                            </div>
+                            {{/error}}
+
                             <div class="d-grid gap-2 mt-4">
                                 <button class="btn btn-primary" type="submit">Log in</button>
                             </div>
                         </form>
                     </div>
                     {{/showLogin}}
-                    <!--Sign in-->
+
                     {{#showRegister}}
                     <div class="tab-pane fade show active" id="pills-register" role="tabpanel">
-                        <form>
+                        <form action="/register" method="POST">
                             <div class="mb-3">
                                 <label class="form-label">Username</label>
-                                <input type="text" class="form-control bg-dark bg-opacity-25 text-white" placeholder="Name">
+                                <input type="text" name="username" class="form-control bg-dark bg-opacity-25 text-white" placeholder="Name" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Email</label>
-                                <input type="email" class="form-control bg-dark bg-opacity-25 text-white" placeholder="name@example.com">
+                                <input type="email" name="email" class="form-control bg-dark bg-opacity-25 text-white" placeholder="name@example.com" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Password</label>
-                                <input type="password" class="form-control bg-dark bg-opacity-25 text-white" placeholder="••••••••">
+                                <input type="password" name="password" class="form-control bg-dark bg-opacity-25 text-white" placeholder="••••••••" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Confirm password</label>
-                                <input type="password" class="form-control bg-dark bg-opacity-25 text-white" placeholder="••••••••">
+                                <input type="password" name="confirmPassword" class="form-control bg-dark bg-opacity-25 text-white" placeholder="••••••••" required>
                             </div>
+
+                            {{#error}}
+                            <div class="alert alert-warning py-2 mt-2" role="alert">
+                                <small>{{error}}</small>
+                            </div>
+                            {{/error}}
+
                             <div class="d-grid gap-2 mt-4">
                                 <button class="btn btn-primary" type="submit">Create account</button>
                             </div>
