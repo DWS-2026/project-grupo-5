@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.stereotype.Indexed;
 
 import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -18,8 +19,23 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy="vendor", cascade=CascadeType.ALL)
-    private LinkedList<Product> products;
-    
+    private final List<Product> products = new LinkedList<>();
+    @OneToOne(cascade=CascadeType.ALL)
+    private Order cart;
+    @OneToMany(cascade=CascadeType.ALL)
+    private final List<Order> orders = new LinkedList<>();
+    @OneToOne(cascade=CascadeType.ALL)
+    private Image image;
+
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    // Empty constructor for JPA
+    protected User(){}
+
     public String getUsername() {
         return username;
     }
@@ -37,5 +53,26 @@ public class User {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    public Image getImage() {
+        return image;
+    }
+    public void setImage(Image image) {
+        this.image = image;
+    }
+    public Order getCart() {
+        return cart;
+    }
+    public List<Order> getOrders() {
+        return orders;
+    }
+    public Long getId() {
+        return id;
+    }
+    public List<Product> getProducts() {
+        return products;
+    }
+    public void addProduct(Product product){
+        this.products.add(product);
     }
 }
