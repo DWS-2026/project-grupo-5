@@ -12,20 +12,19 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String description;
-    private String author;
     private Integer rating;
     private String name;
 
+    @OneToOne
+    private User author;
     @OneToMany(cascade=CascadeType.ALL)
     private LinkedList<Image> images;
 
     
     protected Review() {}
 
-    public Review(String description, String author, Integer rating, String name) {
-
+    public Review(String description, Integer rating, String name) {
         this.description = description;
-        this.author = author;
         this.rating = rating;
         this.name = name;
     }
@@ -35,7 +34,7 @@ public class Review {
     public String getDescription() {
         return description;
     }
-    public String getAuthor() {
+    public User getAuthor() {
         return author;
     }
     public Integer getRating() {
