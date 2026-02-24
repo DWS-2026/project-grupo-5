@@ -23,7 +23,7 @@ public class LoginManager {
     }
 
     @PostMapping("/login")
-    public String postMethodName(@RequestBody String email, @RequestBody String password, Model model) {
+    public String postMethodName(@RequestParam String email, @RequestParam String password, Model model) {
         var userOpt = userRepository.findByEmail(email);
 
         if (userOpt.isPresent() && userOpt.get().getPassword().equals(password)) {
@@ -45,7 +45,7 @@ public class LoginManager {
     }
 
     @PostMapping("/register")
-    public String postMethodName(@RequestBody String username, @RequestBody String email, @RequestBody String password, Model model) {
+    public String postMethodName(@RequestParam String username, @RequestParam String email, @RequestParam String password, Model model) {
         if (userRepository.findByEmail(email).isPresent()) {
             model.addAttribute("showRegister", true);
             model.addAttribute("showLogin", false);
