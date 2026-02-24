@@ -2,6 +2,8 @@ package com.canaryshop.canaryshop;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 import jakarta.persistence.*;
 
@@ -12,36 +14,38 @@ public class Product {
     @Id 
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @OneToMany(cascade = CascadeType.ALL)
-    private final List<Image> images = new LinkedList<>();
     private String name;
     private String description;
     private Double price;
     private Integer stock;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private final List<Review> reviewList = new LinkedList<>();
+    private final HashSet<Review> reviewList = new HashSet<>();
     @OneToMany(cascade = CascadeType.ALL)
-    private final List<Image> productImages = new LinkedList<>();
+    private final List<Image> productImages;
 
     @ManyToOne
     private User vendor;
+
+    @ManyToMany()
+    private Set<Order> carts = HashSet<>();
 
     private float rating;
     private Integer reported;
 
     protected Product() {}
-    public Product(String name, String description, Double price, Integer stock) {
+    public Product(String name, String description, Double price, Integer stock, List<Image> images) {
         this.name= name;
         this.description = description;
         this.price = price;
         this.stock = stock;
         this.reported=0;
         this.rating =0;
+        this.productImages=images;
     }
 
     public List<Image> getImages() {
-        return images;
+        return productImages;
     }
 
     public String getName() {
@@ -64,7 +68,7 @@ public class Product {
         return vendor;
     }
 
-    public List<Review> getReviewList() {
+    public Set<Review> getReviewList() {
         return reviewList;
     }
 
@@ -86,13 +90,24 @@ public class Product {
         return reported;
     }
     public void addReview(Review review){
-        this.reviewList.add(review);
         this.calculateRating(review.getRating());
+        this.reviewList.add(review);
+        this.rating/=this.reviewList.size();
+    }
+    public void removeReview(Review review){
+        this.calculateRating(-(review.getRating()));
+        this.reviewList.remove(review);
+        this.rating/=this.reviewList.size();
     }
     private void calculateRating(Integer reviewRating){
-        float tmp=this.rating *(reviewList.size()-1);
-        tmp+=reviewRating.floatValue();
-        this.rating =tmp/this.reviewList.size();
+        this.rating*=(reviewList.size());
+        this.rating+=reviewRating.floatValue();
+    }
+    public void addCart(Order ord){
+        this.carts.add(ord);
+    }
+    public void removeCart(Order ord){
+        this.carts.remove(ord);
     }
     
 }
