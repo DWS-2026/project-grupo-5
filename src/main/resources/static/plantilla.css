@@ -38,12 +38,16 @@
 .bg-success {
     background-color: var(--green) !important;
 }
-.btn-outline-success {
+.btn-outline-success,
+.btn-outline-primary {
     --bs-btn-color: var(--green);
     --bs-btn-border-color: var(--green);
     --bs-btn-hover-bg: var(--green-dark);
     --bs-btn-hover-color: var(--text);
-    --bs-btn-hover-border-color: var(--green-dark)
+    --bs-btn-hover-border-color: var(--green-dark);
+    --bs-btn-active-bg: var(--green);
+    --bs-btn-active-color: var(--text);
+    --bs-btn-active-border-color: var(--green-dark);
 }
 .btn-primary {
     --bs-btn-bg: var(--green);
@@ -130,16 +134,6 @@
     border: 1px solid var(--item-disabled) !important;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
 }
-.btn-outline-primary {
-    --bs-btn-bg: transparent;
-    --bs-btn-border-color: var(--green);
-    color: var(--green);
-    --bs-btn-hover-bg: var(--green);
-    --bs-btn-hover-border-color: transparent;
-}
-.btn-outline-primary:hover {
-    color: var(--text);
-}
 /* Hidden objects */
 .hidden {
     display: none !important;
@@ -149,15 +143,9 @@
     border: 1px solid var(--item-disabled) !important;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
 }
-.btn-outline-primary {
-    --bs-btn-bg: transparent;
-    --bs-btn-border-color: var(--green);
-    color: var(--green);
-    --bs-btn-hover-bg: var(--green);
-    --bs-btn-hover-border-color: transparent;
-}
-.btn-outline-primary:hover {
-    color: var(--text);
+.nav-pills {
+    --bs-nav-pills-link-active-bg: var(--green);
+    --bs-nav-pills-link-active-color: var(--text);
 }
 /* Hidden objects */
 .hidden {
