@@ -15,10 +15,9 @@ public class Order {
     private Long id;
     private double price = 0F;
     
-    @ElementCollection
-    @CollectionTable(name = "order_products", joinColumns = @JoinColumn(name = "order_id"))
-    @MapKeyJoinColumn(name = "product_id")
-    @Column(name = "quantity")
+    
+
+    @ManyToMany(mappedBy = carts)
     private final Map<Product, Integer> products = new HashMap<>();
 
     public Order(){}
