@@ -18,7 +18,7 @@ public class Review {
     @OneToOne
     private User author;
     @OneToMany(cascade=CascadeType.ALL)
-    private final LinkedList<Image> images;
+    private LinkedList<Image> images;
 
     
     protected Review() {}

@@ -22,13 +22,13 @@ public class Product {
     @OneToMany(cascade = CascadeType.ALL)
     private final HashSet<Review> reviewList = new HashSet<>();
     @OneToMany(cascade = CascadeType.ALL)
-    private final List<Image> productImages;
+    private List<Image> productImages;
 
     @ManyToOne
     private User vendor;
 
     @ManyToMany()
-    private Set<Order> carts = HashSet<>();
+    private Set<Order> carts = new HashSet<>();
 
     private float rating;
     private Integer reported;

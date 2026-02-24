@@ -17,7 +17,7 @@ public class Order {
     
     
 
-    @ManyToMany(mappedBy = carts)
+    @ManyToMany(mappedBy = "carts")
     private final Map<Product, Integer> products = new HashMap<>();
 
     public Order(){}
