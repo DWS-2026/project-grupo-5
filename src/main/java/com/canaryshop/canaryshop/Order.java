@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.LinkedList;
 import java.util.List;
-
+import java.util.Optional;
 
 
 @Entity
@@ -14,11 +14,11 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private double price = 0F;
-    
+    private boolean isClosed = false;
     
 
-    @OneToMany(mappedBy = "carts")
-    private List<OrderProduct> products = new LinkedList<>(); 
+    @OneToMany()
+    private final List<OrderProduct> products = new LinkedList<>();
 
     public Order(){}
     public Long getId() {
@@ -30,26 +30,51 @@ public class Order {
     public List<OrderProduct> getProducts(){
         return products;
     }
-    public int getProductQuantity(OrderProduct product){
-        OrderProduct p= products.get(products.indexOf(product));
-        return p.getQuantity();
-
+    private OrderProduct findOrderProductByProduct(Product product){
+        for (OrderProduct op: products){
+            if (op.getProduct().equals(product)) {
+                return op;
+            }
+        }
+        return null;
+    }
+    public void closeOrder(){
+        isClosed = true;
+    }
+    public int getProductQuantity(Product product){
+        Optional<OrderProduct> op = Optional.ofNullable(findOrderProductByProduct(product));
+        if (op.isEmpty()) {
+            return 0;
+        }
+        return op.get().getQuantity();
     }
     public void addProduct(Product product){
-        if (products.contains(product)) { return; }
-        products.add(product);
+        Optional<OrderProduct> existing = Optional.ofNullable(findOrderProductByProduct(product));
+        if (existing.isPresent()){
+            return;
+        }
+        OrderProduct orderProduct = new OrderProduct(this, product, 1);
+        products.add(orderProduct);
         price+=product.getPrice();
     }
     public void removeProduct(Product product){
-        if (!products.containsKey(product)){ return; }
-        int amount = products.get(product);
+        Optional<OrderProduct> existing = Optional.ofNullable(findOrderProductByProduct(product));
+        if (existing.isEmpty()){
+            return;
+        }
+        OrderProduct toBeRemoved = existing.get();
+        int amount = toBeRemoved.getQuantity();
         price-=product.getPrice()*amount;
-        products.remove(product);
+        products.remove(toBeRemoved);
     }
     public void setAmount(Product product, int amount){
         amount = Math.min(amount, product.getStock());
-        price-=product.getPrice()*products.get(product);
+        Optional<OrderProduct> existing = Optional.ofNullable(findOrderProductByProduct(product));
+        if (existing.isPresent()){
+            price-=product.getPrice()*existing.get().getQuantity();
+            products.remove(existing.get());
+        }
         price+=product.getPrice()*amount;
-        products.replace(product, amount);
+        products.add(new OrderProduct(this, product, amount));
     }
 }

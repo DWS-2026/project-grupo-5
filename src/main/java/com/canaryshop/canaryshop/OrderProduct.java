@@ -3,12 +3,16 @@ import jakarta.persistence.*;
 
 @Entity
 public class OrderProduct {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private int quantity;
     @ManyToOne
     private Product product;
     @ManyToOne 
-    private Order order;    
-    public OrderProduct(){
+    private Order order;
+    protected OrderProduct(){}
+    public OrderProduct(Order order, Product product, int quantity){
     }
     public int getQuantity(){
         return this.quantity;
