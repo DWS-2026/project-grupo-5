@@ -2,9 +2,9 @@ package com.canaryshop.canaryshop;
 
 import jakarta.persistence.*;
 
-import java.util.HashMap;
-import java.util.Set;
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.List;
+
 
 
 @Entity
@@ -17,8 +17,8 @@ public class Order {
     
     
 
-    @ManyToMany(mappedBy = "carts")
-    private final Map<Product, Integer> products = new HashMap<>();
+    @OneToMany(mappedBy = "carts")
+    private List<OrderProduct> products = new LinkedList<>(); 
 
     public Order(){}
     public Long getId() {
@@ -27,15 +27,17 @@ public class Order {
     public double getPrice(){
         return price;
     }
-    public Set<Product> getProducts(){
-        return products.keySet();
+    public List<OrderProduct> getProducts(){
+        return products;
     }
-    public int getProductQuantity(Product product){
-        return this.products.get(product);
+    public int getProductQuantity(OrderProduct product){
+        OrderProduct p= products.get(products.indexOf(product));
+        return p.getQuantity();
+
     }
     public void addProduct(Product product){
-        if (products.containsKey(product)) { return; }
-        products.put(product, 1);
+        if (products.contains(product)) { return; }
+        products.add(product);
         price+=product.getPrice();
     }
     public void removeProduct(Product product){
