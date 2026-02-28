@@ -2,8 +2,6 @@ package com.canaryshop.canaryshop;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-import java.util.HashSet;
 
 import jakarta.persistence.*;
 
@@ -20,7 +18,7 @@ public class Product {
     private Integer stock;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private final HashSet<Review> reviewList = new HashSet<>();
+    private final List<Review> reviewList = new LinkedList<>();
     @OneToMany(cascade = CascadeType.ALL)
     private List<Image> productImages;
 
@@ -28,7 +26,7 @@ public class Product {
     private User vendor;
 
     @ManyToMany()
-    private Set<Order> carts = new HashSet<>();
+    private List<Order> carts = new LinkedList<>();
 
     private float rating;
     private Integer reported;
@@ -68,7 +66,7 @@ public class Product {
         return vendor;
     }
 
-    public Set<Review> getReviewList() {
+    public List<Review> getReviewList() {
         return reviewList;
     }
 
