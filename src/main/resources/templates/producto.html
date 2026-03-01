@@ -17,6 +17,7 @@
         <div class="container d-flex flex-column flex-md-row my-4 p-4 p-md-0">
             <a href="index" class="btn btn-secondary btn-lg flex-grow-1"> Back</a>
         </div>
+        {{#product}}
         <!-- Product Content -->
         <div class="container d-flex flex-column align-items-center my-4 p-4 rounded-3">
             <!-- Product Images -->
@@ -50,9 +51,9 @@
             </div>
             <!-- Product Title & Price -->
             <div class="d-flex flex-md-row flex-column align-items-center">
-                <h3 class="display-3 text-white">Test Product</h3>
+                <h3 class="display-3 text-white">{{name}}</h3>
                 <div class="rounded text-white bg-success ms-3 p-2">
-                    <h2 class="m-0">30.99€</h2>
+                    <h2 class="m-0">{{price}}€</h2>
                 </div>
             </div>
             <!-- Product Rating -->
@@ -62,13 +63,13 @@
                 <i class="bi bi-star-fill"></i>
                 <i class="bi bi-star-fill"></i>
                 <i class="bi bi-star"></i>
-                <span class="text-white">(4.3)</span>
+                <span class="text-white">({{rating}})</span>
             </span>
             <!-- Vendor -->
             <h4  class="text-white">Sold by: <a href="usuario" class="link-light link-opacity-75-hover link-underline link-underline-opacity-0">User <i class="bi bi-person-circle"></i></a></i></h4>
             <!-- Product Stock -->
             <h6 class="text-white">
-                5
+                {{stock}}
                 in stock
             </h6>
             <!-- Buy Buttons -->
@@ -82,11 +83,7 @@
             <h2 class="text-white">Product description:</h2>
             <div class="text-white bg-body rounded-3 my-4">
                 <p class="my-4 mx-4">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam gravida faucibus dui eu consequat. Morbi ante metus, pretium eget egestas non, finibus lacinia quam. Fusce nunc nulla, efficitur non laoreet non, tincidunt ac nisl. In tincidunt justo nulla, sed facilisis ante ultrices in. Proin a gravida massa. Donec in risus dignissim, tincidunt dolor ac, pellentesque felis. Mauris iaculis arcu ut libero viverra semper. Maecenas ac porttitor sapien, nec tempus orci. Sed justo neque, volutpat vel fringilla eu, pretium id dolor. Aliquam nulla justo, feugiat at placerat sed, facilisis eu turpis. Aenean porta sagittis lacus non bibendum.
-                    Aenean et mattis urna. Praesent vel placerat dolor, id venenatis tellus. Pellentesque est neque, accumsan ac nibh at, posuere tempus purus. Pellentesque mattis elementum odio quis congue. Aliquam erat volutpat. Etiam nec fringilla risus. Curabitur in libero a elit semper viverra.
-                    Phasellus eleifend volutpat mollis. Morbi pellentesque interdum pretium. Proin tincidunt arcu a arcu laoreet, sit amet porta libero eleifend. Quisque dictum, leo nec sagittis suscipit, tortor erat rhoncus dui, dapibus mollis lorem ipsum et diam. Duis auctor rhoncus ex quis dapibus. Aenean aliquam nibh sed consequat bibendum. Donec malesuada tincidunt neque. Fusce sit amet feugiat lorem. Curabitur nec volutpat risus. Praesent sed lacus sem. Maecenas congue, massa vel hendrerit eleifend, augue lectus vestibulum ipsum, a rhoncus ipsum metus in risus. Sed eget sagittis lacus, a iaculis magna.
-                    Nunc finibus, enim sit amet tincidunt aliquam, dolor erat convallis lectus, a suscipit tortor purus quis nibh. Cras eget neque pulvinar, porttitor urna ut, pretium nunc. Suspendisse pharetra ipsum non quam rutrum, vel lobortis diam posuere. Aliquam erat volutpat. Nullam nunc nunc, bibendum quis tempus ut, mattis quis neque. Maecenas ut fermentum elit. Nam nec gravida enim. Ut rhoncus turpis libero, aliquet imperdiet est ultricies vitae.
-                    Curabitur et odio purus. Sed venenatis, libero vitae tincidunt pharetra, metus augue commodo urna, non pretium augue massa vitae tortor. Vestibulum aliquam sagittis purus quis congue. Duis bibendum eget quam vitae ultricies. Vivamus molestie, tellus at egestas suscipit, ante dui aliquam ligula, eu sagittis mi felis congue nibh. Maecenas gravida efficitur purus non bibendum. Donec dignissim suscipit tortor sed viverra. Ut metus mauris, ullamcorper et lacus non, ornare suscipit diam. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent scelerisque nisi accumsan consectetur viverra. Praesent aliquam sollicitudin erat, tincidunt convallis risus euismod a. Fusce quis felis a arcu placerat vestibulum vitae hendrerit lorem. Etiam sed suscipit justo, placerat convallis dui. 
+                    {{description}}
                 </p>
             </div>
             <!-- Report button-->
@@ -210,6 +207,7 @@
                 <button class="btn btn-primary my-4">Read More</button>
             </div>
         </div>
+        {{/product}}
     </main>
 </body>
 </html>
