@@ -14,7 +14,7 @@ public class ProductService {
     @Autowired
     private ProductsRepository products;
 
-    public Product getProduct(Long id){
+    public Product getProduct(long id){
         Optional<Product> request = products.findById(id);
         if (request.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");

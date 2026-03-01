@@ -11,5 +11,13 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Lob
-    private Blob images;
+    private Blob imageFile;
+
+    protected Image(){}
+    public Image(Blob file){
+        this.imageFile = file;
+    }
+    public Blob getImageFile(){
+        return this.imageFile;
+    }
 }

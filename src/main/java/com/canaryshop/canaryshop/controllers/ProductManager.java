@@ -1,6 +1,8 @@
 package com.canaryshop.canaryshop.controllers;
 
+import com.canaryshop.canaryshop.entities.Image;
 import com.canaryshop.canaryshop.entities.Product;
+import com.canaryshop.canaryshop.services.ImageService;
 import com.canaryshop.canaryshop.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,19 +11,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.LinkedList;
+import java.util.List;
 
 @Controller
 public class ProductManager {
 
     @Autowired
     private ProductService products;
+    @Autowired
+    private ImageService images;
 
     @GetMapping({"/products/{id}", "/product/{id}"})
     public String serveProduct(Model model, @PathVariable long id){
         Product product = products.getProduct(id);
-        model.addAttribute(product);
+        model.addAttribute("product", product);
         return "product";
     }
 
@@ -31,8 +37,12 @@ public class ProductManager {
     }
 
     @PostMapping("/products/new")
-    public String createNewProduct(@RequestParam String title, @RequestParam String description, @RequestParam Double price, @RequestParam Integer stock){
-        Product product = new Product(title, description, price, stock, new LinkedList<>());
+    public String createNewProduct(List<MultipartFile> imageFiles, @RequestParam String title, @RequestParam String description, @RequestParam Double price, @RequestParam Integer stock){
+        List<Image> imageList = new LinkedList<>();
+        for (MultipartFile image: imageFiles){
+            imageList.add(images.createImage(image));
+        }
+        Product product = new Product(title, description, price, stock, imageList);
         products.addProduct(product);
         return "redirect:/products/" + product.getId(); // todo: make the findById query work
     }
