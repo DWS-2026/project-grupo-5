@@ -1,5 +1,7 @@
 package com.canaryshop.canaryshop;
 
+import com.canaryshop.canaryshop.entities.User;
+import com.canaryshop.canaryshop.repositories.UserRepository;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.boot.CommandLineRunner;

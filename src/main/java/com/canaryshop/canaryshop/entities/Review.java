@@ -1,9 +1,8 @@
-package com.canaryshop.canaryshop;
+package com.canaryshop.canaryshop.entities;
 
 import jakarta.persistence.*;
 
 import java.util.LinkedList;
-import java.util.List;
 
 @Entity
 public class Review {

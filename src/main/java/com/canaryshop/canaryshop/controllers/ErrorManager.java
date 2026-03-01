@@ -1,4 +1,4 @@
-package com.canaryshop.canaryshop;
+package com.canaryshop.canaryshop.controllers;
 
 import org.springframework.boot.webmvc.error.ErrorController;
 import org.springframework.http.HttpStatus;
@@ -9,7 +9,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-public class ErrorManage implements ErrorController{
+public class ErrorManager implements ErrorController{
 
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request, Model model) {

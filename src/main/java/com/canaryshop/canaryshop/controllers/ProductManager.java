@@ -1,5 +1,7 @@
-package com.canaryshop.canaryshop;
+package com.canaryshop.canaryshop.controllers;
 
+import com.canaryshop.canaryshop.entities.Product;
+import com.canaryshop.canaryshop.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

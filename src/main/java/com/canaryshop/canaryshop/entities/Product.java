@@ -1,4 +1,4 @@
-package com.canaryshop.canaryshop;
+package com.canaryshop.canaryshop.entities;
 
 import java.util.LinkedList;
 import java.util.List;

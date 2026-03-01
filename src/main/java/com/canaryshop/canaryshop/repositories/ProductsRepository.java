@@ -1,5 +1,6 @@
-package com.canaryshop.canaryshop;
+package com.canaryshop.canaryshop.repositories;
 
+import com.canaryshop.canaryshop.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProductsRepository extends JpaRepository<Product, Long>{

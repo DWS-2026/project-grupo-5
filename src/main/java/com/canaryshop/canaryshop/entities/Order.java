@@ -1,4 +1,4 @@
-package com.canaryshop.canaryshop;
+package com.canaryshop.canaryshop.entities;
 
 import jakarta.persistence.*;
 

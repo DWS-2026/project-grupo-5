@@ -1,7 +1,6 @@
-package com.canaryshop.canaryshop;
+package com.canaryshop.canaryshop.entities;
 
 import jakarta.persistence.*;
-import org.springframework.stereotype.Indexed;
 
 import java.util.LinkedList;
 import java.util.List;

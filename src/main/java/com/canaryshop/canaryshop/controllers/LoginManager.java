@@ -1,11 +1,12 @@
-package com.canaryshop.canaryshop;
+package com.canaryshop.canaryshop.controllers;
 
+import com.canaryshop.canaryshop.entities.User;
+import com.canaryshop.canaryshop.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
