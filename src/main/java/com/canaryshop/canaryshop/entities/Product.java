@@ -25,8 +25,6 @@ public class Product {
     @ManyToOne
     private User vendor;
 
-    @ManyToMany()
-    private List<Order> carts = new LinkedList<>();
 
     private float rating;
     private Integer reported;
