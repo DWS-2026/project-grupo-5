@@ -1,4 +1,4 @@
-package com.canaryshop.canaryshop;
+package com.canaryshop.canaryshop.Security;
 
 import com.canaryshop.canaryshop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
+
     @Autowired
     private UserService userDetailService;
     @Bean
@@ -38,6 +39,15 @@ public class SecurityConfiguration {
                 for (String page: userPages) { authorize.requestMatchers(page).authenticated(); }
                 for (String page: adminPages) { authorize.requestMatchers(page).hasAnyRole("ADMIN"); }
             }
+        ).formLogin(formLogin -> formLogin
+            .loginPage("/login")
+            .defaultSuccessUrl("/")
+            .failureUrl("/loginerror")
+            .permitAll()
+        ).logout(logout -> logout
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/")
+            .permitAll()
         );
         http.csrf(csrf -> csrf.disable());
         return http.build();

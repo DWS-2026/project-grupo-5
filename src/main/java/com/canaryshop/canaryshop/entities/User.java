@@ -16,7 +16,6 @@ public class User {
     private String username;
     private String email;
     private String password;
-    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
 
     @OneToMany(mappedBy="vendor", cascade=CascadeType.ALL)
@@ -28,11 +27,10 @@ public class User {
     @OneToOne(cascade=CascadeType.ALL)
     private Image image;
 
-    public User(String username, String email, String password,String ... roles) {
+    public User(String username, String email, String password, String ... roles) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.roles=List.of(roles);
     }
 
     // Empty constructor for JPA
@@ -77,5 +75,10 @@ public class User {
     public void addProduct(Product product){
         this.products.add(product);
     }
-    
+    public List<String> getRoles() {
+        return roles;
+    }
+    public void setRoles(String roles) {
+        this.roles.add(roles); 
+    }
 }
