@@ -40,7 +40,7 @@ public class Product {
         this.productImages=images;
     }
 
-    public List<Image> getImages() {
+    public List<Image> getProductImages() {
         return productImages;
     }
 
@@ -74,7 +74,7 @@ public class Product {
     public long getId(){
         return id;
     }
-    
+
     public void report(){
         this.reported+=1;
     }

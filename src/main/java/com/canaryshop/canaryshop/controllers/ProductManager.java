@@ -38,12 +38,9 @@ public class ProductManager {
 
     @PostMapping("/products/new")
     public String createNewProduct(List<MultipartFile> imageFiles, @RequestParam String title, @RequestParam String description, @RequestParam Double price, @RequestParam Integer stock){
-        List<Image> imageList = new LinkedList<>();
-        for (MultipartFile image: imageFiles){
-            imageList.add(images.createImage(image));
-        }
+        List<Image> imageList = images.createImages(imageFiles);
         Product product = new Product(title, description, price, stock, imageList);
         products.addProduct(product);
-        return "redirect:/products/" + product.getId(); // todo: make the findById query work
+        return "redirect:/product/" + product.getId();
     }
 }

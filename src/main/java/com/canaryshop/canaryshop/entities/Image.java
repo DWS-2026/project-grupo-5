@@ -12,6 +12,7 @@ public class Image {
     private long id;
     @Lob
     private Blob imageFile;
+    private int indexInList = 0;
 
     protected Image(){}
     public Image(Blob file){
@@ -19,5 +20,14 @@ public class Image {
     }
     public Blob getImageFile(){
         return this.imageFile;
+    }
+    public void setIndexInList(int index){
+        this.indexInList = index;
+    }
+    public int getIndexInList() {
+        return indexInList;
+    }
+    public long getId() {
+        return id;
     }
 }

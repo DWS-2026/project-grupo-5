@@ -22,25 +22,17 @@
         <div class="container d-flex flex-column align-items-center my-4 p-4 rounded-3">
             <!-- Product Images -->
             <div id="productImages" class="carousel slide align-self-center w-100 p-3">
-                <div class="carousel-indicators"> 
-                    <button type="button" data-bs-target="#productImages" data-bs-slide-to="0" aria-label="Imagen 1" aria-current="true" class="active"></button>
-                    <button type="button" data-bs-target="#productImages" data-bs-slide-to="1" aria-label="Imagen 2"></button>
-                    <button type="button" data-bs-target="#productImages" data-bs-slide-to="2" aria-label="Imagen 3"></button>
-                    <button type="button" data-bs-target="#productImages" data-bs-slide-to="3" aria-label="Imagen 4"></button>
+                <div class="carousel-indicators">
+                    {{#productImages}}
+                    <button type="button" data-bs-target="#productImages" data-bs-slide-to="{{indexInList}}" {{#-first}}aria-current="true" class="active"{{/-first}}>
+                    {{/productImages}}
                 </div>
                 <div class="carousel-inner d-flex rounded">
-                    <div class="carousel-item active h-100">
-                        <img class="h-100 rounded d-block mx-auto" src="https://picsum.photos/400?random=1" alt="Test">
+                    {{#productImages}}
+                    <div class="carousel-item {{#-first}}active{{/-first}} h-100">
+                        <img class="h-100 rounded d-block mx-auto" src="/images/{{id}}">
                     </div>
-                    <div class="carousel-item h-100">
-                        <img class="h-100 rounded d-block mx-auto" src="https://picsum.photos/1920/1080?random=2" alt="Test">
-                    </div>
-                    <div class="carousel-item h-100">
-                        <img class="h-100 rounded d-block mx-auto" src="https://picsum.photos/1080/1920?random=3" alt="Test">
-                    </div>
-                    <div class="carousel-item h-100">
-                        <img class="h-100 rounded d-block mx-auto" src="https://picsum.photos/200?random=4" alt="Test">
-                    </div>
+                    {{/productImages}}
                 </div>
                 <button class="carousel-control-prev bg-body-secondary rounded align-self-center p-3" type="button" style="width: fit-content; height: fit-content;" data-bs-target="#productImages" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -81,7 +73,7 @@
             </div>
             <!-- Product Description -->
             <h2 class="text-white">Product description:</h2>
-            <div class="text-white bg-body rounded-3 my-4">
+            <div class="text-white bg-body rounded-3 my-4 w-100">
                 <p class="my-4 mx-4">
                     {{description}}
                 </p>

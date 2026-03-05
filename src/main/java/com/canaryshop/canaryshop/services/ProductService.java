@@ -17,7 +17,7 @@ public class ProductService {
     @Autowired
     private ProductsRepository products;
 
-    public Product getProduct(long id){
+    public Product getProduct(long id) throws ResponseStatusException {
         Optional<Product> request = products.findById(id);
         if (request.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
@@ -28,14 +28,14 @@ public class ProductService {
     public void addProduct(Product product){
         products.save(product);
     }
-    public Page<Product> getPageProducts(String name, String description, Pageable page ){
+    public Page<Product> getPageProducts(String name, String description, Pageable page){
         if (name!=null && description!=null){
             return products.findByNameContainingOrDescriptionContaining(name, description, page);
         }else{
             return products.findAll(page);
         }
     }
-    public void borrarAnuncio(Product product){
+    public void deleteProduct(Product product){
         products.delete(product);
     }
 }
