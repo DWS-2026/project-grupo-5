@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link type="text/css" rel="stylesheet" href="plantilla.css">
+    <link type="text/css" rel="stylesheet" href="/plantilla.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <title>Shop</title>
 </head>
@@ -18,14 +18,15 @@
             <!-- Categories -->
 
             <!-- Main Products -->
-            <div  class="container">
-                {{#products}}
-                <div class="row row-cols-1 row-cols-md-4 g-4 mx-1">
-                    
+            <div class="container">
+                <div class="row row-cols-1 row-cols-md-4 g-4 mx-1 align-items-center">
+                    {{#products}}
                     <div class="col">
-                        <a href="/producto" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
+                        <a href="/product/{{id}}" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
                             <div class="card shadow-sm bg-body-secondary">
-                                <img src="/images/logo2.png"  alt="product Pthoto" onerror="this.src='/images/logo2.png';">
+                                {{#productImages}}{{#-first}}
+                                <img src="/images/{{id}}"  alt="product Pthoto" onerror="this.src='/images/logo2.png';">
+                                {{/-first}}{{/productImages}}
                                 <div class="card-body text-white">
                                     <h5 class="card-title">{{name}}</h5>
                                     <p class="card-text">{{description}}</p>
@@ -33,8 +34,8 @@
                             </div>
                         </a>
                     </div>
+                    {{/products}}
                 </div>
-                {{/products}}
             </div>
 
         </section>

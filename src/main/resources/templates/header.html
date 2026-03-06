@@ -7,8 +7,8 @@
         <div class="container-fluid d-flex flex-row flex-nowrap justify-content-between align-items-center px-4">
 
             <!-- Logo Image -->
-            <a class="navbar-brand" href="index">
-                <img class="img-fluid" src="logo.png" alt="Logo" width="150" height="40">
+            <a class="navbar-brand" href="/">
+                <img class="img-fluid" src="/logo.png" alt="Logo" width="150" height="40">
             </a>
 
             <form class="d-flex me-4" role="search">
@@ -38,7 +38,7 @@
             <div class="justify-content-end h-75">
                 <button class="btn btn-secundary" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
-                    <img src="{{image}}" alt="user image" onerror="this.src='user.jpg';"
+                    <img src="{{image}}" alt="user image" onerror="this.src='/user.jpg';"
                          class="img-fluid rounded-circle" style="height: 2em;">
                 </button>
 
@@ -50,18 +50,18 @@
 
                     </div>
                     <div class="offcanvas-body bg-body d-flex flex-column">
-                        <img src="{{image}}" alt="user image" onerror="this.src='logo2.png';"
+                        <img src="{{image}}" alt="user image" onerror="this.src='/logo2.png';"
                              class="rounded-circle align-self-center" width="150" height="150">
-                        <a class="text-decoration-none text-white" href="index"><i class="bi bi-house"></i>
+                        <a class="text-decoration-none text-white" href="/"><i class="bi bi-house"></i>
                             Home</a>
-                        <a class="text-decoration-none text-white" href="addSale"><i class="bi bi-plus-circle"></i> Add
+                        <a class="text-decoration-none text-white" href="/products/new"><i class="bi bi-plus-circle"></i> Add
                             product</a>
-                        <a class="text-decoration-none text-white" href="carrito"><i class="bi bi-cart2"></i> Shopping
+                        <a class="text-decoration-none text-white" href="/cart"><i class="bi bi-cart2"></i> Shopping
                             cart</a>
-                        <a class="text-decoration-none text-white" href="usuario"><i class="bi bi-person-circle"></i>
+                        <a class="text-decoration-none text-white" href="/user/{{id}}"><i class="bi bi-person-circle"></i>
                             Show profile</a>
                         {{#admin}}
-                        <a class="bi bi-wrench link-success nav-link" href="adminDashboard"> Admin panel</a>
+                        <a class="bi bi-wrench link-success nav-link" href="/admin"> Admin panel</a>
                         {{/admin}}
                     </div>
                 </div>
@@ -76,8 +76,8 @@
 
             <!-- Logo Image -->
             <div class="flex-fill " style="max-width: 750px;">
-                <a class="navbar-brand" href="index">
-                    <img src="logo.png" alt="Logo" width="150" height="40">
+                <a class="navbar-brand" href="/">
+                    <img src="/logo.png" alt="Logo" width="150" height="40">
                 </a>
             </div>
 
@@ -118,25 +118,25 @@
         {{#user}}
         <!-- Logged-in user -->
         <div class="container-fluid d-flex flex-row justify-content-between align-items-center px-4">
-            <a class="btn btn-secondary" href="index" role="button"><i class="bi bi-house"></i></a>
-            <a class="btn btn-secondary" href="addSale" role="button"><i class="bi bi-plus-circle"></i></a>
-            <a class="btn btn-secondary" href="carrito" role="button"><i class="bi bi-cart2"></i></a>
+            <a class="btn btn-secondary" href="/index" role="button"><i class="bi bi-house"></i></a>
+            <a class="btn btn-secondary" href="/products/new" role="button"><i class="bi bi-plus-circle"></i></a>
+            <a class="btn btn-secondary" href="/cart" role="button"><i class="bi bi-cart2"></i></a>
             {{#admin}}
-            <a class="btn btn-secondary link-success" href="adminDashboard" role="button"><i
+            <a class="btn btn-secondary link-success" href="/admin" role="button"><i
                     class="bi bi-wrench"></i></a>
             {{/admin}}
-            <a class="btn btn-secondary" href="usuario" role="button"><i class="bi bi-person-circle"></i></a>
+            <a class="btn btn-secondary" href="/user/{{id}}" role="button"><i class="bi bi-person-circle"></i></a>
         </div>
         {{/user}}
         {{^user}}
         <!-- User not logged in -->
         <div class="container-fluid justify-content-between d-flex flex-row flex-nowrap align-items-center ">
-            <a class="btn btn-secondary btn-lg ms-3" href="index" role="button"><i class="bi bi-house"></i></a>
+            <a class="btn btn-secondary btn-lg ms-3" href="/" role="button"><i class="bi bi-house"></i></a>
             <div class="md-3">
-                <a href="iniciosesion">
+                <a href="/login">
                     <button type="button" class="btn btn-primary btn-lg rounded-end rounded-5">Log in</button>
                 </a>
-                <a href="iniciosesion">
+                <a href="/login">
                     <button type="button" class="btn btn-outline-primary btn-lg rounded-start rounded-5 ">Sign up
                     </button>
                 </a>
