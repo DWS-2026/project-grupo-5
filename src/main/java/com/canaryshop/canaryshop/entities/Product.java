@@ -18,7 +18,7 @@ public class Product {
     private Integer stock;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private final List<Review> reviewList = new LinkedList<>();
+    private final List<Review> reviews = new LinkedList<>();
     @OneToMany(cascade = CascadeType.ALL)
     private List<Image> productImages;
 
@@ -73,8 +73,8 @@ public class Product {
         return vendor;
     }
 
-    public List<Review> getReviewList() {
-        return reviewList;
+    public List<Review> getReviews() {
+        return reviews;
     }
 
     public float getRating() {
@@ -96,16 +96,16 @@ public class Product {
     }
     public void addReview(Review review){
         this.calculateRating(review.getRating());
-        this.reviewList.add(review);
-        this.rating/=this.reviewList.size();
+        this.reviews.add(review);
+        this.rating/=this.reviews.size();
     }
     public void removeReview(Review review){
         this.calculateRating(-(review.getRating()));
-        this.reviewList.remove(review);
-        this.rating/=this.reviewList.size();
+        this.reviews.remove(review);
+        this.rating/=this.reviews.size();
     }
     private void calculateRating(Integer reviewRating){
-        this.rating*=(reviewList.size());
+        this.rating*=(reviews.size());
         this.rating+=reviewRating.floatValue();
     }
 

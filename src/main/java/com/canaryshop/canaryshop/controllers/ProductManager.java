@@ -2,15 +2,13 @@ package com.canaryshop.canaryshop.controllers;
 
 import com.canaryshop.canaryshop.entities.Image;
 import com.canaryshop.canaryshop.entities.Product;
+import com.canaryshop.canaryshop.entities.Review;
 import com.canaryshop.canaryshop.services.ImageService;
 import com.canaryshop.canaryshop.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.LinkedList;
@@ -40,6 +38,15 @@ public class ProductManager {
     public String createNewProduct(List<MultipartFile> imageFiles, @RequestParam String title, @RequestParam String description, @RequestParam Double price, @RequestParam Integer stock){
         List<Image> imageList = images.createImages(imageFiles);
         Product product = new Product(title, description, price, stock, imageList);
+        products.addProduct(product);
+        return "redirect:/product/" + product.getId();
+    }
+    @PostMapping("/product/{id}/newReview")
+    public String addNewReviewToProduct(@PathVariable long id, @RequestParam String title, @RequestParam int stars, @RequestParam String description, List<MultipartFile> imageFiles){
+        List<Image> imageList = images.createImages(imageFiles);
+        Review review = new Review(description, stars, title, imageList);
+        Product product = products.getProduct(id);
+        product.addReview(review);
         products.addProduct(product);
         return "redirect:/product/" + product.getId();
     }

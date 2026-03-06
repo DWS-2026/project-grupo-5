@@ -90,34 +90,34 @@
                     You need to buy the product to publish a review.
                 </div>
                 <!-- Review form -->
-                <form action="/product/{{id}}/newReview" id="reviewForm" method="post" class="text-white container bg-body rounded p-4">
+                <form action="/product/{{id}}/newReview" id="reviewForm" method="post" enctype="multipart/form-data" class="text-white container bg-body rounded p-4">
                     <!-- Review title  -->
                     <div class="my-2">
                         <label for="reviewTitle" class="form-label">Review title</label>
-                        <input type="text" id="reviewTitle" class="form-control">
+                        <input type="text" name="title" id="reviewTitle" class="form-control">
                     </div>
                     <!-- Review rating -->
                     <div class="my-2">
                         <label for="reviewStars" class="form-label">Rating</label>
                         <div id="reviewStars" class="d-flex gap-1">
                             <div class="form-check form-check-inline m-0 p-0">
-                                <input type="radio" class="btn-check star" id="star1" autocomplete="off">
+                                <input type="radio" class="btn-check star" name="stars" value="1" id="star1" autocomplete="off">
                                 <label for="star1" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
                             </div>
                             <div class="form-check form-check-inline m-0 p-0">
-                                <input type="radio" class="btn-check star" id="star2" autocomplete="off">
+                                <input type="radio" class="btn-check star" name="stars" value="2" id="star2" autocomplete="off">
                                 <label for="star2" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
                             </div>
                             <div class="form-check form-check-inline m-0 p-0">
-                                <input type="radio" class="btn-check star" id="star3" autocomplete="off">
+                                <input type="radio" class="btn-check star" name="stars" value="3" id="star3" autocomplete="off">
                                 <label for="star3" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
                             </div>
                             <div class="form-check form-check-inline m-0 p-0">
-                                <input type="radio" class="btn-check star" id="star4" autocomplete="off">
+                                <input type="radio" class="btn-check star" name="stars" value="4" id="star4" autocomplete="off">
                                 <label for="star4" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
                             </div>
                             <div class="form-check form-check-inline m-0 p-0">
-                                <input type="radio" class="btn-check star" id="star5" autocomplete="off">
+                                <input type="radio" class="btn-check star" name="stars" value="5" id="star5" autocomplete="off">
                                 <label for="star5" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
                             </div>
                         </div>
@@ -125,14 +125,14 @@
                     <!-- Review content -->
                     <div class="my-2">
                         <label for="reviewBody" class="form-label">Content</label>
-                        <textarea id="reviewBody" class="form-control"></textarea>
+                        <textarea id="reviewBody" name="description" class="form-control"></textarea>
                     </div>
                     <!-- Review files -->
-                     <label class="form-label">Attachments</label>
+                    <label class="form-label">Attachments</label>
                     <div class="container-fluid px-0">
                         <div class="row row-cols-4 row-cols-md-6 gy-2 gx-2" id="reviewFiles">
                             <div class="flex-grow-1">
-                                <input type="file" id="file-input" accept="image/*" hidden multiple>
+                                <input type="file" id="file-input" name="imageFiles" accept="image/*" hidden multiple>
                                 <label for="file-input" class="upload-label h-100 rounded">
                                     <div class="upload-content d-flex align-items-center">
                                         <i class="bi bi-plus-square-dotted"></i>
@@ -157,43 +157,41 @@
                     <button class="btn btn-danger my-2" type="reset">Cancel</button>
                 </form>
                 <script src="/js/starHandler.js"></script>
-                <div class="card text-white bg-body">
+                {{#reviews}}
+                <div class="card text-white bg-body w-100">
                     <div class="card-body">
-                        <h5 class="card-title mb-2">Recommended</h5>
-                        <span class="text-primary">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
+                        <h5 class="card-title mb-2">{{name}}</h5>
+                        <span class="text-primary review-{{rating}}">
                             <i class="bi bi-star-fill"></i>
                         </span>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ultrices hendrerit nibh, id faucibus lorem. Morbi quis tristique arcu, quis semper sapien. Duis tincidunt vel sapien quis dapibus. Integer ultricies metus vel magna gravida bibendum. Mauris molestie condimentum risus, pellentesque consectetur ligula euismod in. Suspendisse interdum purus eu varius faucibus. Maecenas vel urna nec arcu auctor dignissim. Sed eu dolor sem. Aenean hendrerit consequat nunc non elementum. Nullam hendrerit neque ante, a laoreet risus ullamcorper in. Proin nisl ipsum, tempus ut hendrerit molestie, ullamcorper quis turpis. Etiam dictum, nulla ac bibendum tempor, ligula velit feugiat elit, vitae tincidunt libero libero a est. Donec et lectus molestie, egestas tellus eget, fermentum justo. Praesent hendrerit elit eu eros faucibus consectetur. Quisque nec aliquam ante, convallis fermentum dui.</p>
+                        <div class="d-flex flex-column gap-2">
+                            <p class="card-text flex-grow-1">{{description}}</p>
+                            <div class="d-flex flex-row gap-2">
+                            {{#images}}
+                            <div style="height: 10em; width: 10em;">
+                                <img class="rounded" style="height: 10em; object-fit: cover;" src="/images/{{id}}">
+                            </div>
+                            {{/images}}
+                            </div>
+                        </div>
                     </div>
                     <div class="card-footer d-flex align-items-center gap-4 py-3">
-                        <a class="link-light link-underline link-underline-opacity-0 link-opacity-75-hover" href="usuario"><h5 class="m-0"><i class="bi bi-person-circle mx-2"></i>User 2</h5></a>
+                        {{#author}}
+                        <a class="link-light link-underline link-underline-opacity-0 link-opacity-75-hover" href="/user/{{id}}"><h5 class="m-0"><i class="bi bi-person-circle mx-2"></i>{{name}}</h5></a>
+                        {{/author}}
+                        {{^author}}
+                        <a class="link-light link-underline link-underline-opacity-0 link-opacity-75-hover" href="/"><h5 class="m-0"><i class="bi bi-person-circle mx-2"></i>Anonymous</h5></a>
+                        {{/author}}
                         <button class="btn btn-secondary hidden"><i class="bi bi-pencil-square"></i> Edit</button>
                         <button class="btn btn-danger hidden">Delete</button>
                     </div>
                 </div>
-                <div class="card text-white bg-body">
-                    <div class="card-body">
-                        <h5 class="card-title mb-2">Poor quality</h5>
-                        <span class="text-primary">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </span>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ultrices hendrerit nibh, id faucibus lorem. Morbi quis tristique arcu, quis semper sapien. Duis tincidunt vel sapien quis dapibus. Integer ultricies metus vel magna gravida bibendum. Mauris molestie condimentum risus, pellentesque consectetur ligula euismod in. Suspendisse interdum purus eu varius faucibus. Maecenas vel urna nec arcu auctor dignissim. Sed eu dolor sem. Aenean hendrerit consequat nunc non elementum. Nullam hendrerit neque ante, a laoreet risus ullamcorper in. Proin nisl ipsum, tempus ut hendrerit molestie, ullamcorper quis turpis. Etiam dictum, nulla ac bibendum tempor, ligula velit feugiat elit, vitae tincidunt libero libero a est. Donec et lectus molestie, egestas tellus eget, fermentum justo. Praesent hendrerit elit eu eros faucibus consectetur. Quisque nec aliquam ante, convallis fermentum dui.</p>
-                    </div>
-                    <div class="card-footer d-flex align-items-center gap-4 py-3">
-                        <a class="link-light link-underline link-underline-opacity-0 link-opacity-75-hover" href="usuario"><h5 class="m-0"><i class="bi bi-person-circle mx-2"></i>User 3</h5></a>
-                        <button class="btn btn-secondary hidden"><i class="bi bi-pencil-square"></i> Edit</button>
-                        <button class="btn btn-danger hidden">Delete</button>
-                    </div>
+                {{/reviews}}
+                {{^reviews}}
+                <div class="alert alert-info w-100" role="alert">
+                    No reviews yet.
                 </div>
-                <button class="btn btn-primary my-4">Read More</button>
+                {{/reviews}}
             </div>
         </div>
         {{/product}}

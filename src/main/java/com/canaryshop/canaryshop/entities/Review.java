@@ -2,7 +2,7 @@ package com.canaryshop.canaryshop.entities;
 
 import jakarta.persistence.*;
 
-import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 public class Review {
@@ -17,15 +17,15 @@ public class Review {
     @OneToOne
     private User author;
     @OneToMany(cascade=CascadeType.ALL)
-    private LinkedList<Image> images;
+    private List<Image> images;
 
     
     protected Review() {}
 
-    public Review(String description, Integer rating, String name, LinkedList<Image> images) {
+    public Review(String description, Integer rating, String name, List<Image> images) {
         this.description = description;
-        this.rating = rating;
-        this.name = name;
+        this.rating=rating;
+        this.name=name;
         this.images=images;
     }
     public String getName() {
@@ -36,6 +36,9 @@ public class Review {
     }
     public User getAuthor() {
         return author;
+    }
+    public void setAuthor(User author){
+        this.author = author;
     }
     public Integer getRating() {
         return rating;
