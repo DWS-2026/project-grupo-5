@@ -31,12 +31,12 @@ public class ProductManager {
         return "product";
     }
 
-    @GetMapping("/products/new")
+    @GetMapping("/product/new")
     public String serveNewProductForm(){
         return "addProduct";
     }
 
-    @PostMapping("/products/new")
+    @PostMapping("/product/new")
     public String createNewProduct(List<MultipartFile> imageFiles, @RequestParam String title, @RequestParam String description, @RequestParam Double price, @RequestParam Integer stock){
         List<Image> imageList = images.createImages(imageFiles);
         Product product = new Product(title, description, price, stock, imageList);
