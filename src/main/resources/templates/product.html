@@ -94,30 +94,30 @@
                     <!-- Review title  -->
                     <div class="my-2">
                         <label for="reviewTitle" class="form-label">Review title</label>
-                        <input type="text" name="title" id="reviewTitle" class="form-control">
+                        <input type="text" name="title" id="reviewTitle" class="form-control" required>
                     </div>
                     <!-- Review rating -->
                     <div class="my-2">
                         <label for="reviewStars" class="form-label">Rating</label>
                         <div id="reviewStars" class="d-flex gap-1">
                             <div class="form-check form-check-inline m-0 p-0">
-                                <input type="radio" class="btn-check star" name="stars" value="1" id="star1" autocomplete="off">
+                                <input type="radio" class="btn-check star" name="stars" value="1" id="star1" autocomplete="off" required>
                                 <label for="star1" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
                             </div>
                             <div class="form-check form-check-inline m-0 p-0">
-                                <input type="radio" class="btn-check star" name="stars" value="2" id="star2" autocomplete="off">
+                                <input type="radio" class="btn-check star" name="stars" value="2" id="star2" autocomplete="off" required>
                                 <label for="star2" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
                             </div>
                             <div class="form-check form-check-inline m-0 p-0">
-                                <input type="radio" class="btn-check star" name="stars" value="3" id="star3" autocomplete="off">
+                                <input type="radio" class="btn-check star" name="stars" value="3" id="star3" autocomplete="off" required>
                                 <label for="star3" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
                             </div>
                             <div class="form-check form-check-inline m-0 p-0">
-                                <input type="radio" class="btn-check star" name="stars" value="4" id="star4" autocomplete="off">
+                                <input type="radio" class="btn-check star" name="stars" value="4" id="star4" autocomplete="off" required>
                                 <label for="star4" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
                             </div>
                             <div class="form-check form-check-inline m-0 p-0">
-                                <input type="radio" class="btn-check star" name="stars" value="5" id="star5" autocomplete="off">
+                                <input type="radio" class="btn-check star" name="stars" value="5" id="star5" autocomplete="off" required>
                                 <label for="star5" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
                             </div>
                         </div>
@@ -125,7 +125,7 @@
                     <!-- Review content -->
                     <div class="my-2">
                         <label for="reviewBody" class="form-label">Content</label>
-                        <textarea id="reviewBody" name="description" class="form-control"></textarea>
+                        <textarea id="reviewBody" name="description" class="form-control" required></textarea>
                     </div>
                     <!-- Review files -->
                     <label class="form-label">Attachments</label>

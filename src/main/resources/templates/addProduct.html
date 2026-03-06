@@ -20,7 +20,7 @@
 
                     <!-- Where images are uploaded -->
                     <div class="upload-container pb-2">
-                        <input type="file" name="imageFiles" id="file-input" accept="image/*" hidden multiple>
+                        <input type="file" name="imageFiles" id="file-input" accept="image/*" hidden multiple required>
                         <label for="file-input" class="upload-label">
                             <div class="upload-content">
                                 <i class="bi bi-plus-square-dotted"></i>
@@ -56,13 +56,13 @@
 
                     <!-- Product name and description -->
                     <div class="my-3">
-                    <input type="text" name="title" class="form-control bg-body-secondary" id="exampleFormControlInput1" placeholder="Product name">
+                    <input type="text" name="title" class="form-control bg-body-secondary" id="exampleFormControlInput1" placeholder="Product name" required>
                     </div>
                     <div class="my-3">
-                    <textarea class="form-control bg-body-secondary" name="description" id="exampleFormControlTextarea1" rows="5" placeholder="Description"></textarea>
+                    <textarea class="form-control bg-body-secondary" name="description" id="exampleFormControlTextarea1" rows="5" placeholder="Description" required></textarea>
                     </div>
                     <div class="my-3">
-                        <input type="number" name="price" class="form-control bg-body-secondary" min="0" max="100000" step="0.01" placeholder="Price">
+                        <input type="number" name="price" class="form-control bg-body-secondary" min="0" max="100000" step="0.01" placeholder="Price" required>
                     </div>
                     <!-- Stock selector -->
                     <div class="my-3 d-flex align-items-center justify-content-between bg-body-secondary p-3 rounded">
@@ -72,7 +72,7 @@
                                 <input type="checkbox" class="form-check-input" id="indeterminateStock">
                                 <label for="indeterminateStock" class="form-check-label">Limitless</label>
                             </div>
-                            <input type="number" name="stock" class="form-control bg-body-secondary" min="0" max="100000" placeholder="1">
+                            <input type="number" name="stock" class="form-control bg-body-secondary" min="0" max="100000" value="1" required>
                         </div>
                     </div>
 
