@@ -161,7 +161,7 @@
                 <div class="card text-white bg-body w-100">
                     <div class="card-body">
                         <h5 class="card-title mb-2">{{name}}</h5>
-                        <span class="text-primary review-{{rating}}">
+                        <span class="text-primary review-rating rating-{{rating}}">
                             <i class="bi bi-star-fill"></i>
                         </span>
                         <div class="d-flex flex-column gap-2">
@@ -186,6 +186,9 @@
                         <button class="btn btn-danger hidden">Delete</button>
                     </div>
                 </div>
+                {{#-last}}
+                <script src="/js/reviewStars.js"></script>
+                {{/-last}}
                 {{/reviews}}
                 {{^reviews}}
                 <div class="alert alert-info w-100" role="alert">
