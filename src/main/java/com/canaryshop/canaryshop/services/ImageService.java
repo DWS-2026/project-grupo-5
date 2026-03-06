@@ -13,11 +13,18 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.sql.rowset.serial.SerialBlob;
+
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Service
 public class ImageService {
@@ -65,6 +72,18 @@ public class ImageService {
             log.error("Image by id {} does not have an image file associated", id);
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Image not found");
+    }
+    public Image createImage(String direccion){
+        try {
+            Path path = Paths.get(direccion);
+            SerialBlob imageFileBlob = new SerialBlob(Files.readAllBytes(path));
+            Image image = new Image(imageFileBlob);
+            images.save(image);
+            return image;
+        } catch (Exception e){
+            log.error("Couldn't load image");
+            return null;
+        }
     }
 
 }

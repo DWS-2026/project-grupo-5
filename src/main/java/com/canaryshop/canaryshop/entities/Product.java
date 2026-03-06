@@ -39,6 +39,15 @@ public class Product {
         this.rating =0;
         this.productImages=images;
     }
+    public Product(String name, String description, Double price, Integer stock, Image ... images) {
+        this.name= name;
+        this.description = description;
+        this.price = price;
+        this.stock = stock;
+        this.reported=0;
+        this.rating =0;
+        this.productImages=List.of(images);
+    }
 
     public List<Image> getProductImages() {
         return productImages;
@@ -99,11 +108,6 @@ public class Product {
         this.rating*=(reviewList.size());
         this.rating+=reviewRating.floatValue();
     }
-    public void addCart(Order ord){
-        this.carts.add(ord);
-    }
-    public void removeCart(Order ord){
-        this.carts.remove(ord);
-    }
+
     
 }

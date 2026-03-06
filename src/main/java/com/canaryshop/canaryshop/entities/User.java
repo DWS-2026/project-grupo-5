@@ -16,7 +16,8 @@ public class User {
     private String username;
     private String email;
     private String password;
-    private boolean isAdmin = false;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles;
 
     @OneToMany(mappedBy="vendor", cascade=CascadeType.ALL)
     private final List<Product> products = new LinkedList<>();
@@ -27,10 +28,11 @@ public class User {
     @OneToOne(cascade=CascadeType.ALL)
     private Image image;
 
-    public User(String username, String email, String password) {
+    public User(String username, String email, String password,String ... roles) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.roles=List.of(roles);
     }
 
     // Empty constructor for JPA
@@ -75,10 +77,5 @@ public class User {
     public void addProduct(Product product){
         this.products.add(product);
     }
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
-    }
+    
 }
