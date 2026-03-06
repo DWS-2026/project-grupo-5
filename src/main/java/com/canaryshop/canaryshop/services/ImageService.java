@@ -33,6 +33,9 @@ public class ImageService {
     private final Logger log = LoggerFactory.getLogger(ImageService.class);
 
     public Image createImage(MultipartFile imageFile){
+        if (imageFile == null || imageFile.isEmpty()){
+            return null;
+        }
         try {
             SerialBlob imageFileBlob = new SerialBlob(imageFile.getBytes());
             Image image = new Image(imageFileBlob);
