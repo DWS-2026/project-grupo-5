@@ -1,6 +1,9 @@
 package com.canaryshop.canaryshop.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.canaryshop.canaryshop.repositories.UserRepository;
@@ -8,12 +11,17 @@ import com.canaryshop.canaryshop.entities.User;
 
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     
     @Autowired
     private UserRepository repo;
 
     public void addUser(User user){
         this.repo.save(user);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
     }
 }
