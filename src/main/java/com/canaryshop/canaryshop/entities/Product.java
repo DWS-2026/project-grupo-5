@@ -39,14 +39,8 @@ public class Product {
         this.rating =0;
         this.productImages=images;
     }
-    public Product(String name, String description, Double price, Integer stock, Image ... images) {
-        this.name= name;
-        this.description = description;
-        this.price = price;
-        this.stock = stock;
-        this.reported=0;
-        this.rating =0;
-        this.productImages=List.of(images);
+    public Product(String name, String description, Double price, Integer stock, Image... images) {
+        this(name, description, price, stock, new LinkedList<>(List.of(images)));
     }
 
     public List<Image> getProductImages() {

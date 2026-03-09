@@ -39,7 +39,6 @@ public class ImageService {
         try {
             SerialBlob imageFileBlob = new SerialBlob(imageFile.getBytes());
             Image image = new Image(imageFileBlob);
-            images.save(image);
             return image;
         } catch (Exception e){
             log.error("Couldn't load image");
@@ -76,12 +75,11 @@ public class ImageService {
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Image not found");
     }
-    public Image createImage(String direccion){
+    public Image createImage(String filePath){
         try {
-            Path path = Paths.get(direccion);
+            Path path = Paths.get(filePath);
             SerialBlob imageFileBlob = new SerialBlob(Files.readAllBytes(path));
             Image image = new Image(imageFileBlob);
-            images.save(image);
             return image;
         } catch (Exception e){
             log.error("Couldn't load image");
