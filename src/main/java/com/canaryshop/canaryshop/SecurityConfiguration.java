@@ -31,8 +31,8 @@ public class SecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authenticationProvider(authenticationProvider());
         http.authorizeHttpRequests(authorize -> {
-                String[] guestPages = { "/", "/index", "/product/**", "/user/**", "/login", "/register", "/images/**", "/js/**", "/css/**" };
-                String[] userPages = { "/product/new", "/product/*/newReview", "/cart", "/logout" };
+                String[] guestPages = { "/", "/index", "/product/**", "/user/**", "/login", "/register", "/images/**", "/js/**", "/css/**", "/assets/**" };
+                String[] userPages = { "/product/new", "/product/*/review/new", "/cart", "/logout" };
                 String[] adminPages = { "/admin/**" };
                 for (String page: guestPages) { authorize.requestMatchers(page).permitAll(); }
                 for (String page: userPages) { authorize.requestMatchers(page).authenticated(); }
