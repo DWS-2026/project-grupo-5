@@ -12,7 +12,7 @@ public class CartManager {
     @GetMapping("/cart")
     public String index(Model model) {
         model.addAttribute("showCart", true);
-        return "carrito";
+        return "cart";
     }
 
 }

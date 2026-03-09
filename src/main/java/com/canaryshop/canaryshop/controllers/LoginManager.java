@@ -20,7 +20,7 @@ public class LoginManager {
     public String index(Model model) {
         model.addAttribute("showLogin", true);
         model.addAttribute("showRegister", false);
-        return "iniciosesion";
+        return "login";
     }
 
     @PostMapping("/login")
@@ -42,7 +42,7 @@ public class LoginManager {
     public String getMethodName(Model model) {
         model.addAttribute("showRegister", true);
         model.addAttribute("showLogin", false);
-        return "iniciosesion";
+        return "login";
     }
 
     @PostMapping("/register")
