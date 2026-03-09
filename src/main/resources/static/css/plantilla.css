@@ -79,6 +79,11 @@
     border-color: var(--yellow);
     color: var(--yellow);
 }
+.alert-info {
+    background-color: transparent;
+    border-color: var(--green);
+    color: var(--green);
+}
 .form-control {
     background-color: var(--item-disabled);
     color: var(--text);
