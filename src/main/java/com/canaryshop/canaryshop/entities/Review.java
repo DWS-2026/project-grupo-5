@@ -18,6 +18,8 @@ public class Review {
     private User author;
     @OneToMany(cascade=CascadeType.ALL)
     private List<Image> images;
+    @ManyToOne
+    private Product product;
 
     
     protected Review() {}
@@ -33,6 +35,12 @@ public class Review {
     }
     public String getDescription() {
         return description;
+    }
+    public Product getProduct(){
+        return product;
+    }
+    public void setProduct(Product product){
+        this.product = product;
     }
     public User getAuthor() {
         return author;

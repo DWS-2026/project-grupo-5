@@ -17,7 +17,7 @@ public class Product {
     private Double price;
     private Integer stock;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private final List<Review> reviews = new LinkedList<>();
     @OneToMany(cascade = CascadeType.ALL)
     private List<Image> productImages;
@@ -90,6 +90,7 @@ public class Product {
     }
     public void addReview(Review review){
         this.calculateRating(review.getRating());
+        review.setProduct(this);
         this.reviews.add(review);
         this.rating/=this.reviews.size();
     }

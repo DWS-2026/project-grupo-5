@@ -5,6 +5,7 @@ import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.Review;
 import com.canaryshop.canaryshop.services.ImageService;
 import com.canaryshop.canaryshop.services.ProductService;
+import com.canaryshop.canaryshop.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +21,12 @@ public class ProductManager {
     @Autowired
     private ProductService products;
     @Autowired
+    private ReviewService reviews;
+    @Autowired
     private ImageService images;
 
     @GetMapping({"/products/{id}", "/product/{id}"})
-    public String serveProduct(Model model, @PathVariable long id){
+    public String serveProduct(Model model, @PathVariable long id) {
         Product product = products.getProduct(id);
         model.addAttribute("product", product);
         return "product";
@@ -41,13 +44,25 @@ public class ProductManager {
         products.addProduct(product);
         return "redirect:/product/" + product.getId();
     }
-    @PostMapping("/product/{id}/newReview")
+    @PostMapping("/product/{id}/review/new")
     public String addNewReviewToProduct(@PathVariable long id, @RequestParam String title, @RequestParam int stars, @RequestParam String description, List<MultipartFile> imageFiles){
         List<Image> imageList = images.createImages(imageFiles);
         Review review = new Review(description, stars, title, imageList);
         Product product = products.getProduct(id);
-        product.addReview(review);
-        products.addProduct(product);
+        reviews.createReview(review, product);
         return "redirect:/product/" + product.getId();
+    }
+    @PostMapping("/product/{id}/delete")
+    public String deleteProduct(@PathVariable long id){
+        Product product = products.getProduct(id);
+        products.deleteProduct(product);
+        return "redirect:/";
+    }
+    @PostMapping("/product/{product_id}/review/{review_id}/delete")
+    public String deleteReview(@PathVariable long product_id, @PathVariable long review_id){
+        Product product = products.getProduct(product_id);
+        Review review = reviews.getReview(review_id);
+        reviews.deleteReview(review, product);
+        return "redirect:/product/" + product.getId(); // todo: arreglar fallo con edición de producto
     }
 }
