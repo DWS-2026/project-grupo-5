@@ -1,6 +1,7 @@
 package com.canaryshop.canaryshop;
 
 import com.canaryshop.canaryshop.entities.Product;
+import com.canaryshop.canaryshop.entities.Review;
 import com.canaryshop.canaryshop.entities.User;
 import com.canaryshop.canaryshop.entities.Image;
 import com.canaryshop.canaryshop.services.ImageService;
@@ -29,7 +30,11 @@ public class DataBaseInitializer {
     public void initDatabase() {
         userService.addUser(new User("Admin", "admin@canaryshop.com", passwordEncoder.encode("admin"),"User","Admin"));
         userService.addUser(new User("User1", "user1@canaryshop.com", passwordEncoder.encode("user1"),"User"));
-        Image Image1 = this.imageService.createImage("src/main/resources/static/assets/logo.png");
-        productService.addProduct(new Product("Samsung A56", "Buena calidad", 300.50, 1, Image1));
+        Image image = imageService.createImage("src/main/resources/static/assets/logo.png");
+        Image image2 = imageService.createImage("src/main/resources/static/assets/logo2.png");
+        Product product = new Product("Samsung A56", "Buena calidad", 300.50, 1, image);
+        product.addReview(new Review("test", 5, "TEST"));
+        product.addReview(new Review("test", 5, "test 2", image2));
+        productService.addProduct(product);
     }
 }

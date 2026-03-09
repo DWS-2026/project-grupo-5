@@ -2,6 +2,7 @@ package com.canaryshop.canaryshop.entities;
 
 import jakarta.persistence.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -29,6 +30,9 @@ public class Review {
         this.rating=rating;
         this.name=name;
         this.images=images;
+    }
+    public Review(String description, Integer rating, String name, Image... images) {
+        this(description, rating, name, new LinkedList<>(List.of(images)));
     }
     public String getName() {
         return name;
