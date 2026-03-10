@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
 @Controller
 public class LoginManager {
 
@@ -21,24 +20,27 @@ public class LoginManager {
     public String getLoginPage(Model model) {
         model.addAttribute("showLogin", true);
         model.addAttribute("showRegister", false);
-        return "iniciosesion";
+        return "login";
     }
+
     @GetMapping("/loginerror")
     public String getLoginErrorPage(Model model) {
         model.addAttribute("showLogin", true);
         model.addAttribute("showRegister", false);
         model.addAttribute("error", "Invalid email or password");
-        return "iniciosesion";
+        return "login";
     }
+
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
         model.addAttribute("showRegister", true);
         model.addAttribute("showLogin", false);
-        return "iniciosesion";
+        return "login";
     }
 
     @PostMapping("/register")
-    public String postMethodName(@RequestParam String username, @RequestParam String email, @RequestParam String password, Model model) {
+    public String postMethodName(@RequestParam String username, @RequestParam String email,
+            @RequestParam String password, Model model) {
         if (userRepository.findByEmail(email).isPresent()) {
             model.addAttribute("showRegister", true);
             model.addAttribute("showLogin", false);
@@ -52,5 +54,5 @@ public class LoginManager {
         model.addAttribute("showRegister", false);
         return "redirect:/login";
     }
-    
+
 }
