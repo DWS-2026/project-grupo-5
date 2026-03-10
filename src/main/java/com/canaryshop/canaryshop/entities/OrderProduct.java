@@ -13,6 +13,9 @@ public class OrderProduct {
     private Order order;
     protected OrderProduct(){}
     public OrderProduct(Order order, Product product, int quantity){
+        this.order = order;
+        this.product = product;
+        this.quantity = quantity;
     }
     public int getQuantity(){
         return this.quantity;

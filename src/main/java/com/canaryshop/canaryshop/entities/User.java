@@ -63,6 +63,9 @@ public class User {
     public Order getCart() {
         return cart;
     }
+    public void setCart(Order cart) {
+        this.cart = cart;
+    }
     public List<Order> getOrders() {
         return orders;
     }
