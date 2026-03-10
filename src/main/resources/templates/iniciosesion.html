@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link type="text/css" rel="stylesheet" href="plantilla.css">
+    <link type="text/css" rel="stylesheet" href="/assets/plantilla.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <title>CanaryShop</title>
 </head>
@@ -40,10 +40,10 @@
                                 <label class="form-label">Password</label>
                                 <input type="password" name="password" class="form-control bg-dark text-white" placeholder="••••••••" required>
                             </div>
-
+                            
                             {{#error}}
-                            <div class="alert alert-danger py-2 mt-2" role="alert">
-                                <small>{{error}}</small>
+                            <div class="alert alert-warning py-2 mt-2" role="alert">
+                                <small>Invalid email or password</small>
                             </div>
                             {{/error}}
 

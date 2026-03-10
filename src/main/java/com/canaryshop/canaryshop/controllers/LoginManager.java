@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -17,29 +18,20 @@ public class LoginManager {
     private UserRepository userRepository;
 
     @GetMapping("/login")
-    public String index(Model model) {
+    public String getLoginPage(Model model) {
         model.addAttribute("showLogin", true);
         model.addAttribute("showRegister", false);
         return "iniciosesion";
     }
-
-    @PostMapping("/login")
-    public String postMethodName(@RequestParam String email, @RequestParam String password, Model model) {
-        var userOpt = userRepository.findByEmail(email);
-
-        if (userOpt.isPresent() && userOpt.get().getPassword().equals(password)) {
-            return "redirect:/index";
-        }else {
-            model.addAttribute("showLogin", true);
-            model.addAttribute("showRegister", false);
-            model.addAttribute("error", "Invalid email or password");
-            return "redirect:/login";
-        }
+    @GetMapping("/loginerror")
+    public String getLoginErrorPage(Model model) {
+        model.addAttribute("showLogin", true);
+        model.addAttribute("showRegister", false);
+        model.addAttribute("error", "Invalid email or password");
+        return "iniciosesion";
     }
-    
-
     @GetMapping("/register")
-    public String getMethodName(Model model) {
+    public String getRegisterPage(Model model) {
         model.addAttribute("showRegister", true);
         model.addAttribute("showLogin", false);
         return "iniciosesion";
@@ -60,8 +52,5 @@ public class LoginManager {
         model.addAttribute("showRegister", false);
         return "redirect:/login";
     }
-    
-
-
     
 }

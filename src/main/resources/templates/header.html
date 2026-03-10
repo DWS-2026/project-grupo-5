@@ -8,7 +8,7 @@
 
             <!-- Logo Image -->
             <a class="navbar-brand" href="index">
-                <img class="img-fluid" src="logo.png" alt="Logo" width="150" height="40">
+                <img class="img-fluid" src="/assets/images/logo.png" alt="Logo" width="150" height="40">
             </a>
 
             <form class="d-flex me-4" role="search">
@@ -22,7 +22,7 @@
                 <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
 
             </form>
-            {{^user}}
+            {{^isLoggedIn}}
             <!-- Log in or sign up -->
             <div class="justify-content-end d-flex flex-row flex-nowrap">
                 <a href="/login">
@@ -32,8 +32,8 @@
                     <button type="button" class="btn btn-outline-primary rounded-start rounded-5 {{#showRegister}}active{{/showRegister}}">Sign up</button>
                 </a>
             </div>
-            {{/user}}
-            {{#user}}
+            {{/isLoggedIn}}
+            {{#isLoggedIn}}
             <!-- User Image -->
             <div class="justify-content-end h-75">
                 <button class="btn btn-secundary" type="button" data-bs-toggle="offcanvas"
@@ -66,7 +66,7 @@
                     </div>
                 </div>
             </div>
-            {{/user}}
+            {{/isLoggedIn}}
         </div>
     </nav>
 
@@ -115,7 +115,7 @@
 
     <!-- Mobile bottom navbar -->
     <nav class="navbar mx-4 bg-body navbar-dark rounded-bottom fixed-bottom rounded-5 d-md-none">
-        {{#user}}
+        {{#isLoggedIn}}
         <!-- Logged-in user -->
         <div class="container-fluid d-flex flex-row justify-content-between align-items-center px-4">
             <a class="btn btn-secondary" href="index" role="button"><i class="bi bi-house"></i></a>
@@ -127,8 +127,8 @@
             {{/admin}}
             <a class="btn btn-secondary" href="usuario" role="button"><i class="bi bi-person-circle"></i></a>
         </div>
-        {{/user}}
-        {{^user}}
+        {{/isLoggedIn}}
+        {{^isLoggedIn}}
         <!-- User not logged in -->
         <div class="container-fluid justify-content-between d-flex flex-row flex-nowrap align-items-center ">
             <a class="btn btn-secondary btn-lg ms-3" href="index" role="button"><i class="bi bi-house"></i></a>
@@ -142,7 +142,7 @@
                 </a>
             </div>
         </div>
-        {{/user}}
+        {{/isLoggedIn}}
     </nav>
 
 

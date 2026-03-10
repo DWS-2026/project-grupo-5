@@ -16,7 +16,7 @@ public class User {
     private String username;
     private String email;
     private String password;
-    private boolean isAdmin = false;
+    private List<String> roles;
 
     @OneToMany(mappedBy="vendor", cascade=CascadeType.ALL)
     private final List<Product> products = new LinkedList<>();
@@ -75,10 +75,10 @@ public class User {
     public void addProduct(Product product){
         this.products.add(product);
     }
-    public boolean isAdmin() {
-        return isAdmin;
+    public List<String> getRoles() {
+        return roles;
     }
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setRoles(String roles) {
+        this.roles.add(roles); 
     }
 }
