@@ -26,6 +26,9 @@ public class ProductService {
     }
 
     public void addProduct(Product product){
+        if (!product.isValid()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product invalid");
+        }
         products.save(product);
     }
     public Page<Product> getPageProducts(String name, String description, Pageable page){
@@ -36,6 +39,13 @@ public class ProductService {
         }
     }
     public void deleteProduct(Product product){
-        products.delete(product);
+        products.deleteById(product.getId());
+    }
+    public void editProduct(Product product, Product modification){
+        product.copy(modification);
+        if (!product.isValid()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product invalid");
+        }
+        products.save(product);
     }
 }

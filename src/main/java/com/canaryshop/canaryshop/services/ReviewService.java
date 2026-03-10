@@ -25,14 +25,27 @@ public class ReviewService {
         return review.get();
     }
     public void createReview(Review review, Product product){
+        if (!review.isValid()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Review invalid");
+        }
         product.addReview(review);
         products.addProduct(product);
     }
     public void deleteReview(Review review, Product product){
-        if (product.getReviews().contains(review)){
-            product.removeReview(review);
-            reviews.delete(review);
-            products.addProduct(product);
+        if (!product.getReviews().contains(review)){
+            return;
         }
+            product.removeReview(review);
+            reviews.deleteById(review.getId());
+    }
+    public void editReview(Review review, Review modification){
+        Product product = review.getProduct();
+        product.removeReview(review);
+        review.copy(modification);
+        if (!review.isValid()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Review invalid");
+        }
+        product.addReview(review);
+        products.addProduct(product);
     }
 }

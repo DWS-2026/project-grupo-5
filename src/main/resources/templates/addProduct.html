@@ -14,13 +14,20 @@
         </div>
         <div class="container mb-4 pb-4">
             <div class="row justify-content-center">
-                <form action="/product/new" method="POST" class="col-md-6 text-center" enctype="multipart/form-data">
+                <form action="/product/{{#product}}{{id}}/edit{{/product}}{{^product}}new{{/product}}" method="POST" class="col-md-6 text-center" enctype="multipart/form-data">
 
-                    <h4 class="text-white mb-4">New product</h4>
+                    <h4 class="text-white mb-4">
+                        {{#product}}
+                        Edit product
+                        {{/product}}
+                        {{^product}}
+                        New product
+                        {{/product}}
+                    </h4>
 
                     <!-- Where images are uploaded -->
                     <div class="upload-container pb-2">
-                        <input type="file" name="imageFiles" id="file-input" accept="image/*" hidden multiple required>
+                        <input type="file" name="imageFiles" id="file-input" accept="image/*" hidden multiple {{^product}}required{{/product}}>
                         <label for="file-input" class="upload-label">
                             <div class="upload-content">
                                 <i class="bi bi-plus-square-dotted"></i>
@@ -56,23 +63,19 @@
 
                     <!-- Product name and description -->
                     <div class="my-3">
-                    <input type="text" name="title" class="form-control bg-body-secondary" id="exampleFormControlInput1" placeholder="Product name" required>
+                    <input type="text" name="title" class="form-control bg-body-secondary" id="exampleFormControlInput1" {{^product}}placeholder="Product name"{{/product}} {{#product}}value="{{name}}"{{/product}} required>
                     </div>
                     <div class="my-3">
-                    <textarea class="form-control bg-body-secondary" name="description" id="exampleFormControlTextarea1" rows="5" placeholder="Description" required></textarea>
+                    <textarea class="form-control bg-body-secondary" name="description" id="exampleFormControlTextarea1" rows="5" {{^product}}placeholder="Description"{{/product}} required>{{#product}}{{description}}{{/product}}</textarea>
                     </div>
                     <div class="my-3">
-                        <input type="number" name="price" class="form-control bg-body-secondary" min="0" max="100000" step="0.01" placeholder="Price" required>
+                        <input type="number" name="price" class="form-control bg-body-secondary" min="0" max="100000" step="0.01" {{^product}}placeholder="Price"{{/product}} {{#product}}value="{{price}}"{{/product}} required>
                     </div>
                     <!-- Stock selector -->
                     <div class="my-3 d-flex align-items-center justify-content-between bg-body-secondary p-3 rounded">
                         <label for="stockSelector" class="form-label text-white">Stock</label>
                         <div id="stockSelector" class="d-flex gap-4 text-white align-items-center">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="indeterminateStock">
-                                <label for="indeterminateStock" class="form-check-label">Limitless</label>
-                            </div>
-                            <input type="number" name="stock" class="form-control bg-body-secondary" min="0" max="100000" value="1" required>
+                            <input type="number" name="stock" class="form-control bg-body-secondary" min="1" max="100000" value="{{^product}}1{{/product}}{{#product}}{{stock}}{{/product}}" required>
                         </div>
                     </div>
 

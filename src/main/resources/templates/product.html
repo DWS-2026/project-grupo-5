@@ -100,11 +100,11 @@
                     You need to buy the product to publish a review.
                 </div>
                 <!-- Review form -->
-                <form action="/product/{{id}}/review/new" id="reviewForm" method="post" enctype="multipart/form-data" class="text-white container bg-body rounded p-4">
+                <form action="/product/{{id}}/review/{{^edit-review}}new{{/edit-review}}{{#edit-review}}{{id}}/edit{{/edit-review}}" id="reviewForm" method="post" enctype="multipart/form-data" class="text-white container bg-body rounded p-4">
                     <!-- Review title  -->
                     <div class="my-2">
                         <label for="reviewTitle" class="form-label">Review title</label>
-                        <input type="text" name="title" id="reviewTitle" class="form-control" required>
+                        <input type="text" name="title" id="reviewTitle" class="form-control" required {{#edit-review}}value="{{name}}"{{/edit-review}}>
                     </div>
                     <!-- Review rating -->
                     <div class="my-2">
@@ -135,7 +135,7 @@
                     <!-- Review content -->
                     <div class="my-2">
                         <label for="reviewBody" class="form-label">Content</label>
-                        <textarea id="reviewBody" name="description" class="form-control" required></textarea>
+                        <textarea id="reviewBody" name="description" class="form-control" required>{{#edit-review}}{{description}}{{/edit-review}}</textarea>
                     </div>
                     <!-- Review files -->
                     <label class="form-label">Attachments</label>

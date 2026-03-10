@@ -49,6 +49,24 @@ public class Review {
     public User getAuthor() {
         return author;
     }
+    public Long getId(){
+        return id;
+    }
+    public boolean isValid(){
+        return (
+                !description.isBlank() &&
+                rating > 0 &&
+                !name.isBlank()
+        );
+    }
+    public void copy(Review review){
+        description = review.description;
+        rating = review.rating;
+        name = review.name;
+        if (!review.images.isEmpty()){
+            images = review.images;
+        }
+    }
     public void setAuthor(User author){
         this.author = author;
     }

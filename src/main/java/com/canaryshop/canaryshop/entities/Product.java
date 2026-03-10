@@ -71,11 +71,30 @@ public class Product {
         return reviews;
     }
 
+    public void copy(Product product){
+        name = product.name;
+        description = product.description;
+        price = product.price;
+        stock = product.stock;
+        if (!product.productImages.isEmpty()){
+            productImages = product.productImages;
+        }
+    }
+
     public float getRating() {
         return rating;
     }
     public long getId(){
         return id;
+    }
+    public boolean isValid(){
+        return (
+                !name.isBlank() &&
+                !description.isBlank() &&
+                price >= 0.01 &&
+                stock > 0 &&
+                !productImages.isEmpty()
+        );
     }
 
     public void report(){
