@@ -152,10 +152,7 @@
     --bs-nav-pills-link-active-bg: var(--green);
     --bs-nav-pills-link-active-color: var(--text);
 }
-/* Hidden objects */
-.hidden {
-    display: none !important;
-}
+
 
 /* Square label */
 .upload-label {

@@ -9,6 +9,7 @@ import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.repositories.UserRepository;
@@ -41,7 +42,8 @@ public class CanaryWebController {
     }
 
     @GetMapping({"/", "/index"})
-    public String index(Model model, @RequestParam(required = false) String search, Pageable page) {
+    public String index(Model model, @RequestParam(required = false) String search,@PageableDefault(size=12) Pageable page) {
+        
         Page<Product> results;
         if(search!=null && !search.isEmpty()){
             results= productService.getPageProducts(search, search, page);

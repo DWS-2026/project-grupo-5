@@ -1,7 +1,18 @@
 package com.canaryshop.canaryshop.services;
 
-import com.canaryshop.canaryshop.entities.Image;
-import com.canaryshop.canaryshop.repositories.ImageRepository;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.NoSuchElementException;
+
+import javax.sql.rowset.serial.SerialBlob;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +23,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.sql.rowset.serial.SerialBlob;
+import com.canaryshop.canaryshop.entities.Image;
+import com.canaryshop.canaryshop.repositories.ImageRepository;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.sql.Blob;
-import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
 
 @Service
 public class ImageService {
@@ -37,7 +40,7 @@ public class ImageService {
             return null;
         }
         try {
-            SerialBlob imageFileBlob = new SerialBlob(imageFile.getBytes());
+            SerialBlob imageFileBlob = new SerialBlob(this.resizeMultipartFile(imageFile));
             Image image = new Image(imageFileBlob);
             return image;
         } catch (Exception e){
@@ -78,13 +81,33 @@ public class ImageService {
     public Image createImage(String filePath){
         try {
             Path path = Paths.get(filePath);
-            SerialBlob imageFileBlob = new SerialBlob(Files.readAllBytes(path));
+            SerialBlob imageFileBlob = new SerialBlob(resizeFile(path));
             Image image = new Image(imageFileBlob);
             return image;
         } catch (Exception e){
             log.error("Couldn't load image");
             return null;
         }
+    }
+    private byte[] resizeMultipartFile(MultipartFile imageFile) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        Thumbnails.of(imageFile.getInputStream())
+                .forceSize(800, 800) // Force size to 800x800 
+                .outputFormat("png") // Force format to png
+                .toOutputStream(outputStream);
+
+        return outputStream.toByteArray();
+    }
+    private byte[] resizeFile(Path path) throws IOException{
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        Thumbnails.of(path.toFile())
+                .forceSize(600, 600) // Size 
+                .outputFormat("png") // Force format to png
+                .toOutputStream(outputStream);
+
+        return outputStream.toByteArray();
     }
 
 }
