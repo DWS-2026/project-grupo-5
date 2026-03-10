@@ -22,7 +22,7 @@
                 <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
 
             </form>
-            {{^user}}
+            {{^isLoggedIn}}
             <!-- Log in or sign up -->
             <div class="justify-content-end d-flex flex-row flex-nowrap">
                 <a href="/login">
@@ -32,8 +32,8 @@
                     <button type="button" class="btn btn-outline-primary rounded-start rounded-5 {{#showRegister}}active{{/showRegister}}">Sign up</button>
                 </a>
             </div>
-            {{/user}}
-            {{#user}}
+            {{/isLoggedIn}}
+            {{#isLoggedIn}}
             <!-- User Image -->
             <div class="justify-content-end h-75">
                 <button class="btn btn-secundary" type="button" data-bs-toggle="offcanvas"
@@ -60,13 +60,13 @@
                             cart</a>
                         <a class="text-decoration-none text-white" href="/user/{{id}}"><i class="bi bi-person-circle"></i>
                             Show profile</a>
-                        {{#admin}}
+                        {{#isAdmin}}
                         <a class="bi bi-wrench link-success nav-link" href="/admin"> Admin panel</a>
-                        {{/admin}}
+                        {{/isAdmin}}
                     </div>
                 </div>
             </div>
-            {{/user}}
+            {{/isLoggedIn}}
         </div>
     </nav>
 

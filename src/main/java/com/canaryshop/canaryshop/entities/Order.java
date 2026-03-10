@@ -17,7 +17,7 @@ public class Order {
     private boolean isClosed = false;
     
 
-    @OneToMany()
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<OrderProduct> products = new LinkedList<>();
 
     public Order(){}

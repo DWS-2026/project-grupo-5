@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.canaryshop.canaryshop.repositories.UserRepository;
 import com.canaryshop.canaryshop.entities.User;
+import java.util.Optional;
 
 
 @Service
@@ -19,9 +20,12 @@ public class UserService implements UserDetailsService {
     public void addUser(User user){
         this.repo.save(user);
     }
-
+    public Optional<User> findByUsername(String username) {
+        return repo.findByUsername(username);
+    }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return null;
     }
+    
 }

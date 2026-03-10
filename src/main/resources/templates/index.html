@@ -17,9 +17,9 @@
                     {{#products}}
                     <div class="col">
                         <a href="/product/{{id}}" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
-                            <div class="card shadow-sm bg-body-secondary">
+                            <div class="card shadow-sm bg-body-secondary height: 10em;">
                                 {{#productImages}}{{#-first}}
-                                <img src="/images/{{id}}"  alt="product Pthoto" onerror="this.src='/images/logo2.png';">
+                                    <img src="/images/{{id}}" onerror="this.src='/logo2.png';" style="height: 15rem; object-fit: cover;">
                                 {{/-first}}{{/productImages}}
                                 <div class="card-body text-white">
                                     <h5 class="card-title">{{name}}</h5>
