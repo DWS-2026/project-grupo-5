@@ -41,11 +41,13 @@
                     <li class="page-item {{^hasprev}}disabled{{/hasprev}}">
                         <a class="page-link bg-body bg-opacity-10 text-white border-dark border-opacity-25 rounded-5 rounded-end" href="/index?page={{prev}}{{#search}}&search={{search}}{{/search}}">Previous</a>
                     </li>
-                    <li class="page-item"><a class="page-link bg-body bg-opacity-10 text-white border-dark border-opacity-25" href="/index?">1</a></li>
-                    <li class="page-item"><a class="page-link bg-body bg-opacity-10 text-white border-dark border-opacity-25" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link bg-body bg-opacity-10 text-white border-dark border-opacity-25" href="#">3</a></li>
-                    <li class="page-item disabled"><a class="page-link bg-body bg-opacity-10 text-white border-dark border-opacity-25">...</a></li>
-                    <li class="page-item"><a class="page-link bg-body bg-opacity-10 text-white border-dark border-opacity-25" href="#">50</a></li>
+                    <li class="page-item {{^hasprev}}hidden{{/hasprev}}"><a class="page-link bg-body bg-opacity-10 text-white border-dark border-opacity-25" href="/index?page=0{{#search}}&search={{search}}{{/search}}">1</a></li>
+                    {{#less}}<li class="page-item disabled"><a class="page-link bg-body bg-opacity-10 text-white border-dark border-opacity-25">...</a></li>{{/less}}
+                    {{^lastPage}}<li class="page-item "><a class="page-link bg-body bg-opacity-10 text-white border-dark border-opacity-25" href="/index?page={{prev}}{{#search}}&search={{search}}{{/search}}">{{page}}</a></li>{{/lastPage}}
+                    <li class="page-item"><a class="page-link bg-body-secondary bg-opacity-75 text-white border-dark border-opacity-25" href="/index?page={{page}}{{#search}}&search={{search}}{{/search}}">{{next}}</a></li>
+                    <li class="page-item {{^hasnext}}hidden{{/hasnext}}"><a class="page-link bg-body bg-opacity-10 text-white border-dark border-opacity-25" href="/index?page={{next}}{{#search}}&search={{search}}{{/search}}">{{nextPage}}</a></li>
+                    {{#more}}<li class="page-item disabled"><a class="page-link bg-body bg-opacity-10 text-white border-dark border-opacity-25">...</a></li>{{/more}}
+                    {{#lastPage}}<li class="page-item "><a class="page-link bg-body bg-opacity-10 text-white border-dark border-opacity-25" href="/index?page={{lastPageLink}}{{#search}}&search={{search}}{{/search}}">{{lastPage}}</a></li>{{/lastPage}}
                     <li class="page-item {{^hasnext}}disabled{{/hasnext}}">
                         <a class="page-link bg-body bg-opacity-10 text-white border-dark border-opacity-25 rounded-5 rounded-start" href="/index?page={{next}}{{#search}}&search={{search}}{{/search}}">Next</a>
                     </li>

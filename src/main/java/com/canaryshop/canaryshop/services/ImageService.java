@@ -103,7 +103,7 @@ public class ImageService {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         Thumbnails.of(path.toFile())
-                .forceSize(600, 600) // Size 
+                .forceSize(800, 800) // Force size to 800x800 
                 .outputFormat("png") // Force format to png
                 .toOutputStream(outputStream);
 

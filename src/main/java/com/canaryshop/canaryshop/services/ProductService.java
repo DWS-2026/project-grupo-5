@@ -48,4 +48,8 @@ public class ProductService {
         }
         products.save(product);
     }
+    public long lastPage(){
+        long lastPage=this.products.count()/12;
+        return lastPage+1;
+    }
 }

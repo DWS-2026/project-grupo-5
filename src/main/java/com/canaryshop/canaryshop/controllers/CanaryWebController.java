@@ -45,18 +45,28 @@ public class CanaryWebController {
     public String index(Model model, @RequestParam(required = false) String search,@PageableDefault(size=12) Pageable page) {
         
         Page<Product> results;
-        if(search!=null && !search.isEmpty()){
-            results= productService.getPageProducts(search, search, page);
+        results= productService.getPageProducts(search, search, page);
+        if (search!=null){
             model.addAttribute("search", search);
-        }else{
-            results=productService.getPageProducts(null, null, page);
         }
         model.addAttribute("products", results);
         model.addAttribute("hasprev",results.hasPrevious());
         model.addAttribute("hasnext",results.hasNext());
         model.addAttribute("prev", page.getPageNumber()-1);
         model.addAttribute("next", page.getPageNumber()+1);
-        //model.addAttribute("page",page.getPageNumber());
+        model.addAttribute("nextPage", page.getPageNumber()+2);
+        long lastPage=this.productService.lastPage();
+        if (lastPage>page.getPageNumber()+2){
+            model.addAttribute("lastPage", this.productService.lastPage());
+            model.addAttribute("lastPageLink", this.productService.lastPage()-1);
+        }
+        if (page.getPageNumber()>1){
+            model.addAttribute("less",true);
+        }
+        if (lastPage-3>page.getPageNumber()){
+            model.addAttribute("more",true);
+        }
+        model.addAttribute("page",page.getPageNumber());
         return "index";
     }
     
