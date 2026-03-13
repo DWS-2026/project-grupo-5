@@ -43,14 +43,11 @@
                 </div>
             </div>
             <!-- Product Rating -->
-            <span class="text-primary my-2">
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star"></i>
-                <span class="text-white">({{rating}})</span>
+            <span class="my-2">
+                <span class="text-primary" id="productRating" rating="{{rating}}"></span>
+                <span class="text-white"> ({{rating}})</span>
             </span>
+            <script src="/js/productStars.js"></script>
             <!-- Vendor -->
             <h4  class="text-white">Sold by: <a href="usuario" class="link-light link-opacity-75-hover link-underline link-underline-opacity-0">User <i class="bi bi-person-circle"></i></a></i></h4>
             <!-- Product Stock -->
@@ -62,8 +59,6 @@
             <div class="my-2 d-flex flex-row gap-3">
                 <a href="payment"><button class="btn btn-primary btn-lg">Buy Now</button></a>
                 <button class="btn btn-secondary btn-lg">Add to Cart</button>
-                <!-- Favourite button -->
-                <button class="btn btn-favourite btn-lg"><i class="bi bi-heart"></i><i class="bi bi-heart-fill hidden"></i></button>
                 <form method="post" action="/product/{{id}}/delete">
                     <button class="btn btn-danger btn-lg" type="submit">
                         <i class="bi bi-x-lg"> </i>
@@ -166,7 +161,7 @@
                     <button class="btn btn-primary my-2 mx-1" type="submit">Send</button>
                     <button class="btn btn-danger my-2" type="reset">Cancel</button>
                 </form>
-                <script src="/js/starHandler.js"></script>
+                <script src="/js/formStarHandler.js"></script>
                 {{#reviews}}
                 <div class="card text-white bg-body w-100">
                     <div class="card-body">
