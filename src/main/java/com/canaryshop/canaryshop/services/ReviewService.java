@@ -36,6 +36,7 @@ public class ReviewService {
             return;
         }
             product.removeReview(review);
+            products.addProduct(product);
             reviews.deleteById(review.getId());
     }
     public void editReview(Review review, Review modification){

@@ -116,6 +116,9 @@ public class Product {
     public void removeReview(Review review){
         this.calculateRating(-(review.getRating()));
         this.reviews.remove(review);
+        if (reviews.isEmpty()){
+            return;
+        }
         this.rating/=this.reviews.size();
     }
     private void calculateRating(Integer reviewRating){
