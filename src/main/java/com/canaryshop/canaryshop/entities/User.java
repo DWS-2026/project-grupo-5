@@ -31,6 +31,7 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.roles = List.of(roles);
     }
 
     // Empty constructor for JPA

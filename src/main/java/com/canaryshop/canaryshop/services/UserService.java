@@ -1,18 +1,18 @@
 package com.canaryshop.canaryshop.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.canaryshop.canaryshop.repositories.UserRepository;
 import com.canaryshop.canaryshop.entities.User;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.Optional;
 
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
     
     @Autowired
     private UserRepository repo;
@@ -20,12 +20,12 @@ public class UserService implements UserDetailsService {
     public void addUser(User user){
         this.repo.save(user);
     }
-    public Optional<User> findByUsername(String username) {
-        return repo.findByUsername(username);
-    }
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+    public User getUser(String email){
+        Optional<User> user = repo.findByEmail(email);
+        if (user.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        }
+        return user.get();
     }
     
 }

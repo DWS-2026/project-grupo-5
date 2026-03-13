@@ -1,4 +1,5 @@
 package com.canaryshop.canaryshop.controllers;
+import com.canaryshop.canaryshop.services.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +22,7 @@ import jakarta.servlet.http.HttpServletRequest;
 public class CanaryWebController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService users;
 
     @Autowired
     private ProductService productService;
@@ -32,8 +33,7 @@ public class CanaryWebController {
         Principal principal = request.getUserPrincipal();
 
         if (principal != null) {
-            model.addAttribute("isLoggedIn", true);
-            model.addAttribute("username", principal.getName());
+            model.addAttribute("user", users.getUser(principal.getName()));
             model.addAttribute("isAdmin", request.isUserInRole("ADMIN"));
         }else {
             model.addAttribute("isLoggedIn", false);

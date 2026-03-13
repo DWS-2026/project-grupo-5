@@ -16,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration {
 
     @Autowired
-    private UserService userDetailService;
+    private RepositoryUserDetailsService userDetailService;
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -32,7 +32,7 @@ public class SecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authenticationProvider(authenticationProvider());
         http.authorizeHttpRequests(authorize -> {
-                String[] guestPages = { "/", "/index", "/product/**", "/user/**", "/login", "/register", "/images/**", "/js/**", "/css/**", "/assets/**" };
+                String[] guestPages = { "/", "/index", "/product/**", "/user/**", "/login", "/register", "/images/**", "/js/**", "/css/**", "/assets/**", "/error" };
                 String[] userPages = { "/product/new", "/product/*/review/new", "/cart", "/logout" };
                 String[] adminPages = { "/admin/**" };
                 for (String page: guestPages) { authorize.requestMatchers(page).permitAll(); }
@@ -41,6 +41,7 @@ public class SecurityConfiguration {
             }
         ).formLogin(formLogin -> formLogin
             .loginPage("/login")
+            .usernameParameter("email")
             .defaultSuccessUrl("/")
             .failureUrl("/loginerror")
             .permitAll()

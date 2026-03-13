@@ -2,12 +2,12 @@ package com.canaryshop.canaryshop.controllers;
 
 import com.canaryshop.canaryshop.entities.User;
 import com.canaryshop.canaryshop.repositories.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
@@ -15,6 +15,8 @@ public class LoginManager {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/login")
     public String getLoginPage(Model model) {
@@ -48,7 +50,7 @@ public class LoginManager {
             return "redirect:/register";
         }
 
-        User entity = new User(username, email, password);
+        User entity = new User(username, email, passwordEncoder.encode(password), ("USER"));
         userRepository.save(entity);
         model.addAttribute("showLogin", true);
         model.addAttribute("showRegister", false);

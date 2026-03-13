@@ -22,7 +22,7 @@
                 <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
 
             </form>
-            {{^isLoggedIn}}
+            {{^user}}
             <!-- Log in or sign up -->
             <div class="justify-content-end d-flex flex-row flex-nowrap">
                 <a href="/login">
@@ -32,13 +32,13 @@
                     <button type="button" class="btn btn-outline-primary rounded-start rounded-5 {{#showRegister}}active{{/showRegister}}">Sign up</button>
                 </a>
             </div>
-            {{/isLoggedIn}}
-            {{#isLoggedIn}}
+            {{/user}}
+            {{#user}}
             <!-- User Image -->
             <div class="justify-content-end h-75">
                 <button class="btn btn-secundary" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
-                    <img src="{{image}}" alt="user image" onerror="this.src='/assets/user.jpg';"
+                    <img src="{{#image}}/images/{{id}}{{/image}}{{^image}}{{/image}}" alt="user image" onerror="this.src='/assets/user.jpg';"
                          class="img-fluid rounded-circle" style="height: 2em;">
                 </button>
 
@@ -50,7 +50,7 @@
 
                     </div>
                     <div class="offcanvas-body bg-body d-flex flex-column">
-                        <img src="{{image}}" alt="user image" onerror="this.src='/assets/logo2.png';"
+                        <img src="{{#image}}/images/{{id}}{{/image}}{{^image}}{{/image}}" alt="user image" onerror="this.src='/assets/logo2.png';"
                              class="rounded-circle align-self-center" width="150" height="150">
                         <a class="text-decoration-none text-white" href="/"><i class="bi bi-house"></i>
                             Home</a>
@@ -66,7 +66,7 @@
                     </div>
                 </div>
             </div>
-            {{/isLoggedIn}}
+            {{/user}}
         </div>
     </nav>
 
