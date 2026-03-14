@@ -29,7 +29,7 @@ public class LoginManager {
     public String getLoginErrorPage(Model model) {
         model.addAttribute("showLogin", true);
         model.addAttribute("showRegister", false);
-        model.addAttribute("error", "Invalid email or password");
+        model.addAttribute("LoginError", "Invalid email or password");
         return "login";
     }
 
@@ -46,8 +46,8 @@ public class LoginManager {
         if (userRepository.findByEmail(email).isPresent()) {
             model.addAttribute("showRegister", true);
             model.addAttribute("showLogin", false);
-            model.addAttribute("error", "Email already in use");
-            return "redirect:/register";
+            model.addAttribute("RegisterError", "Email already in use");
+            return "/login";
         }
 
         User entity = new User(username, email, passwordEncoder.encode(password), ("USER"));
