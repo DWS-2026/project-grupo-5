@@ -20,6 +20,7 @@ public class ErrorManager implements ErrorController{
         HttpStatus status = HttpStatus.valueOf(statusCode);
         String attribute = switch (status){
             case BAD_REQUEST -> "error400";
+            case FORBIDDEN -> "error403";
             case NOT_FOUND -> "error404";
             case INTERNAL_SERVER_ERROR -> "error500";
             default -> "errorDefault";

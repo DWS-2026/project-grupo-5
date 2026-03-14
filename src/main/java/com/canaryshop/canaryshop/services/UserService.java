@@ -8,6 +8,7 @@ import com.canaryshop.canaryshop.repositories.UserRepository;
 import com.canaryshop.canaryshop.entities.User;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
 import java.util.Optional;
 
 
@@ -27,5 +28,7 @@ public class UserService {
         }
         return user.get();
     }
-    
+    public User getUser(Principal principal){
+        return principal == null ? null : getUser(principal.getName());
+    }
 }

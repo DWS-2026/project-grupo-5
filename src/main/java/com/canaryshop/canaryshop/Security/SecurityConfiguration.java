@@ -1,6 +1,5 @@
 package com.canaryshop.canaryshop.Security;
 
-import com.canaryshop.canaryshop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,15 +28,15 @@ public class SecurityConfiguration {
 	}
 
 	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	public SecurityFilterChain filterChain(HttpSecurity http) {
         http.authenticationProvider(authenticationProvider());
         http.authorizeHttpRequests(authorize -> {
-                String[] guestPages = { "/", "/index", "/product/**", "/user/**", "/login", "/register", "/images/**", "/js/**", "/css/**", "/assets/**", "/error" };
-                String[] userPages = { "/product/new", "/product/*/review/new", "/cart", "/logout" };
+                String[] guestPages = { "/", "/index", "/product/**", "/user/**", "/login", "/register", "/images/**", "/js/**", "/css/**", "/assets/**", "/error", "/user/*" };
+                String[] userPages = { "/product/new", "/product/*/edit", "/product/*/delete", "/product/*/review/**", "/cart/**", "/logout" };
                 String[] adminPages = { "/admin/**" };
-                for (String page: guestPages) { authorize.requestMatchers(page).permitAll(); }
-                for (String page: userPages) { authorize.requestMatchers(page).authenticated(); }
                 for (String page: adminPages) { authorize.requestMatchers(page).hasAnyRole("ADMIN"); }
+                for (String page: userPages) { authorize.requestMatchers(page).authenticated(); }
+                for (String page: guestPages) { authorize.requestMatchers(page).permitAll(); }
             }
         ).formLogin(formLogin -> formLogin
             .loginPage("/login")

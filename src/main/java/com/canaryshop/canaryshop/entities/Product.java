@@ -30,7 +30,8 @@ public class Product {
     private Integer reported;
 
     protected Product() {}
-    public Product(String name, String description, Double price, Integer stock, List<Image> images) {
+    public Product(User vendor, String name, String description, Double price, Integer stock, List<Image> images) {
+        this.vendor = vendor;
         this.name= name;
         this.description = description;
         this.price = price;
@@ -39,8 +40,8 @@ public class Product {
         this.rating =0;
         this.productImages=images;
     }
-    public Product(String name, String description, Double price, Integer stock, Image... images) {
-        this(name, description, price, stock, new LinkedList<>(List.of(images)));
+    public Product(User vendor, String name, String description, Double price, Integer stock, Image... images) {
+        this(vendor, name, description, price, stock, new LinkedList<>(List.of(images)));
     }
 
     public List<Image> getProductImages() {
@@ -95,6 +96,9 @@ public class Product {
                 stock > 0 &&
                 !productImages.isEmpty()
         );
+    }
+    public boolean canEdit(User user){
+        return !(user==null) && (vendor.equals(user) || user.getRoles().contains("ADMIN"));
     }
 
     public void report(){

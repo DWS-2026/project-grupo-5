@@ -25,14 +25,15 @@ public class Review {
     
     protected Review() {}
 
-    public Review(String description, Integer rating, String name, List<Image> images) {
+    public Review(User author, String description, Integer rating, String name, List<Image> images) {
+        this.author = author;
         this.description = description;
         this.rating=rating;
         this.name=name;
         this.images=images;
     }
-    public Review(String description, Integer rating, String name, Image... images) {
-        this(description, rating, name, new LinkedList<>(List.of(images)));
+    public Review(User author, String description, Integer rating, String name, Image... images) {
+        this(author, description, rating, name, new LinkedList<>(List.of(images)));
     }
     public String getName() {
         return name;
@@ -58,6 +59,9 @@ public class Review {
                 rating > 0 &&
                 !name.isBlank()
         );
+    }
+    public boolean canEdit(User user){
+        return !(user==null) && (author.equals(user) || user.getRoles().contains("ADMIN"));
     }
     public void copy(Review review){
         description = review.description;

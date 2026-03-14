@@ -20,11 +20,23 @@
         <p class="text-white-50 mb-4">Parece que los datos enviados no son válidos. Revisa el formulario.</p>
 
         <div class="d-flex gap-3">
-            <a href="index" class="btn btn-primary btn-lg px-5">Inicio</a>
+            <a href="/" class="btn btn-primary btn-lg px-5">Inicio</a>
             <button onclick="history.back()" class="btn btn-secondary btn-lg px-4">Volver</button>
         </div>
         {{/error400}}
+        {{#error403}}
+        <div class="error-display">
+            <h1 class="error-code">403</h1>
+        </div>
 
+        <h2 class="text-white fw-bold">ACCESO DENEGADO</h2>
+        <p class="text-white-50 mb-4">No tienes permiso para realizar esta acción.</p>
+
+        <div class="d-flex gap-3">
+            <a href="/" class="btn btn-primary btn-lg px-5">Inicio</a>
+            <button onclick="history.back()" class="btn btn-secondary btn-lg px-4">Volver</button>
+        </div>
+        {{/error403}}
         {{#error404}}
         <div class="error-display">
             <h1 class="error-code">404</h1>
@@ -34,7 +46,7 @@
         <p class="text-white-50 mb-4">Lo sentimos, el recurso que buscas no existe o ha sido movido.</p>
 
         <div class="d-flex gap-3">
-            <a href="index" class="btn btn-primary btn-lg px-5">Inicio</a>
+            <a href="/" class="btn btn-primary btn-lg px-5">Inicio</a>
             <button onclick="history.back()" class="btn btn-secondary btn-lg px-4">Volver</button>
         </div>
         {{/error404}}
@@ -48,7 +60,7 @@
         <p class="text-white-50 mb-4">Algo se rompió en nuestro servidor. Estamos trabajando para arreglarlo.</p>
 
         <div class="d-flex gap-3">
-            <a href="index" class="btn btn-primary btn-lg px-5">Inicio</a>
+            <a href="/" class="btn btn-primary btn-lg px-5">Inicio</a>
             <button onclick="history.back()" class="btn btn-secondary btn-lg px-4">Volver</button>
         </div>
         {{/error500}}
@@ -62,7 +74,7 @@
         <p class="text-white-50 mb-4">Ha ocurrido un error desconocido. Por favor, inténtelo más tarde.</p>
 
         <div class="d-flex gap-3">
-            <a href="index" class="btn btn-primary btn-lg px-5">Inicio</a>
+            <a href="/" class="btn btn-primary btn-lg px-5">Inicio</a>
             <button onclick="history.back()" class="btn btn-secondary btn-lg px-4">Volver</button>
         </div>
         {{/errorDefault}}

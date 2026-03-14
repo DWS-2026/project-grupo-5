@@ -49,7 +49,7 @@
             </span>
             <script src="/js/productStars.js"></script>
             <!-- Vendor -->
-            <h4  class="text-white">Sold by: <a href="usuario" class="link-light link-opacity-75-hover link-underline link-underline-opacity-0">User <i class="bi bi-person-circle"></i></a></i></h4>
+            <h4  class="text-white">Sold by: <a href="/user/{{vendor.id}}" class="link-light link-opacity-75-hover link-underline link-underline-opacity-0">{{vendor.username}} <i class="bi bi-person-circle"></i></a></i></h4>
             <!-- Product Stock -->
             <h6 class="text-white">
                 {{stock}}
@@ -57,8 +57,11 @@
             </h6>
             <!-- Buy Buttons -->
             <div class="my-2 d-flex flex-row gap-3">
+                {{^canEditProduct}}
                 <a href="payment"><button class="btn btn-primary btn-lg">Buy Now</button></a>
                 <button class="btn btn-secondary btn-lg">Add to Cart</button>
+                {{/canEditProduct}}
+                {{#canEditProduct}}
                 <form method="post" action="/product/{{id}}/delete">
                     <button class="btn btn-danger btn-lg" type="submit">
                         <i class="bi bi-x-lg"> </i>
@@ -69,6 +72,7 @@
                     <i class="bi bi-pencil-square"> </i>
                     Edit
                 </a>
+                {{/canEditProduct}}
             </div>
             <!-- Product Description -->
             <h2 class="text-white">Product description:</h2>
@@ -182,7 +186,7 @@
                     </div>
                     <div class="card-footer d-flex align-items-center gap-4 py-3">
                         {{#author}}
-                        <a class="link-light link-underline link-underline-opacity-0 link-opacity-75-hover" href="/user/{{id}}"><h5 class="m-0"><i class="bi bi-person-circle mx-2"></i>{{name}}</h5></a>
+                        <a class="link-light link-underline link-underline-opacity-0 link-opacity-75-hover" href="/user/{{id}}"><h5 class="m-0"><i class="bi bi-person-circle mx-2"></i>{{username}}</h5></a>
                         {{/author}}
                         {{^author}}
                         <a class="link-light link-underline link-underline-opacity-0 link-opacity-75-hover" href="/"><h5 class="m-0"><i class="bi bi-person-circle mx-2"></i>Anonymous</h5></a>
