@@ -27,7 +27,7 @@ public class CartManager {
 
         // Si no está en sesión pero el usuario está logueado, recuperamos su carrito de la BD
         if (cart == null && principal != null) {
-            User user = userService.findByUsername(principal.getName()).orElse(null);
+            User user = userService.getUser(principal.getName());
             if (user != null && user.getCart() != null) {
                 cart = user.getCart();
                 session.setAttribute("cart", cart);
@@ -61,7 +61,7 @@ public class CartManager {
 
         // Si hay usuario, vinculamos y persistimos en BD
         if (principal != null) {
-            User user = userService.findByUsername(principal.getName()).orElseThrow();
+            User user = userService.getUser(principal.getName());
             user.setCart(cart); // Asegúrate de tener este setter en User.java
             userService.addUser(user);
         }
@@ -79,7 +79,7 @@ public class CartManager {
             session.setAttribute("cart", cart);
 
             if (principal != null) {
-                User user = userService.findByUsername(principal.getName()).orElseThrow();
+                User user = userService.getUser(principal.getName());
                 userService.addUser(user);
             }
         }

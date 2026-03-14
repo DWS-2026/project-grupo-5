@@ -15,7 +15,7 @@ public class Review {
     private Integer rating;
     private String name;
 
-    @OneToOne
+    @ManyToOne
     private User author;
     @OneToMany(cascade=CascadeType.ALL)
     private List<Image> images;
