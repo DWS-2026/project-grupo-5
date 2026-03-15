@@ -11,14 +11,10 @@
                 <img class="img-fluid" src="/assets/logo.png" alt="Logo" width="150" height="40">
             </a>
 
-            <form class="d-flex me-4" role="search">
-                <!-- Categories button -->
-                <button class="btn btn-secondary me-2" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#categoriesMenu">
-                    <i class="bi bi-list"></i>
-                </button>
+            <form class="d-flex me-4" role="search" action="/index">
+
                 <!-- Search bar -->
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" {{#search}} value="{{search}}" {{/search}}/>
                 <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
 
             </form>
@@ -87,34 +83,16 @@
             <div class="d-flex justify-content-between align-items-center flex-fill">
 
 
-                <form class="d-flex me-4" role="search">
-                    <!-- Categories button -->
-                    <button class="btn btn-secondary me-2" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#categoriesMenu">
-                        <i class="bi bi-list"></i>
-                    </button>
+                <form class="d-flex me-4" role="search" action="/index">
+
                     <!-- Search bar -->
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" {{#search}}value="{{search}}"{{/search}}/>
                     <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
 
                 </form>
             </div>
         </div>
     </nav>
-
-    <!-- Categories -->
-    <div class="collapse mx-4 bg-body-secondary rounded-top rounded-5" id="categoriesMenu">
-        <div class="p-4">
-            <h5 class="h4 text-white">Categorías</h5>
-            <div class="d-flex flex-row flex-wrap align-items-center text-white">
-                <div class="p-2"><a href="#" class="nav-link">Hardware</a></div>
-                <div class="p-2"><a href="#" class="nav-link">Software</a></div>
-                <div class="p-2"><a href="#" class="nav-link">Microcontroller</a></div>
-                <div class="p-2"><a href="#" class="nav-link">Peripherals</a></div>
-                <div class="p-2"><a href="#" class="nav-link">Hacking</a></div>
-            </div>
-        </div>
-    </div>
 
     <!-- Mobile bottom navbar -->
     <nav class="navbar mx-4 bg-body navbar-dark rounded-bottom fixed-bottom rounded-5 d-md-none">

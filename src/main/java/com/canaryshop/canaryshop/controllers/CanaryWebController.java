@@ -57,10 +57,10 @@ public class CanaryWebController {
         model.addAttribute("prev", page.getPageNumber()-1);
         model.addAttribute("next", page.getPageNumber()+1);
         model.addAttribute("nextPage", page.getPageNumber()+2);
-        long lastPage=this.productService.lastPage();
+        int lastPage=results.getTotalPages();
         if (lastPage>page.getPageNumber()+2){
-            model.addAttribute("lastPage", this.productService.lastPage());
-            model.addAttribute("lastPageLink", this.productService.lastPage()-1);
+            model.addAttribute("lastPage", lastPage);
+            model.addAttribute("lastPageLink", lastPage-1);
         }
         if (page.getPageNumber()>1){
             model.addAttribute("less",true);
