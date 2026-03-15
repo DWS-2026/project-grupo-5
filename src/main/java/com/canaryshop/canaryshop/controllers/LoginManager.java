@@ -47,7 +47,7 @@ public class LoginManager {
             model.addAttribute("showRegister", true);
             model.addAttribute("showLogin", false);
             model.addAttribute("RegisterError", "Email already in use");
-            return "/login";
+            return "login";
         }
 
         User entity = new User(username, email, passwordEncoder.encode(password), ("USER"));

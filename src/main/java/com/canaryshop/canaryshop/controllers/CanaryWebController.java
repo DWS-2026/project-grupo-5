@@ -2,6 +2,7 @@ package com.canaryshop.canaryshop.controllers;
 import com.canaryshop.canaryshop.services.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
 
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.repositories.UserRepository;
 import com.canaryshop.canaryshop.services.ProductService;
+import com.canaryshop.canaryshop.entities.User;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -68,6 +70,14 @@ public class CanaryWebController {
         }
         model.addAttribute("page",page.getPageNumber());
         return "index";
+    }
+    
+
+    @GetMapping("/user/{id}")
+    public String getUserProfile(Model model, @PathVariable Long id) {
+        User user = users.findById(id);
+        model.addAttribute("user", user);
+        return "user";
     }
     
 }

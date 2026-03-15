@@ -58,7 +58,7 @@
                             product</a>
                         <a class="text-decoration-none text-white" href="/cart"><i class="bi bi-cart2"></i> Shopping
                             cart</a>
-                        <a class="text-decoration-none text-white" href="/user/{{id}}"><i class="bi bi-person-circle"></i>
+                        <a class="text-decoration-none text-white" href="/user/{{user.id}}"><i class="bi bi-person-circle"></i>
                             Show profile</a>
                         {{#isAdmin}}
                         <a class="bi bi-wrench link-success nav-link" href="/admin"> Admin panel</a>
@@ -128,7 +128,10 @@
             <a class="btn btn-secondary link-success" href="/admin" role="button"><i
                     class="bi bi-wrench"></i></a>
             {{/admin}}
-            <a class="btn btn-secondary" href="/user/{{id}}" role="button"><i class="bi bi-person-circle"></i></a>
+            <a class="btn btn-secondary" href="/user/{{user.id}}" role="button"><i class="bi bi-person-circle"></i></a>
+            <a class="text-decoration-none text-danger py-2" href="/logout">
+                <i class="bi bi-box-arrow-right"></i> Log out
+            </a>
         </div>
         {{/user}}
         {{^user}}

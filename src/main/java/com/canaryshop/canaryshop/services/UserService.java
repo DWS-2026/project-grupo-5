@@ -9,6 +9,7 @@ import com.canaryshop.canaryshop.entities.User;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -30,5 +31,17 @@ public class UserService {
     }
     public User getUser(Principal principal){
         return principal == null ? null : getUser(principal.getName());
+    }
+
+    public User findById(Long id){
+        Optional<User> user = repo.findById(id);
+        if (user.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        }
+        return user.get();
+    }
+
+    public List<User> findAll() {
+        return repo.findAll();
     }
 }
