@@ -136,6 +136,11 @@ public class Product {
         this.rating*=(reviews.size());
         this.rating+=reviewRating.floatValue();
     }
-
+    public Image getFirstImage() {
+    if (productImages != null && !productImages.isEmpty()) {
+        return productImages.get(0);
+    }
+    return null;
+}
     
 }

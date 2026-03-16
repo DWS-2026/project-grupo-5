@@ -3,65 +3,59 @@
 <head>
 {{>docHead}}
 </head>
-
 <body class="bg-dark min-vh-100 py-2 bg-opacity-75">
-
 {{>header}}
     <main>
         <div class="container d-flex flex-column my-4 p-4 rounded gap-4">
-            <!-- Product Cards -->
             <div class="d-flex flex-column gap-2" id="cartProducts">
                 {{#items}}
                 <div class="card bg-body text-white p-4">
-                    <a href="/product/{{product.id}}" class="link-light link-underline link-underline-opacity-0">
-                        <!-- Image-Content separator -->
-                        <div class="d-flex gap-3">
-                            {{#product.productImages}}{{#-first}}
-                            <img src="/images/{{id}}" class="img-fluid rounded" style="height: 15vh">
-                            {{/-first}}{{/product.productImages}}
-                            <!-- Product content -->
-                            <div class="d-flex flex-column card-body gap-3">
-                                <!-- Title and price -->
-                                <span class="card-title d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2">
-                                    <h4 class="mb-0">{{product.name}}</h4>
-                                    <span class="text-bg-primary p-2 rounded fs-5" style="width: fit-content">
-                                        {{product.price}}€
-                                    </span>
-                                </span>
-                                <!-- Vendor details -->
-                                <h5 class="card-subtitle">
-                                    Sold By:
-                                    <a class="link-light link-opacity-75-hover link-underline link-underline-opacity-0"  href="/user/{{product.vendor.id}}">
-                                        <i class="bi bi-person-circle"></i>
-                                        {{product.vendor.username}}
-                                    </a>
-                                </h5>
-                                <!-- Amount changer -->
-                                <div class="d-flex gap-3 align-items-center align-self-end">
-                                    <button class="btn btn-danger">-</button>
-                                    {{quantity}}
-                                    <button class="btn btn-primary">+</button>
-                                </div>
+                    <div class="d-flex gap-3">
+                        {{#product.productImages}}{{#-first}}
+                        <img src="/images/{{id}}" class="img-fluid rounded" style="height: 15vh" onerror="this.src='https://picsum.photos/200/200'">
+                        {{/-first}}{{/product.productImages}}
+                        <div class="d-flex flex-column card-body gap-3">
+                            <span class="card-title d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2">
+                                <h4 class="mb-0">{{product.name}}</h4>
+                                <span class="text-bg-primary p-2 rounded fs-5" style="width: fit-content">{{product.price}}€</span>
+                            </span>
+                            <h5 class="card-subtitle">
+                                Vendido por: 
+                                <a class="link-light link-opacity-75-hover link-underline-opacity-0" href="/user/{{product.vendor.id}}">
+                                    <i class="bi bi-person-circle"></i> {{product.vendor.username}}
+                                </a>
+                            </h5>
+                            <div class="d-flex gap-3 align-items-center align-self-end">
+                                <form action="/cart/remove/{{product.id}}" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger">-</button>
+                                </form>
+                                <span class="fs-5 fw-bold">{{quantity}}</span>
+                                <form action="/cart/add/{{product.id}}" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-primary">+</button>
+                                </form>
                             </div>
                         </div>
-                    </a>
+                    </div>
+                </div>
+                {{/items}}
+                {{^items}}
+                <div class="text-center text-white mt-5">
+                    <h4>Tu carrito está vacío.</h4>
+                    <a href="/" class="btn btn-outline-light mt-3">Ir a la tienda</a>
                 </div>
                 {{/items}}
             </div>
-            {{#items}}
-            {{#-last}}
+            {{#items}}{{#-last}}
             <span class="d-flex align-items-center justify-content-between text-white m-4">
                 <h3>Total:</h3>
-                <span class="text-bg-primary rounded p-2 fs-3">
-                    {{totalPrice}}€
-                </span>
+                <span class="text-bg-primary rounded p-2 fs-3">{{totalPrice}}€</span>
             </span>
-            <a class="btn btn-primary" href="/payment" role="button">Proceed to purchase</a>
-            {{/-last}}
-            {{/items}}
-            {{^items}}
-            <h3 class="text-white m-4">The cart is empty.</h3>
-            {{/items}}
+            <div class="d-grid gap-2 m-4">
+                <a href="/payment" class="btn btn-success btn-lg rounded-pill py-3 fw-bold">
+                    <i class="bi bi-credit-card-2-front me-2"></i>Proceder al Pago
+                </a>
+            </div>
+            {{/-last}}{{/items}}
         </div>
     </main>
 </body>

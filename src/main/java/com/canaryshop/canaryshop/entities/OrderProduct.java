@@ -20,6 +20,9 @@ public class OrderProduct {
     public int getQuantity(){
         return this.quantity;
     }
+    public void setQuantity(int quantity){
+        this.quantity = quantity;
+    }
     public Product getProduct(){
         return this.product;
     }

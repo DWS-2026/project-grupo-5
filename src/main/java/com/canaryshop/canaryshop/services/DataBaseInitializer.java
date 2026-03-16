@@ -35,6 +35,7 @@ public class DataBaseInitializer {
             User user1 = new User("User1", "user1@canaryshop.com", passwordEncoder.encode("user1"),"USER");
             userService.addUser(admin);
             userService.addUser(user1);
+            Order order = new Order();
             for (int i=1; i<=56;i++){
                 Product product = null;
                 switch(i%4){
@@ -60,6 +61,9 @@ public class DataBaseInitializer {
                     }
                 };
                 productService.addProduct(product);
+                this.orderRepository.save(order);
+                user1.setCart(order);
+                this.userService.addUser(user1);
             }
             for (int i=1; i<=16;i++){
                 Product product = null;
