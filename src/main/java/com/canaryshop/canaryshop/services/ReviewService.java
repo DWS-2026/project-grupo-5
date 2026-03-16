@@ -2,6 +2,7 @@ package com.canaryshop.canaryshop.services;
 
 import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.Review;
+import com.canaryshop.canaryshop.entities.User;
 import com.canaryshop.canaryshop.repositories.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,15 +25,25 @@ public class ReviewService {
         }
         return review.get();
     }
+    public Review getReview(User user, Product product){
+        if (user == null || product == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");
+        }
+        Optional<Review> review = reviews.findByAuthorAndProduct(user, product);
+        if (review.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");
+        }
+        return review.get();
+    }
     public void createReview(Review review, Product product){
-        if (!review.isValid()){
+        if (review == null || !review.isValid()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Review invalid");
         }
         product.addReview(review);
         products.addProduct(product);
     }
     public void deleteReview(Review review, Product product){
-        if (!product.getReviews().contains(review)){
+        if (product == null || !product.getReviews().contains(review)){
             return;
         }
             product.removeReview(review);
@@ -40,6 +51,9 @@ public class ReviewService {
             reviews.deleteById(review.getId());
     }
     public void editReview(Review review, Review modification){
+        if (review == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Review is null");
+        }
         Product product = review.getProduct();
         product.removeReview(review);
         review.copy(modification);

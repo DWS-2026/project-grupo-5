@@ -1,5 +1,6 @@
 package com.canaryshop.canaryshop.entities;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -69,6 +70,12 @@ public class Product {
     }
 
     public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public List<Review> getReviewsExcluding(Review... excluding){
+        List<Review> reviews = new LinkedList<>(this.reviews);
+        reviews.removeAll(Arrays.asList(excluding));
         return reviews;
     }
 

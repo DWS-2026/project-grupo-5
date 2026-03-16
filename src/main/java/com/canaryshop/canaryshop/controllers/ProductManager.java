@@ -34,8 +34,15 @@ public class ProductManager {
     @GetMapping({"/products/{id}", "/product/{id}"})
     public String serveProduct(Model model, @PathVariable long id, Principal principal) {
         Product product = products.getProduct(id);
+        User user = users.getUser(principal);
         model.addAttribute("product", product);
-        model.addAttribute("canEditProduct", product.canEdit(users.getUser(principal)));
+        model.addAttribute("canEditProduct", product.canEdit(user));
+        // This mess is necessary to separate all reviews from the current user's, if it exists
+        Review userReview;
+        try { userReview = reviews.getReview(user, product); }
+        catch (ResponseStatusException exception) { userReview = null; }
+        model.addAttribute("userReview", userReview);
+        model.addAttribute("productReviews", product.getReviewsExcluding(userReview));
         return "product";
     }
     @GetMapping("/product/new")

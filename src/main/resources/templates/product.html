@@ -90,15 +90,19 @@
             <!-- Reviews -->
             <h2 class="text-white my-4">Product reviews:</h2>
             <div class="container d-flex flex-column align-items-center p-0 gap-3">
+                {{^user}}
                 <!-- Guest User Alert -->
                 <div class="alert alert-warning w-100 hidden" role="alert">
                     You need to be logged in to publish a review.
                 </div>
+                {{/user}}
+                {{#user}}
                 <!-- Non-bought Article Alert -->
                 <div class="alert alert-warning w-100 hidden" role="alert">
                     You need to buy the product to publish a review.
                 </div>
                 <!-- Review form -->
+                {{^userReview}}
                 <form action="/product/{{id}}/review/{{^edit-review}}new{{/edit-review}}{{#edit-review}}{{id}}/edit{{/edit-review}}" id="reviewForm" method="post" enctype="multipart/form-data" class="text-white container bg-body rounded p-4">
                     <!-- Review title  -->
                     <div class="my-2">
@@ -166,7 +170,41 @@
                     <button class="btn btn-danger my-2" type="reset">Cancel</button>
                 </form>
                 <script src="/js/formStarHandler.js"></script>
-                {{#reviews}}
+                {{/userReview}}
+                {{#userReview}}
+                <div class="card text-white bg-body w-100">
+                    <div class="card-body">
+                        <h5 class="card-title mb-2">{{name}}</h5>
+                        <span class="text-primary review-rating rating-{{rating}}">
+                            <i class="bi bi-star-fill"></i>
+                        </span>
+                        <div class="d-flex flex-column gap-2">
+                            <p class="card-text flex-grow-1">{{description}}</p>
+                            <div class="d-flex flex-row gap-2">
+                                {{#images}}
+                                <div style="height: 10em; width: 10em;">
+                                    <img class="rounded" style="height: 10em; object-fit: cover;" src="/images/{{id}}">
+                                </div>
+                                {{/images}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex align-items-center gap-4 py-3">
+                        {{#author}}
+                        <a class="link-light link-underline link-underline-opacity-0 link-opacity-75-hover" href="/user/{{id}}"><h5 class="m-0"><i class="bi bi-person-circle mx-2"></i>{{username}}</h5></a>
+                        {{/author}}
+                        {{^author}}
+                        <a class="link-light link-underline link-underline-opacity-0 link-opacity-75-hover" href="/"><h5 class="m-0"><i class="bi bi-person-circle mx-2"></i>Anonymous</h5></a>
+                        {{/author}}
+                        <a class="btn btn-secondary" href="/product/{{product.id}}/review/{{id}}/edit"><i class="bi bi-pencil-square"></i> Edit</a>
+                        <form action="/product/{{product.id}}/review/{{id}}/delete" method="post">
+                            <button class="btn btn-danger" type="submit"><i class="bi bi-x-lg"> </i>Delete</button>
+                        </form>
+                    </div>
+                </div>
+                {{/userReview}}
+                {{/user}}
+                {{#productReviews}}
                 <div class="card text-white bg-body w-100">
                     <div class="card-body">
                         <h5 class="card-title mb-2">{{name}}</h5>
@@ -191,12 +229,16 @@
                         {{^author}}
                         <a class="link-light link-underline link-underline-opacity-0 link-opacity-75-hover" href="/"><h5 class="m-0"><i class="bi bi-person-circle mx-2"></i>Anonymous</h5></a>
                         {{/author}}
+                        {{#isAdmin}}
                         <a class="btn btn-secondary" href="/product/{{product.id}}/review/{{id}}/edit"><i class="bi bi-pencil-square"></i> Edit</a>
                         <form action="/product/{{product.id}}/review/{{id}}/delete" method="post">
                             <button class="btn btn-danger" type="submit"><i class="bi bi-x-lg"> </i>Delete</button>
                         </form>
+                        {{/isAdmin}}
                     </div>
                 </div>
+                {{/productReviews}}
+                {{#reviews}}
                 {{#-last}}
                 <script src="/js/reviewStars.js"></script>
                 {{/-last}}
