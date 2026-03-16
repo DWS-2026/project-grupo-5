@@ -48,10 +48,6 @@ public class UserService {
     public List<User> findAll() {
         return repo.findAll();
     }
-    public List<Product> getProductsByVendor(long id){
-        User u=this.findById(id);
-        return u.getProducts();
-    }
     public List<Product> getOrdersByVendor(long id){
         User u= this.findById(id);
         List<Order> orders = u.getOrders();
