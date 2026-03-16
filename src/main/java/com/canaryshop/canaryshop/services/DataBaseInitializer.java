@@ -45,8 +45,8 @@ public class DataBaseInitializer {
                     product.addReview(new Review(user1, "Ta bien", 3, "Viva android"));
                     productService.addProduct(product);
                 }else{
-                    Product product = new Product(admin, "Samsung A"+i, "Roto", 1.00*i, 1, image);
-                    product.addReview(new Review(user1, "Un poco malo", 2, "Viva android"));
+                    Product product = new Product(user1, "Samsung A"+i, "Roto", 1.00*i, 1, image);
+                    product.addReview(new Review(admin, "Un poco malo", 2, "Viva android"));
                     productService.addProduct(product);
                 }
 
@@ -66,8 +66,8 @@ public class DataBaseInitializer {
                     product.addReview(new Review(user1, "puff", 1, "Hater de iphones", image2));
                     productService.addProduct(product);
                 }else{
-                    Product product = new Product(admin, "Iphone "+i, "Roto", 10.00*i, 1, image2);
-                    product.addReview(new Review(user1, "Mierdon", 0, "Hater de iphones", image2));
+                    Product product = new Product(user1, "Iphone "+i, "Roto", 10.00*i, 1, image2);
+                    product.addReview(new Review(admin, "Mierdon", 0, "Hater de iphones", image2));
                     productService.addProduct(product);
 
                 }

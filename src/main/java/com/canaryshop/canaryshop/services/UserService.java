@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.canaryshop.canaryshop.repositories.UserRepository;
+import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.User;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -43,5 +44,9 @@ public class UserService {
 
     public List<User> findAll() {
         return repo.findAll();
+    }
+    public List<Product> getProductsByVendor(long id){
+        User u=this.findById(id);
+        return u.getProducts();
     }
 }

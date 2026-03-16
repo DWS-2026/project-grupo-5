@@ -72,12 +72,4 @@ public class CanaryWebController {
         return "index";
     }
     
-
-    @GetMapping("/user/{id}")
-    public String getUserProfile(Model model, @PathVariable Long id) {
-        User user = users.findById(id);
-        model.addAttribute("user", user);
-        return "user";
-    }
-    
 }

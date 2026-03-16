@@ -11,19 +11,24 @@
         <div class="container-fluid py-4 mb-4 px-4">
             <div class="row row-cols-1 row-cols-md-3 justify-content-between align-items-center align-items-md-start">
                 <!-- User data -->
+                {{#user}}
                 <div class="col col-md-auto d-flex flex-column align-items-center">
                     <!--User image-->
-                    <img src="/assets/user.jpg" alt="Foto de perfil" class="rounded-circle d-block" width="200" height="200">
-                        <input type="file" id="file-input" accept="image/*" hidden multiple>
-                        <label for="file-input" class="btn btn-secondary mt-3 btn border-0">
+                    
+                        <img {{#image}}src="/images/{{id}}"{{/image}} {{^image}}src="/assets/user.jpg"{{/image}} alt="Foto de perfil" class="rounded-circle d-block" width="200" height="200">
+                    
+                        <form action="/user/{{user.id}}/image" method="POST" enctype="multipart/form-data">
+                            <input type="file" id="file-input" accept="image/*" hidden multiple>
+                            <label for="file-input" class="btn btn-secondary mt-3 btn border-0">
                             <!--Change photo-->
-                            <i class="bi bi-pencil-square"></i> Edit
-                        </label>
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </label>
+                        </form>
                     <!--User info-->
                     <div class="card shadow-lg bg-body mt-4 rounded-5 text-white border-0">
                         <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">Username</h5>
-                            <p class="mb-1">name@ejemplo.com</p>
+                            <h5 class="card-title fw-bold">{{username}}</h5>
+                            <p class="mb-1">{{email}}</p>
                             <p class="card-text small">Account created in XXXX</p>
                         </div>
                         <div class="card-footer bg-body-secondary rounded-top rounded-5 d-flex justify-content-around py-3">
@@ -63,67 +68,27 @@
                     <button type="submit" class="btn btn-sm btn-primary align-self-center">Enviar Reporte</button>
                 </div>
                 </div>
+                {{/user}}
                 <!-- User product container -->
                 <div class="col d-flex flex-column gap-4 align-items-center flex-fill">
                     <h5 class="display-5 text-white">Recent Products</h5>
                     <!-- Products -->
                     <div class="d-flex flex-column flex-md-row align-items-center justify-content-evenly w-100 gap-2">
-                        <a href="producto" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
+                        {{#products}}
+                        <a href="/product/{{id}}" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
                             <div class="card shadow-sm bg-body align-items-center flex-grow-1">
-                                <img class="img-fluid" src="productPhoto" alt="product Photo" onerror="this.src='/assets/logo2.png'" width="200" height="200">
+                                {{#productImages}}{{#-first}}
+                                    <img class="img-fluid" src="/images/{{id}}" alt="product Photo" onerror="this.src='/assets/logo2.png'" width="200" height="200">
+                                {{/-first}}{{/productImages}}
                                 <div class="card-body text-white">
-                                    <h5 class="card-title">Product</h5>
-                                    <p class="card-text">Product Description</p>
+                                    <h5 class="card-title">{{name}}</h5>
+                                    <p class="card-text">{{description}}</p>
                                 </div>
                             </div>
                         </a>
-                        <a href="producto" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
-                            <div class="card shadow-sm bg-body align-items-center flex-grow-1">
-                                <img class="img-fluid" src="productPhoto" alt="product Photo" onerror="this.src='/assets/logo2.png'" width="200" height="200">
-                                <div class="card-body text-white">
-                                    <h5 class="card-title">Product</h5>
-                                    <p class="card-text">Product Description</p>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="producto" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
-                            <div class="card shadow-sm bg-body align-items-center flex-grow-1">
-                                <img class="img-fluid" src="productPhoto" alt="product Photo" onerror="this.src='/assets/logo2.png'" width="200" height="200">
-                                <div class="card-body text-white">
-                                    <h5 class="card-title">Product</h5>
-                                    <p class="card-text">Product Description</p>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="producto" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden d-md-none d-xl-block">
-                            <div class="card shadow-sm bg-body align-items-center flex-grow-1">
-                                <img class="img-fluid" src="productPhoto" alt="product Photo" onerror="this.src='/assets/logo2.png'" width="200" height="200">
-                                <div class="card-body text-white">
-                                    <h5 class="card-title">Product</h5>
-                                    <p class="card-text">Product Description</p>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="producto" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden d-md-none d-xl-block">
-                            <div class="card shadow-sm bg-body align-items-center flex-grow-1">
-                                <img class="img-fluid" src="productPhoto" alt="product Photo" onerror="this.src='/assets/logo2.png'" width="200" height="200">
-                                <div class="card-body text-white">
-                                    <h5 class="card-title">Product</h5>
-                                    <p class="card-text">Product Description</p>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="producto" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden d-md-none d-xl-block">
-                            <div class="card shadow-sm bg-body align-items-center flex-grow-1">
-                                <img class="img-fluid" src="productPhoto" alt="product Photo" onerror="this.src='/assets/logo2.png'" width="200" height="200">
-                                <div class="card-body text-white">
-                                    <h5 class="card-title">Product</h5>
-                                    <p class="card-text">Product Description</p>
-                                </div>
-                            </div>
-                        </a>
+                        {{/products}}
                     </div>
-                    <a class="btn btn-primary" href="index">See all products</a>
+                    <a class="btn btn-primary" href="/user/{{user.id}}/products">See all products</a>
                 </div>
                 <div class="col col-md-auto nav flex-md-column flex-row justify-content-around align-items-md-end">
                     <a class="bi bi-house text-white link-light nav-link" href="index"> Home</a>
