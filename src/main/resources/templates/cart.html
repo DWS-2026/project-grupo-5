@@ -11,110 +11,57 @@
         <div class="container d-flex flex-column my-4 p-4 rounded gap-4">
             <!-- Product Cards -->
             <div class="d-flex flex-column gap-2" id="cartProducts">
+                {{#items}}
                 <div class="card bg-body text-white p-4">
-                    <a href="/product" class="link-light link-underline link-underline-opacity-0">
+                    <a href="/product/{{product.id}}" class="link-light link-underline link-underline-opacity-0">
                         <!-- Image-Content separator -->
                         <div class="d-flex gap-3">
-                            <img src="https://picsum.photos/200/200?random=1" class="img-fluid rounded" style="height: 15vh">
+                            {{#product.productImages}}{{#-first}}
+                            <img src="/images/{{id}}" class="img-fluid rounded" style="height: 15vh">
+                            {{/-first}}{{/product.productImages}}
                             <!-- Product content -->
                             <div class="d-flex flex-column card-body gap-3">
                                 <!-- Title and price -->
                                 <span class="card-title d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2">
-                                    <h4 class="mb-0">Product 1</h4>
+                                    <h4 class="mb-0">{{product.name}}</h4>
                                     <span class="text-bg-primary p-2 rounded fs-5" style="width: fit-content">
-                                        29.98€
+                                        {{product.price}}€
                                     </span>
                                 </span>
                                 <!-- Vendor details -->
                                 <h5 class="card-subtitle">
-                                    Sold By: 
-                                    <a class="link-light link-opacity-75-hover link-underline link-underline-opacity-0"  href="">
+                                    Sold By:
+                                    <a class="link-light link-opacity-75-hover link-underline link-underline-opacity-0"  href="/user/{{product.vendor.id}}">
                                         <i class="bi bi-person-circle"></i>
-                                        User
+                                        {{product.vendor.username}}
                                     </a>
                                 </h5>
                                 <!-- Amount changer -->
                                 <div class="d-flex gap-3 align-items-center align-self-end">
                                     <button class="btn btn-danger">-</button>
-                                    1
+                                    {{quantity}}
                                     <button class="btn btn-primary">+</button>
                                 </div>
                             </div>
                         </div>
                     </a>
                 </div>
-                <div class="card bg-body text-white p-4">
-                    <a href="/product" class="link-light link-underline link-underline-opacity-0">
-                        <!-- Image-Content separator -->
-                        <div class="d-flex gap-3">
-                            <img src="https://picsum.photos/200/200?random=2" class="img-fluid rounded" style="height: 15vh">
-                            <!-- Product content -->
-                            <div class="d-flex flex-column card-body gap-3">
-                                <!-- Title and price -->
-                                <span class="card-title d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2">
-                                    <h4 class="mb-0">Product 2</h4>
-                                    <span class="text-bg-primary p-2 rounded fs-5" style="width: fit-content">
-                                        39.99€
-                                    </span>
-                                </span>
-                                <!-- Vendor details -->
-                                <h5 class="card-subtitle">
-                                    Sold By: 
-                                    <a class="link-light link-opacity-75-hover link-underline link-underline-opacity-0"  href="#">
-                                        <i class="bi bi-person-circle"></i>
-                                        User
-                                    </a>
-                                </h5>
-                                <!-- Amount changer -->
-                                <div class="d-flex gap-3 align-items-center align-self-end">
-                                    <button class="btn btn-danger">-</button>
-                                    2
-                                    <button class="btn btn-primary">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="card bg-body text-white p-4">
-                    <a href="/product" class="link-light link-underline link-underline-opacity-0">
-                        <!-- Image-Content separator -->
-                        <div class="d-flex gap-3">
-                            <img src="https://picsum.photos/200/200?random=3" class="img-fluid rounded" style="height: 15vh">
-                            <!-- Product content -->
-                            <div class="d-flex flex-column card-body gap-3">
-                                <!-- Title and price -->
-                                <span class="card-title d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2">
-                                    <h4 class="mb-0">Product 3</h4>
-                                    <span class="text-bg-primary p-2 rounded fs-5" style="width: fit-content">
-                                        19.50€
-                                    </span>
-                                </span>
-                                <!-- Vendor details -->
-                                <h5 class="card-subtitle">
-                                    Sold By: 
-                                    <a class="link-light link-opacity-75-hover link-underline link-underline-opacity-0"  href="#">
-                                        <i class="bi bi-person-circle"></i>
-                                        User
-                                    </a>
-                                </h5>
-                                <!-- Amount changer -->
-                                <div class="d-flex gap-3 align-items-center align-self-end">
-                                    <button class="btn btn-danger">-</button>
-                                    1
-                                    <button class="btn btn-primary">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                {{/items}}
             </div>
+            {{#items}}
+            {{#-last}}
             <span class="d-flex align-items-center justify-content-between text-white m-4">
                 <h3>Total:</h3>
                 <span class="text-bg-primary rounded p-2 fs-3">
-                    129.46€
+                    {{totalPrice}}€
                 </span>
             </span>
-            <a class="btn btn-primary" href="payment" role="button">Proceed to purchase</a>
+            <a class="btn btn-primary" href="/payment" role="button">Proceed to purchase</a>
+            {{/-last}}
+            {{/items}}
+            {{^items}}
+            <h3 class="text-white m-4">The cart is empty.</h3>
+            {{/items}}
         </div>
     </main>
 </body>

@@ -1,4 +1,5 @@
 package com.canaryshop.canaryshop.controllers;
+import com.canaryshop.canaryshop.entities.User;
 import com.canaryshop.canaryshop.services.UserService;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,12 +22,10 @@ public class CanaryWebController {
     public void addGlobalAttributes(Model model, HttpServletRequest request) {
         
         Principal principal = request.getUserPrincipal();
-
-        if (principal != null) {
-            model.addAttribute("user", users.getUser(principal.getName()));
+        User user = users.getUser(principal);
+        model.addAttribute("user", user);
+        if (user != null){
             model.addAttribute("isAdmin", request.isUserInRole("ADMIN"));
-        }else {
-            model.addAttribute("isLoggedIn", false);
         }
        
     }

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.servlet.http.HttpSession;
 import java.security.Principal;
 
 
@@ -16,74 +15,37 @@ import java.security.Principal;
 public class CartManager {
 
     @Autowired
-    private ProductService products; // Siguiendo tu estilo de ProductManager
+    private ProductService products;
 
     @Autowired
     private UserService userService;
 
     @GetMapping("/cart")
-    public String serveCart(Model model, HttpSession session, Principal principal) {
-        Order cart = (Order) session.getAttribute("cart");
-
-        // Si no está en sesión pero el usuario está logueado, recuperamos su carrito de la BD
-        if (cart == null && principal != null) {
-            User user = userService.getUser(principal.getName());
-            if (user != null && user.getCart() != null) {
-                cart = user.getCart();
-                session.setAttribute("cart", cart);
-            }
-        }
-
-        if (cart != null) {
-            // Pasamos la lista de OrderProduct (entidad intermedia)
-            model.addAttribute("items", cart.getProducts());
-            model.addAttribute("totalPrice", cart.getPrice());
-        } else {
-            model.addAttribute("totalPrice", 0.0);
-        }
-
-        model.addAttribute("showCart", true);
+    public String serveCart(Model model, Principal principal) {
+        User user = userService.getUser(principal.getName());
+        Order cart = user.getCart();
+        model.addAttribute("items", cart.getProducts());
+        model.addAttribute("totalPrice", cart.getPrice());
         return "cart";
     }
 
     @PostMapping("/cart/add/{id}")
-    public String addToCart(@PathVariable long id, HttpSession session, Principal principal) {
+    public String addToCart(@PathVariable long id, Principal principal) {
         Product product = products.getProduct(id);
-        Order cart = (Order) session.getAttribute("cart");
-
-        if (cart == null) {
-            cart = new Order();
-        }
-
-        // addProduct internamente crea el OrderProduct(this, product, 1)
+        User user = userService.getUser(principal);
+        Order cart = user.getCart();
         cart.addProduct(product);
-        session.setAttribute("cart", cart);
-
-        // Si hay usuario, vinculamos y persistimos en BD
-        if (principal != null) {
-            User user = userService.getUser(principal.getName());
-            user.setCart(cart); // Asegúrate de tener este setter en User.java
-            userService.addUser(user);
-        }
-
+        userService.addUser(user);
         return "redirect:/cart";
     }
 
     @PostMapping("/cart/remove/{id}")
-    public String removeFromCart(@PathVariable long id, HttpSession session, Principal principal) {
-        Order cart = (Order) session.getAttribute("cart");
+    public String removeFromCart(@PathVariable long id, Principal principal) {
         Product product = products.getProduct(id);
-
-        if (cart != null) {
-            cart.removeProduct(product);
-            session.setAttribute("cart", cart);
-
-            if (principal != null) {
-                User user = userService.getUser(principal.getName());
-                userService.addUser(user);
-            }
-        }
-
+        User user = userService.getUser(principal);
+        Order cart = user.getCart();
+        cart.removeProduct(product);
+        userService.addUser(user);
         return "redirect:/cart";
     }
 }

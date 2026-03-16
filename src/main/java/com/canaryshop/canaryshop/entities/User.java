@@ -21,7 +21,7 @@ public class User {
     @OneToMany(mappedBy="vendor", cascade=CascadeType.ALL)
     private final List<Product> products = new LinkedList<>();
     @OneToOne(cascade=CascadeType.ALL)
-    private Order cart;
+    private Order cart = new Order();
     @OneToMany(cascade=CascadeType.ALL)
     private final List<Order> orders = new LinkedList<>();
     @OneToOne(cascade=CascadeType.ALL)
