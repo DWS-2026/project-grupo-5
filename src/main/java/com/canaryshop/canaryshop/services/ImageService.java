@@ -109,5 +109,8 @@ public class ImageService {
 
         return outputStream.toByteArray();
     }
+    public void addImage(Image img){
+        this.images.save(img);
+    }
 
 }

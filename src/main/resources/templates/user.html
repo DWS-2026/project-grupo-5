@@ -14,22 +14,24 @@
                 {{#user}}
                 <div class="col col-md-auto d-flex flex-column align-items-center">
                     <!--User image-->
-                    
-                        <img {{#image}}src="/images/{{id}}"{{/image}} {{^image}}src="/assets/user.jpg"{{/image}} alt="Foto de perfil" class="rounded-circle d-block" width="200" height="200">
-                    
-                        <form action="/user/{{user.id}}/image" method="POST" enctype="multipart/form-data">
-                            <input type="file" id="file-input" accept="image/*" hidden multiple>
-                            <label for="file-input" class="btn btn-secondary mt-3 btn border-0">
-                            <!--Change photo-->
-                                <i class="bi bi-pencil-square"></i> Edit
+                       <form action="/user/{{id}}/image" method="post" enctype="multipart/form-data" class="d-flex flex-column align-items-center">
+    
+                            <label for="file-input" style="cursor: pointer;" title="Haz clic para cambiar tu foto">
+                                <img {{#image}}src="/images/{{id}}"{{/image}} {{^image}}src="/assets/user.jpg"{{/image}} 
+                                    alt="Foto de perfil" class="rounded-circle d-block border border-secondary" width="200" height="200">
                             </label>
+                            
+                            <input type="file" id="file-input" name="image" accept="image/*" hidden onchange="this.form.submit()">
                         </form>
+                        
                     <!--User info-->
                     <div class="card shadow-lg bg-body mt-4 rounded-5 text-white border-0">
-                        <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">{{username}}</h5>
-                            <p class="mb-1">{{email}}</p>
-                            <p class="card-text small">Account created in XXXX</p>
+                        <div class="card-body">
+                            <form action="/user/{{id}}/edit" method="post" class="d-flex flex-column align-items-center">
+                                <input type="text" class="form-control text-center bg-transparent text-white border-0 shadow-none" name="userName" value="{{username}}" required>
+                                <input type="email" class=" form-control text-center text-white-50 bg-transparent border-0 shadow-none" name="email" value="{{email}}" required>
+                                <button type="submit" class="btn btn-secondary mt-3 btn border-0"><i class="bi bi-pencil-square"></i> Edit</button>
+                            </form>
                         </div>
                         <div class="card-footer bg-body-secondary rounded-top rounded-5 d-flex justify-content-around py-3">
                             <div class="text-center">
@@ -91,11 +93,11 @@
                     <a class="btn btn-primary" href="/user/{{user.id}}/products">See all products</a>
                 </div>
                 <div class="col col-md-auto nav flex-md-column flex-row justify-content-around align-items-md-end">
-                    <a class="bi bi-house text-white link-light nav-link" href="index"> Home</a>
-                    <a class="bi bi-cart text-white link-light nav-link" href="carrito"> Cart</a>
+                    <a class="bi bi-house text-white link-light nav-link" href="/index"> Home</a>
+                    <a class="bi bi-cart text-white link-light nav-link" href="/cart"> Cart</a>
                     <a class="bi bi-heart link-light nav-link" href="#"> Favourites</a>
-                    <a class="bi bi-plus link-light nav-link" href="addSale"> Add product</a>
-                    <a class="bi bi-code-slash link-success nav-link hidden" href="adminDashboard"> Admin panel</a>
+                    <a class="bi bi-plus link-light nav-link" href="/product/new"> Add product</a>
+                    <a class="bi bi-code-slash link-success nav-link hidden" href="/admin"> Admin panel</a>
                     <a class="link-danger nav-link bi bi-box-arrow-left" href="#"> Log out</a>
                 </div>
             </div>
@@ -107,7 +109,7 @@
                         <a href="producto" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
                             <div class="card shadow-sm bg-body align-items-center flex-grow-1">
                                 {{#productImages}}{{#-first}}
-                                    <img class="img-fluid" src="productPhoto" alt="product Photo" onerror="this.src='/assets/logo2.png'" width="200" height="200">
+                                    <img class="img-fluid" src="/images/{{id}}" alt="product Photo" onerror="this.src='/assets/logo2.png'" width="200" height="200">
                                 {{/-first}}{{/productImages}}
                                 <div class="card-body text-white">
                                     <h5 class="card-title">{{name}}</h5>

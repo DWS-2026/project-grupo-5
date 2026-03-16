@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 
 import com.canaryshop.canaryshop.entities.Image;
 import com.canaryshop.canaryshop.entities.Product;
+import com.canaryshop.canaryshop.entities.User;
 import com.canaryshop.canaryshop.services.ImageService;
 import com.canaryshop.canaryshop.services.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,11 +53,23 @@ public class UserManager {
         return "index";
     }
     @PostMapping("/user/{id}/image")
-    public String editUserImage(Model model, @RequestParam MultipartFile image, @PathVariable long id) {
+    public String postMethodName(Model model, @RequestParam MultipartFile image, @PathVariable long id) {
         Image img= this.imageService.createImage(image);
-        this.userService.findById(id).setImage(img);
-        return this.getUser(model, id);
+        this.imageService.addImage(img);
+        User u=this.userService.findById(id);
+        u.setImage(img);
+        this.userService.addUser(u);
+        return "redirect:/user/"+id;
     }
+    @PostMapping("/user/{id}/edit")
+    public String postMethodName(Model model, @RequestParam String userName, @RequestParam String email, @PathVariable long id) {
+        User u=this.userService.findById(id);
+        u.setEmail(email);
+        u.setUsername(userName);
+        this.userService.addUser(u);
+        return "redirect:/user/"+id;
+    }
+    
     
     
 }
