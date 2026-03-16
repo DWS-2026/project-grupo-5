@@ -12,7 +12,7 @@
                 <div class="card bg-body text-white p-4">
                     <div class="d-flex gap-3">
                         {{#product.productImages}}{{#-first}}
-                        <img src="/images/{{id}}" class="img-fluid rounded" style="height: 15vh" onerror="this.src='https://picsum.photos/200/200'">
+                        <img src="/images/{{id}}" class="img-fluid rounded" style="height: 15vh">
                         {{/-first}}{{/product.productImages}}
                         <div class="d-flex flex-column card-body gap-3">
                             <span class="card-title d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2">
@@ -26,11 +26,11 @@
                                 </a>
                             </h5>
                             <div class="d-flex gap-3 align-items-center align-self-end">
-                                <form action="/cart/remove/{{product.id}}" method="post" style="display:inline;">
+                                <form action="/cart/remove/{{id}}" method="post" style="display:inline;">
                                     <button type="submit" class="btn btn-danger">-</button>
                                 </form>
                                 <span class="fs-5 fw-bold">{{quantity}}</span>
-                                <form action="/cart/add/{{product.id}}" method="post" style="display:inline;">
+                                <form action="/cart/add/{{id}}" method="post" style="display:inline;">
                                     <button type="submit" class="btn btn-primary">+</button>
                                 </form>
                             </div>

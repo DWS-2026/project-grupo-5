@@ -1,6 +1,9 @@
 package com.canaryshop.canaryshop.controllers;
 
 import com.canaryshop.canaryshop.entities.*;
+import com.canaryshop.canaryshop.repositories.OrderProductRepository;
+import com.canaryshop.canaryshop.repositories.OrderRepository;
+import com.canaryshop.canaryshop.services.OrderService;
 import com.canaryshop.canaryshop.services.ProductService;
 import com.canaryshop.canaryshop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,9 @@ public class CartManager {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private OrderService os;
 
     @GetMapping("/cart")
     public String serveCart(Model model, Principal principal) {
@@ -29,23 +35,28 @@ public class CartManager {
         return "cart";
     }
 
-    @PostMapping("/cart/add/{id}")
-    public String addToCart(@PathVariable long id, Principal principal) {
-        Product product = products.getProduct(id);
-        User user = userService.getUser(principal);
+   @PostMapping("/cart/increase/{id}")
+    public String increaseItem(@PathVariable long id, Principal principal) {
+        OrderProduct orderProduct = os.getOrderProduct(id);
+        User user = userService.getUser(principal.getName());
         Order cart = user.getCart();
-        cart.addProduct(product);
-        userService.addUser(user);
+        cart.setAmount(orderProduct.getProduct(),orderProduct.getQuantity()+1); 
+        os.addOrder(cart);
         return "redirect:/cart";
     }
 
-    @PostMapping("/cart/remove/{id}")
-    public String removeFromCart(@PathVariable long id, Principal principal) {
-        Product product = products.getProduct(id);
-        User user = userService.getUser(principal);
+    @PostMapping("/cart/decrease/{id}")
+    public String decreaseItem(@PathVariable long id, Principal principal) {
+       OrderProduct orderProduct = os.getOrderProduct(id);
+        User user = userService.getUser(principal.getName());
         Order cart = user.getCart();
-        cart.removeProduct(product);
-        userService.addUser(user);
+        if(orderProduct.getQuantity()==1){
+            cart.removeProduct(orderProduct.getProduct());
+        }
+        else{
+            cart.setAmount(orderProduct.getProduct(),orderProduct.getQuantity()-1); 
+        }
+        os.addOrder(cart);
         return "redirect:/cart";
     }
 }

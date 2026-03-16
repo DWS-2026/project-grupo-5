@@ -43,6 +43,7 @@ public class DataBaseInitializer {
                         Image image = imageService.createImage("src/main/resources/static/assets/logo.png");
                         product = new Product(admin, "Samsung A"+i, "Buena calidad", 4.00*i, 1, image);
                         product.addReview(new Review(user1, "GOTY", 5, "Viva android"));
+                        order.addProduct(product);
                     }
                     case 1 -> {
                         Image image = imageService.createImage("src/main/resources/static/assets/logo.png");

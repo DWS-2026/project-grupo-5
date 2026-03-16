@@ -39,7 +39,7 @@ public class UserManager {
     public String getUser(Model model, @PathVariable long id) {
         model.addAttribute("user",this.userService.findById(id));
         List<Product> products = this.productService.getProductsByVendor(id);
-        products = products.subList(0, products.size() >= 5 ? 4 : products.size());
+        products = products.subList(0, products.size() >= 5 ? 5 : products.size());
         List<Product> orders = this.userService.getOrdersByVendor(id);
         model.addAttribute("products",products);
         model.addAttribute("orders",orders);
