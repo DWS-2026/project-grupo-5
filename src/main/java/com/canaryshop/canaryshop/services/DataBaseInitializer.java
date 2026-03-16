@@ -3,7 +3,10 @@ package com.canaryshop.canaryshop.services;
 import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.Review;
 import com.canaryshop.canaryshop.entities.User;
+import com.canaryshop.canaryshop.repositories.OrderRepository;
 import com.canaryshop.canaryshop.entities.Image;
+import com.canaryshop.canaryshop.entities.Order;
+import com.canaryshop.canaryshop.entities.OrderProduct;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,7 +25,9 @@ public class DataBaseInitializer {
     private ProductService productService;
     @Autowired
     private ImageService imageService;
-    
+    @Autowired
+    private OrderRepository orderRepository;
+
     @PostConstruct
     public void initDatabase() {
             if (userService.findAll().isEmpty()) {
@@ -72,6 +77,18 @@ public class DataBaseInitializer {
 
                 }
             }
+            Order o=new Order();
+            for (int i=0;i<10;i++){
+                Image img = imageService.createImage("src/main/resources/static/assets/user.jpg");
+                Product pruebaOrder = new Product(user1, "Memoria RAM "+i, "de coleccion", 2000.00, 2, img);
+                productService.addProduct(pruebaOrder);
+                o.addProduct(pruebaOrder);
+            }
+            
+            this.orderRepository.save(o);
+            admin.addOrder(o);
+            userService.addUser(admin);
+            
         }
     }
 }

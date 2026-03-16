@@ -103,60 +103,19 @@
                     <h5 class="display-5 text-white">My Orders</h5>
                     <!-- Products -->
                     <div class="d-flex flex-column flex-md-row align-items-center justify-content-evenly w-100 gap-2">
+                        {{#orders}}
                         <a href="producto" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
                             <div class="card shadow-sm bg-body align-items-center flex-grow-1">
-                                <img class="img-fluid" src="productPhoto" alt="product Photo" onerror="this.src='/assets/logo2.png'" width="200" height="200">
+                                {{#productImages}}{{#-first}}
+                                    <img class="img-fluid" src="productPhoto" alt="product Photo" onerror="this.src='/assets/logo2.png'" width="200" height="200">
+                                {{/-first}}{{/productImages}}
                                 <div class="card-body text-white">
-                                    <h5 class="card-title">Product</h5>
-                                    <p class="card-text">Product Description</p>
+                                    <h5 class="card-title">{{name}}</h5>
+                                    <p class="card-text">{{description}}</p>
                                 </div>
                             </div>
                         </a>
-                        <a href="producto" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
-                            <div class="card shadow-sm bg-body align-items-center flex-grow-1">
-                                <img class="img-fluid" src="productPhoto" alt="product Photo" onerror="this.src='/assets/logo2.png'" width="200" height="200">
-                                <div class="card-body text-white">
-                                    <h5 class="card-title">Product</h5>
-                                    <p class="card-text">Product Description</p>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="producto" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
-                            <div class="card shadow-sm bg-body align-items-center flex-grow-1">
-                                <img class="img-fluid" src="productPhoto" alt="product Photo" onerror="this.src='/assets/logo2.png'" width="200" height="200">
-                                <div class="card-body text-white">
-                                    <h5 class="card-title">Product</h5>
-                                    <p class="card-text">Product Description</p>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="producto" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden d-md-none d-xl-block">
-                            <div class="card shadow-sm bg-body align-items-center flex-grow-1">
-                                <img class="img-fluid" src="productPhoto" alt="product Photo" onerror="this.src='/assets/logo2.png'" width="200" height="200">
-                                <div class="card-body text-white">
-                                    <h5 class="card-title">Product</h5>
-                                    <p class="card-text">Product Description</p>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="producto" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden d-md-none d-xl-block">
-                            <div class="card shadow-sm bg-body align-items-center flex-grow-1">
-                                <img class="img-fluid" src="productPhoto" alt="product Photo" onerror="this.src='/assets/logo2.png'" width="200" height="200">
-                                <div class="card-body text-white">
-                                    <h5 class="card-title">Product</h5>
-                                    <p class="card-text">Product Description</p>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="producto" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden d-md-none d-xl-block">
-                            <div class="card shadow-sm bg-body align-items-center flex-grow-1">
-                                <img class="img-fluid" src="productPhoto" alt="product Photo" onerror="this.src='/assets/logo2.png'" width="200" height="200">
-                                <div class="card-body text-white">
-                                    <h5 class="card-title">Product</h5>
-                                    <p class="card-text">Product Description</p>
-                                </div>
-                            </div>
-                        </a>
+                        {{/orders}}
                     </div>
         </div>
     </main>

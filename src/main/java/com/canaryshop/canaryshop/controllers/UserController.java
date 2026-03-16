@@ -41,7 +41,9 @@ public class UserController {
         for (int i = 0; i < limite; i++) {
             only5.add(products.get(i));
         }
+        List<Product> orders = this.userService.getOrdersByVendor(id);
         model.addAttribute("products",only5);
+        model.addAttribute("orders",orders);
         return "user";
     }
     @GetMapping("/user/{id}/products")
@@ -82,7 +84,7 @@ public class UserController {
         return "userProducts";
     }
     @PostMapping("/user/{id}/image")
-    public String postMethodName(Model model, @RequestBody MultipartFile image, @PathVariable long id) {
+    public String postMethodName(Model model, @RequestParam MultipartFile image, @PathVariable long id) {
         Image img= this.imageService.createImage(image);
         this.userService.findById(id).setImage(img);
         return this.getUser(model, id);

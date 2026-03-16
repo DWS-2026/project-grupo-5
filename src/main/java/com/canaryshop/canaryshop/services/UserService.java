@@ -5,11 +5,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.canaryshop.canaryshop.repositories.UserRepository;
+import com.canaryshop.canaryshop.entities.Order;
+import com.canaryshop.canaryshop.entities.OrderProduct;
 import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.User;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,5 +51,19 @@ public class UserService {
     public List<Product> getProductsByVendor(long id){
         User u=this.findById(id);
         return u.getProducts();
+    }
+    public List<Product> getOrdersByVendor(long id){
+        User u= this.findById(id);
+        List<Order> orders = u.getOrders();
+        if(orders==null || orders.isEmpty()){
+            return null;
+        } 
+        List<OrderProduct> products= orders.getLast().getProducts();
+        List<Product> only6= new LinkedList<>();
+        int limite = Math.min(6, products.size()); 
+        for (int i = 0; i < limite; i++) {
+            only6.add(products.get(i).getProduct());
+        }
+        return only6;
     }
 }
