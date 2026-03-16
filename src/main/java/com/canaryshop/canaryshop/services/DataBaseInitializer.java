@@ -36,59 +36,67 @@ public class DataBaseInitializer {
             userService.addUser(admin);
             userService.addUser(user1);
             for (int i=1; i<=56;i++){
-                Image image = imageService.createImage("src/main/resources/static/assets/logo.png");
-                if(i%4==1){
-                    Product product = new Product(admin, "Samsung A"+i, "Buena calidad", 4.00*i, 1, image);
-                    product.addReview(new Review(user1, "GOTY", 5, "Viva android"));
-                    productService.addProduct(product);
-                }else if(i%4==2){
-                    Product product = new Product(admin, "Samsung A"+i, "Seminuevo", 3.00*i, 1, image);
-                    product.addReview(new Review(user1, "good", 4, "Viva android"));
-                    productService.addProduct(product);
-                }else if(i%4==3){
-                    Product product = new Product(admin, "Samsung A"+i, "Usado", 2.00*i, 1, image);
-                    product.addReview(new Review(user1, "Ta bien", 3, "Viva android"));
-                    productService.addProduct(product);
-                }else{
-                    Product product = new Product(user1, "Samsung A"+i, "Roto", 1.00*i, 1, image);
-                    product.addReview(new Review(admin, "Un poco malo", 2, "Viva android"));
-                    productService.addProduct(product);
-                }
-
+                Product product = null;
+                switch(i%4){
+                    case 0 -> {
+                        Image image = imageService.createImage("src/main/resources/static/assets/logo.png");
+                        product = new Product(admin, "Samsung A"+i, "Buena calidad", 4.00*i, 1, image);
+                        product.addReview(new Review(user1, "GOTY", 5, "Viva android"));
+                    }
+                    case 1 -> {
+                        Image image = imageService.createImage("src/main/resources/static/assets/logo.png");
+                        product = new Product(admin, "Samsung A"+i, "Seminuevo", 3.00*i, 1, image);
+                        product.addReview(new Review(user1, "good", 4, "Viva android"));
+                    }
+                    case 2 -> {
+                        Image image = imageService.createImage("src/main/resources/static/assets/logo.png");
+                        product = new Product(admin, "Samsung A"+i, "Usado", 2.00*i, 1, image);
+                        product.addReview(new Review(user1, "Ta bien", 3, "Viva android"));
+                    }
+                    case 3 -> {
+                        Image image = imageService.createImage("src/main/resources/static/assets/logo.png");
+                        product = new Product(user1, "Samsung A"+i, "Roto", 1.00*i, 1, image);
+                        product.addReview(new Review(admin, "Un poco malo", 2, "Viva android"));
+                    }
+                };
+                productService.addProduct(product);
             }
             for (int i=1; i<=16;i++){
-                Image image2 = imageService.createImage("src/main/resources/static/assets/logo2.png");
-                if(i%4==1){
-                    Product product = new Product(admin, "Iphone"+i, "Buena calidad", 40.00*i, 1, image2);
-                    product.addReview(new Review(user1, "Ta bien", 3, "Hater de iphones", image2));
-                    productService.addProduct(product);
-                }else if(i%4==2){
-                    Product product = new Product(admin, "Iphone "+i, "Seminuevo", 30.00*i, 1, image2);
-                    product.addReview(new Review(user1, "meh", 2, "Hater de iphones", image2));
-                    productService.addProduct(product);
-                }else if(i%4==3){
-                    Product product = new Product(admin, "Iphone "+i, "Usado", 20.00*i, 1, image2);
-                    product.addReview(new Review(user1, "puff", 1, "Hater de iphones", image2));
-                    productService.addProduct(product);
-                }else{
-                    Product product = new Product(user1, "Iphone "+i, "Roto", 10.00*i, 1, image2);
-                    product.addReview(new Review(admin, "Mierdon", 0, "Hater de iphones", image2));
-                    productService.addProduct(product);
-
+                Product product = null;
+                switch(i%4){
+                    case 0 -> {
+                        Image image2 = imageService.createImage("src/main/resources/static/assets/logo2.png");
+                        product = new Product(admin, "Iphone"+i, "Buena calidad", 40.00*i, 1, image2);
+                        product.addReview(new Review(user1, "Ta bien", 3, "Hater de iphones", image2));
+                    }
+                    case 1 -> {
+                        Image image2 = imageService.createImage("src/main/resources/static/assets/logo2.png");
+                        product = new Product(admin, "Iphone "+i, "Seminuevo", 30.00*i, 1, image2);
+                        product.addReview(new Review(user1, "meh", 2, "Hater de iphones", image2));
+                    }
+                    case 2 -> {
+                        Image image2 = imageService.createImage("src/main/resources/static/assets/logo2.png");
+                        product = new Product(admin, "Iphone "+i, "Usado", 20.00*i, 1, image2);
+                        product.addReview(new Review(user1, "puff", 1, "Hater de iphones", image2));
+                    }
+                    case 3 -> {
+                        Image image2 = imageService.createImage("src/main/resources/static/assets/logo2.png");
+                        product = new Product(user1, "Iphone "+i, "Roto", 10.00*i, 1, image2);
+                        product.addReview(new Review(admin, "Mierdon", 0, "Hater de iphones", image2));
+                    }
                 }
+                productService.addProduct(product);
             }
-            Order o=new Order();
+            Order o = new Order();
             for (int i=0;i<10;i++){
                 Image img = imageService.createImage("src/main/resources/static/assets/user.jpg");
                 Product pruebaOrder = new Product(user1, "Memoria RAM "+i, "de coleccion", 2000.00, 2, img);
                 productService.addProduct(pruebaOrder);
                 o.addProduct(pruebaOrder);
             }
-            
             this.orderRepository.save(o);
             admin.addOrder(o);
             userService.addUser(admin);
-            
         }
     }
 }
