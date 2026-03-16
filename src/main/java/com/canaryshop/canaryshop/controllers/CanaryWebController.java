@@ -23,7 +23,7 @@ public class CanaryWebController {
         Principal principal = request.getUserPrincipal();
 
         if (principal != null) {
-            model.addAttribute("loggedUser", users.getUser(principal.getName()));
+            model.addAttribute("user", users.getUser(principal.getName()));
             model.addAttribute("isAdmin", request.isUserInRole("ADMIN"));
         }else {
             model.addAttribute("isLoggedIn", false);

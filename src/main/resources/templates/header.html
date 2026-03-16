@@ -18,7 +18,7 @@
                 <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
 
             </form>
-            {{^loggedUser}}
+            {{^user}}
             <!-- Log in or sign up -->
             <div class="justify-content-end d-flex flex-row flex-nowrap">
                 <a href="/login">
@@ -28,8 +28,8 @@
                     <button type="button" class="btn btn-outline-primary rounded-start rounded-5 {{#showRegister}}active{{/showRegister}}">Sign up</button>
                 </a>
             </div>
-            {{/loggedUser}}
-            {{#loggedUser}}
+            {{/user}}
+            {{#user}}
             <!-- User Image -->
             <div class="justify-content-end h-75">
                 <button class="btn btn-secundary" type="button" data-bs-toggle="offcanvas"
@@ -54,7 +54,7 @@
                             product</a>
                         <a class="text-decoration-none text-white" href="/cart"><i class="bi bi-cart2"></i> Shopping
                             cart</a>
-                        <a class="text-decoration-none text-white" href="/user/{{loggedUser.id}}"><i class="bi bi-person-circle"></i>
+                        <a class="text-decoration-none text-white" href="/user/{{id}}"><i class="bi bi-person-circle"></i>
                             Show profile</a>
                         {{#isAdmin}}
                         <a class="bi bi-wrench link-success nav-link" href="/admin"> Admin panel</a>
@@ -65,7 +65,7 @@
                     </div>
                 </div>
             </div>
-            {{/loggedUser}}
+            {{/user}}
         </div>
     </nav>
 
@@ -96,7 +96,7 @@
 
     <!-- Mobile bottom navbar -->
     <nav class="navbar mx-4 bg-body navbar-dark rounded-bottom fixed-bottom rounded-5 d-md-none">
-        {{#loggedUser}}
+        {{#user}}
         <!-- Logged-in user -->
         <div class="container-fluid d-flex flex-row justify-content-between align-items-center px-4">
             <a class="btn btn-secondary" href="/index" role="button"><i class="bi bi-house"></i></a>
@@ -106,13 +106,13 @@
             <a class="btn btn-secondary link-success" href="/admin" role="button"><i
                     class="bi bi-wrench"></i></a>
             {{/admin}}
-            <a class="btn btn-secondary" href="/user/{{loggedUser.id}}" role="button"><i class="bi bi-person-circle"></i></a>
+            <a class="btn btn-secondary" href="/user/{{id}}" role="button"><i class="bi bi-person-circle"></i></a>
             <a class="text-decoration-none text-danger py-2" href="/logout">
                 <i class="bi bi-box-arrow-right"></i> Log out
             </a>
         </div>
-        {{/loggedUser}}
-        {{^loggedUser}}
+        {{/user}}
+        {{^user}}
         <!-- User not logged in -->
         <div class="container-fluid justify-content-between d-flex flex-row flex-nowrap align-items-center ">
             <a class="btn btn-secondary btn-lg ms-3" href="/" role="button"><i class="bi bi-house"></i></a>
@@ -126,7 +126,7 @@
                 </a>
             </div>
         </div>
-        {{/loggedUser}}
+        {{/user}}
     </nav>
 
 
