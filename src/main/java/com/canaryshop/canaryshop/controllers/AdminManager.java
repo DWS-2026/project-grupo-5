@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.User;
@@ -19,6 +21,9 @@ import com.canaryshop.canaryshop.services.ProductService;
 import com.canaryshop.canaryshop.services.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Controller
@@ -29,6 +34,7 @@ public class AdminManager {
     private ProductService productService;
     @Autowired
     private PageHandler pageHandler;
+
     
     @GetMapping("/admin/{id}")
     public String getMethodName(Model model, @PathVariable long id) {
@@ -49,6 +55,15 @@ public class AdminManager {
         pageHandler.handleProductPage(model, results, page);
         return "adminProducts";
     }
-    
+    @PostMapping("/admin/product/{id}/delete")
+    public String deleteReportedProduct(@PathVariable long id, Principal principal) {
+        Product product = productService.getProduct(id);
+        User user = userService.getUser(principal);
+        if (!product.canEdit(user)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User cannot modify product");
+        }
+        productService.deleteProduct(product);
+        return "redirect:/admin/products";
+    }
     
 }

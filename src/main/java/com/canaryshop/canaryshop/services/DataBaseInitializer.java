@@ -56,6 +56,7 @@ public class DataBaseInitializer {
                         Image image = imageService.createImage("src/main/resources/static/assets/logo.png");
                         product = new Product(user1, "Samsung A"+i, "Roto", 1.00*i, 1, image);
                         product.addReview(new Review(admin, "Un poco malo", 2, "Viva android"));
+                        product.report();
                     }
                 };
                 productService.addProduct(product);
