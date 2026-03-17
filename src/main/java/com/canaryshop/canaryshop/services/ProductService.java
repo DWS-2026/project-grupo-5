@@ -61,4 +61,11 @@ public class ProductService {
         }
         products.save(product);
     }
+    public Page<Product> getReportedProducts(String name, String description, Pageable page){
+        if (name!=null && description!=null){
+            return products.findReportedProductsByNameAndDescription(name, description, page);
+        }else{
+            return products.findReportedProduct(page);
+        }
+    }
 }
