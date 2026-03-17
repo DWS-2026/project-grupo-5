@@ -21,7 +21,8 @@ public class OrderProduct {
         return this.quantity;
     }
     public void setQuantity(int quantity){
-        this.quantity = quantity;
+        int q = Math.min(quantity, this.product.getStock());
+        this.quantity = q;
     }
     public Product getProduct(){
         return this.product;

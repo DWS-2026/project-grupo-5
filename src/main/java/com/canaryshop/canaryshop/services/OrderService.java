@@ -29,4 +29,11 @@ public class OrderService {
     public void addOrder(Order o){
         or.save(o);
     }
+    public void setAmount(OrderProduct op,int amount){
+        op.setQuantity(amount);
+        opr.save(op);
+    }
+    public void addOrderProduct(OrderProduct op){
+        opr.save(op);
+    }
 }

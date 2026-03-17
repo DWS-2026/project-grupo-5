@@ -26,16 +26,14 @@ public class DataBaseInitializer {
     @Autowired
     private ImageService imageService;
     @Autowired
-    private OrderRepository orderRepository;
+    private OrderService orderService;
 
     @PostConstruct
     public void initDatabase() {
-            if (userService.findAll().isEmpty()) {
             User admin = new User("Admin", "admin@canaryshop.com", passwordEncoder.encode("admin"),"USER","ADMIN");
             User user1 = new User("User1", "user1@canaryshop.com", passwordEncoder.encode("user1"),"USER");
             userService.addUser(admin);
             userService.addUser(user1);
-            Order order = new Order();
             for (int i=1; i<=56;i++){
                 Product product = null;
                 switch(i%4){
@@ -62,6 +60,7 @@ public class DataBaseInitializer {
                 };
                 productService.addProduct(product);
             }
+            Order order = new Order();
             for (int i=1; i<=16;i++){
                 Product product = null;
                 switch(i%4){
@@ -69,7 +68,8 @@ public class DataBaseInitializer {
                         Image image2 = imageService.createImage("src/main/resources/static/assets/logo2.png");
                         product = new Product(admin, "Iphone "+i, "Buena calidad", 40.00*i, 4, image2);
                         product.addReview(new Review(user1, "Ta bien", 3, "Hater de iphones", image2));
-                        order.addProduct(product);
+                        OrderProduct op = new OrderProduct(order, product, 1);
+                        order.addProduct(op);
                     }
                     case 1 -> {
                         Image image2 = imageService.createImage("src/main/resources/static/assets/logo2.png");
@@ -88,20 +88,20 @@ public class DataBaseInitializer {
                     }
                 }
                 productService.addProduct(product);
-                this.orderRepository.save(order);
-                user1.setCart(order);
-                this.userService.addUser(user1);
             }
+            this.orderService.addOrder(order);
+            user1.setCart(order);
+            this.userService.addUser(user1);
             Order o = new Order();
             for (int i=0;i<10;i++){
                 Image img = imageService.createImage("src/main/resources/static/assets/user.jpg");
                 Product pruebaOrder = new Product(user1, "Memoria RAM "+i, "de coleccion", 2000.00, 2, img);
                 productService.addProduct(pruebaOrder);
-                o.addProduct(pruebaOrder);
+                OrderProduct op2 = new OrderProduct(o, pruebaOrder, 1);
+                o.addProduct(op2);
             }
-            this.orderRepository.save(o);
+            this.orderService.addOrder(o);
             admin.addOrder(o);
             userService.addUser(admin);
-        }
     }
 }
