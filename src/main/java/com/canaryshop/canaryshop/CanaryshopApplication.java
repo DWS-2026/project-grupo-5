@@ -9,5 +9,4 @@ public class CanaryshopApplication {
 public static void main(String[] args) {
 		SpringApplication.run(CanaryshopApplication.class, args);
 	}
-
 }

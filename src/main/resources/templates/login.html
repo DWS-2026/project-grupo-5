@@ -25,6 +25,11 @@
                     
                     {{#showLogin}}
                     <div class="tab-pane fade show active" id="pills-login" role="tabpanel">
+                        {{#registerSuccess}}
+                        <div class="alert alert-success py-2 mt-2" role="alert">
+                            <small>Account created successfully.</small>
+                        </div>
+                        {{/registerSuccess}}
                         <form action="/login" method="POST">
                             <div class="mb-3">
                                 <label class="form-label">Email</label>
@@ -40,7 +45,7 @@
                                 <small>{{LoginError}}</small>
                             </div>
                             {{/LoginError}}
-
+                            <input type="hidden" name="_csrf" value="{{token}}">
                             <div class="d-grid gap-2 mt-4">
                                 <button class="btn btn-primary" type="submit">Log in</button>
                             </div>
@@ -73,7 +78,7 @@
                                 <small>{{RegisterError}}</small>
                             </div>
                             {{/RegisterError}}
-
+                            <input type="hidden" name="_csrf" value="{{token}}">
                             <div class="d-grid gap-2 mt-4">
                                 <button class="btn btn-primary" type="submit">Create account</button>
                             </div>

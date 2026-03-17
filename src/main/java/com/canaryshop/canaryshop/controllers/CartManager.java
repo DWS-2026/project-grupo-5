@@ -40,7 +40,7 @@ public class CartManager {
         OrderProduct orderProduct = os.getOrderProduct(id);
         User user = userService.getUser(principal.getName());
         Order cart = user.getCart();
-        cart.setAmount(orderProduct.getProduct(),orderProduct.getQuantity()+1);
+        os.setAmount(orderProduct,orderProduct.getQuantity()+1);
         os.addOrder(cart);
         userService.addUser(user); 
         return "redirect:/cart";
@@ -52,10 +52,10 @@ public class CartManager {
         User user = userService.getUser(principal.getName());
         Order cart = user.getCart();
         if(orderProduct.getQuantity()==1){
-            cart.removeProduct(orderProduct.getProduct());
+            cart.removeProduct(orderProduct);
         }
         else{
-            cart.setAmount(orderProduct.getProduct(),orderProduct.getQuantity()-1); 
+            os.setAmount(orderProduct,orderProduct.getQuantity()-1); 
         }
         os.addOrder(cart);
         userService.addUser(user);

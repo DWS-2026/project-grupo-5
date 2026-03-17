@@ -15,7 +15,8 @@ public class Order {
     private Long id;
     private double price = 0F;
     private boolean isClosed = false;
-    
+    @ManyToOne
+    private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<OrderProduct> products = new LinkedList<>();
@@ -48,33 +49,13 @@ public class Order {
         }
         return op.get().getQuantity();
     }
-    public void addProduct(Product product){
-        Optional<OrderProduct> existing = Optional.ofNullable(findOrderProductByProduct(product));
-        if (existing.isPresent()){
-            return;
-        }
-        OrderProduct orderProduct = new OrderProduct(this, product, 1);
-        products.add(orderProduct);
-        price+=product.getPrice();
+    public void addProduct(OrderProduct op){
+        products.add(op);
     }
-    public void removeProduct(Product product){
-        Optional<OrderProduct> existing = Optional.ofNullable(findOrderProductByProduct(product));
-        if (existing.isEmpty()){
-            return;
-        }
-        OrderProduct toBeRemoved = existing.get();
-        int amount = toBeRemoved.getQuantity();
-        price-=product.getPrice()*amount;
-        products.remove(toBeRemoved);
+    public void removeProduct(OrderProduct op){
+        products.remove(op);
     }
-    public void setAmount(Product product, int amount){
-        amount = Math.min(amount, product.getStock());
-        Optional<OrderProduct> existing = Optional.ofNullable(findOrderProductByProduct(product));
-        if (existing.isPresent()){
-            price-=product.getPrice()*existing.get().getQuantity();
-            products.remove(existing.get());
-        }
-        price+=product.getPrice()*amount;
-        products.add(new OrderProduct(this, product, amount));
+    public void setUser(User user){
+        this.user = user;
     }
 }

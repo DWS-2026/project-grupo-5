@@ -16,6 +16,7 @@
                 <!-- Search bar -->
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" {{#search}} value="{{search}}" {{/search}}/>
                 <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
+                <input type="hidden" name="_csrf" value="{{token}}">
 
             </form>
             {{^user}}
@@ -84,11 +85,10 @@
 
 
                 <form class="d-flex me-4" role="search" action="/index">
-
                     <!-- Search bar -->
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" {{#search}}value="{{search}}"{{/search}}/>
                     <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
-
+                    <input type="hidden" name="_csrf" value="{{token}}">
                 </form>
             </div>
         </div>

@@ -44,10 +44,9 @@
             </div>
             <!-- Product Rating -->
             <span class="my-2">
-                <span class="text-primary" id="productRating" rating="{{rating}}"></span>
+                <span class="text-primary entity-rating" rating="{{rating}}"></span>
                 <span class="text-white"> ({{rating}})</span>
             </span>
-            <script src="/js/productStars.js"></script>
             <!-- Vendor -->
             <h4  class="text-white">Sold by: <a href="/user/{{vendor.id}}" class="link-light link-opacity-75-hover link-underline link-underline-opacity-0">{{vendor.username}} <i class="bi bi-person-circle"></i></a></i></h4>
             <!-- Product Stock -->
@@ -58,11 +57,14 @@
             <!-- Buy Buttons -->
             <div class="my-2 d-flex flex-row gap-3">
                 {{^canEditProduct}}
-                <a href="payment"><button class="btn btn-primary btn-lg">Buy Now</button></a>
-                <button class="btn btn-secondary btn-lg">Add to Cart</button>
+                    <a href="/payment"><button class="btn btn-primary btn-lg">Buy Now</button></a>
+                    <form method="post" th:action="'/cart/add/' + ${id}" style="display:inline;">
+                        <button type="submit" class="btn btn-secondary btn-lg">Add to Cart</button>
+                    </form>
                 {{/canEditProduct}}
                 {{#canEditProduct}}
                 <form method="post" action="/product/{{id}}/delete">
+                    <input type="hidden" name="_csrf" value="{{token}}">
                     <button class="btn btn-danger btn-lg" type="submit">
                         <i class="bi bi-x-lg"> </i>
                         Delete
@@ -83,10 +85,11 @@
             </div>
             <!-- Report button-->
             <button class="btn  btn-danger mt-4 "><i class="bi bi-flag-fill"></i> Report</button>
-            <div class="mt-4 d-flex flex-column w-100 hidden">
+            <form class="mt-4 d-flex flex-column w-100 hidden">
                 <textarea class="form-control mb-2" placeholder="Describe el motivo del reporte..." rows="5"></textarea>
+                <input type="hidden" name="_csrf" value="{{token}}">
                 <button type="submit" class="btn btn-sm btn-primary align-self-center">Enviar Reporte</button>
-            </div>
+            </form>
             <!-- Reviews -->
             <h2 class="text-white my-4">Product reviews:</h2>
             <div class="container d-flex flex-column align-items-center p-0 gap-3">
@@ -166,6 +169,7 @@
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" name="_csrf" value="{{token}}">
                     <button class="btn btn-primary my-2 mx-1" type="submit">Send</button>
                     <button class="btn btn-danger my-2" type="reset">Cancel</button>
                 </form>
@@ -199,6 +203,7 @@
                         <a class="btn btn-secondary" href="/product/{{product.id}}/review/{{id}}/edit"><i class="bi bi-pencil-square"></i> Edit</a>
                         <form action="/product/{{product.id}}/review/{{id}}/delete" method="post">
                             <button class="btn btn-danger" type="submit"><i class="bi bi-x-lg"> </i>Delete</button>
+                            <input type="hidden" name="_csrf" value="{{token}}">
                         </form>
                     </div>
                 </div>
@@ -208,9 +213,7 @@
                 <div class="card text-white bg-body w-100">
                     <div class="card-body">
                         <h5 class="card-title mb-2">{{name}}</h5>
-                        <span class="text-primary review-rating rating-{{rating}}">
-                            <i class="bi bi-star-fill"></i>
-                        </span>
+                        <span class="text-primary entity-rating" rating="{{rating}}"></span>
                         <div class="d-flex flex-column gap-2">
                             <p class="card-text flex-grow-1">{{description}}</p>
                             <div class="d-flex flex-row gap-2">
@@ -233,16 +236,12 @@
                         <a class="btn btn-secondary" href="/product/{{product.id}}/review/{{id}}/edit"><i class="bi bi-pencil-square"></i> Edit</a>
                         <form action="/product/{{product.id}}/review/{{id}}/delete" method="post">
                             <button class="btn btn-danger" type="submit"><i class="bi bi-x-lg"> </i>Delete</button>
+                            <input type="hidden" name="_csrf" value="{{token}}">
                         </form>
                         {{/isAdmin}}
                     </div>
                 </div>
                 {{/productReviews}}
-                {{#reviews}}
-                {{#-last}}
-                <script src="/js/reviewStars.js"></script>
-                {{/-last}}
-                {{/reviews}}
                 {{^reviews}}
                 <div class="alert alert-info w-100" role="alert">
                     No reviews yet.
@@ -252,5 +251,6 @@
         </div>
         {{/product}}
     </main>
+    <script src="/js/entityStars.js"></script>
 </body>
 </html>
