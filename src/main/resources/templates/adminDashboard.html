@@ -15,56 +15,18 @@
             
             <!-- Admin user -->
             <div class="col-md-2 mx-4 my-5 col-10  align-self-center align-self-md-start">
-
+                {{#user}}
                 <div class="card shadow-sm bg-body-secondary rounded-5 border border-2 border-secondary">
                     <img src="/assets/user.jpg" class="rounded-circle mx-3 my-3" alt="product Pthoto" onerror="this.src='/assets/logo2.png';">
                     <div class="card-body text-white">
-                        <h4>ID: 0</h4>
-                        <h5 class="card-title">Admin</h5>
-                        <p class="card-text">Admin description</p>
+                        <h4>ID: {{id}}</h4>
+                        <h5 class="card-title">{{username}}</h5>
+                        <p class="card-text">{{email}}</p>
                     </div>
                 </div>
-
+                {{/user}}
             </div>
 
-            <!-- 5 recents notifications -->
-            <div class="col-md-5 col-10 mx-auto bg-body my-md-5 pb-5 rounded-5 w-md-50 d-flex flex-column shadow-lg border border-2 border-secondary">
-                <div class="align-self-center text-primary my-1">
-                    <h2 class="my-2">Notification </h2>
-                </div>
-
-                <!-- Each notification -->
-                <div class=" text-white mx-3 bg-body-tertiary my-2 rounded-pill">
-                    <h5 class="mx-4 my-2">Notification number 1</h5>
-                    <p class="mx-4">Resume</p>
-                </div>
-
-                <div class=" text-white mx-3 bg-body-tertiary my-2 rounded-pill">
-                    <h5 class="mx-4 my-2">Notification number 1</h5>
-                    <p class="mx-4 ">Resume</p>
-                </div>
-
-                <div class=" text-white mx-3 bg-body-tertiary my-2 rounded-pill">
-                    <h5 class="mx-4 my-2">Notification number 2</h5>
-                    <p class="mx-4 ">Resume</p>
-                </div>
-
-                <div class="text-white mx-3 bg-body-tertiary my-2 rounded-pill">
-                    <h5 class="mx-4 my-2">Notification number 3</h5>
-                    <p class="mx-4 ">Resume</p>  
-                </div>
-
-                <div class="text-white mx-3 bg-body-tertiary my-2 rounded-pill">
-                    <h5 class="mx-4 my-2">Notification number 4</h5>
-                    <p class="mx-4 ">Resume</p>
-                </div>
-                
-                <div class="text-white mx-3 bg-body-tertiary my-2 rounded-pill">
-                    <h5 class="mx-4 my-2">Notification number 5</h5>
-                    <p class="mx-4 ">Resume</p>
-                </div>
-
-            </div>
         </div>
     </main>
 </body>
