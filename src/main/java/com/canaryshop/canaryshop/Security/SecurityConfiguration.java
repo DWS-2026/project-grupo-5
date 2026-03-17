@@ -31,8 +31,8 @@ public class SecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity http) {
         http.authenticationProvider(authenticationProvider());
         http.authorizeHttpRequests(authorize -> {
-                String[] guestPages = { "/", "/index", "/product/**", "/user/**", "/login", "/register", "/images/**", "/js/**", "/css/**", "/assets/**", "/error", "/user/*" };
-                String[] userPages = { "/product/new", "/product/*/edit", "/product/*/delete", "/product/*/review/**", "/cart/**", "/logout" };
+                String[] guestPages = { "/", "/index", "/product/**", "/login", "/register", "/images/**", "/js/**", "/css/**", "/assets/**", "/error" };
+                String[] userPages = { "/product/new", "/product/*/edit", "/product/*/delete", "/product/*/review/**", "/cart/**", "/logout", "/user/**" };
                 String[] adminPages = { "/admin/**" };
                 for (String page: adminPages) { authorize.requestMatchers(page).hasAnyRole("ADMIN"); }
                 for (String page: userPages) { authorize.requestMatchers(page).authenticated(); }
