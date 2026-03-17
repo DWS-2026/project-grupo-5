@@ -32,7 +32,7 @@ public class Order {
         }
         return total;
     }
-    
+
     public List<OrderProduct> getProducts(){
         return products;
     }
@@ -62,5 +62,12 @@ public class Order {
     }
     public void setUser(User user){
         this.user = user;
+    }
+    public int getNumberOfProducts(){
+        int total=0;
+        for (OrderProduct op : this.getProducts()) {
+            total += op.getQuantity();
+        }
+        return total;
     }
 }
