@@ -21,8 +21,8 @@ public class User {
     @OneToMany(mappedBy="vendor", cascade=CascadeType.ALL)
     private final List<Product> products = new LinkedList<>();
     @OneToOne(cascade=CascadeType.ALL)
-    private Order cart = new Order();
-    @OneToMany(cascade=CascadeType.ALL)
+    private Order cart;
+    @OneToMany(cascade=CascadeType.ALL, mappedBy = "user")
     private final List<Order> orders = new LinkedList<>();
     @OneToOne(cascade=CascadeType.ALL)
     private Image image;
@@ -32,6 +32,8 @@ public class User {
         this.email = email;
         this.password = password;
         this.roles = List.of(roles);
+        this.cart = new Order();
+        this.cart.setUser(this);
     }
 
     // Empty constructor for JPA
@@ -86,6 +88,7 @@ public class User {
         this.roles.add(roles); 
     }
     public void addOrder(Order order){
+        order.setUser(this);
         this.orders.add(order);
     }
     public float getRating(){

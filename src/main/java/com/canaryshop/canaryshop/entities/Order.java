@@ -15,7 +15,8 @@ public class Order {
     private Long id;
     private double price = 0F;
     private boolean isClosed = false;
-    
+    @ManyToOne
+    private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<OrderProduct> products = new LinkedList<>();
@@ -53,5 +54,8 @@ public class Order {
     }
     public void removeProduct(OrderProduct op){
         products.remove(op);
+    }
+    public void setUser(User user){
+        this.user = user;
     }
 }
