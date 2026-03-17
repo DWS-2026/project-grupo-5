@@ -88,4 +88,14 @@ public class User {
     public void addOrder(Order order){
         this.orders.add(order);
     }
+    public float getRating(){
+        if (products.isEmpty()){
+            return 0;
+        }
+        float rating = 0;
+        for (Product product: products) {
+            rating += product.getRating();
+        }
+        return rating / products.size();
+    }
 }
