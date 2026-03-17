@@ -60,9 +60,12 @@
                         {{#isAdmin}}
                         <a class="bi bi-wrench link-success nav-link" href="/admin"> Admin panel</a>
                         {{/isAdmin}}
-                        <a class="text-decoration-none text-danger py-2" href="/logout">
-                            <i class="bi bi-box-arrow-right"></i> Log out
-                        </a>
+                        <form action="/logout" method="post" class="mt-auto">
+                            <input type="hidden" name="_csrf" value="{{token}}">
+                            <button type="submit" class="btn btn-link text-decoration-none text-danger py-2 w-100 text-start p-0">
+                                <i class="bi bi-box-arrow-right"></i> Log out
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -107,9 +110,12 @@
                     class="bi bi-wrench"></i></a>
             {{/admin}}
             <a class="btn btn-secondary" href="/user/{{id}}" role="button"><i class="bi bi-person-circle"></i></a>
-            <a class="text-decoration-none text-danger py-2" href="/logout">
-                <i class="bi bi-box-arrow-right"></i> Log out
-            </a>
+            <form action="/logout" method="post" class="mt-auto">
+                <input type="hidden" name="_csrf" value="{{token}}">
+                <button type="submit" class="btn btn-link text-decoration-none text-danger py-2 w-100 text-start p-0">
+                    <i class="bi bi-box-arrow-right"></i> Log out
+                </button>
+            </form>
         </div>
         {{/user}}
         {{^user}}
