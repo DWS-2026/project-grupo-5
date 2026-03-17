@@ -26,8 +26,13 @@ public class Order {
         return id;
     }
     public double getPrice(){
-        return price;
+        double total = 0;
+        for (OrderProduct op : products) {
+            total += op.getProduct().getPrice() * op.getQuantity();
+        }
+        return total;
     }
+
     public List<OrderProduct> getProducts(){
         return products;
     }
@@ -57,5 +62,12 @@ public class Order {
     }
     public void setUser(User user){
         this.user = user;
+    }
+    public int getNumberOfProducts(){
+        int total=0;
+        for (OrderProduct op : this.getProducts()) {
+            total += op.getQuantity();
+        }
+        return total;
     }
 }

@@ -58,9 +58,12 @@
             <div class="my-2 d-flex flex-row gap-3">
                 {{^canEditProduct}}
                     <a href="/payment"><button class="btn btn-primary btn-lg">Buy Now</button></a>
-                    <form method="post" th:action="'/cart/add/' + ${id}" style="display:inline;">
-                        <button type="submit" class="btn btn-secondary btn-lg">Add to Cart</button>
-                    </form>
+                    {{#product}}
+                        <form action="/cart/increase/{{id}}" method="post" style="display:inline;">
+                            <input type="hidden" name="_csrf" value="{{token}}">
+                            <button type="submit" class="btn btn-secondary btn-lg">Add to Cart</button>
+                        </form>
+                    {{/product}}
                 {{/canEditProduct}}
                 {{#canEditProduct}}
                 <form method="post" action="/product/{{id}}/delete">

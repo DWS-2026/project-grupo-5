@@ -28,10 +28,12 @@
                                 </h5>
                                 <div class="d-flex gap-3 align-items-center align-self-end">
                                     <form action="/cart/decrease/{{id}}" method="post" style="display:inline;">
+                                        <input type="hidden" name="_csrf" value="{{token}}">
                                         <button type="submit" class="btn btn-danger">-</button>
                                     </form>
                                     <span class="fs-5 fw-bold">{{quantity}}</span>
-                                    <form action="/cart/increase/{{id}}" method="post" style="display:inline;">
+                                    <form action="/cart/increase/{{product.id}}" method="post" style="display:inline;">
+                                        <input type="hidden" name="_csrf" value="{{token}}">
                                         <button type="submit" class="btn btn-primary">+</button>
                                     </form>
                                 </div>

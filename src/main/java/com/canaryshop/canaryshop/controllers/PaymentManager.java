@@ -23,7 +23,7 @@ public class PaymentManager {
     public String getPaymentPage(Model model, Principal principal) {
         User user = userService.getUser(principal.getName());
         Order cart = user.getCart();
-        model.addAttribute("cartProducts", cart.getProducts());
+        model.addAttribute("cart", cart);
         model.addAttribute("totalPrice", cart.getPrice());
         return "payment";
     }

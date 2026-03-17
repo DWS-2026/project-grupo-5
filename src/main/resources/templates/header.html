@@ -58,7 +58,7 @@
                         <a class="text-decoration-none text-white" href="/user/{{id}}"><i class="bi bi-person-circle"></i>
                             Show profile</a>
                         {{#isAdmin}}
-                        <a class="bi bi-wrench link-success nav-link" href="/admin"> Admin panel</a>
+                        <a class="bi bi-wrench link-success nav-link" href="/admin/{{id}}"> Admin panel</a>
                         {{/isAdmin}}
                         <form action="/logout" method="post" class="mt-auto">
                             <input type="hidden" name="_csrf" value="{{token}}">
@@ -106,7 +106,7 @@
             <a class="btn btn-secondary" href="/product/new" role="button"><i class="bi bi-plus-circle"></i></a>
             <a class="btn btn-secondary" href="/cart" role="button"><i class="bi bi-cart2"></i></a>
             {{#admin}}
-            <a class="btn btn-secondary link-success" href="/admin" role="button"><i
+            <a class="btn btn-secondary link-success" href="/admin/{{id}}" role="button"><i
                     class="bi bi-wrench"></i></a>
             {{/admin}}
             <a class="btn btn-secondary" href="/user/{{id}}" role="button"><i class="bi bi-person-circle"></i></a>

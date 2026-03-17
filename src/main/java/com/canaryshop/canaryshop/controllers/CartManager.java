@@ -37,11 +37,25 @@ public class CartManager {
 
    @PostMapping("/cart/increase/{id}")
     public String increaseItem(@PathVariable long id, Principal principal) {
-        OrderProduct orderProduct = os.getOrderProduct(id);
         User user = userService.getUser(principal.getName());
         Order cart = user.getCart();
-        os.setAmount(orderProduct,orderProduct.getQuantity()+1);
-        os.addOrder(cart);
+        Product product = products.getProduct(id);
+        OrderProduct existingOp = null;
+        for (OrderProduct op : cart.getProducts()) {
+            if (op.getProduct().getId() == id) {
+                existingOp = op;
+                break;
+            }
+        }
+
+        if (existingOp != null) {
+            os.setAmount(existingOp, existingOp.getQuantity() + 1);
+        } 
+        else {
+            OrderProduct newOrderProduct = new OrderProduct(cart, product, 1);
+            cart.addProduct(newOrderProduct);
+        }
+        os.addOrder(cart); 
         userService.addUser(user); 
         return "redirect:/cart";
     }

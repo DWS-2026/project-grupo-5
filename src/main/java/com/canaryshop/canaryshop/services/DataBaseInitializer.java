@@ -56,6 +56,7 @@ public class DataBaseInitializer {
                         Image image = imageService.createImage("src/main/resources/static/assets/logo.png");
                         product = new Product(user1, "Samsung A"+i, "Roto", 1.00*i, 1, image);
                         product.addReview(new Review(admin, "Un poco malo", 2, "Viva android"));
+                        product.report();
                     }
                 };
                 productService.addProduct(product);
@@ -66,7 +67,7 @@ public class DataBaseInitializer {
                 switch(i%4){
                     case 0 -> {
                         Image image2 = imageService.createImage("src/main/resources/static/assets/logo2.png");
-                        product = new Product(admin, "Iphone"+i, "Buena calidad", 40.00*i, 1, image2);
+                        product = new Product(admin, "Iphone"+i, "Buena calidad", 40.00*i, 12, image2);
                         product.addReview(new Review(user1, "Ta bien", 3, "Hater de iphones", image2));
                         OrderProduct op = new OrderProduct(order, product, 1);
                         order.addProduct(op);

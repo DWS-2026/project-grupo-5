@@ -15,231 +15,43 @@
             <div class="mx-4 my-md-5 my-4  w-md-50 w-75 align-self-center d-flex flex-column flex-fill ">
 
                 <div class="align-self-center align-items-center text-primary d-flex flex-row my-1 bg-body-secondary rounded-pill col-md-3 border border-2 border-secondary">
-                        <input class="form-control me-2 ms-3 my-2" type="search" placeholder="Search" aria-label="Search"/>
-                        <button class="btn btn-outline-success me-3" type="submit"><i class="bi bi-search"></i></button>
+                    <form class="d-flex me-4" role="search" action="/admin/products">
+                        <input class="form-control me-2 ms-3 my-2" type="search" placeholder="Search" aria-label="Search" name="search"/>
+                        <input type="hidden" name="_csrf" value="{{token}}">
+                        <button class="btn btn-outline-success me-1 my-2" type="submit"><i class="bi bi-search"></i></button>
+                    </form>
                 </div>
-
+               
                 <!-- Each Product -->
                 <div  class="container my-3">
                 
                     <div class="row row-cols-1 row-cols-md-6  g-4 mx-1">
-                        
+                        {{#products}}
                         <div class="col">
-                            <a href="#" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
+                            <a href="/product/{{id}}" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
                                 <div class="card shadow-sm bg-body-secondary">
                                     <img src="productPthoto"  alt="product Pthoto" onerror="this.src='/assets/logo2.png';">
                                     <div class="card-body text-white">
-                                        <h5 class="card-title">Producto</h5>
-                                        <p class="card-text">Descripcion del producto</p>
+                                        <h5 class="card-title">{{name}}</h5>
+                                        <p class="card-text">{{description}}</p>
                                     </div>
                                 </div>
                             </a>
                             <div class="justify-content-center d-flex flex-row flex-nowrap mx-4 my-2 align-self-center">
                                 <!-- Edit product -->
-                                <a href="#"><button type="button" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></button></a>
+                                <form action="/product/{{id}}/edit" method="get">
+                                    <input type="hidden" name="_csrf" value="{{token}}">
+                                    <button type="submit" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></button>
+                            </form>
                                 <!-- Remove product-->
-                                <a href="#"><button type="button" class="btn btn-outline-danger mx-2"><i class="bi bi-x-lg"></i></button></a>
-                            </div>
-                        </div>
+                                <form action="/admin/product/{{id}}/delete" method="post"> 
+                                    <input type="hidden" name="_csrf" value="{{token}}">
+                                    <button type="sumbit" class="btn btn-outline-danger mx-2"><i class="bi bi-x-lg"></i></button>
+                                </form>
 
-                        <div class="col">
-                            <a href="#" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
-                                <div class="card shadow-sm bg-body-secondary">
-                                    <img src="productPthoto"  alt="product Pthoto" onerror="this.src='/assets/logo2.png';">
-                                    <div class="card-body text-white">
-                                        <h5 class="card-title">Producto</h5>
-                                        <p class="card-text">Descripcion del producto</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="justify-content-center d-flex flex-row flex-nowrap mx-4 my-2 align-self-center">
-                                <!-- Edit product -->
-                                <a href="#"><button type="button" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></button></a>
-                                <!-- Remove product-->
-                                <a href="#"><button type="button" class="btn btn-outline-danger mx-2"><i class="bi bi-x-lg"></i></button></a>
-                            </div>
                         </div>
-
-                        <div class="col">
-                            <a href="#" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
-                                <div class="card shadow-sm bg-body-secondary">
-                                    <img src="productPthoto"  alt="product Pthoto" onerror="this.src='/assets/logo2.png';">
-                                    <div class="card-body text-white">
-                                        <h5 class="card-title">Producto</h5>
-                                        <p class="card-text">Descripcion del producto</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="justify-content-center d-flex flex-row flex-nowrap mx-4 my-2 align-self-center">
-                                <!-- Edit product -->
-                                <a href="#"><button type="button" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></button></a>
-                                <!-- Remove product-->
-                                <a href="#"><button type="button" class="btn btn-outline-danger mx-2"><i class="bi bi-x-lg"></i></button></a>
                             </div>
-                        </div>
-
-                        <div class="col">
-                            <a href="#" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
-                                <div class="card shadow-sm bg-body-secondary">
-                                    <img src="productPthoto"  alt="product Pthoto" onerror="this.src='/assets/logo2.png';">
-                                    <div class="card-body text-white">
-                                        <h5 class="card-title">Producto</h5>
-                                        <p class="card-text">Descripcion del producto</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="justify-content-center d-flex flex-row flex-nowrap mx-4 my-2 align-self-center">
-                                <!-- Edit product -->
-                                <a href="#"><button type="button" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></button></a>
-                                <!-- Remove product-->
-                                <a href="#"><button type="button" class="btn btn-outline-danger mx-2"><i class="bi bi-x-lg"></i></button></a>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <a href="#" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
-                                <div class="card shadow-sm bg-body-secondary">
-                                    <img src="productPthoto"  alt="product Pthoto" onerror="this.src='/assets/logo2.png';">
-                                    <div class="card-body text-white">
-                                        <h5 class="card-title">Producto</h5>
-                                        <p class="card-text">Descripcion del producto</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="justify-content-center d-flex flex-row flex-nowrap mx-4 my-2 align-self-center">
-                                <!-- Edit product -->
-                                <a href="#"><button type="button" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></button></a>
-                                <!-- Remove product-->
-                                <a href="#"><button type="button" class="btn btn-outline-danger mx-2"><i class="bi bi-x-lg"></i></button></a>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <a href="#" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
-                                <div class="card shadow-sm bg-body-secondary">
-                                    <img src="productPthoto"  alt="product Pthoto" onerror="this.src='/assets/logo2.png';">
-                                    <div class="card-body text-white">
-                                        <h5 class="card-title">Producto</h5>
-                                        <p class="card-text">Descripcion del producto</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="justify-content-center d-flex flex-row flex-nowrap mx-4 my-2 align-self-center">
-                                <!-- Edit product -->
-                                <a href="#"><button type="button" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></button></a>
-                                <!-- Remove product-->
-                                <a href="#"><button type="button" class="btn btn-outline-danger mx-2"><i class="bi bi-x-lg"></i></button></a>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <a href="#" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
-                                <div class="card shadow-sm bg-body-secondary">
-                                    <img src="productPthoto"  alt="product Pthoto" onerror="this.src='/assets/logo2.png';">
-                                    <div class="card-body text-white">
-                                        <h5 class="card-title">Producto</h5>
-                                        <p class="card-text">Descripcion del producto</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="justify-content-center d-flex flex-row flex-nowrap mx-4 my-2 align-self-center">
-                                <!-- Edit product -->
-                                <a href="#"><button type="button" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></button></a>
-                                <!-- Remove product-->
-                                <a href="#"><button type="button" class="btn btn-outline-danger mx-2"><i class="bi bi-x-lg"></i></button></a>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <a href="#" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
-                                <div class="card shadow-sm bg-body-secondary">
-                                    <img src="productPthoto"  alt="product Pthoto" onerror="this.src='/assets/logo2.png';">
-                                    <div class="card-body text-white">
-                                        <h5 class="card-title">Producto</h5>
-                                        <p class="card-text">Descripcion del producto</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="justify-content-center d-flex flex-row flex-nowrap mx-4 my-2 align-self-center">
-                                <!-- Edit product -->
-                                <a href="#"><button type="button" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></button></a>
-                                <!-- Remove product-->
-                                <a href="#"><button type="button" class="btn btn-outline-danger mx-2"><i class="bi bi-x-lg"></i></button></a>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <a href="#" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
-                                <div class="card shadow-sm bg-body-secondary">
-                                    <img src="productPthoto"  alt="product Pthoto" onerror="this.src='/assets/logo2.png';">
-                                    <div class="card-body text-white">
-                                        <h5 class="card-title">Producto</h5>
-                                        <p class="card-text">Descripcion del producto</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="justify-content-center d-flex flex-row flex-nowrap mx-4 my-2 align-self-center">
-                                <!-- Edit product -->
-                                <a href="#"><button type="button" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></button></a>
-                                <!-- Remove product-->
-                                <a href="#"><button type="button" class="btn btn-outline-danger mx-2"><i class="bi bi-x-lg"></i></button></a>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <a href="#" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
-                                <div class="card shadow-sm bg-body-secondary">
-                                    <img src="productPthoto"  alt="product Pthoto" onerror="this.src='/assets/logo2.png';">
-                                    <div class="card-body text-white">
-                                        <h5 class="card-title">Producto</h5>
-                                        <p class="card-text">Descripcion del producto</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="justify-content-center d-flex flex-row flex-nowrap mx-4 my-2 align-self-center">
-                                <!-- Edit product -->
-                                <a href="#"><button type="button" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></button></a>
-                                <!-- Remove product-->
-                                <a href="#"><button type="button" class="btn btn-outline-danger mx-2"><i class="bi bi-x-lg"></i></button></a>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <a href="#" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
-                                <div class="card shadow-sm bg-body-secondary">
-                                    <img src="productPthoto"  alt="product Pthoto" onerror="this.src='/assets/logo2.png';">
-                                    <div class="card-body text-white">
-                                        <h5 class="card-title">Producto</h5>
-                                        <p class="card-text">Descripcion del producto</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="justify-content-center d-flex flex-row flex-nowrap mx-4 my-2 align-self-center">
-                                <!-- Edit product -->
-                                <a href="#"><button type="button" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></button></a>
-                                <!-- Remove product-->
-                                <a href="#"><button type="button" class="btn btn-outline-danger mx-2"><i class="bi bi-x-lg"></i></button></a>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <a href="#" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
-                                <div class="card shadow-sm bg-body-secondary">
-                                    <img src="productPthoto"  alt="product Pthoto" onerror="this.src='/assets/logo2.png';">
-                                    <div class="card-body text-white">
-                                        <h5 class="card-title">Producto</h5>
-                                        <p class="card-text">Descripcion del producto</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="justify-content-center d-flex flex-row flex-nowrap mx-4 my-2 align-self-center">
-                                <!-- Edit product -->
-                                <a href="#"><button type="button" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></button></a>
-                                <!-- Remove product-->
-                                <a href="#"><button type="button" class="btn btn-outline-danger mx-2"><i class="bi bi-x-lg"></i></button></a>
-                            </div>
-                        </div>
-
+                        {{/products}}
                     </div>
                 
                 </div>
@@ -247,19 +59,21 @@
                 <!-- Pages of products -->
                 <nav class="my-4">
 
-                    <ul class="pagination justify-content-center ">
-                        <li class="page-item">
-                            <a class="page-link bg-body-secondary bg-opacity-10 text-white border-dark border-opacity-25 rounded-5 rounded-end" href="#">Previous</a>
-                        </li>
-                        <li class="page-item"><a class="page-link bg-body-secondary bg-opacity-10 text-white border-dark border-opacity-25" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link bg-body-secondary bg-opacity-10 text-white border-dark border-opacity-25" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link bg-body-secondary bg-opacity-10 text-white border-dark border-opacity-25" href="#">3</a></li>
-                        <li class="page-item disabled"><a class="page-link bg-body-secondary bg-opacity-10 text-white border-dark border-opacity-25">...</a></li>
-                        <li class="page-item"><a class="page-link bg-body-secondary bg-opacity-10 text-white border-dark border-opacity-25" href="#">50</a></li>
-                        <li class="page-item">
-                            <a class="page-link bg-body-secondary bg-opacity-10 text-white border-dark border-opacity-25 rounded-5 rounded-start" href="#">Next</a>
-                        </li>
-                    </ul>
+                 <ul class="pagination justify-content-center ">
+                    <li class="page-item {{^hasprev}}disabled{{/hasprev}}">
+                        <a class="page-link bg-body bg-opacity-10 text-white border-dark border-opacity-25 rounded-5 rounded-end" href="?page={{prev}}{{#search}}&search={{search}}{{/search}}">Previous</a>
+                    </li>
+                    <li class="page-item {{^hasprev}}hidden{{/hasprev}}"><a class="page-link bg-body bg-opacity-10 text-white border-dark border-opacity-25" href="?page=0{{#search}}&search={{search}}{{/search}}">1</a></li>
+                    {{#less}}<li class="page-item disabled"><a class="page-link bg-body bg-opacity-10 text-white border-dark border-opacity-25">...</a></li>{{/less}}
+                    {{#less}}<li class="page-item "><a class="page-link bg-body bg-opacity-10 text-white border-dark border-opacity-25" href="?page={{prev}}{{#search}}&search={{search}}{{/search}}">{{page}}</a></li>{{/less}}
+                    <li class="page-item"><a class="page-link bg-body-secondary bg-opacity-75 text-white border-dark border-opacity-25" href="?page={{page}}{{#search}}&search={{search}}{{/search}}">{{next}}</a></li>
+                    <li class="page-item {{^hasnext}}hidden{{/hasnext}}"><a class="page-link bg-body bg-opacity-10 text-white border-dark border-opacity-25" href="?page={{next}}{{#search}}&search={{search}}{{/search}}">{{nextPage}}</a></li>
+                    {{#more}}<li class="page-item disabled"><a class="page-link bg-body bg-opacity-10 text-white border-dark border-opacity-25">...</a></li>{{/more}}
+                    {{#lastPage}}<li class="page-item "><a class="page-link bg-body bg-opacity-10 text-white border-dark border-opacity-25" href="?page={{lastPageLink}}{{#search}}&search={{search}}{{/search}}">{{lastPage}}</a></li>{{/lastPage}}
+                    <li class="page-item {{^hasnext}}disabled{{/hasnext}}">
+                        <a class="page-link bg-body bg-opacity-10 text-white border-dark border-opacity-25 rounded-5 rounded-start" href="?page={{next}}{{#search}}&search={{search}}{{/search}}">Next</a>
+                    </li>
+                </ul>
 
                 </nav>
 
