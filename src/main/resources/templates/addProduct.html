@@ -78,8 +78,7 @@
                             <input type="number" name="stock" class="form-control bg-body-secondary" min="1" max="100000" value="{{^product}}1{{/product}}{{#product}}{{stock}}{{/product}}" required>
                         </div>
                     </div>
-
-
+                    <input type="hidden" name="_csrf" value="{{token}}">
                     <!-- Input button -->
                     <button class="btn btn-primary mb-4" type="submit">Submit</button>
                 </form>

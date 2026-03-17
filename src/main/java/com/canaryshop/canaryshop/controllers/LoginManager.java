@@ -19,9 +19,10 @@ public class LoginManager {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/login")
-    public String getLoginPage(Model model) {
+    public String getLoginPage(Model model, @RequestParam(required = false) boolean registerSuccess) {
         model.addAttribute("showLogin", true);
         model.addAttribute("showRegister", false);
+        model.addAttribute("registerSuccess", registerSuccess);
         return "login";
     }
 
@@ -42,11 +43,17 @@ public class LoginManager {
 
     @PostMapping("/register")
     public String postMethodName(@RequestParam String username, @RequestParam String email,
-            @RequestParam String password, Model model) {
+            @RequestParam String password, @RequestParam String confirmPassword, Model model) {
         if (userRepository.findByEmail(email).isPresent()) {
             model.addAttribute("showRegister", true);
             model.addAttribute("showLogin", false);
             model.addAttribute("RegisterError", "Email already in use");
+            return "login";
+        }
+        if(!password.equals(confirmPassword)){
+            model.addAttribute("showRegister", true);
+            model.addAttribute("showLogin", false);
+            model.addAttribute("RegisterError", "The passwords are different");
             return "login";
         }
 
@@ -54,7 +61,7 @@ public class LoginManager {
         userRepository.save(entity);
         model.addAttribute("showLogin", true);
         model.addAttribute("showRegister", false);
-        return "redirect:/login";
+        return "redirect:/login?registerSuccess=true";
     }
 
 }

@@ -79,7 +79,9 @@
     border-color: var(--yellow);
     color: var(--yellow);
 }
-.alert-info {
+.alert-info,
+.alert-primary,
+.alert-success {
     background-color: transparent;
     border-color: var(--green);
     color: var(--green);
@@ -152,7 +154,6 @@
     --bs-nav-pills-link-active-bg: var(--green);
     --bs-nav-pills-link-active-color: var(--text);
 }
-
 
 /* Square label */
 .upload-label {

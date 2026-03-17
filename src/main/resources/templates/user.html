@@ -22,53 +22,48 @@
                             </label>
                             
                             <input type="file" id="file-input" name="image" accept="image/*" hidden onchange="this.form.submit()">
+                            <input type="hidden" name="_csrf" value="{{token}}">
                         </form>
-                        
+
                     <!--User info-->
                     <div class="card shadow-lg bg-body mt-4 rounded-5 text-white border-0">
                         <div class="card-body">
+
+                            {{#canEdit}}
                             <form action="/user/{{id}}/edit" method="post" class="d-flex flex-column align-items-center">
                                 <input type="text" class="form-control text-center bg-transparent text-white border-0 shadow-none" name="userName" value="{{username}}" required>
                                 <input type="email" class=" form-control text-center text-white-50 bg-transparent border-0 shadow-none" name="email" value="{{email}}" required>
                                 <button type="submit" class="btn btn-secondary mt-3 btn border-0"><i class="bi bi-pencil-square"></i> Edit</button>
+                                <input type="hidden" name="_csrf" value="{{token}}">
                             </form>
+                            {{/canEdit}}
+                            {{^canEdit}}
+                            <form action="/user/{{id}}/edit" method="post" class="d-flex flex-column align-items-center">
+                                <h2 type="text" class="form-control text-center bg-transparent text-white border-0 shadow-none" >{{username}}</h2>
+                                <h2 type="email" class=" form-control text-center text-white-50 bg-transparent border-0 shadow-none" >{{email}}</h2>
+                                <input type="hidden" name="_csrf" value="{{token}}">
+                            </form>
+                            {{/canEdit}}
                         </div>
                         <div class="card-footer bg-body-secondary rounded-top rounded-5 d-flex justify-content-around py-3">
                             <div class="text-center">
                                 <h6 class="mb-0">Nº Orders: 219</h6>
                                 <h6 class="mb-0">Nº Sales: 12</h6>
-                                <div id="reviewStars" class="d-flex gap-1 align-items-center">
-                                    <div class="form-check form-check-inline m-0 p-0">
-                                        <input type="radio" class="btn-check" id="star1" autocomplete="off">
-                                        <label for="star1" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star-fill"></i></label>
-                                    </div>
-                                    <div class="form-check form-check-inline m-0 p-0">
-                                        <input type="radio" class="btn-check" id="star2" autocomplete="off">
-                                        <label for="star2" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star-fill"></i></label>
-                                    </div>
-                                    <div class="form-check form-check-inline m-0 p-0">
-                                        <input type="radio" class="btn-check" id="star3" autocomplete="off">
-                                        <label for="star3" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star-fill"></i></label>
-                                    </div>
-                                    <div class="form-check form-check-inline m-0 p-0">
-                                        <input type="radio" class="btn-check" id="star4" autocomplete="off">
-                                        <label for="star4" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star-half"></i></label>
-                                    </div>
-                                    <div class="form-check form-check-inline m-0 p-0">
-                                        <input type="radio" class="btn-check" id="star5" autocomplete="off">
-                                        <label for="star5" class="btn btn-link btn-lg p-0 border-0 text-primary"><i class="bi bi-star"></i></label>
-                                    </div>
-                                    (3.7)
-                                </div>
+                                <span class="my-2">
+                                    <span class="text-primary entity-rating" rating="{{rating}}"></span>
+                                    <span class="text-white"> ({{rating}})</span>
+                                </span>
+                                <script src="/js/entityStars.js"></script>
                             </div>
                     </div>
                 </div>
                 <!-- Report button-->
                 <button class="btn  btn-danger mt-4 "><i class="bi bi-flag-fill"></i> Report</button>
-                <div class="mt-4 d-flex flex-column w-100 hidden">
+                <form class="mt-4 d-flex flex-column w-100 hidden">
                     <textarea class="form-control mb-2" placeholder="Describe el motivo del reporte..." rows="5"></textarea>
                     <button type="submit" class="btn btn-sm btn-primary align-self-center">Enviar Reporte</button>
-                </div>
+                    <input type="hidden" name="_csrf" value="{{token}}">
+                </form>
                 </div>
                 {{/user}}
                 <!-- User product container -->
@@ -102,7 +97,7 @@
                 </div>
             </div>
             <div class="col d-flex flex-column gap-4 align-items-center flex-fill">
-                    <h5 class="display-5 text-white">My Orders</h5>
+                    <h5 class="display-5 text-white">Orders</h5>
                     <!-- Products -->
                     <div class="d-flex flex-column flex-md-row align-items-center justify-content-evenly w-100 gap-2">
                         {{#orders}}
