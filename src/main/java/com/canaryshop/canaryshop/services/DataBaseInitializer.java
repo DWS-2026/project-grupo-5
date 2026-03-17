@@ -41,13 +41,12 @@ public class DataBaseInitializer {
                 switch(i%4){
                     case 0 -> {
                         Image image = imageService.createImage("src/main/resources/static/assets/logo.png");
-                        product = new Product(admin, "Samsung A"+i, "Buena calidad", 4.00*i, 1, image);
+                        product = new Product(admin, "Samsung A"+i, "Buena calidad", 4.00*i, 3, image);
                         product.addReview(new Review(user1, "GOTY", 5, "Viva android"));
-                        order.addProduct(product);
                     }
                     case 1 -> {
                         Image image = imageService.createImage("src/main/resources/static/assets/logo.png");
-                        product = new Product(admin, "Samsung A"+i, "Seminuevo", 3.00*i, 1, image);
+                        product = new Product(admin, "Samsung A"+i, "Seminuevo", 3.00*i, 15, image);
                         product.addReview(new Review(user1, "good", 4, "Viva android"));
                     }
                     case 2 -> {
@@ -62,17 +61,15 @@ public class DataBaseInitializer {
                     }
                 };
                 productService.addProduct(product);
-                this.orderRepository.save(order);
-                user1.setCart(order);
-                this.userService.addUser(user1);
             }
             for (int i=1; i<=16;i++){
                 Product product = null;
                 switch(i%4){
                     case 0 -> {
                         Image image2 = imageService.createImage("src/main/resources/static/assets/logo2.png");
-                        product = new Product(admin, "Iphone"+i, "Buena calidad", 40.00*i, 1, image2);
+                        product = new Product(admin, "Iphone "+i, "Buena calidad", 40.00*i, 4, image2);
                         product.addReview(new Review(user1, "Ta bien", 3, "Hater de iphones", image2));
+                        order.addProduct(product);
                     }
                     case 1 -> {
                         Image image2 = imageService.createImage("src/main/resources/static/assets/logo2.png");
@@ -91,6 +88,9 @@ public class DataBaseInitializer {
                     }
                 }
                 productService.addProduct(product);
+                this.orderRepository.save(order);
+                user1.setCart(order);
+                this.userService.addUser(user1);
             }
             Order o = new Order();
             for (int i=0;i<10;i++){
