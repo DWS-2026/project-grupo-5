@@ -29,10 +29,17 @@
                         <div class="card-body">
 
                             {{#canEdit}}
-                            <form action="/user/{{id}}/edit" method="post" class="d-flex flex-column align-items-center">
+                            <form action="/user/{{id}}/edit" method="post" class="d-flex flex-column align-items-center mb-3">
                                 <input type="text" class="form-control text-center bg-transparent text-white border-0 shadow-none" name="userName" value="{{username}}" required>
                                 <input type="email" class=" form-control text-center text-white-50 bg-transparent border-0 shadow-none" name="email" value="{{email}}" required>
                                 <button type="submit" class="btn btn-secondary mt-3 btn border-0"><i class="bi bi-pencil-square"></i> Edit</button>
+                            </form>
+
+
+                            <form action="/user/{{id}}/delete" method="post" class="mt-2 w-100" onsubmit="return confirm('¿Estás seguro de que quieres borrar tu cuenta? Esta acción eliminará todos tus productos y no se puede deshacer.')">
+                                <button type="submit" class="btn btn-outline-danger btn-sm border-0 w-100">
+                                    <i class="bi bi-trash"></i> Delete Account
+                                </button>
                             </form>
                             {{/canEdit}}
                             {{^canEdit}}
@@ -77,6 +84,7 @@
                     <button type="submit" class="btn btn-sm btn-primary align-self-center">Enviar Reporte</button>
                 </div>
                 </div>
+                
                 {{/user}}
                 <!-- User product container -->
                 <div class="col d-flex flex-column gap-4 align-items-center flex-fill">

@@ -45,6 +45,10 @@ public class UserService {
         return user.get();
     }
 
+    public void deleteUser(Long id){
+        repo.deleteById(id);
+    }
+
     public List<User> findAll() {
         return repo.findAll();
     }

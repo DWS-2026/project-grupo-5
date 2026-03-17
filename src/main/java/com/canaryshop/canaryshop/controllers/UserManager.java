@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -94,6 +96,18 @@ public class UserManager {
         }
         return "redirect:/user/"+id;
     }
+
+    @PostMapping("/user/{id}/delete")
+    public String deleteUser(@PathVariable long id, HttpServletRequest request) {
+
+        Principal principal = request.getUserPrincipal();
+        User user = userService.getUser(principal);
+        if (user != null && user.getId() == id) {
+            userService.deleteUser(id);
+        }
+        return "redirect:/logout";
+    }
+    
 }
     
     
