@@ -79,26 +79,22 @@
                         <span>Tu Carrito</span>
                         <span class="badge bg-success rounded-pill">3</span>
                     </h4>
+
+                    {{#cartProducts}}
                     <ul class="list-group list-group-flush mb-3">
                         <li class="list-group-item d-flex justify-content-between lh-sm bg-transparent text-white border-secondary">
                             <div>
-                                <h6 class="my-0">Arduino Uno R3</h6>
-                                <small class="text-white-50">Microcontrolador</small>
+                                <h6 class="my-0">{{product.name}}</h6>
                             </div>
-                            <span class="text-white-50">$25.00</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-sm bg-transparent text-white border-secondary">
-                            <div>
-                                <h6 class="my-0">Kit Jumpers</h6>
-                                <small class="text-white-50">Cables x60</small>
-                            </div>
-                            <span class="text-white-50">$5.00</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between bg-transparent text-primary border-secondary">
-                            <span>Total (USD)</span>
-                            <strong>$30.00</strong>
+                            <span class="text-white-50">{{product.price}}</span>
                         </li>
                     </ul>
+                    {{/cartProducts}}
+
+                    <li class="list-group-item d-flex justify-content-between bg-transparent text-primary border-secondary mb-2">
+                        <span>Total (USD)</span>
+                        <strong>{{totalPrice}}</strong>
+                    </li>
 
                     <form class="card p-2 bg-body border-secondary">
                         <div class="input-group">
