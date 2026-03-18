@@ -105,7 +105,7 @@ public class Product {
         );
     }
     public boolean canEdit(User user){
-        return !(user==null) && (vendor.equals(user) || user.getRoles().contains("ADMIN"));
+        return !(user==null) && (vendor.equals(user) || user.isAdmin());
     }
 
     public void report(){

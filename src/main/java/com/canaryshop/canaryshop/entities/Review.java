@@ -61,7 +61,7 @@ public class Review {
         );
     }
     public boolean canEdit(User user){
-        return !(user==null) && (author.equals(user) || user.getRoles().contains("ADMIN"));
+        return !(user==null) && (author.equals(user) || user.isAdmin());
     }
     public void copy(Review review){
         description = review.description;

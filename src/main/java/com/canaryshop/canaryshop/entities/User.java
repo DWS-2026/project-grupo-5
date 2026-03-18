@@ -42,6 +42,9 @@ public class User {
     public String getUsername() {
         return username;
     }
+    public boolean isAdmin(){
+        return roles.contains("ADMIN");
+    }
     public void setUsername(String username) {
         this.username = username;
     }
@@ -91,14 +94,20 @@ public class User {
         order.setUser(this);
         this.orders.add(order);
     }
+    public boolean canEdit(User user){
+        return user != null && (
+                this.id.equals(user.id) ||
+                user.isAdmin()
+        );
+    }
     public float getRating(){
-        if (products.isEmpty()){
-            return 0;
-        }
         float rating = 0;
+        int count = 0;
         for (Product product: products) {
+            if (product.getRating() == 0){ continue; }
             rating += product.getRating();
+            count++;
         }
-        return rating / products.size();
+        return rating / count;
     }
 }
