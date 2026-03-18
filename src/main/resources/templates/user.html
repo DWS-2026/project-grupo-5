@@ -54,8 +54,6 @@
                         </div>
                         <div class="card-footer bg-body-secondary rounded-top rounded-5 d-flex justify-content-around py-3">
                             <div class="text-center">
-                                <h6 class="mb-0">Nº Orders: 219</h6>
-                                <h6 class="mb-0">Nº Sales: 12</h6>
                                 <span class="my-2">
                                     <span class="text-primary entity-rating" rating="{{rating}}"></span>
                                     <span class="text-white"> ({{rating}})</span>
@@ -64,63 +62,75 @@
                             </div>
                     </div>
                 </div>
+                {{#canEdit}}{{^isAdmin}}
+                <form action="/logout" method="post">
+                    <input type="hidden" name="_csrf" value="{{token}}">
+                    <button type="submit" class="bi bi-box-arrow-left btn btn-danger mt-4"> Log out</button>
+                </form>
+                {{/isAdmin}}{{/canEdit}}
+                {{^canEdit}}
                 <!-- Report button-->
-                <button class="btn  btn-danger mt-4 "><i class="bi bi-flag-fill"></i> Report</button>
+                <button class="btn btn-danger mt-4 "><i class="bi bi-flag-fill"></i> Report</button>
                 <form class="mt-4 d-flex flex-column w-100 hidden">
                     <textarea class="form-control mb-2" placeholder="Describe el motivo del reporte..." rows="5"></textarea>
                     <button type="submit" class="btn btn-sm btn-primary align-self-center">Enviar Reporte</button>
                     <input type="hidden" name="_csrf" value="{{token}}">
                 </form>
+                {{/canEdit}}
                 </div>
                 
                 {{/user}}
-                <!-- User product container -->
+                <!-- Center container -->
                 <div class="col d-flex flex-column gap-4 align-items-center flex-fill">
-                    <h5 class="display-5 text-white">Recent Products</h5>
                     <!-- Products -->
-                    <div class="d-flex flex-column flex-md-row align-items-center justify-content-evenly w-100 gap-2">
-                        {{#products}}
-                        <a href="/product/{{id}}" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
-                            <div class="card shadow-sm bg-body align-items-center flex-grow-1">
-                                {{#productImages}}{{#-first}}
+                    <div class="d-flex flex-column align-items-center gap-4 w-100">
+                        <h5 class="display-5 text-white">Recent Products</h5>
+                        <div class="d-flex flex-column flex-md-row align-items-center justify-content-evenly w-100 gap-2">
+                            {{#products}}
+                            <a href="/product/{{id}}" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
+                                <div class="card shadow-sm bg-body align-items-center flex-grow-1">
+                                    {{#productImages}}{{#-first}}
                                     <img class="img-fluid" src="/images/{{id}}" alt="product Photo" onerror="this.src='/assets/logo2.png'" width="200" height="200">
-                                {{/-first}}{{/productImages}}
-                                <div class="card-body text-white">
-                                    <h5 class="card-title">{{name}}</h5>
-                                    <p class="card-text">{{description}}</p>
+                                    {{/-first}}{{/productImages}}
+                                    <div class="card-body text-white">
+                                        <h5 class="card-title">{{name}}</h5>
+                                        <p class="card-text">{{description}}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                        {{/products}}
+                            </a>
+                            {{/products}}
+                        </div>
+                        <a class="btn btn-primary" href="/user/{{user.id}}/products">See all products</a>
                     </div>
-                    <a class="btn btn-primary" href="/user/{{user.id}}/products">See all products</a>
+                    {{#canEdit}}
+                    <!--Orders-->
+                    <div class="col d-flex flex-column gap-4 align-items-center flex-fill w-100">
+                        <h5 class="display-5 text-white">Orders</h5>
+                        <div class="d-flex flex-column flex-md-row align-items-center justify-content-evenly w-100 gap-2">
+                            {{#orders}}
+                            <a href="/product/{{id}}" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
+                                <div class="card shadow-sm bg-body align-items-center flex-grow-1">
+                                    {{#productImages}}{{#-first}}
+                                    <img class="img-fluid" src="/images/{{id}}" onerror="this.src='/assets/logo2.png'" width="200" height="200">
+                                    {{/-first}}{{/productImages}}
+                                    <div class="card-body text-white">
+                                        <h5 class="card-title">{{name}}</h5>
+                                        <p class="card-text">{{description}}</p>
+                                    </div>
+                                </div>
+                            </a>
+                            {{/orders}}
+                        </div>
+                    </div>
+                    {{/canEdit}}
                 </div>
-                <div class="col col-md-auto nav flex-md-column flex-row justify-content-around align-items-md-end">
-                    <a class="bi bi-house text-white link-light nav-link" href="/index"> Home</a>
-                    <a class="bi bi-cart text-white link-light nav-link" href="/cart"> Cart</a>
-                    <a class="bi bi-heart link-light nav-link" href="#"> Favourites</a>
-                    <a class="bi bi-plus link-light nav-link" href="/product/new"> Add product</a>
-                    <a class="bi bi-code-slash link-success nav-link hidden" href="/admin"> Admin panel</a>
-                    <a class="link-danger nav-link bi bi-box-arrow-left" href="#"> Log out</a>
+                <div class="col col-md-auto nav flex-md-column flex-row justify-content-around align-items-md-end gap-2">
+                    <a class="bi bi-house btn btn-secondary" href="/index"> Home</a>
+                    <a class="bi bi-cart btn btn-secondary" href="/cart"> Cart</a>
+                    <a class="bi bi-plus btn btn-secondary" href="/product/new"> Add product</a>
+                    {{#isAdmin}}
+                    <a class="bi bi-code-slash btn btn-primary" href="/admin"> Admin panel</a>
+                    {{/isAdmin}}
                 </div>
             </div>
-            <div class="col d-flex flex-column gap-4 align-items-center flex-fill">
-                    <h5 class="display-5 text-white">Orders</h5>
-                    <!-- Products -->
-                    <div class="d-flex flex-column flex-md-row align-items-center justify-content-evenly w-100 gap-2">
-                        {{#orders}}
-                        <a href="producto" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
-                            <div class="card shadow-sm bg-body align-items-center flex-grow-1">
-                                {{#productImages}}{{#-first}}
-                                    <img class="img-fluid" src="/images/{{id}}" alt="product Photo" onerror="this.src='/assets/logo2.png'" width="200" height="200">
-                                {{/-first}}{{/productImages}}
-                                <div class="card-body text-white">
-                                    <h5 class="card-title">{{name}}</h5>
-                                    <p class="card-text">{{description}}</p>
-                                </div>
-                            </div>
-                        </a>
-                        {{/orders}}
-                    </div>
-        </div>
     </main>
