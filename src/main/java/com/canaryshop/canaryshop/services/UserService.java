@@ -59,11 +59,9 @@ public class UserService {
             return null;
         } 
         List<OrderProduct> products= orders.getLast().getProducts();
+        products = products.subList(0, Math.min(6, products.size()));
         List<Product> only6= new LinkedList<>();
-        int limite = Math.min(6, products.size()); 
-        for (int i = 0; i < limite; i++) {
-            only6.add(products.get(i).getProduct());
-        }
+        products.forEach(product -> only6.add(product.getProduct()));
         return only6;
     }
 }
