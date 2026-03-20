@@ -39,11 +39,15 @@ public class ReviewService {
         if (review == null || !review.isValid()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Review invalid");
         }
-        if (getReview(review.getAuthor(), product) == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Author already has review in same product");
+        try {
+            getReview(review.getAuthor(), product);
         }
-        product.addReview(review);
-        products.addProduct(product);
+        catch (ResponseStatusException ignored) {
+            product.addReview(review);
+            products.addProduct(product);
+            return;
+        }
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Author already has review in same product");
     }
     public void deleteReview(Review review, Product product){
         if (product == null || !product.getReviews().contains(review)){
