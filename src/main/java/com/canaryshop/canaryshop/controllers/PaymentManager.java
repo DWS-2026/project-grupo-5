@@ -20,12 +20,28 @@ public class PaymentManager {
     private UserService userService;
     
     @GetMapping("/payment")
-    public String getPaymentPage(Model model, Principal principal) {
+    public String getPaymentPage(Model model, Principal principal, @RequestParam(required = false) String code){ {
         User user = userService.getUser(principal.getName());
         Order cart = user.getCart();
+
         model.addAttribute("cart", cart);
-        model.addAttribute("totalPrice", cart.getPrice());
-        return "payment";
+        if (code == null){
+            model.addAttribute("totalPrice", cart.getPrice());
+
+        }else if (code.equals("DiegoEsElMejor")){
+            model.addAttribute("totalPrice", cart.getPrice() * 0);
+        }else if (code.equals("JaimeEsElMejor")){
+            model.addAttribute("totalPrice", cart.getPrice() * 0.25);
+        }else if (code.equals("VictorEsElMejor")){
+            model.addAttribute("totalPrice", cart.getPrice() * 0.5);
+        }else if (code.equals("JorgeEsElMejor")){
+            model.addAttribute("totalPrice", cart.getPrice() * 2);
+        }else {
+            model.addAttribute("totalPrice", cart.getPrice());
+        }
+         return "payment";
     }
+
+
     
 }
