@@ -108,6 +108,9 @@ public class User {
             rating += product.getRating();
             count++;
         }
+        if (count == 0) {
+            return 0;
+        }
         return rating / count;
     }
 }
