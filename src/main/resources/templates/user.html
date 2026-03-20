@@ -39,6 +39,7 @@
 
 
                             <form action="/user/{{id}}/delete" method="post" class="mt-2 w-100" onsubmit="return confirm('¿Estás seguro de que quieres borrar tu cuenta? Esta acción eliminará todos tus productos y no se puede deshacer.')">
+                                <input type="hidden" name="_csrf" value="{{token}}">
                                 <button type="submit" class="btn btn-outline-danger btn-sm border-0 w-100">
                                     <i class="bi bi-trash"></i> Delete Account
                                 </button>

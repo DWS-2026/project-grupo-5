@@ -59,11 +59,37 @@ public class AdminManager {
     public String deleteReportedProduct(@PathVariable long id, Principal principal) {
         Product product = productService.getProduct(id);
         User user = userService.getUser(principal);
-        if (!product.canEdit(user)){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User cannot modify product");
+        if (user == null || !user.isAdmin()) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Solo los administradores pueden hacer esto");
         }
         productService.deleteProduct(product);
         return "redirect:/admin/products";
     }
+    @GetMapping("/admin/users")
+    public String getMethodName(Model model, @RequestParam(required = false) String search, @PageableDefault(size=12) Pageable page) {
+        Page<User> results;
+        results= userService.getPageUsers(search, page);
+        if (search!=null){
+            model.addAttribute("search", search);
+        }
+        pageHandler.handleUserPage(model, results, page);
+        return "adminAllUsers";
+    }
+    @PostMapping("/admin/user/{id}/delete")
+    public String postMethodName(@PathVariable long id, Principal principal) {
+        User currentUser = userService.getUser(principal);
+        if (currentUser == null || !currentUser.isAdmin()) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Solo los administradores pueden hacer esto");
+        }
+        userService.deleteUser(id);
+        return "redirect:/admin/users";
+    }
+    
+    @GetMapping("/admin/reportedUsers")
+    public String getMethodName(Model model) {
+        return "adminReportedUsers";
+    }
+    
+    
     
 }

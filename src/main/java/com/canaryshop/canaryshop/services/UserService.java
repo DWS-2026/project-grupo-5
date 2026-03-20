@@ -1,6 +1,8 @@
 package com.canaryshop.canaryshop.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -63,5 +65,11 @@ public class UserService {
         List<Product> only6= new LinkedList<>();
         products.forEach(product -> only6.add(product.getProduct()));
         return only6;
+    }
+    public Page<User> getPageUsers(String username, Pageable page ){
+        if(username!=null){
+            return this.repo.findByUsernameContaining(username, page);
+        }
+        return this.repo.findAll(page);
     }
 }

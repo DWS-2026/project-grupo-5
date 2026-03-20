@@ -14,9 +14,9 @@
             <!-- Reported products -->
             <div class="mx-4 my-md-5 my-4  w-md-50 w-75 align-self-center d-flex flex-column flex-fill ">
 
-                <div class="align-self-center align-items-center text-primary d-flex flex-row my-1 bg-body-secondary rounded-pill col-md-3 border border-2 border-secondary">
+                <div class="align-self-center align-items-center text-primary d-flex flex-row my-1 bg-body-secondary rounded-4 col-md-3 border border-2 border-secondary">
                     <form class="d-flex me-4" role="search" action="/admin/products">
-                        <input class="form-control me-2 ms-3 my-2" type="search" placeholder="Search" aria-label="Search" name="search"/>
+                        <input class="form-control me-2 ms-3 my-2" type="search" placeholder="Search" aria-label="Search" name="search" {{#search}} value="{{search}}" {{/search}}/>
                         <input type="hidden" name="_csrf" value="{{token}}">
                         <button class="btn btn-outline-success me-1 my-2" type="submit"><i class="bi bi-search"></i></button>
                     </form>
@@ -42,7 +42,7 @@
                                 <form action="/product/{{id}}/edit" method="get">
                                     <input type="hidden" name="_csrf" value="{{token}}">
                                     <button type="submit" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></button>
-                            </form>
+                                </form>
                                 <!-- Remove product-->
                                 <form action="/admin/product/{{id}}/delete" method="post"> 
                                     <input type="hidden" name="_csrf" value="{{token}}">
