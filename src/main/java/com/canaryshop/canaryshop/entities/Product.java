@@ -1,5 +1,7 @@
 package com.canaryshop.canaryshop.entities;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -60,6 +62,10 @@ public class Product {
     public Double getPrice() {
         return price;
     }
+    public String getFormattedPrice(){
+        double price = getPrice();
+        return BigDecimal.valueOf(price).setScale(2, RoundingMode.FLOOR).toString();
+    }
 
     public Integer getStock() {
         return stock;
@@ -91,6 +97,11 @@ public class Product {
 
     public float getRating() {
         return rating;
+    }
+    public String getFormattedRating(){
+        float rating = getRating();
+        BigDecimal format = BigDecimal.valueOf(rating);
+        return format.setScale(2, RoundingMode.HALF_UP).toString();
     }
     public long getId(){
         return id;

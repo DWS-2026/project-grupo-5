@@ -2,6 +2,8 @@ package com.canaryshop.canaryshop.entities;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -112,5 +114,10 @@ public class User {
             return 0;
         }
         return rating / count;
+    }
+    public String getFormattedRating(){
+        float rating = getRating();
+        BigDecimal format = BigDecimal.valueOf(rating);
+        return format.setScale(2, RoundingMode.HALF_UP).toString();
     }
 }
