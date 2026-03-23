@@ -4,12 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
+import com.canaryshop.canaryshop.repositories.ReviewRepository;
 import com.canaryshop.canaryshop.repositories.UserRepository;
 import com.canaryshop.canaryshop.entities.Order;
 import com.canaryshop.canaryshop.entities.OrderProduct;
 import com.canaryshop.canaryshop.entities.Product;
+import com.canaryshop.canaryshop.entities.Review;
 import com.canaryshop.canaryshop.entities.User;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -24,6 +27,10 @@ public class UserService {
     
     @Autowired
     private UserRepository repo;
+    @Autowired
+    private ProductService productService;
+    @Autowired
+    private ReviewService reviewService;
 
     public void addUser(User user){
         this.repo.save(user);
@@ -48,6 +55,17 @@ public class UserService {
     }
 
     public void deleteUser(Long id){
+        User u=this.findById(id);
+        List<Product> products = new LinkedList<>(u.getProducts());
+        u.getProducts().clear();
+        this.repo.save(u);
+        for (Product p : products){
+            this.productService.deleteProduct(p);
+        }
+        List<Review> reviews= this.reviewService.getByAuthor(u);
+        for(Review rev: reviews){
+            this.reviewService.deleteReview(rev, this.productService.getByReview(rev));
+        }
         repo.deleteById(id);
     }
 
@@ -71,5 +89,9 @@ public class UserService {
             return this.repo.findByUsernameContaining(username, page);
         }
         return this.repo.findAll(page);
+    }
+    public List<Product> getProductsByVendor(long id){
+        User user = this.findById(id);
+        return user.getProducts();
     }
 }

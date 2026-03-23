@@ -18,6 +18,10 @@ import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.User;
 import com.canaryshop.canaryshop.services.ImageService;
 import com.canaryshop.canaryshop.services.UserService;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,7 +48,7 @@ public class UserManager {
         User currentUser = userService.getUser(principal);
         model.addAttribute("canEdit", user.canEdit(currentUser));
         model.addAttribute("user", user);
-        List<Product> products = this.productService.getProductsByVendor(id);
+        List<Product> products = this.userService.getProductsByVendor(id);
         products = products.subList(0, Math.min(products.size(), 5));
         List<Product> orders = this.userService.getOrdersByVendor(id);
         model.addAttribute("products",products);
@@ -84,14 +88,17 @@ public class UserManager {
     }
 
     @PostMapping("/user/{id}/delete")
-    public String deleteUser(@PathVariable long id, Principal principal) {
+    public String deleteUser(@PathVariable long id, Principal principal, HttpServletRequest request) throws ServletException {
         User user = userService.findById(id);
         User currentUser = userService.getUser(principal);
         if (!user.canEdit(currentUser)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User cannot modify this user");
         }
         userService.deleteUser(id);
-        return "redirect:/logout";
+        if(currentUser.getId().equals(id)){
+            request.logout();
+        }
+        return "redirect:/";
     }
     
 }

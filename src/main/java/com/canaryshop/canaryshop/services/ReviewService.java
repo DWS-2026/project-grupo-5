@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -69,5 +70,8 @@ public class ReviewService {
         }
         product.addReview(review);
         products.addProduct(product);
+    }
+    public List<Review> getByAuthor(User user){
+        return this.reviews.findByAuthor(user);
     }
 }

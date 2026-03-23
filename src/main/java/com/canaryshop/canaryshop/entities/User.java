@@ -18,6 +18,7 @@ public class User {
     private String username;
     private String email;
     private String password;
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
 
     @OneToMany(mappedBy="vendor", cascade=CascadeType.ALL)
