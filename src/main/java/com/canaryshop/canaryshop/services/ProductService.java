@@ -3,15 +3,19 @@ package com.canaryshop.canaryshop.services;
 import java.util.List;
 import java.util.Optional;
 
-import com.canaryshop.canaryshop.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.canaryshop.canaryshop.entities.OrderProduct;
 import com.canaryshop.canaryshop.entities.Product;
+import com.canaryshop.canaryshop.entities.Review;
+import com.canaryshop.canaryshop.repositories.OrderProductRepository;
 import com.canaryshop.canaryshop.repositories.ProductsRepository;
 
 @Service
@@ -19,7 +23,7 @@ public class ProductService {
     @Autowired
     private ProductsRepository products;
     @Autowired
-    private UserService users;
+    private OrderProductRepository opp;
 
     public Product getProduct(long id) throws ResponseStatusException {
         Optional<Product> request = products.findById(id);
@@ -29,10 +33,6 @@ public class ProductService {
         return request.get();
     }
 
-    public List<Product> getProductsByVendor(long id){
-        User user = users.findById(id);
-        return user.getProducts();
-    }
 
     public Page<Product> getProductsByVendor(long id, Pageable page){
         return products.findByVendorId(id, page);
@@ -52,6 +52,11 @@ public class ProductService {
         }
     }
     public void deleteProduct(Product product){
+        List<OrderProduct> list= opp.findByProduct(product);
+        for (OrderProduct temp : list){
+            temp.getOrder().removeProduct(temp);
+            opp.delete(temp);
+        }
         products.deleteById(product.getId());
     }
     public void editProduct(Product product, Product modification){
@@ -67,5 +72,12 @@ public class ProductService {
         }else{
             return products.findReportedProduct(page);
         }
+    }
+    public Product getByReview(Review review){
+        Optional<Product> p= this.products.findByReviewsId(review.getId());
+        if(p.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
+        }
+        return p.get();
     }
 }

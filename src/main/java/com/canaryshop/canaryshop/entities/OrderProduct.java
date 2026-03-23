@@ -27,4 +27,7 @@ public class OrderProduct {
     public Product getProduct(){
         return this.product;
     }
+    public Order getOrder(){
+        return order;
+    }
 }

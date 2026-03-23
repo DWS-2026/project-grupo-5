@@ -2,6 +2,8 @@ package com.canaryshop.canaryshop.repositories;
 
 import com.canaryshop.canaryshop.entities.Product;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,4 +19,5 @@ public interface ProductsRepository extends JpaRepository<Product, Long>{
     Page<Product> findReportedProductsByNameAndDescription(@Param("name") String name, @Param("description") String description,Pageable page);
     @Query("SELECT p FROM Product p WHERE p.reported > 0")
     Page<Product> findReportedProduct(Pageable page);
+    Optional<Product> findByReviewsId(Long reviewId);
 }
