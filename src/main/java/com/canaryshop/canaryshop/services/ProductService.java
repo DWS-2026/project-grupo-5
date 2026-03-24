@@ -54,7 +54,6 @@ public class ProductService {
     public void deleteProduct(Product product){
         List<OrderProduct> list= opp.findByProduct(product);
         for (OrderProduct temp : list){
-            temp.getOrder().removeProduct(temp);
             opp.delete(temp);
         }
         products.deleteById(product.getId());

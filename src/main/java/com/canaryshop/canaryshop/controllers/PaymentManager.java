@@ -20,7 +20,7 @@ public class PaymentManager {
     private UserService userService;
     
     @GetMapping("/payment")
-    public String getPaymentPage(Model model, Principal principal, @RequestParam(required = false) String code){ {
+    public String getPaymentPage(Model model, Principal principal, @RequestParam(required = false) String code){ 
         User user = userService.getUser(principal.getName());
         Order cart = user.getCart();
 

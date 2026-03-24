@@ -56,9 +56,7 @@ public class UserService {
 
     public void deleteUser(Long id){
         User u=this.findById(id);
-        List<Product> products = new LinkedList<>(u.getProducts());
-        u.getProducts().clear();
-        this.repo.save(u);
+        List<Product> products = u.getProducts();
         for (Product p : products){
             this.productService.deleteProduct(p);
         }
