@@ -60,10 +60,6 @@ public class UserService {
         for (Product p : products){
             this.productService.deleteProduct(p);
         }
-        List<Review> reviews= this.reviewService.getByAuthor(u);
-        for(Review rev: reviews){
-            this.reviewService.deleteReview(rev, this.productService.getByReview(rev));
-        }
         repo.deleteById(id);
     }
 

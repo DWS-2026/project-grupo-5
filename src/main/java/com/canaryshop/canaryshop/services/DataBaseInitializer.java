@@ -61,37 +61,36 @@ public class DataBaseInitializer {
                 };
                 productService.addProduct(product);
             }
-            Order order = new Order();
+            Order order = user1.getCart();
             for (int i=1; i<=16;i++){
                 Product product = null;
+                 Image image2 = imageService.createImage("src/main/resources/static/assets/logo2.png");
+                    Image image3 = imageService.createImage("src/main/resources/static/assets/user.jpg");
                 switch(i%4){
                     case 0 -> {
-                        Image image2 = imageService.createImage("src/main/resources/static/assets/logo2.png");
                         product = new Product(admin, "Iphone"+i, "Buena calidad", 40.00*i, 12, image2);
-                        product.addReview(new Review(user1, "Ta bien", 3, "Hater de iphones", image2));
+                        product.addReview(new Review(user1, "Ta bien", 3, "Hater de iphones", image3));
                         OrderProduct op = new OrderProduct(order, product, 1);
                         order.addProduct(op);
                     }
                     case 1 -> {
-                        Image image2 = imageService.createImage("src/main/resources/static/assets/logo2.png");
+                       
                         product = new Product(admin, "Iphone "+i, "Seminuevo", 30.00*i, 1, image2);
-                        product.addReview(new Review(user1, "meh", 2, "Hater de iphones", image2));
+                        product.addReview(new Review(user1, "meh", 2, "Hater de iphones", image3));
                     }
                     case 2 -> {
-                        Image image2 = imageService.createImage("src/main/resources/static/assets/logo2.png");
+                        
                         product = new Product(admin, "Iphone "+i, "Usado", 20.00*i, 1, image2);
-                        product.addReview(new Review(user1, "puff", 1, "Hater de iphones", image2));
+                        product.addReview(new Review(user1, "puff", 1, "Hater de iphones", image3));
                     }
                     case 3 -> {
-                        Image image2 = imageService.createImage("src/main/resources/static/assets/logo2.png");
+                       
                         product = new Product(user1, "Iphone "+i, "Roto", 10.00*i, 1, image2);
-                        product.addReview(new Review(admin, "Mierdon", 0, "Hater de iphones", image2));
+                        product.addReview(new Review(admin, "Mierdon", 0, "Hater de iphones", image3));
                     }
                 }
                 productService.addProduct(product);
             }
-            this.orderService.addOrder(order);
-            user1.setCart(order);
             this.userService.addUser(user1);
             Order o = new Order();
             for (int i=0;i<10;i++){
@@ -101,6 +100,7 @@ public class DataBaseInitializer {
                 OrderProduct op2 = new OrderProduct(o, pruebaOrder, 1);
                 o.addProduct(op2);
             }
+            o.closeOrder();
             this.orderService.addOrder(o);
             admin.addOrder(o);
             userService.addUser(admin);
