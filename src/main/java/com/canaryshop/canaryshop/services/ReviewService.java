@@ -50,7 +50,8 @@ public class ReviewService {
         }
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Author already has review in same product");
     }
-    public void deleteReview(Review review, Product product){
+    public void deleteReview(Review review){
+        Product product = review.getProduct();
         if (product == null || !product.getReviews().contains(review)){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Review or product not found");
         }

@@ -105,7 +105,7 @@ public class ProductManager {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User cannot modify review");
         }
         Product product = products.getProduct(product_id);
-        reviews.deleteReview(review, product);
+        reviews.deleteReview(review);
         return "redirect:/product/" + product.getId();
     }
     @GetMapping("/product/{product_id}/review/{review_id}/edit")

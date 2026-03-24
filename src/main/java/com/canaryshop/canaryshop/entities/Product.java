@@ -138,6 +138,7 @@ public class Product {
     public void removeReview(Review review){
         this.calculateRating(-(review.getRating()));
         this.reviews.remove(review);
+        review.setProduct(null);
         if (reviews.isEmpty()){
             return;
         }
