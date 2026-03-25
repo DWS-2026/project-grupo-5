@@ -76,14 +76,21 @@
                 {{/isAdmin}}{{/canEdit}}
                 {{^canEdit}}
                 <!-- Report button-->
-                <button class="btn btn-danger mt-4 "><i class="bi bi-flag-fill"></i> Report</button>
-                <form class="mt-4 d-flex flex-column w-100 hidden">
-                    <textarea class="form-control mb-2" placeholder="Describe el motivo del reporte..." rows="5"></textarea>
-                    <button type="submit" class="btn btn-sm btn-primary align-self-center">Enviar Reporte</button>
-                    <input type="hidden" name="_csrf" value="{{token}}">
-                </form>
+                 {{#currentUser}}
+                <button type="button" class="btn btn-danger mt-4" data-bs-toggle="colapse" data-bs-target="#reportContainer" aria-expanded="false" aria-controls="reportContainer">
+                    <i class="bi bi-flag-fill"></i> Report
+                </button>
+                <div class="colapse w-100 mt-4" id="reportContainer">
+                    <form class="d-flex flex-column w-100" action="/user/{{id}}/report" method="post">
+                        <textarea class="form-control mb-2" placeholder="Describe el motivo del reporte..." rows="5" name="report" required></textarea>
+                        <input type="hidden" name="_csrf" value="{{token}}">
+                        <button type="submit" class="btn btn-sm btn-primary align-self-center">Enviar Reporte</button>
+                    </form>
+                </div>
+                
                 {{/canEdit}}
                 </div>
+                {{/currentUser}}
                 
                 {{/userView}}
                 <!-- Center container -->

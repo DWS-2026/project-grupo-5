@@ -31,6 +31,7 @@ public class User {
     private final List<Order> orders = new LinkedList<>();
     @OneToOne(cascade=CascadeType.ALL)
     private Image image;
+    private List<String> reports = new LinkedList<>();
 
     public User(String username, String email, String password, String ... roles) {
         this.username = username;
@@ -122,5 +123,11 @@ public class User {
         float rating = getRating();
         BigDecimal format = BigDecimal.valueOf(rating);
         return format.setScale(2, RoundingMode.HALF_UP).toString();
+    }
+    public void report(String report){
+        this.reports.add(report);
+    }
+    public void unreport(){
+        this.reports.clear();
     }
 }

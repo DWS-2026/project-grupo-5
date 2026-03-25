@@ -103,7 +103,13 @@ public class UserManager {
         }
         return "redirect:/";
     }
-    
+    @PostMapping("/user/{id}/report")
+    public String reportUser(@PathVariable long id, @RequestParam String report) {
+        User u = this.userService.findById(id);
+        u.report(report);
+        this.userService.addUser(u);
+        return "redirect:/user/"+id;
+    }
 }
     
     
