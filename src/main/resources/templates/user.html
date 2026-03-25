@@ -11,9 +11,10 @@
         <div class="container-fluid py-4 mb-4 px-4">
             <div class="row row-cols-1 row-cols-md-3 justify-content-between align-items-center align-items-md-start">
                 <!-- User data -->
-                {{#user}}
+                {{#userView}}
                 <div class="col col-md-auto d-flex flex-column align-items-center">
                     <!--User image-->
+                    {{#canEdit}}
                        <form action="/user/{{id}}/image" method="post" enctype="multipart/form-data" class="d-flex flex-column align-items-center">
     
                             <label for="file-input" style="cursor: pointer;" title="Haz clic para cambiar tu foto">
@@ -24,7 +25,11 @@
                             <input type="file" id="file-input" name="image" accept="image/*" hidden onchange="this.form.submit()">
                             <input type="hidden" name="_csrf" value="{{token}}">
                         </form>
-
+                    {{/canEdit}}
+                    {{^canEdit}}
+                    <img {{#image}}src="/images/{{id}}"{{/image}} {{^image}}src="/assets/user.jpg"{{/image}} 
+                                    alt="Foto de perfil" class="rounded-circle d-block border border-secondary" width="200" height="200">
+                    {{/canEdit}}
                     <!--User info-->
                     <div class="card shadow-lg bg-body mt-4 rounded-5 text-white border-0">
                         <div class="card-body">
@@ -80,7 +85,7 @@
                 {{/canEdit}}
                 </div>
                 
-                {{/user}}
+                {{/userView}}
                 <!-- Center container -->
                 <div class="col d-flex flex-column gap-4 align-items-center flex-fill">
                     <!-- Products -->
@@ -101,7 +106,7 @@
                             </a>
                             {{/products}}
                         </div>
-                        <a class="btn btn-primary" href="/user/{{user.id}}/products">See all products</a>
+                        <a class="btn btn-primary" href="/user/{{userView.id}}/products">See all products</a>
                     </div>
                     {{#canEdit}}
                     <!--Orders-->
@@ -125,13 +130,15 @@
                     </div>
                     {{/canEdit}}
                 </div>
+                {{#currentUser}}
                 <div class="col col-md-auto nav flex-md-column flex-row justify-content-around align-items-md-end gap-2">
                     <a class="bi bi-house btn btn-secondary" href="/index"> Home</a>
                     <a class="bi bi-cart btn btn-secondary" href="/cart"> Cart</a>
                     <a class="bi bi-plus btn btn-secondary" href="/product/new"> Add product</a>
                     {{#isAdmin}}
-                    <a class="bi bi-code-slash btn btn-primary" href="/admin"> Admin panel</a>
+                    <a class="bi bi-code-slash btn btn-primary" href="/admin/{{id}}"> Admin panel</a>
                     {{/isAdmin}}
                 </div>
+                {{/currentUser}}
             </div>
     </main>
