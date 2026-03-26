@@ -46,10 +46,8 @@ public class UserManager {
     public String getUser(Model model, @PathVariable long id, Principal principal) {
         User user = this.userService.findById(id);
         User currentUser = userService.getUser(principal);
-        if(currentUser!=null){
-            model.addAttribute("canEdit", user.canEdit(currentUser));
-            model.addAttribute("currentUser",currentUser);
-        }
+        model.addAttribute("canEdit", user.canEdit(currentUser));
+        model.addAttribute("currentUser",currentUser);
         model.addAttribute("userView", user);
         List<Product> products = this.userService.getProductsByVendor(id);
         products = products.subList(0, Math.min(products.size(), 5));
