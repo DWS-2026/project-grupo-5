@@ -35,9 +35,9 @@
                         <div class="card-body">
 
                             {{#canEdit}}
-                            <form action="/user/{{id}}/edit" method="post" class="d-flex flex-column align-items-center mb-3">
-                                <input type="text" class="form-control text-center bg-transparent text-white border-0 shadow-none" name="userName" value="{{username}}" required>
-                                <input type="email" class=" form-control text-center text-white-50 bg-transparent border-0 shadow-none" name="email" value="{{email}}" required>
+                            <form action="/user/{{id}}/edit" method="post" class="d-flex flex-column align-items-center mb-3 gap-2">
+                                <input type="text" class="form-control text-center bg-body-secondary text-white border-0 shadow-none" name="userName" value="{{username}}" required>
+                                <input type="email" class=" form-control text-center text-white-50 bg-body-secondary border-0 shadow-none" name="email" value="{{email}}" required>
                                 <button type="submit" class="btn btn-secondary mt-3 btn border-0"><i class="bi bi-pencil-square"></i> Edit</button>
                                 <input type="hidden" name="_csrf" value="{{token}}">
                             </form>
@@ -51,11 +51,10 @@
                             </form>
                             {{/canEdit}}
                             {{^canEdit}}
-                            <form action="/user/{{id}}/edit" method="post" class="d-flex flex-column align-items-center">
-                                <h2 type="text" class="form-control text-center bg-transparent text-white border-0 shadow-none" >{{username}}</h2>
-                                <h2 type="email" class=" form-control text-center text-white-50 bg-transparent border-0 shadow-none" >{{email}}</h2>
-                                <input type="hidden" name="_csrf" value="{{token}}">
-                            </form>
+                            <div class="gap-2">
+                                <h2 class="form-control text-center bg-transparent text-white border-0 shadow-none" >{{username}}</h2>
+                                <h2 class=" form-control text-center text-white-50 bg-transparent border-0 shadow-none" >{{email}}</h2>
+                            </div>
                             {{/canEdit}}
                         </div>
                         <div class="card-footer bg-body-secondary rounded-top rounded-5 d-flex justify-content-around py-3">
@@ -76,8 +75,7 @@
                 {{/isAdmin}}{{/canEdit}}
                 {{^canEdit}}
                 <!-- Report button-->
-                 {{#currentUser}}
-                <button type="button" class="btn btn-danger mt-4" data-bs-toggle="colapse" data-bs-target="#reportContainer" aria-expanded="false" aria-controls="reportContainer">
+                <button type="button" class="btn btn-danger mt-4" data-bs-toggle="collapse" data-bs-target="#reportContainer" aria-expanded="false" aria-controls="reportContainer">
                     <i class="bi bi-flag-fill"></i> Report
                 </button>
                 <div class="colapse w-100 mt-4" id="reportContainer">
@@ -87,11 +85,9 @@
                         <button type="submit" class="btn btn-sm btn-primary align-self-center">Enviar Reporte</button>
                     </form>
                 </div>
-                
                 {{/canEdit}}
                 </div>
-                {{/currentUser}}
-                
+
                 {{/userView}}
                 <!-- Center container -->
                 <div class="col d-flex flex-column gap-4 align-items-center flex-fill">
@@ -137,7 +133,7 @@
                     </div>
                     {{/canEdit}}
                 </div>
-                {{#currentUser}}
+                {{#user}}
                 <div class="col col-md-auto nav flex-md-column flex-row justify-content-around align-items-md-end gap-2">
                     <a class="bi bi-house btn btn-secondary" href="/index"> Home</a>
                     <a class="bi bi-cart btn btn-secondary" href="/cart"> Cart</a>
@@ -146,6 +142,6 @@
                     <a class="bi bi-code-slash btn btn-primary" href="/admin/{{id}}"> Admin panel</a>
                     {{/isAdmin}}
                 </div>
-                {{/currentUser}}
+                {{/user}}
             </div>
     </main>
