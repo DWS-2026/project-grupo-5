@@ -31,7 +31,7 @@ public class User {
     private final List<Order> orders = new LinkedList<>();
     @OneToOne(cascade=CascadeType.ALL)
     private Image image;
-    private List<String> reports = new LinkedList<>();
+    private final List<String> reports = new LinkedList<>();
 
     public User(String username, String email, String password, String ... roles) {
         this.username = username;
@@ -99,6 +99,11 @@ public class User {
     public void addOrder(Order order){
         order.setUser(this);
         this.orders.add(order);
+    }
+    public void closeCart(){
+        this.cart.closeOrder();
+        this.cart = new Order();
+        this.cart.setUser(this);
     }
     public boolean canEdit(User user){
         return user != null && (
