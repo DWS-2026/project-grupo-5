@@ -2,6 +2,7 @@ package com.canaryshop.canaryshop.controllers;
 
 import java.security.Principal;
 
+import com.canaryshop.canaryshop.services.NumberFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,28 +21,20 @@ public class PaymentManager {
     private UserService userService;
     
     @GetMapping("/payment")
-    public String getPaymentPage(Model model, Principal principal, @RequestParam(required = false) String code){ 
+    public String getPaymentPage(Model model, Principal principal, @RequestParam(required = false) String code){
         User user = userService.getUser(principal.getName());
         Order cart = user.getCart();
 
         model.addAttribute("cart", cart);
-        if (code == null){
-            model.addAttribute("totalPrice", cart.getPrice());
-
-        }else if (code.equals("DiegoEsElMejor")){
-            model.addAttribute("totalPrice", cart.getPrice() * 0);
-        }else if (code.equals("JaimeEsElMejor")){
-            model.addAttribute("totalPrice", cart.getPrice() * 0.25);
-        }else if (code.equals("VictorEsElMejor")){
-            model.addAttribute("totalPrice", cart.getPrice() * 0.5);
-        }else if (code.equals("JorgeEsElMejor")){
-            model.addAttribute("totalPrice", cart.getPrice() * 2);
-        }else {
-            model.addAttribute("totalPrice", cart.getPrice());
-        }
-         return "payment";
+        float discount = switch(code){
+            case "DiegoEsElMejor" -> 0;
+            case "JaimeEsElMejor" -> 0.25f;
+            case "VictorEsElMejor" -> 0.5f;
+            case "JorgeEsElMejor" -> 0.75f;
+            default -> 1f;
+        };
+        model.addAttribute("totalPrice",
+                NumberFormatter.getFormattedNumber(cart.getPrice() * discount));
+        return "payment";
     }
-
-
-    
 }
