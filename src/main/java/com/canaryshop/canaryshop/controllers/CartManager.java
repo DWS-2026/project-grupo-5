@@ -1,8 +1,6 @@
 package com.canaryshop.canaryshop.controllers;
 
 import com.canaryshop.canaryshop.entities.*;
-import com.canaryshop.canaryshop.repositories.OrderProductRepository;
-import com.canaryshop.canaryshop.repositories.OrderRepository;
 import com.canaryshop.canaryshop.services.OrderService;
 import com.canaryshop.canaryshop.services.ProductService;
 import com.canaryshop.canaryshop.services.UserService;
@@ -31,30 +29,16 @@ public class CartManager {
         User user = userService.getUser(principal.getName());
         Order cart = user.getCart();
         model.addAttribute("items", cart.getProducts());
-        model.addAttribute("totalPrice", cart.getPrice());
+        model.addAttribute("totalPrice", cart.getFormattedPrice());
         return "cart";
     }
 
    @PostMapping("/cart/increase/{id}")
     public String increaseItem(@PathVariable long id, Principal principal) {
-        User user = userService.getUser(principal.getName());
+        User user = userService.getUser(principal);
         Order cart = user.getCart();
         Product product = products.getProduct(id);
-        OrderProduct existingOp = null;
-        for (OrderProduct op : cart.getProducts()) {
-            if (op.getProduct().getId() == id) {
-                existingOp = op;
-                break;
-            }
-        }
-
-        if (existingOp != null) {
-            os.setAmount(existingOp, existingOp.getQuantity() + 1);
-        } 
-        else {
-            OrderProduct newOrderProduct = new OrderProduct(cart, product, 1);
-            cart.addProduct(newOrderProduct);
-        }
+        cart.setProductQuantity(product, cart.getProductQuantity(product)+1);
         os.addOrder(cart); 
         userService.addUser(user); 
         return "redirect:/cart";
@@ -62,15 +46,10 @@ public class CartManager {
 
     @PostMapping("/cart/decrease/{id}")
     public String decreaseItem(@PathVariable long id, Principal principal) {
-       OrderProduct orderProduct = os.getOrderProduct(id);
         User user = userService.getUser(principal.getName());
         Order cart = user.getCart();
-        if(orderProduct.getQuantity()==1){
-            cart.removeProduct(orderProduct);
-        }
-        else{
-            os.setAmount(orderProduct,orderProduct.getQuantity()-1); 
-        }
+        Product product = products.getProduct(id);
+        cart.setProductQuantity(product, cart.getProductQuantity(product)-1);
         os.addOrder(cart);
         userService.addUser(user);
         return "redirect:/cart";

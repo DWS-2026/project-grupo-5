@@ -24,6 +24,9 @@ public class OrderProduct {
         int q = Math.min(quantity, this.product.getStock());
         this.quantity = q;
     }
+    public boolean canAddQuantity(){
+        return this.quantity!=product.getStock();
+    }
     public Product getProduct(){
         return this.product;
     }

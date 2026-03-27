@@ -3,10 +3,8 @@ package com.canaryshop.canaryshop.services;
 import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.Review;
 import com.canaryshop.canaryshop.entities.User;
-import com.canaryshop.canaryshop.repositories.OrderRepository;
 import com.canaryshop.canaryshop.entities.Image;
 import com.canaryshop.canaryshop.entities.Order;
-import com.canaryshop.canaryshop.entities.OrderProduct;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,12 +23,11 @@ public class DataBaseInitializer {
     private ProductService productService;
     @Autowired
     private ImageService imageService;
-    @Autowired
-    private OrderService orderService;
 
     @PostConstruct
     public void initDatabase() {
             User admin = new User("Admin", "admin@canaryshop.com", passwordEncoder.encode("admin"),"USER","ADMIN");
+            admin.setImage(imageService.createImage("src/main/resources/static/assets/logo2.png"));
             User user1 = new User("User1", "user1@canaryshop.com", passwordEncoder.encode("user1"),"USER");
             userService.addUser(admin);
             userService.addUser(user1);
@@ -70,21 +67,20 @@ public class DataBaseInitializer {
                     case 0 -> {
                         product = new Product(admin, "Iphone"+i, "Buena calidad", 40.00*i, 12, image2);
                         product.addReview(new Review(user1, "Ta bien", 3, "Hater de iphones", image3));
-                        OrderProduct op = new OrderProduct(order, product, 1);
-                        order.addProduct(op);
+                        order.setProductQuantity(product, 1);
                     }
                     case 1 -> {
-                       
+
                         product = new Product(admin, "Iphone "+i, "Seminuevo", 30.00*i, 1, image2);
                         product.addReview(new Review(user1, "meh", 2, "Hater de iphones", image3));
                     }
                     case 2 -> {
-                        
+
                         product = new Product(admin, "Iphone "+i, "Usado", 20.00*i, 1, image2);
                         product.addReview(new Review(user1, "puff", 1, "Hater de iphones", image3));
                     }
                     case 3 -> {
-                       
+
                         product = new Product(user1, "Iphone "+i, "Roto", 10.00*i, 1, image2);
                         product.addReview(new Review(admin, "Mierdon", 0, "Hater de iphones", image3));
                     }
@@ -97,11 +93,9 @@ public class DataBaseInitializer {
                 Image img = imageService.createImage("src/main/resources/static/assets/user.jpg");
                 Product pruebaOrder = new Product(user1, "Memoria RAM "+i, "de coleccion", 2000.00, 2, img);
                 productService.addProduct(pruebaOrder);
-                OrderProduct op2 = new OrderProduct(o, pruebaOrder, 1);
-                o.addProduct(op2);
+                o.setProductQuantity(pruebaOrder, 1);
             }
             o.closeOrder();
-            this.orderService.addOrder(o);
             admin.addOrder(o);
             userService.addUser(admin);
     }

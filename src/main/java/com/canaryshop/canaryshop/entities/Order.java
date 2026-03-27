@@ -1,5 +1,6 @@
 package com.canaryshop.canaryshop.entities;
 
+import com.canaryshop.canaryshop.services.NumberFormatter;
 import jakarta.persistence.*;
 
 import java.util.LinkedList;
@@ -26,39 +27,57 @@ public class Order {
         return id;
     }
     public double getPrice(){
-        double total = 0;
-        for (OrderProduct op : products) {
-            total += op.getProduct().getPrice() * op.getQuantity();
-        }
-        return total;
+        return this.price;
     }
-
+    public String getFormattedPrice(){
+        return NumberFormatter.getFormattedNumber(this.price);
+    }
     public List<OrderProduct> getProducts(){
         return products;
     }
-    private OrderProduct findOrderProductByProduct(Product product){
+    private Optional<OrderProduct> getOrderProduct(Product product){
+        OrderProduct found = null;
         for (OrderProduct op: products){
             if (op.getProduct().equals(product)) {
-                return op;
+                found = op;
+                break;
             }
         }
-        return null;
+        return Optional.ofNullable(found);
     }
     public void closeOrder(){
-        isClosed = true;
+        this.isClosed = true;
     }
     public int getProductQuantity(Product product){
-        Optional<OrderProduct> op = Optional.ofNullable(findOrderProductByProduct(product));
+        Optional<OrderProduct> op = this.getOrderProduct(product);
         if (op.isEmpty()) {
             return 0;
         }
         return op.get().getQuantity();
     }
-    public void addProduct(OrderProduct op){
-        products.add(op);
+    public void setProductQuantity(Product product, int amount){
+        Optional<OrderProduct> op = this.getOrderProduct(product);
+        if (op.isEmpty()){
+            if (amount > 0){
+                this.addProduct(new OrderProduct(this, product, amount));
+            }
+            return;
+        }
+        OrderProduct orderProduct = op.get();
+        this.removeProduct(orderProduct);
+        if (amount < 1) {
+            return;
+        }
+        orderProduct.setQuantity(amount);
+        this.addProduct(orderProduct);
     }
-    public void removeProduct(OrderProduct op){
+    private void addProduct(OrderProduct op){
+        products.add(op);
+        this.price+=op.getProduct().getPrice()*op.getQuantity();
+    }
+    private void removeProduct(OrderProduct op){
         products.remove(op);
+        this.price-=op.getProduct().getPrice()*op.getQuantity();
     }
     public void setUser(User user){
         this.user = user;
