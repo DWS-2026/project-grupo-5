@@ -30,7 +30,9 @@
                         <div class="col">
                             <a href="/product/{{id}}" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
                                 <div class="card shadow-sm bg-body-secondary">
-                                    <img src="productPthoto"  alt="product Pthoto" onerror="this.src='/assets/logo2.png';">
+                                    {{#productImages}}{{#-first}}
+                                    <img src="/images/{{id}}"  alt="product Pthoto" onerror="this.src='/assets/logo2.png';">
+                                    {{/-first}}{{/productImages}}
                                     <div class="card-body text-white">
                                         <h5 class="card-title">{{name}}</h5>
                                         <p class="card-text">{{description}}</p>
