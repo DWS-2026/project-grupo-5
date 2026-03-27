@@ -64,12 +64,12 @@ public class ReviewService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Review is null");
         }
         Product product = review.getProduct();
-        product.removeReview(review);
-        review.copy(modification);
-        if (!review.isValid()){
+        Review modified = review.modify(modification);
+        if (!modified.isValid()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Review invalid");
         }
-        product.addReview(review);
+        product.removeReview(review);
+        product.addReview(modified);
         products.addProduct(product);
     }
     public List<Review> getByAuthor(User user){

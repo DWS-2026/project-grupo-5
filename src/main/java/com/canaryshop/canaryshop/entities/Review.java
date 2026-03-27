@@ -35,6 +35,16 @@ public class Review {
     public Review(User author, String description, Integer rating, String name, Image... images) {
         this(author, description, rating, name, new LinkedList<>(List.of(images)));
     }
+    public Review(Review review){
+        this.id = review.id;
+        this.description = review.description;
+        this.rating = review.rating;
+        this.name = review.name;
+        this.author = review.author;
+        this.images = review.images;
+        this.product = review.product;
+    }
+
     public String getName() {
         return name;
     }
@@ -63,13 +73,15 @@ public class Review {
     public boolean canEdit(User user){
         return !(user==null) && (author.equals(user) || user.isAdmin());
     }
-    public void copy(Review review){
-        description = review.description;
-        rating = review.rating;
-        name = review.name;
+    public Review modify(Review review){
+        Review copy = new Review(this);
+        copy.description = review.description;
+        copy.rating = review.rating;
+        copy.name = review.name;
         if (!review.images.isEmpty()){
-            images = review.images;
+            copy.images = review.images;
         }
+        return copy;
     }
     public void setAuthor(User author){
         this.author = author;
