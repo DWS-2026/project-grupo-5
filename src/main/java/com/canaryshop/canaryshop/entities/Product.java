@@ -1,11 +1,11 @@
 package com.canaryshop.canaryshop.entities;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.canaryshop.canaryshop.services.NumberFormatter;
 import jakarta.persistence.*;
 
 @Entity
@@ -62,9 +62,9 @@ public class Product {
     public Double getPrice() {
         return price;
     }
+    // Formats product price to two decimal places
     public String getFormattedPrice(){
-        double price = getPrice();
-        return BigDecimal.valueOf(price).setScale(2, RoundingMode.FLOOR).toString();
+        return NumberFormatter.getFormattedNumber(this.price);
     }
 
     public Integer getStock() {
@@ -79,12 +79,15 @@ public class Product {
         return reviews;
     }
 
+    // Returns a list of reviews for the current product excluding provided reviews
     public List<Review> getReviewsExcluding(Review... excluding){
         List<Review> reviews = new LinkedList<>(this.reviews);
         reviews.removeAll(Arrays.asList(excluding));
         return reviews;
     }
 
+    // Copies over a product's details while keeping id, vendor and reviews
+    // Used for editing the current product
     public void copy(Product product){
         name = product.name;
         description = product.description;
@@ -98,14 +101,14 @@ public class Product {
     public float getRating() {
         return rating;
     }
+    // Formats the product rating to two decimal places
     public String getFormattedRating(){
-        float rating = getRating();
-        BigDecimal format = BigDecimal.valueOf(rating);
-        return format.setScale(2, RoundingMode.HALF_UP).toString();
+        return NumberFormatter.getFormattedNumber(this.rating);
     }
     public long getId(){
         return id;
     }
+    // Returns whether the current product is considered valid, and can be added to the database
     public boolean isValid(){
         return (
                 !name.isBlank() &&
@@ -115,6 +118,7 @@ public class Product {
                 !productImages.isEmpty()
         );
     }
+    // Returns whether a given user can edit the current product
     public boolean canEdit(User user){
         return !(user==null) && (vendor.equals(user) || user.isAdmin());
     }
@@ -129,30 +133,27 @@ public class Product {
     public Integer getReported() {
         return reported;
     }
+    // Adds a review to the current product's review list and modifies the product rating
     public void addReview(Review review){
-        this.calculateRating(review.getRating());
+        this.modifyRating(review.getRating());
         review.setProduct(this);
         this.reviews.add(review);
-        this.rating/=this.reviews.size();
     }
+    // Removes a review from the current product's review list and modifies the product rating
     public void removeReview(Review review){
-        this.calculateRating(-(review.getRating()));
-        this.reviews.remove(review);
+        this.modifyRating(-review.getRating());
         review.setProduct(null);
-        if (reviews.isEmpty()){
+        this.reviews.remove(review);
+    }
+    // Calculates the new product rating based on the provided review rating
+    private void modifyRating(Integer reviewRating){
+        this.rating*=reviews.size();
+        this.rating+=reviewRating.floatValue();
+        // Calculates the expected new size of the review list
+        int newSize = reviewRating > 0 ? reviews.size()+1 : reviews.size()-1;
+        if (newSize == 0){
             return;
         }
-        this.rating/=this.reviews.size();
+        this.rating/=newSize;
     }
-    private void calculateRating(Integer reviewRating){
-        this.rating*=(reviews.size());
-        this.rating+=reviewRating.floatValue();
-    }
-    public Image getFirstImage() {
-    if (productImages != null && !productImages.isEmpty()) {
-        return productImages.get(0);
-    }
-    return null;
-}
-    
 }
