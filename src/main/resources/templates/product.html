@@ -87,12 +87,14 @@
                 </p>
             </div>
             <!-- Report button-->
+            {{^canEdit}}
             <button class="btn  btn-danger mt-4 "><i class="bi bi-flag-fill"></i> Report</button>
             <form class="mt-4 d-flex flex-column w-100 hidden">
                 <textarea class="form-control mb-2" placeholder="Describe el motivo del reporte..." rows="5"></textarea>
                 <input type="hidden" name="_csrf" value="{{token}}">
                 <button type="submit" class="btn btn-sm btn-primary align-self-center">Enviar Reporte</button>
             </form>
+            {{/canEdit}}
             <!-- Reviews -->
             <h2 class="text-white my-4">Product reviews:</h2>
             <div class="container d-flex flex-column align-items-center p-0 gap-3">
