@@ -149,4 +149,10 @@ public class ProductManager {
         reviews.editReview(review, modification);
         return "redirect:/product/" + product_id;
     }
+    @PostMapping("/product/{id}/report")
+    public String reportProduct(@PathVariable long id, @RequestParam String report) {     
+        Product p =this.products.getProduct(id);
+        p.report(report);
+        return "redirect:/product/"+id;
+    }
 }

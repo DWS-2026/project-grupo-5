@@ -30,7 +30,8 @@ public class Product {
 
 
     private float rating;
-    private Integer reported;
+    @ElementCollection
+    private List<String> reports = new LinkedList<>();
 
     protected Product() {}
     public Product(User vendor, String name, String description, Double price, Integer stock, List<Image> images) {
@@ -39,7 +40,6 @@ public class Product {
         this.description = description;
         this.price = price;
         this.stock = stock;
-        this.reported=0;
         this.rating =0;
         this.productImages=images;
     }
@@ -123,15 +123,15 @@ public class Product {
         return !(user==null) && (vendor.equals(user) || user.isAdmin());
     }
 
-    public void report(){
-        this.reported+=1;
+    public void report(String report){
+        this.reports.add(report);
     }
     public void resetReports(){
-        this.reported=0;
+        this.reports.clear();;
     }
 
-    public Integer getReported() {
-        return reported;
+    public List<String> getReported() {
+        return reports;
     }
     // Adds a review to the current product's review list and modifies the product rating
     public void addReview(Review review){

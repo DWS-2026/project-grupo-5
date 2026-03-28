@@ -15,9 +15,9 @@ public interface ProductsRepository extends JpaRepository<Product, Long>{
     Page <Product> findAll(Pageable page);
     Page <Product> findByNameContainingOrDescriptionContaining(String name, String description, Pageable page);
     Page<Product> findByVendorId(long id, Pageable page);
-    @Query("SELECT p FROM Product p WHERE (p.name LIKE %:name% OR p.description LIKE %:description%) AND p.reported > 0")
+    @Query("SELECT p FROM Product p WHERE (p.name LIKE %:name% OR p.description LIKE %:description%) AND p.reports IS NOT EMPTY")
     Page<Product> findReportedProductsByNameAndDescription(@Param("name") String name, @Param("description") String description,Pageable page);
-    @Query("SELECT p FROM Product p WHERE p.reported > 0")
+    @Query("SELECT p FROM Product p WHERE p.reports IS NOT EMPTY")
     Page<Product> findReportedProduct(Pageable page);
     Optional<Product> findByReviewsId(Long reviewId);
 }
