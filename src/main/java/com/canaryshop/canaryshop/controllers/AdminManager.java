@@ -66,9 +66,9 @@ public class AdminManager {
         return "redirect:/admin/products";
     }
     @GetMapping("/admin/users")
-    public String getMethodName(Model model, @RequestParam(required = false) String search, @PageableDefault(size=12) Pageable page) {
+    public String getUsers(Model model, @RequestParam(required = false) String search, @PageableDefault(size=12) Pageable page) {
         Page<User> results;
-        results= userService.getPageUsers(search, page);
+        results= userService.getPageUser(search, page);
         if (search!=null){
             model.addAttribute("search", search);
         }
@@ -86,7 +86,13 @@ public class AdminManager {
     }
     
     @GetMapping("/admin/reportedUsers")
-    public String getMethodName(Model model) {
+    public String getReportedUsers(Model model, @RequestParam(required = false) String search, @PageableDefault(size = 12) Pageable page) {
+        Page<User> results;
+        results= userService.getReportedUser(search, page);
+        if (search!=null){
+            model.addAttribute("search", search);
+        }
+        pageHandler.handleUserPage(model, results, page);
         return "adminReportedUsers";
     }
     

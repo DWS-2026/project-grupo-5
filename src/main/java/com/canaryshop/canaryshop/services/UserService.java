@@ -78,11 +78,17 @@ public class UserService {
         products.forEach(product -> only6.add(product.getProduct()));
         return only6;
     }
-    public Page<User> getPageUsers(String username, Pageable page ){
+    public Page<User> getPageUser(String username, Pageable page ){
         if(username!=null){
             return this.repo.findByUsernameContaining(username, page);
         }
         return this.repo.findAll(page);
+    }
+    public Page<User> getReportedUser(String username, Pageable page){
+        if(username!=null){
+            return this.repo.findReportedUserByUsername(username, page);
+        }
+        return this.repo.findReportedUser(page);
     }
     public List<Product> getProductsByVendor(long id){
         User user = this.findById(id);

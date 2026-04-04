@@ -31,6 +31,7 @@ public class User {
     private final List<Order> orders = new LinkedList<>();
     @OneToOne(cascade=CascadeType.ALL)
     private Image image;
+    @ElementCollection
     private final List<String> reports = new LinkedList<>();
 
     public User(String username, String email, String password, String ... roles) {
