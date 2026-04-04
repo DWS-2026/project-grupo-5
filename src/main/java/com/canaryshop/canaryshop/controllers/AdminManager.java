@@ -37,15 +37,16 @@ public class AdminManager {
 
     
     @GetMapping("/admin/{id}")
-    public String getMethodName(Model model, @PathVariable long id) {
+    public String getAdminPanel(Model model, @PathVariable long id) {
 
         User u= userService.findById(id);
         model.addAttribute("user",u);
+        model.addAttribute("dashboard",true);
         return "adminDashboard";
     }
 
     @GetMapping("/admin/products")
-    public String index(Model model, @RequestParam(required = false) String search,@PageableDefault(size=12) Pageable page) {
+    public String getReportedProducts(Model model, @RequestParam(required = false) String search,@PageableDefault(size=12) Pageable page) {
 
         Page<Product> results;
         results= productService.getReportedProducts(search, search, page);
@@ -53,16 +54,18 @@ public class AdminManager {
             model.addAttribute("search", search);
         }
         pageHandler.handleProductPage(model, results, page);
+        model.addAttribute("navProducts",true);
         return "adminProducts";
     }
-    @PostMapping("/admin/product/{id}/delete")
-    public String deleteReportedProduct(@PathVariable long id, Principal principal) {
+    @PostMapping("/admin/productReport/{id}/delete")
+    public String deleteReportedProduct(@PathVariable long id, @RequestParam String report, Principal principal) {
         Product product = productService.getProduct(id);
         User user = userService.getUser(principal);
         if (user == null || !user.isAdmin()) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Solo los administradores pueden hacer esto");
         }
-        productService.deleteProduct(product);
+        product.unreport(report);
+        this.productService.addProduct(product);
         return "redirect:/admin/products";
     }
     @GetMapping("/admin/users")
@@ -73,10 +76,12 @@ public class AdminManager {
             model.addAttribute("search", search);
         }
         pageHandler.handleUserPage(model, results, page);
+        model.addAttribute("all",true);
+        model.addAttribute("navUsers",true);
         return "adminAllUsers";
     }
     @PostMapping("/admin/user/{id}/delete")
-    public String postMethodName(@PathVariable long id, Principal principal) {
+    public String postDeleteUser(@PathVariable long id, Principal principal) {
         User currentUser = userService.getUser(principal);
         if (currentUser == null || !currentUser.isAdmin()) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Solo los administradores pueden hacer esto");
@@ -93,9 +98,21 @@ public class AdminManager {
             model.addAttribute("search", search);
         }
         pageHandler.handleUserPage(model, results, page);
+        model.addAttribute("reported",true);
+        model.addAttribute("navUsers",true);
         return "adminReportedUsers";
     }
     
-    
+    @PostMapping("/admin/userReport/{id}/delete")
+    public String postDeleteUserReport(@PathVariable long id, @RequestParam String report, Principal principal) {
+        User currentUser = userService.getUser(principal);
+        if (currentUser == null || !currentUser.isAdmin()) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Solo los administradores pueden hacer esto");
+        }
+        User u=userService.findById(id);
+        u.unreport(report);
+        this.userService.addUser(u);
+        return "redirect:/admin/reportedUsers";
+    }
     
 }

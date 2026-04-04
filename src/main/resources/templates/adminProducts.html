@@ -27,32 +27,32 @@
                 
                     <div class="row row-cols-1 row-cols-md-6  g-4 mx-1">
                         {{#products}}
-                        <div class="col">
-                            <a href="/product/{{id}}" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
-                                <div class="card shadow-sm bg-body-secondary">
-                                    {{#productImages}}{{#-first}}
-                                    <img src="/images/{{id}}"  alt="product Pthoto" onerror="this.src='/assets/logo2.png';">
-                                    {{/-first}}{{/productImages}}
-                                    <div class="card-body text-white">
-                                        <h5 class="card-title">{{name}}</h5>
-                                        <p class="card-text">{{description}}</p>
+                            {{#reports}}
+                            <div class="col">
+                                <a href="/product/{{id}}" class="text-decoration-none card bg-body border-dark border-opacity-75 rounded-5 overflow-hidden">
+                                    <div class="card shadow-sm bg-body-secondary">
+                                        {{#productImages}}{{#-first}}
+                                        <img src="/images/{{id}}"  alt="product Pthoto" onerror="this.src='/assets/logo2.png';">
+                                        {{/-first}}{{/productImages}}
+                                        <div class="card-body text-white">
+                                            <h5 class="card-title">{{name}}</h5>
+                                            <p class="card-text">{{.}}</p>
+                                        </div>
                                     </div>
+                                </a>
+                                
+                                <div class="justify-content-center d-flex flex-row flex-nowrap mx-4 my-2 align-self-center">
+                                    <!-- Edit product -->
+                                    <a href="/product/{{id}}/edit"><button type="button" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></button></a>
+                                    <!-- Remove product-->
+                                    <form action="/admin/productReport/{{id}}/delete" method="post"> 
+                                        <input type="hidden" name="_csrf" value="{{token}}">
+                                        <input type="hidden" name="report" value="{{.}}">
+                                        <button type="sumbit" class="btn btn-outline-danger mx-2"><i class="bi bi-x-lg"></i></button>
+                                    </form>
                                 </div>
-                            </a>
-                            <div class="justify-content-center d-flex flex-row flex-nowrap mx-4 my-2 align-self-center">
-                                <!-- Edit product -->
-                                <form action="/product/{{id}}/edit" method="get">
-                                    <input type="hidden" name="_csrf" value="{{token}}">
-                                    <button type="submit" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></button>
-                                </form>
-                                <!-- Remove product-->
-                                <form action="/admin/product/{{id}}/delete" method="post"> 
-                                    <input type="hidden" name="_csrf" value="{{token}}">
-                                    <button type="sumbit" class="btn btn-outline-danger mx-2"><i class="bi bi-x-lg"></i></button>
-                                </form>
-
-                        </div>
                             </div>
+                            {{/reports}}
                         {{/products}}
                     </div>
                 

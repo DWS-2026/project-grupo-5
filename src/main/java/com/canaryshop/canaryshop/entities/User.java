@@ -133,7 +133,13 @@ public class User {
     public void report(String report){
         this.reports.add(report);
     }
-    public void unreport(){
+    public void unreport(String report){
+        this.reports.remove(report);
+    }
+    public void resetReports(){
         this.reports.clear();
+    }
+    public List<String> getReported() {
+        return reports;
     }
 }

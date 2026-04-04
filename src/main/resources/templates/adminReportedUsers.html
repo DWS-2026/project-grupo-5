@@ -24,21 +24,24 @@
 
                 <!-- Each user -->
                 {{#users}}
-                <div class="text-white mx-3 bg-body-tertiary my-2 rounded-pill d-flex justify-content-between">
-                    <div>
-                        <h5 class="mx-4 my-2">{{username}}</h5>
-                        <p class="mx-4 ">Description</p>
+                    {{#reports}}
+                    <div class="text-white mx-3 bg-body-tertiary my-2 rounded-pill d-flex justify-content-between">
+                        <div>
+                            <h5 class="mx-4 my-2">{{username}}</h5>
+                            <p class="mx-4 ">{{.}}</p>
+                        </div>
+                        <div class="justify-content-end d-flex flex-row flex-nowrap mx-4 my-2 align-self-center">
+                            <!-- Edit user -->
+                            <a href="/user/{{id}}"><button type="button" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></button></a>
+                            <!-- Remove/ban user-->
+                            <form action="/admin/userReport/{{id}}/delete" method="post">
+                                <input type="hidden" name="_csrf" value="{{token}}">
+                                <input type="hidden" name="report" value="{{.}}">
+                                <button type="submit" class="btn btn-outline-danger mx-2"><i class="bi bi-x-lg"></i></button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="justify-content-end d-flex flex-row flex-nowrap mx-4 my-2 align-self-center">
-                        <!-- Edit user -->
-                        <a href="/user/{{id}}"><button type="button" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></button></a>
-                        <!-- Remove/ban user-->
-                        <form action="/admin/user/{{id}}/delete" method="post">
-                            <input type="hidden" name="_csrf" value="{{token}}">
-                            <button type="submit" class="btn btn-outline-danger mx-2"><i class="bi bi-x-lg"></i></button>
-                        </form>
-                    </div>
-                </div>
+                    {{/reports}}
                 {{/users}}
 
                 <!-- Pages of users -->

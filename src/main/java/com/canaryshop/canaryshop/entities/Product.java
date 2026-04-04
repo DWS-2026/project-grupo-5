@@ -127,9 +127,11 @@ public class Product {
         this.reports.add(report);
     }
     public void resetReports(){
-        this.reports.clear();;
+        this.reports.clear();
     }
-
+    public void unreport(String report){
+        this.reports.remove(report);
+    }
     public List<String> getReported() {
         return reports;
     }
