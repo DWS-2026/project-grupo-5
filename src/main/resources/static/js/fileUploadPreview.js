@@ -7,7 +7,6 @@ document.getElementById("file-input").onchange = function(event) {
         `<div class="col-6 col-sm-4 col-md-3 col-lg-2">
             <div class="preview-card">
                 <img src=${URL.createObjectURL(file)}>
-                <button class="btn-remove"><i class="bi bi-x-lg"></i></button>
             </div>
         </div>`;
     })
