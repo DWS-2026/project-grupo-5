@@ -109,25 +109,42 @@
                             </a>
                             {{/products}}
                         </div>
+                        {{#products}}{{#-last}}
                         <a class="btn btn-primary" href="/user/{{userView.id}}/products">See all products</a>
+                        {{/-last}}{{/products}}
+                        {{^products}}
+                        <h6 class="display-6 text-white">No products published yet.</h6>
+                        {{/products}}
                     </div>
                     {{#canEdit}}
                     <!--Orders-->
                     <div class="col d-flex flex-column gap-4 align-items-center flex-fill w-100">
-                        <h5 class="display-5 text-white">Orders</h5>
+                        <h5 class="display-5 text-white">Recent Orders</h5>
                         <div class="d-flex flex-column flex-md-row align-items-center justify-content-evenly w-100 gap-2">
                             {{#orders}}
-                            <a href="/product/{{id}}" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">
-                                <div class="card shadow-sm bg-body align-items-center flex-grow-1">
-                                    {{#productImages}}{{#-first}}
-                                    <img class="img-fluid" src="/images/{{id}}" onerror="this.src='/assets/logo2.png'" width="200" height="200">
-                                    {{/-first}}{{/productImages}}
-                                    <div class="card-body text-white">
-                                        <h5 class="card-title">{{name}}</h5>
-                                        <p class="card-text">{{description}}</p>
+                            <a href="/order/{{id}}" class="link-light link-underline link-underline-opacity-0">
+                                <div class="card bg-body">
+                                    <div class="card-body d-flex flex-column text-white">
+                                        {{#products}}
+                                        {{#-first}}
+                                        <span>{{product.name}} x {{quantity}}</span>
+                                        {{/-first}}
+                                        {{#-last}}
+                                        {{^-first}}
+                                        <span>...</span>
+                                        <span>{{product.name}} x {{quantity}}</span>
+                                        {{/-first}}
+                                        {{/-last}}
+                                        {{/products}}
+                                    </div>
+                                    <div class="card-footer text-white bg-body-secondary py-3">
+                                        Total: <span class="text-bg-primary p-2 rounded">{{formattedPrice}}€</span>
                                     </div>
                                 </div>
                             </a>
+                            {{/orders}}
+                            {{^orders}}
+                            <h6 class="display-6 text-white">No orders yet.</h6>
                             {{/orders}}
                         </div>
                     </div>

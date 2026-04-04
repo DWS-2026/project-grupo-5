@@ -23,6 +23,9 @@ public class Order {
     private final List<OrderProduct> products = new LinkedList<>();
 
     public Order(){}
+    public boolean isClosed(){
+        return this.isClosed;
+    }
     public Long getId() {
         return id;
     }
@@ -54,6 +57,9 @@ public class Order {
             return 0;
         }
         return op.get().getQuantity();
+    }
+    public boolean owns(User user){
+        return !(user==null) && (this.user.equals(user) || user.isAdmin());
     }
     public void setProductQuantity(Product product, int amount){
         Optional<OrderProduct> op = this.getOrderProduct(product);

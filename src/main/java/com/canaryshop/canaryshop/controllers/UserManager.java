@@ -3,6 +3,7 @@ package com.canaryshop.canaryshop.controllers;
 import java.security.Principal;
 import java.util.List;
 
+import com.canaryshop.canaryshop.entities.Order;
 import com.canaryshop.canaryshop.services.PageHandler;
 import com.canaryshop.canaryshop.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +49,11 @@ public class UserManager {
         User currentUser = userService.getUser(principal);
         model.addAttribute("canEdit", user.canEdit(currentUser));
         model.addAttribute("userView", user);
-        List<Product> products = this.userService.getProductsByVendor(id);
+        List<Product> products = user.getProducts();
         products = products.subList(0, Math.min(products.size(), 5));
-        List<Product> orders = this.userService.getOrdersByVendor(id);
+        List<Order> orders = user.getOrders();
+        orders.removeIf(element -> !element.isClosed());
+        orders = orders.subList(0, Math.min(orders.size(), 5));
         model.addAttribute("products",products);
         model.addAttribute("orders",orders);
         return "user";
