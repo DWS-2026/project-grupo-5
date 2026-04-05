@@ -110,7 +110,11 @@ public class UserManager {
         return "redirect:/";
     }
     @PostMapping("/user/{id}/report")
-    public String reportUser(@PathVariable long id, @RequestParam String report) {
+    public String reportUser(@PathVariable long id, @RequestParam String report, Principal principal) {
+        User currentUser = this.userService.getUser(principal);
+        if(currentUser == null){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You must log in to report");
+        }
         User u = this.userService.findById(id);
         u.report(report);
         this.userService.addUser(u);
