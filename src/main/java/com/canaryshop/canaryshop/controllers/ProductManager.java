@@ -44,6 +44,11 @@ public class ProductManager {
         catch (ResponseStatusException exception) { userReview = null; }
         model.addAttribute("userReview", userReview);
         model.addAttribute("productReviews", product.getReviewsExcluding(userReview));
+        if(user == null){
+            model.addAttribute("canBuyProduct", false);
+        }else{
+            model.addAttribute("canBuyProduct", !user.equals(product.getVendor()));
+        }
         return "product";
     }
 

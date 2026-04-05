@@ -56,7 +56,7 @@
             </h6>
             <!-- Buy Buttons -->
             <div class="my-2 d-flex flex-row gap-3">
-                {{^canEditProduct}}
+                {{#canBuyProduct}}
                     <a href="/payment"><button class="btn btn-primary btn-lg">Buy Now</button></a>
                     {{#product}}
                         <form action="/cart/increase/{{id}}" method="post" style="display:inline;">
@@ -64,7 +64,7 @@
                             <button type="submit" class="btn btn-secondary btn-lg">Add to Cart</button>
                         </form>
                     {{/product}}
-                {{/canEditProduct}}
+                {{/canBuyProduct}}
                 {{#canEditProduct}}
                 <form method="post" action="/product/{{id}}/delete">
                     <input type="hidden" name="_csrf" value="{{token}}">
