@@ -67,12 +67,12 @@
                             </div>
                     </div>
                 </div>
-                {{#canEdit}}{{^isAdmin}}
+                {{#currentUser}}
                 <form action="/logout" method="post">
                     <input type="hidden" name="_csrf" value="{{token}}">
                     <button type="submit" class="bi bi-box-arrow-left btn btn-danger mt-4"> Log out</button>
                 </form>
-                {{/isAdmin}}{{/canEdit}}
+                {{/currentUser}}
                 {{^canEdit}}
                 <!-- Report button-->
                 <button type="button" class="btn btn-danger mt-4" data-bs-toggle="collapse" data-bs-target="#reportContainer" aria-expanded="false" aria-controls="reportContainer">
@@ -93,7 +93,7 @@
                 <div class="col d-flex flex-column gap-4 align-items-center flex-fill">
                     <!-- Products -->
                     <div class="d-flex flex-column align-items-center gap-4 w-100">
-                        <h5 class="display-5 text-white">Recent Products</h5>
+                        <h5 class="display-5 text-white">Products</h5>
                         <div class="d-flex flex-column flex-md-row align-items-center justify-content-evenly w-100 gap-2">
                             {{#products}}
                             <a href="/product/{{id}}" class="text-decoration-none bg-body card border-dark border-opacity-75 rounded-5 overflow-hidden">

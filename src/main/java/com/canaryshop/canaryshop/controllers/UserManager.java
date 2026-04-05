@@ -56,6 +56,7 @@ public class UserManager {
         orders = orders.subList(0, Math.min(orders.size(), 5));
         model.addAttribute("products",products);
         model.addAttribute("orders",orders);
+        model.addAttribute("currentUser",currentUser.equals(user));
         return "user";
     }
     @GetMapping("/user/{id}/products")
