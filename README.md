@@ -203,21 +203,33 @@ Solo si han cambiado.
 
 1. **Clonar el repositorio**
    ```bash
-   git clone https://github.com/[usuario]/[nombre-repositorio].git
-   cd [nombre-repositorio]
+   git clone https://github.com/DWS-2026/project-grupo-5.git
+   cd project-grupo-5
    ```
 
-2. **AQUÍ INDICAR LO SIGUIENTES PASOS**
+2. **Iniciamos la Base de Datos**
+    ```bash
+    docker run --rm -e MYSQL_ROOT_PASSWORD=password \
+    -e MYSQL_DATABASE=canaryshop -p 3306:3306 -d mysql:9.6.0
+    ```
+
+3. **Iniciamos el servidor**
+    - Por terminal:
+      ```bash
+      ./mvnw spring-boot:run
+      ```
+    - Desde un IDE, iniciamos el proyecto.
+
 
 #### **Credenciales de prueba**
-- **Usuario Admin**: usuario: `admin`, contraseña: `admin`
-- **Usuario Registrado**: usuario: `user`, contraseña: `user`
+- **Usuario Admin**: usuario: `admin@canaryshop.com`, contraseña: `admin`
+- **Usuario Registrado**: usuario: `user1@canaryshop.com`, contraseña: `user1`
 
 ### **Diagrama de Entidades de Base de Datos**
 
 Diagrama mostrando las entidades, sus campos y relaciones:
 
-![Diagrama Entidad-Relación](images/database-diagram.png)
+![Diagrama Entidad-Relación](images/database.png)
 
 > [Descripción opcional: Ej: "El diagrama muestra las 4 entidades principales: Usuario, Producto, Pedido y Categoría, con sus respectivos atributos y relaciones 1:N y N:M."]
 
@@ -231,21 +243,21 @@ Diagrama de clases de la aplicación con diferenciación por colores o secciones
 
 ### **Participación de Miembros en la Práctica 2**
 
-#### **Alumno 1 - Jaime Gordaliza de la Rosa**
+#### **Alumno 1 - Diego Coello López**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+He creado la base de la aplicación web, instalando springboot, la base de datos y organizando todos los archivos. También he implementado el login, el register de usuarios, la pantalla de pago, la redirección a pantallas de error y la corrección de errores y bugs.
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Página web funcional + página de error funcional + todos los href="" actualizados](https://github.com/DWS-2026/project-grupo-5/commit/21a320b35e887b4d2c920744c3a8015193a6666f)  | [ErrorManage.java](https://github.com/DWS-2026/project-grupo-5/commit/21a320b35e887b4d2c920744c3a8015193a6666f#diff-0cb5491de56a89658a7e7cb8acb2e6dcf1148c19a15928a9b9661edb552a2746), [IndexManage.java](https://github.com/DWS-2026/project-grupo-5/commit/21a320b35e887b4d2c920744c3a8015193a6666f#diff-969bce264c621ee3b2139ad9897c7bc873997cd8f2d9ed5d32c436e31722b742), [Todos los html](https://github.com/DWS-2026/project-grupo-5/commit/21a320b35e887b4d2c920744c3a8015193a6666f)  |
+|2| [Base De Datos](https://github.com/DWS-2026/project-grupo-5/commit/457a7add56ab77ab243af340c229049296914695)  | [pom.xml](https://github.com/DWS-2026/project-grupo-5/commit/457a7add56ab77ab243af340c229049296914695#diff-9c5fb3d1b7e3b0f54bc5c4182965c4fe1f9023d449017cece3005d3f90e8e4d8), [User.java](https://github.com/DWS-2026/project-grupo-5/commit/457a7add56ab77ab243af340c229049296914695#diff-3387b6c8a6d59c801d179e79e78e70a8f3c0ad6bc2becd4ec19fb4eaa4784d7f)   |
+|3| [Botón de borrar usuarios](https://github.com/DWS-2026/project-grupo-5/commit/572048ffb1ef653c65eb8e1712c4ba19ed8bf192)  | [UserManager.java](https://github.com/DWS-2026/project-grupo-5/commit/572048ffb1ef653c65eb8e1712c4ba19ed8bf192#diff-2bf61f7e9b546b14d9a503b40b96e95b739a19a60acbe4bfd6f4508f1a462e82), [UserService.java](https://github.com/DWS-2026/project-grupo-5/commit/572048ffb1ef653c65eb8e1712c4ba19ed8bf192#diff-ce904d24cf719cc3a450967ab8accef2b14fd8a7afb06b46653b6c45455c619c), [user.html](https://github.com/DWS-2026/project-grupo-5/commit/572048ffb1ef653c65eb8e1712c4ba19ed8bf192#diff-432f1ee3cfc65d2d49142cf3ebdeee2ae3defaf362beb8532177caaae1818de8)   |
+|4| [Pantalla de pago](https://github.com/DWS-2026/project-grupo-5/commit/7a03d648c0bf069b404901de81f4879ef5c8be23)  | [SecurityConfiguration.java](https://github.com/DWS-2026/project-grupo-5/commit/7a03d648c0bf069b404901de81f4879ef5c8be23#diff-58270c08a0235d2119529cf41788646dcd58993a434af875d17d5fb9df64a8b2), [PaymentManager.java](https://github.com/DWS-2026/project-grupo-5/commit/7a03d648c0bf069b404901de81f4879ef5c8be23#diff-3ac3ae92f0eca3a24472bf1f5c53bbb98a94ac822b4abb11adec78e90b917747), [payment.java](https://github.com/DWS-2026/project-grupo-5/commit/7a03d648c0bf069b404901de81f4879ef5c8be23#diff-59e0afc8b812c798df8d7b6b47b8279587eeed7b8aac6a228afe55ab8de397c1)   |
+|5| [Pantalla de success arreglado](https://github.com/DWS-2026/project-grupo-5/commit/1e73e6275ea265ef1cda547d64afbc90af55149e)  | [PaymentManager.java](https://github.com/DWS-2026/project-grupo-5/commit/1e73e6275ea265ef1cda547d64afbc90af55149e#diff-3ac3ae92f0eca3a24472bf1f5c53bbb98a94ac822b4abb11adec78e90b917747), [payment.java](https://github.com/DWS-2026/project-grupo-5/commit/1e73e6275ea265ef1cda547d64afbc90af55149e#diff-59e0afc8b812c798df8d7b6b47b8279587eeed7b8aac6a228afe55ab8de397c1), [success.java](https://github.com/DWS-2026/project-grupo-5/commit/1e73e6275ea265ef1cda547d64afbc90af55149e#diff-1af117a83d204603dfe133ec765d0e2be02e4e5399add9637d6cc735fda84506)   |
 
 ---
 
-#### **Alumno 2 - [Nombre Completo]**
+#### **Alumno 2 - Jaime Gordaliza de la Rosa**
 
 [Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
 
