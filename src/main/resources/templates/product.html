@@ -57,6 +57,7 @@
             <!-- Buy Buttons -->
             <div class="my-2 d-flex flex-row gap-3">
                 {{#canBuyProduct}}
+                {{#isProductAvailable}}
                     <form action="/payment" method="get">
                         <input type="hidden" name="productID" value="{{id}}">
                         <input type="hidden" name="_csrf" value="{{token}}">
@@ -68,6 +69,7 @@
                             <button type="submit" class="btn btn-secondary btn-lg">Add to Cart</button>
                         </form>
                     {{/product}}
+                {{/isProductAvailable}}
                 {{/canBuyProduct}}
                 {{#canEditProduct}}
                 <form method="post" action="/product/{{id}}/delete">

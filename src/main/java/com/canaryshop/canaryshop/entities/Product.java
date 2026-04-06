@@ -161,4 +161,8 @@ public class Product {
     public void decreaseStock(){
         this.stock-=1;
     }
+
+    public boolean isAvailable(){
+        return this.stock > 0;
+    }
 }

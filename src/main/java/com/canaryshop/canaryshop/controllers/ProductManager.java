@@ -38,6 +38,13 @@ public class ProductManager {
         User user = users.getUser(principal);
         model.addAttribute("product", product);
         model.addAttribute("canEditProduct", product.canEdit(user));
+
+        if (product.isAvailable()) {
+            model.addAttribute("isProductAvailable", true);
+        } else {
+            model.addAttribute("isProductAvailable", false);
+        }
+        
         // This following part is necessary to separate all reviews from the current user's, if it exists
         Review userReview;
         try { userReview = reviews.getReview(user, product); }
