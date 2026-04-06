@@ -188,8 +188,51 @@ He contribuido al diseño principal de la página web creando el fondo dínamico
 Solo si ha cambiado.
 
 #### **Capturas de Pantalla Actualizadas**
+![Cabecera](images/imagenCabecera.png)
+![Cabecera](images/imagenCabecera2.png)
 
-Solo si han cambiado.
+> [Descripción breve: Hemos cambiado un poco la cabecera]
+
+![Página Principal](images/imagenUsuario.png)
+
+> [Descripción breve: Hemos añadido botones de deslogearse y para editar el perfil ademas de que puede ver todos los pedidos que ha hecho]
+
+![Página Principal](images/imagenAddProduct.png)
+
+> [Descripción breve: hemos cambiado ligeramente esta pantalla no hay X encima de las imagenes]
+
+![Página Principal](images/ImagenAdminDashboard.png)
+
+> [Descripción breve: Ya no hay notificaciones]
+
+![Página Principal](images/imagenReportedProducts.png)
+
+> [Descripción breve: Se ha cambiado ligeramente]
+
+![Página Principal](images/imagenAllUser.png)
+
+> [Descripción breve:se ha cambiado ligeramente]
+
+![Página Principal](images/imagenReportedUser.png)
+
+> [Descripción breve: se ha cambiado ligeramente]
+
+![Página Principal](images/imagenCarrito.png)
+
+
+
+![Página Principal](images/ImagenlogIn.png)
+
+> [Descripción breve: Pantalla que aparece si se pulsa el botón de iniciar sesion]
+
+![Página Principal](images/ImagenSignUp.png)
+
+> [Descripción breve: Pantalla que aparece si se pulsa el botón de registrarse]
+
+![Página Principal](images/imagenProducto1.png)
+![Página Principal](images/imagenProducto.png)
+
+> [Descripción breve: Se ha cambiado ligeramente]
 
 ### **Instrucciones de Ejecución**
 
