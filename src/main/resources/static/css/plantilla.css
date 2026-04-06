@@ -50,10 +50,15 @@
     --bs-btn-active-border-color: var(--green-dark);
 }
 .btn-primary {
-    --bs-btn-bg: var(--green);
-    --bs-btn-border-color: var(--green);
-    --bs-btn-hover-bg: var(--green-dark);
-    --bs-btn-hover-border-color: var(--green-dark)
+    --bs-btn-bg: var(--green) !important;
+    --bs-btn-border-color: var(--green) !important;
+    --bs-btn-hover-bg: var(--green-dark) !important;
+    --bs-btn-hover-border-color: var(--green-dark) !important;
+    --bs-btn-active-bg: var(--green-dark) !important;
+    
+    background-color: var(--green) !important;
+    border-color: var(--green) !important;
+    color: var(--text) !important;
 }
 .btn-secondary {
     --bs-btn-bg: var(--item-bg);
