@@ -302,28 +302,27 @@ He creado la base de la aplicación web, instalando springboot, la base de datos
 
 #### **Alumno 2 - Jaime Gordaliza de la Rosa**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
-
+He arreglado errores tanto de la practica 1 como de la actual ademas he creado el carrito de compra, las orders y los reportes.
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Corrección de los fallos de la práctica 1](https://github.com/DWS-2026/project-grupo-5/commit/81fe0519a749f1e4f38de40c9228ac3aaa4545e6)  | [usuario.html](src/main/resources/templates/usuario.html)   |
+|2| [Creación Cart manager](https://github.com/DWS-2026/project-grupo-5/commit/ce9c8b5e59e1b4618d9c35b11e50e184b07d2696)  | [CartManager(OrderManager)](src/main/java/com/canaryshop/canaryshop/controllers/CartManager.java)   |
+|3| [Mejora del carrito](https://github.com/DWS-2026/project-grupo-5/commit/0a6f3adf6b520f69fb93dbc0e24ff9f26baa3115)  | [CartManager(OrderManager)](src/main/java/com/canaryshop/canaryshop/controllers/CartManager.java)   |
+|4| [Reporte de usuarios](https://github.com/DWS-2026/project-grupo-5/commit/2f99bf0db5721bb4527f07f8fad421fbc5b65a0d)  | [UserManager.java](src/main/java/com/canaryshop/canaryshop/controllers/UserManager.java)   |
+|5| [Reporte de usuarios](https://github.com/DWS-2026/project-grupo-5/commit/8b3864b7e26f7d861449fc0b9f5c850e585303a3)  | [ProductManager.java](src/main/java/com/canaryshop/canaryshop/controllers/ProductManager.java)   |
 
 ---
 
 #### **Alumno 3 - Jorge Crespo Lucas**
 
-He creado la parte del administrador y la pagina del indice junto con la busqueda de la cabecera y la forma de guardar imagenes en la base de datos
+He creado la parte del administrador y la pagina del indice junto con la busqueda de la cabecera y la forma de guardar imagenes en la base de datos.
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
 |1| [La parte de productos reportados y el dashboard de administrador](https://github.com/DWS-2026/project-grupo-5/commit/0bad653de426debc9e9c8f310d2e9659210d7f0b)  | [AdmninManager.java](src/main/java/com/canaryshop/canaryshop/controllers/AdminManager.java) [adminProducts.html](src/main/resources/templates/adminProducts.html)  |
-|2| [Pagina de ver todos los usuarios en el panel de administrador hecha]((https://github.com/DWS-2026/project-grupo-5/commit/d16a16af765a26d6371abb0306b237a51e5621cf))  | [AdminManager.java](src/main/java/com/canaryshop/canaryshop/controllers/AdminManager.java) [adminAllUser.html](src/main/resources/templates/adminAllUsers.html)  |
+|2| [Pagina de ver todos los usuarios en el panel de administrador hecha](https://github.com/DWS-2026/project-grupo-5/commit/d16a16af765a26d6371abb0306b237a51e5621cf)  | [AdminManager.java](src/main/java/com/canaryshop/canaryshop/controllers/AdminManager.java) [adminAllUser.html](src/main/resources/templates/adminAllUsers.html)  |
 |3| [Los usuarios reportados para verlos en el panel de administrador](https://github.com/DWS-2026/project-grupo-5/commit/e6b1aba83d6dde7b511597a0cea96d1d4de49cad)  | [AdminManager.java](src/main/java/com/canaryshop/canaryshop/controllers/AdminManager.java) [adminReportedUsers.html](src/main/resources/templates/adminReportedUsers.html) [UserRepository.java](src/main/java/com/canaryshop/canaryshop/repositories/UserRepository.java) |
-|4| [Teniamos muchos errores al borrar usuarios que arregle]([https://github.com/DWS-2026/project-grupo-5/commit/7dbb10a561af658ac428df824b99f1acf323474e](https://github.com/DWS-2026/project-grupo-5/commit/3fc16e63972ed523ff169cce38de0993f4939ed2))  | [UserManager.java](src/main/java/com/canaryshop/canaryshop/controllers/UserManager.java) [UserService.java](src/main/java/com/canaryshop/canaryshop/services/UserService.java)  |
+|4| [Teniamos muchos errores al borrar usuarios que arregle](https://github.com/DWS-2026/project-grupo-5/commit/3fc16e63972ed523ff169cce38de0993f4939ed2)  | [UserManager.java](src/main/java/com/canaryshop/canaryshop/controllers/UserManager.java) [UserService.java](src/main/java/com/canaryshop/canaryshop/services/UserService.java)  |
 |5| [Imagenes guardadas en base de datos a un tamaño fijo y en .png](https://github.com/DWS-2026/project-grupo-5/commit/6bda25a8b39561d6969ec69e6315edeb54a2fd77)  | [ImageService.java](src/main/java/com/canaryshop/canaryshop/services/ImageService.java)   |
 
 ---
