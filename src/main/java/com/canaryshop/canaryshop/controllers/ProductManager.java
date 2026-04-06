@@ -161,6 +161,7 @@ public class ProductManager {
         reviews.editReview(review, modification);
         return "redirect:/product/" + product_id;
     }
+    // To report the products
     @PostMapping("/product/{id}/report")
     public String reportProduct(@PathVariable long id, @RequestParam String report, Principal principal) {  
         User u = this.users.getUser(principal);

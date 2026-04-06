@@ -95,9 +95,6 @@ public class Order {
         }
         return total;
     }
-    public void setProducts(List<OrderProduct> list){
-        this.products=list;
-    }
     public void setDiscount(float discount){
         this.price*=discount;
     }

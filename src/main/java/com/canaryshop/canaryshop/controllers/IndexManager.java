@@ -17,7 +17,7 @@ public class IndexManager {
     private ProductService productService;
     @Autowired
     private PageHandler pageHandler;
-
+    // All products
     @GetMapping({"/", "/index"})
     public String index(Model model, @RequestParam(required = false) String search,@PageableDefault(size=12) Pageable page) {
 

@@ -17,7 +17,7 @@ public class CanaryWebController {
 
     @Autowired
     private UserService users;
-
+    // Change the header of the page
     @ModelAttribute
     public void addGlobalAttributes(Model model, HttpServletRequest request) {
         

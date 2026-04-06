@@ -1,22 +1,22 @@
 package com.canaryshop.canaryshop.services;
 
+import java.security.Principal;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
-import com.canaryshop.canaryshop.repositories.UserRepository;
 import com.canaryshop.canaryshop.entities.Order;
 import com.canaryshop.canaryshop.entities.OrderProduct;
 import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.User;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.security.Principal;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import com.canaryshop.canaryshop.repositories.UserRepository;
 
 
 @Service
@@ -26,7 +26,7 @@ public class UserService {
     private UserRepository repo;
     @Autowired
     private ProductService productService;
-
+    
     public void addUser(User user){
         this.repo.save(user);
     }
@@ -37,6 +37,7 @@ public class UserService {
         }
         return user.get();
     }
+    // To get the user in sesion
     public User getUser(Principal principal){
         return principal == null ? null : getUser(principal.getName());
     }
@@ -61,18 +62,7 @@ public class UserService {
     public List<User> findAll() {
         return repo.findAll();
     }
-    public List<Product> getOrdersByVendor(long id){
-        User u= this.findById(id);
-        List<Order> orders = u.getOrders();
-        if(orders==null || orders.isEmpty()){
-            return null;
-        } 
-        List<OrderProduct> products= orders.getLast().getProducts();
-        products = products.subList(0, Math.min(6, products.size()));
-        List<Product> only6= new LinkedList<>();
-        products.forEach(product -> only6.add(product.getProduct()));
-        return only6;
-    }
+
     public Page<User> getPageUser(String username, Pageable page ){
         if(username!=null){
             return this.repo.findByUsernameContaining(username, page);
@@ -92,7 +82,7 @@ public class UserService {
     public User findByEmail(String email){
         Optional<User> u=this.repo.findByEmail(email);
         if(!u.isPresent()){
-            return null;
+            return null;        // Returns null to show that the user doesn't exist
         }else{
             return u.get();
         }

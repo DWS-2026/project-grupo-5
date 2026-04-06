@@ -6,7 +6,7 @@ public class OrderProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int quantity;
+    private int quantity;       // The quiantity of the product in a order
     @ManyToOne
     private Product product;
     @ManyToOne 
@@ -21,7 +21,7 @@ public class OrderProduct {
         return this.quantity;
     }
     public void setQuantity(int quantity){
-        int q = Math.min(quantity, this.product.getStock());
+        int q = Math.min(quantity, this.product.getStock());        // The quiantity of the product in a order 
         this.quantity = q;
     }
     public boolean canAddQuantity(){

@@ -77,6 +77,7 @@ public class ProductService {
             return products.findReportedProduct(page);
         }
     }
+    // To decrease stock
     public void productPurchased(Product product){
         if(product.getStock()<1){
             return;

@@ -38,7 +38,7 @@ public class OrderService {
     public void addOrder(Order o){
         orderProductRepository.save(o);
     }
-
+    // To get the discount for the code
     public float getDiscount(String code){
         float discount = switch(code == null ? "" :code){
             case "DiegoEsElMejor" -> 0;
@@ -49,7 +49,7 @@ public class OrderService {
         };
         return discount;
     }
-
+    // To create a new cart for the user
     public void closeCart(User u, float discount){
         this.closeOrder(u, u.getCart(), discount);
         Order newCart = new Order();
@@ -57,7 +57,7 @@ public class OrderService {
         this.orderRepository.save(newCart);
         this.userService.addUser(u);
     }
-
+    // To close and order with the discount
     public void closeOrder(User u, Order order, float discount){
         order.closeOrder();
         order.setDiscount(discount);
@@ -66,7 +66,7 @@ public class OrderService {
         this.orderRepository.save(order);
         this.userService.addUser(u);
     }
-
+    // To decrease the stock of the products
     private void productsPurchased(Order o){
         List<OrderProduct> list= o.getProducts();
 
@@ -74,6 +74,7 @@ public class OrderService {
             this.productService.productPurchased(op.getProduct());
         }
     }
+    // Renew the order by removing the out-of-stock products
     public Order renewOrder(Order o){
         List<OrderProduct> products = new LinkedList<>(o.getProducts()); 
         for(OrderProduct op: products){

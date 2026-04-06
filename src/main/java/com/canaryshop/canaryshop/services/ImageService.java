@@ -33,6 +33,7 @@ public class ImageService {
     private ImageRepository images;
     private final Logger log = LoggerFactory.getLogger(ImageService.class);
 
+    // Create an image from a MultipartFile sent by the users
     public Image createImage(MultipartFile imageFile){
         if (imageFile == null || imageFile.isEmpty()){
             return null;
@@ -46,7 +47,7 @@ public class ImageService {
             return null;
         }
     }
-
+    
     public List<Image> createImages(List<MultipartFile> imageFiles){
         List<Image> imageList = new LinkedList<>();
         for (MultipartFile imageFile: imageFiles){
@@ -76,6 +77,7 @@ public class ImageService {
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Image not found");
     }
+    // Create an image from an static rute that the developers used
     public Image createImage(String filePath){
         try {
             Path path = Paths.get(filePath);
@@ -87,6 +89,7 @@ public class ImageService {
             return null;
         }
     }
+    // Resize the image from a MultiparFile
     private byte[] resizeMultipartFile(MultipartFile imageFile) throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
@@ -97,6 +100,7 @@ public class ImageService {
 
         return outputStream.toByteArray();
     }
+    // Resize the image from a static rute
     private byte[] resizeFile(Path path) throws IOException{
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 

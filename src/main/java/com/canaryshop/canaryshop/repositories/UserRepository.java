@@ -14,8 +14,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
     Optional<User> findByUsername(String username);
     Page<User> findByUsernameContaining(String username, Pageable page);
-    @Query("SELECT u FROM User u WHERE u.username LIKE %:username% AND u.reports IS NOT EMPTY")
+    @Query("SELECT u FROM User u WHERE u.username LIKE %:username% AND u.reports IS NOT EMPTY")     // Search all the reported users by the username
     Page<User> findReportedUserByUsername(@Param("username") String username, Pageable page);
-    @Query("SELECT u FROM User u WHERE u.reports IS NOT EMPTY")
+    @Query("SELECT u FROM User u WHERE u.reports IS NOT EMPTY")                 // Search all the reported users
     Page<User> findReportedUser(Pageable page);
 }

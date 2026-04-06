@@ -101,6 +101,7 @@ public class User {
         order.setUser(this);
         this.orders.add(order);
     }
+    // Only the current user or the admin can edit the user
     public boolean canEdit(User user){
         return user != null && (
                 this.id.equals(user.id) ||

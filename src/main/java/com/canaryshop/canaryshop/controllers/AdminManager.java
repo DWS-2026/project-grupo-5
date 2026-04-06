@@ -33,7 +33,7 @@ public class AdminManager {
     @Autowired
     private PageHandler pageHandler;
 
-    
+    // To view de admin dashboard with de admin user
     @GetMapping("/admin/{id}")
     public String getAdminPanel(Model model, @PathVariable long id) {
 
@@ -42,7 +42,7 @@ public class AdminManager {
         model.addAttribute("dashboard",true);
         return "adminDashboard";
     }
-
+    // To view all products
     @GetMapping("/admin/products")
     public String getReportedProducts(Model model, @RequestParam(required = false) String search,@PageableDefault(size=12) Pageable page) {
 
@@ -55,17 +55,19 @@ public class AdminManager {
         model.addAttribute("navProducts",true);
         return "adminProducts";
     }
+    // To delete product's reports
     @PostMapping("/admin/productReport/{id}/delete")
     public String deleteReportedProduct(@PathVariable long id, @RequestParam String report, Principal principal) {
         Product product = productService.getProduct(id);
         User user = userService.getUser(principal);
         if (user == null || !user.isAdmin()) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Solo los administradores pueden hacer esto");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Only administrator can do this");
         }
         product.unreport(report);
         this.productService.addProduct(product);
         return "redirect:/admin/products";
     }
+    // To view all users
     @GetMapping("/admin/users")
     public String getUsers(Model model, @RequestParam(required = false) String search, @PageableDefault(size=12) Pageable page) {
         Page<User> results;
@@ -78,16 +80,17 @@ public class AdminManager {
         model.addAttribute("navUsers",true);
         return "adminAllUsers";
     }
+    // To delete users
     @PostMapping("/admin/user/{id}/delete")
     public String postDeleteUser(@PathVariable long id, Principal principal) {
         User currentUser = userService.getUser(principal);
         if (currentUser == null || !currentUser.isAdmin()) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Solo los administradores pueden hacer esto");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Only administrator can do this");
         }
         userService.deleteUser(id);
         return "redirect:/admin/users";
     }
-    
+    // To view all reported users
     @GetMapping("/admin/reportedUsers")
     public String getReportedUsers(Model model, @RequestParam(required = false) String search, @PageableDefault(size = 12) Pageable page) {
         Page<User> results;
@@ -100,12 +103,12 @@ public class AdminManager {
         model.addAttribute("navUsers",true);
         return "adminReportedUsers";
     }
-    
+    // To delete user's reports
     @PostMapping("/admin/userReport/{id}/delete")
     public String postDeleteUserReport(@PathVariable long id, @RequestParam String report, Principal principal) {
         User currentUser = userService.getUser(principal);
         if (currentUser == null || !currentUser.isAdmin()) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Solo los administradores pueden hacer esto");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Only administrator can do this");
         }
         User u=userService.findById(id);
         u.unreport(report);

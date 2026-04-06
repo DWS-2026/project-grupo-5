@@ -42,7 +42,7 @@ public class UserManager {
     private ImageService imageService;
     @Autowired
     private PageHandler pageHandler;
-
+    
     @GetMapping("/user/{id}")
     public String getUser(Model model, @PathVariable long id, Principal principal) {
         User user = this.userService.findById(id);
@@ -64,12 +64,14 @@ public class UserManager {
        
         return "user";
     }
+    // To view all the user's products
     @GetMapping("/user/{id}/products")
     public String getAllUserProducts(Model model, @PathVariable long id, @PageableDefault(size=12) Pageable page) {
         Page<Product> results = this.productService.getProductsByVendor(id, page);
         pageHandler.handleProductPage(model, results, page);
         return "index";
     }
+    // To change the image of the user
     @PostMapping("/user/{id}/image")
     public String postMethodName(@RequestParam MultipartFile image, @PathVariable long id, Principal principal) {
         User user = userService.findById(id);
@@ -82,7 +84,7 @@ public class UserManager {
         this.userService.addUser(user);
         return "redirect:/user/"+id;
     }
-
+    // To edit the users
     @PostMapping("/user/{id}/edit")
     public String postMethodName(@RequestParam String userName, @RequestParam String email, @PathVariable long id, Principal principal) {
         User user = this.userService.findById(id);
@@ -95,7 +97,7 @@ public class UserManager {
         this.userService.addUser(user);
         return "redirect:/user/"+id;
     }
-
+    // To delete the users
     @PostMapping("/user/{id}/delete")
     public String deleteUser(@PathVariable long id, Principal principal, HttpServletRequest request) throws ServletException {
         User user = userService.findById(id);
@@ -109,6 +111,7 @@ public class UserManager {
         }
         return "redirect:/";
     }
+    // To report the users
     @PostMapping("/user/{id}/report")
     public String reportUser(@PathVariable long id, @RequestParam String report, Principal principal) {
         User currentUser = this.userService.getUser(principal);

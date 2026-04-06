@@ -32,7 +32,7 @@ public class PaymentManager {
     private OrderService orderService;
     @Autowired
     private ProductService productService;
-    
+    // Get the cart o the product that the user want to buy
     @GetMapping("/payment")
     public String getPaymentPage(Model model, Principal principal, @RequestParam(required = false) Long productID, HttpSession session){
         User user = userService.getUser(principal.getName());
@@ -55,6 +55,7 @@ public class PaymentManager {
                 NumberFormatter.getFormattedNumber(cart.getPrice()));
         return "payment";
     }
+    // In case the user have any discount
     @PostMapping("/payment")
         public String postCode(Model model, @RequestParam String code, HttpSession session) {
         Order cart = ((Order)session.getAttribute("cart")); 
@@ -65,7 +66,7 @@ public class PaymentManager {
                 NumberFormatter.getFormattedNumber(cart.getPrice() * discount));
         return "payment";
     }
-
+    // To complete the payment and add it to the orders
     @PostMapping("/success")
     public String getSuccessPage(Model model, Principal principal, HttpSession session, @RequestParam(required = false) Float discount){ 
 
