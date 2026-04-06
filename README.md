@@ -185,7 +185,7 @@ He contribuido al diseño principal de la página web creando el fondo dínamico
 
 #### **Diagrama de Navegación**
 
-Solo si ha cambiado.
+![Nav-Diagram](images/navigation-diagram2.png)
 
 #### **Capturas de Pantalla Actualizadas**
 ![Cabecera](images/imagenCabecera.png)
