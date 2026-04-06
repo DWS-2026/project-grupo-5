@@ -57,7 +57,11 @@
             <!-- Buy Buttons -->
             <div class="my-2 d-flex flex-row gap-3">
                 {{#canBuyProduct}}
-                    <a href="/payment"><button class="btn btn-primary btn-lg">Buy Now</button></a>
+                    <form action="/payment" method="get">
+                        <input type="hidden" name="productID" value="{{id}}">
+                        <input type="hidden" name="_csrf" value="{{token}}">
+                        <button class="btn btn-primary btn-lg" type="submit">Buy Now</button>
+                    </form>
                     {{#product}}
                         <form action="/cart/increase/{{id}}" method="post" style="display:inline;">
                             <input type="hidden" name="_csrf" value="{{token}}">

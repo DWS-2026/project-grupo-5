@@ -17,23 +17,19 @@
                 <div class="card bg-body border-secondary p-4 rounded-4 shadow">
                     <h4 class="mb-4 text-white"><i class="bi bi-credit-card-2-front me-2 text-primary"></i>Finalizar Compra</h4>
 
-                    <form class="needs-validation" action="/success" method="POST">
-                        
-                        <input type="hidden" name="_csrf" value="{{token}}">
-                        <input type="hidden" name="price" value="{{totalPrice}}">
-
+                    <form class="needs-validation" novalidate id="paymentForm">
                         <div class="row g-3">
                             <div class="col-sm-6">
                                 <label class="form-label text-white-50">Nombre</label>
-                                <input type="text" name="firstName" class="form-control" placeholder="John" required>
+                                <input type="text" class="form-control" placeholder="John" required>
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label text-white-50">Apellido</label>
-                                <input type="text" name="lastName" class="form-control" placeholder="Doe" required>
+                                <input type="text" class="form-control" placeholder="Doe" required>
                             </div>
                             <div class="col-12">
                                 <label class="form-label text-white-50">Dirección de Envío</label>
-                                <input type="text" name="address" class="form-control" placeholder="Calle Principal 123" required>
+                                <input type="text" class="form-control" placeholder="Calle Principal 123" required>
                             </div>
 
                             <hr class="my-4 border-secondary">
@@ -41,11 +37,11 @@
                             <h5 class="text-white mb-3">Método de Pago</h5>
                             <div class="my-3 text-white">
                                 <div class="form-check mb-2">
-                                    <input id="credit" name="paymentMethod" type="radio" value="credit_card" class="form-check-input" checked required onchange="actualizarMetodoPago()">
+                                    <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required onchange="actualizarMetodoPago()">
                                     <label class="form-check-label" for="credit">Tarjeta de Crédito</label>
                                 </div>
                                 <div class="form-check mb-2">
-                                    <input id="paypal" name="paymentMethod" type="radio" value="paypal" class="form-check-input" required onchange="actualizarMetodoPago()">
+                                    <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required onchange="actualizarMetodoPago()">
                                     <label class="form-check-label" for="paypal">PayPal</label>
                                 </div>
                             </div>
@@ -53,19 +49,19 @@
                             <div id="section-credit" class="row gy-3">
                                 <div class="col-md-6">
                                     <label class="form-label text-white-50">Nombre en la tarjeta</label>
-                                    <input type="text" name="cardHolder" class="form-control input-tarjeta" required>
+                                    <input type="text" class="form-control input-tarjeta" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label text-white-50">Número de tarjeta</label>
-                                    <input type="text" name="cardNumber" class="form-control input-tarjeta" placeholder="0000 0000 0000 0000" required>
+                                    <input type="text" class="form-control input-tarjeta" placeholder="0000 0000 0000 0000" required>
                                 </div>
                                 <div class="col-md-3">
                                     <label class="form-label text-white-50">Expiración</label>
-                                    <input type="text" name="expiryDate" class="form-control input-tarjeta" placeholder="MM/YY" required>
+                                    <input type="text" class="form-control input-tarjeta" placeholder="MM/YY" required>
                                 </div>
                                 <div class="col-md-3">
                                     <label class="form-label text-white-50">CVV</label>
-                                    <input type="text" name="cvv" class="form-control input-tarjeta" placeholder="123" required>
+                                    <input type="text" class="form-control input-tarjeta" placeholder="123" required>
                                 </div>
                             </div>
 
@@ -76,13 +72,16 @@
                                         <span class="text-white fw-bold">Cuenta de PayPal</span>
                                     </div>
                                     <label class="form-label text-white-50">Correo electrónico de PayPal</label>
-                                    <input type="email" name="paypalEmail" id="paypalEmail" class="form-control form-control-lg" placeholder="usuario@ejemplo.com" >
+                                    <input type="email" id="paypalEmail" class="form-control form-control-lg" placeholder="usuario@ejemplo.com">
+                                    <div class="form-text text-white-50 mt-2">
+                                        Se te redirigirá para confirmar la autorización tras pulsar el botón.
+                                    </div>
                                 </div>
                             </div>
 
                             <hr class="my-4 border-secondary">
                             
-                            <button class="w-100 btn btn-primary btn-lg rounded-pill py-3" type="submit" >
+                            <button class="w-100 btn btn-primary btn-lg rounded-pill py-3" type="submit" id="btn-submit">
                                 Confirmar y Pagar
                             </button>
                         </div>
@@ -111,6 +110,14 @@
                             <strong>€{{totalPrice}}</strong>
                         </li>
                     </ul>
+                    
+                    <form action="/payment" method="post" class="card p-2 bg-body border-secondary">
+                        <div class="input-group">
+                            <input type="text" name="code" class="form-control border-0" placeholder="Código Promo">
+                            <input type="hidden" name="_csrf" value="{{token}}">
+                            <button type="submit" class="btn btn-secondary">Canjear</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -127,25 +134,27 @@
         const btnSubmit = document.getElementById('btn-submit');
 
         if (esPaypal) {
+            // Mostrar PayPal, ocultar Tarjeta
             seccionTarjeta.classList.add('d-none');
             seccionPaypal.classList.remove('d-none');
             btnSubmit.innerHTML = '<i class="bi bi-paypal me-2"></i> Pagar con PayPal';
-            inputsTarjeta.forEach(i => { i.required = false; i.disabled = true; });
+            
+            // Gestionar obligatoriedad
+            inputsTarjeta.forEach(input => input.required = false);
             inputPaypalEmail.required = true;
-            inputPaypalEmail.disabled = false;
         } else {
+            // Mostrar Tarjeta, ocultar PayPal
             seccionTarjeta.classList.remove('d-none');
             seccionPaypal.classList.add('d-none');
             btnSubmit.innerHTML = 'Confirmar y Pagar';
-            inputsTarjeta.forEach(i => { i.required = true; i.disabled = false; });
+            
+            // Gestionar obligatoriedad
+            inputsTarjeta.forEach(input => input.required = true);
             inputPaypalEmail.required = false;
-            inputPaypalEmail.disabled = true;
         }
     }
 
-    // Inicializar estado de inputs al cargar
-    window.onload = actualizarMetodoPago;
-
+    // Validación de Bootstrap
     (function () {
         'use strict'
         var forms = document.querySelectorAll('.needs-validation')

@@ -1,14 +1,14 @@
 package com.canaryshop.canaryshop.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.canaryshop.canaryshop.entities.Order;
 import com.canaryshop.canaryshop.repositories.OrderRepository;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -25,5 +25,16 @@ public class OrderService {
 
     public void addOrder(Order o){
         or.save(o);
+    }
+
+    public float getDiscount(String code){
+        float discount = switch(code == null ? "" :code){
+            case "DiegoEsElMejor" -> 0;
+            case "JaimeEsElMejor" -> 0.25f;
+            case "VictorEsElMejor" -> 0.5f;
+            case "JorgeEsElMejor" -> 0.75f;
+            default -> 1f;
+        };
+        return discount;
     }
 }

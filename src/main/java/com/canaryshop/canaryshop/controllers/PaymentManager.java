@@ -3,18 +3,24 @@ package com.canaryshop.canaryshop.controllers;
 import java.security.Principal;
 
 import com.canaryshop.canaryshop.services.NumberFormatter;
+import com.canaryshop.canaryshop.services.OrderService;
+import com.canaryshop.canaryshop.services.ProductService;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.ui.Model;
 
 import com.canaryshop.canaryshop.entities.User;
 import com.canaryshop.canaryshop.services.UserService;
+import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.Order;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import jakarta.servlet.http.HttpSession;
 
 import java.time.LocalDate;
 
@@ -24,22 +30,34 @@ public class PaymentManager {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private ProductService productService;
     
     @GetMapping("/payment")
-    public String getPaymentPage(Model model, Principal principal, @RequestParam(required = false) String code){
+    public String getPaymentPage(Model model, Principal principal, @RequestParam(required = false) Long productID, HttpSession session){
         User user = userService.getUser(principal.getName());
-        Order cart = user.getCart();
-
+        Order cart= new Order();
+        if(productID!=null){    
+            cart.setProductQuantity(this.productService.getProduct(productID), 1);
+            cart.setUser(user);
+        }else{
+            cart = user.getCart();
+        }
+        session.setAttribute("cart", cart);
         model.addAttribute("cart", cart);
-        float discount = switch(code){
-            case "DiegoEsElMejor" -> 0;
-            case "JaimeEsElMejor" -> 0.25f;
-            case "VictorEsElMejor" -> 0.5f;
-            case "JorgeEsElMejor" -> 0.75f;
-            default -> 1f;
-        };
+
         model.addAttribute("totalPrice",
-                NumberFormatter.getFormattedNumber(cart.getPrice() * discount));
+                NumberFormatter.getFormattedNumber(cart.getPrice()));
+        return "payment";
+    }
+    @PostMapping("/payment")
+        public String postCode(Model model, @RequestParam String code, HttpSession session) {
+        Order cart = ((Order)session.getAttribute("cart")); 
+        model.addAttribute("cart",cart);        
+        model.addAttribute("totalPrice",
+                NumberFormatter.getFormattedNumber(cart.getPrice() * this.orderService.getDiscount(code)));
         return "payment";
     }
 
@@ -52,7 +70,7 @@ public class PaymentManager {
         model.addAttribute("cart", cart);
         model.addAttribute("totalPrice", price);
         model.addAttribute("id", user.getId());
-        
+
         return "success";
     }
     
