@@ -1,7 +1,6 @@
 package com.canaryshop.canaryshop.controllers;
 
 import com.canaryshop.canaryshop.entities.User;
-import com.canaryshop.canaryshop.repositories.UserRepository;
 import com.canaryshop.canaryshop.services.UserService;
 
 import org.springframework.security.crypto.password.PasswordEncoder;

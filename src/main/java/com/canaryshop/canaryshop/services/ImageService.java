@@ -2,7 +2,6 @@ package com.canaryshop.canaryshop.services;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Blob;
@@ -27,7 +26,6 @@ import com.canaryshop.canaryshop.entities.Image;
 import com.canaryshop.canaryshop.repositories.ImageRepository;
 
 import net.coobird.thumbnailator.Thumbnails;
-import net.coobird.thumbnailator.geometry.Positions;
 
 @Service
 public class ImageService {

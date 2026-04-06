@@ -20,9 +20,7 @@ import com.canaryshop.canaryshop.services.PageHandler;
 import com.canaryshop.canaryshop.services.ProductService;
 import com.canaryshop.canaryshop.services.UserService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 

@@ -4,15 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
-import com.canaryshop.canaryshop.repositories.ReviewRepository;
 import com.canaryshop.canaryshop.repositories.UserRepository;
 import com.canaryshop.canaryshop.entities.Order;
 import com.canaryshop.canaryshop.entities.OrderProduct;
 import com.canaryshop.canaryshop.entities.Product;
-import com.canaryshop.canaryshop.entities.Review;
 import com.canaryshop.canaryshop.entities.User;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -29,8 +26,6 @@ public class UserService {
     private UserRepository repo;
     @Autowired
     private ProductService productService;
-    @Autowired
-    private ReviewService reviewService;
 
     public void addUser(User user){
         this.repo.save(user);
