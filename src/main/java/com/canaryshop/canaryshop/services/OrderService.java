@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.OrderProduct;
 import com.canaryshop.canaryshop.entities.Order;
 import com.canaryshop.canaryshop.entities.User;
@@ -81,7 +82,8 @@ public class OrderService {
         List<OrderProduct> products = newCart.getProducts();
         for(OrderProduct op: products){
             if(!op.getProduct().isAvailable()){
-                products.remove(op);
+                Product p = op.getProduct();
+                newCart.setProductQuantity(p, newCart.getProductQuantity(p)-op.getQuantity());
             }
         }
         return newCart;
