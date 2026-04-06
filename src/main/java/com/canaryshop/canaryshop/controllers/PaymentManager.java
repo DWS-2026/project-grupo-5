@@ -7,11 +7,13 @@ import com.canaryshop.canaryshop.services.OrderService;
 import com.canaryshop.canaryshop.services.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.ui.Model;
 
 import com.canaryshop.canaryshop.entities.User;
@@ -40,12 +42,11 @@ public class PaymentManager {
         User user = userService.getUser(principal.getName());
         Order cart= new Order();
         if(productID!=null){    
-            /* Race condition in here fix in future */
             cart.setProductQuantity(this.productService.getProduct(productID), 1);
             cart.setUser(user);
         }else{
-            this.orderService.renewUserCart(user);
             cart = user.getCart();
+            this.orderService.renewOrder(cart);
             if(cart.getProducts().isEmpty()){
                 return "redirect:/cart";
             }
@@ -72,12 +73,16 @@ public class PaymentManager {
 
         User user = userService.getUser(principal.getName());
         Order cart = ((Order)session.getAttribute("cart"));
+        cart=this.orderService.renewOrder(cart);
+        if(cart.getProducts().isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Some products may aren't available");
+        }
         if(cart.getId()!= null && cart.getId().equals(user.getCart().getId())){
             this.orderService.closeCart(user,price);
         }else{
             this.orderService.closeOrder(user,cart,price);
         }
-
+        session.removeAttribute("cart");
         model.addAttribute("date", LocalDate.now());
         model.addAttribute("totalPrice", price);
         model.addAttribute("id", user.getId());

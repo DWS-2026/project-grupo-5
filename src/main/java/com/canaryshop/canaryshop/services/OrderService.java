@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -16,6 +18,7 @@ import com.canaryshop.canaryshop.entities.OrderProduct;
 import com.canaryshop.canaryshop.entities.Order;
 import com.canaryshop.canaryshop.entities.User;
 import com.canaryshop.canaryshop.repositories.OrderRepository;
+import com.canaryshop.canaryshop.repositories.ProductsRepository;
 
 @Service
 public class OrderService {
@@ -27,6 +30,8 @@ public class OrderService {
     private UserService userService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private ProductsRepository productsRepository;
 
     public Order getOrder(long id){
         Optional<Order> order = orderProductRepository.findById(id);
@@ -52,14 +57,9 @@ public class OrderService {
     }
 
     public void closeCart(User u, float price){
-        Order cart = u.getCart();
-        cart.setDiscount(price);
-        this.productsPurchased(cart);
-        cart.closeOrder();
-        u.addOrder(cart);
+        this.closeOrder(u, u.getCart(), price);
         Order newCart = new Order();
         u.setCart(newCart);
-        this.orderRepository.save(cart);
         this.orderRepository.save(newCart);
         this.userService.addUser(u);
     }
@@ -80,16 +80,14 @@ public class OrderService {
             this.productService.productPurchased(op.getProduct());
         }
     }
-    public void renewUserCart(User u){
-        Order newCart = u.getCart();
-        List<OrderProduct> products = new LinkedList<>(newCart.getProducts()); 
+    public Order renewOrder(Order o){
+        List<OrderProduct> products = new LinkedList<>(o.getProducts()); 
         for(OrderProduct op: products){
-            if(!op.getProduct().isAvailable()){
-                Product p = op.getProduct();
-                newCart.setProductQuantity(p, 0);
+            Product p= productService.getProduct(op.getProduct().getId());
+            if(!p.isAvailable()){
+                o.setProductQuantity(op.getProduct(), 0);
             }
         }
-        this.orderRepository.save(newCart);
-        this.userService.addUser(u);
+        return this.orderRepository.save(o);
     }
 }

@@ -30,6 +30,7 @@ public class OrderManager {
     public String serveCart(Model model, Principal principal) {
         User user = userService.getUser(principal.getName());
         Order cart = user.getCart();
+        this.os.renewOrder(cart);
         model.addAttribute("order", cart);
         return "cart";
     }
