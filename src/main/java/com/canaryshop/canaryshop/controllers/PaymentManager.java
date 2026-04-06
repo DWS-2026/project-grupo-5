@@ -4,6 +4,7 @@ import java.security.Principal;
 
 import com.canaryshop.canaryshop.services.NumberFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +14,9 @@ import com.canaryshop.canaryshop.entities.User;
 import com.canaryshop.canaryshop.services.UserService;
 import com.canaryshop.canaryshop.entities.Order;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.time.LocalDate;
 
 
 @Controller
@@ -40,7 +44,14 @@ public class PaymentManager {
     }
 
     @PostMapping("/success")
-    public String getSuccessPage(Model model) {
+    public String getSuccessPage(Model model, Principal principal, @RequestParam float price){ 
+
+        User user = userService.getUser(principal.getName());
+        Order cart = user.getCart();
+        model.addAttribute("date", LocalDate.now()  );
+        model.addAttribute("cart", cart);
+        model.addAttribute("totalPrice", price);
+        model.addAttribute("id", user.getId());
         
         return "success";
     }

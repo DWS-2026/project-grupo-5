@@ -2,24 +2,6 @@
 <html lang="es">
 <head>
     {{>docHead}}
-    <style>
-        .success-icon {
-            font-size: 6rem;
-            color: var(--green);
-            animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        @keyframes scaleIn {
-            0% { transform: scale(0); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .order-card {
-            background-color: var(--overlay-bg);
-            border: 1px solid var(--item-bg);
-            border-radius: 20px;
-        }
-    </style>
 </head>
 
 <body class="bg-dark min-vh-100 py-2 bg-opacity-75">
@@ -36,10 +18,6 @@
         <p class="text-white-50 mb-4 fs-5">Tu pedido ha sido procesado con éxito y ya está en camino.</p>
 
         <div class="order-card p-4 mb-5 text-start w-100" style="max-width: 500px;">
-            <div class="d-flex justify-content-between mb-2">
-                <span class="text-white-50">Nº de pedido:</span>
-                <span class="text-white fw-bold">#{{orderId}}</span>
-            </div>
             <div class="d-flex justify-content-between mb-2">
                 <span class="text-white-50">Fecha:</span>
                 <span class="text-white">{{date}}</span>

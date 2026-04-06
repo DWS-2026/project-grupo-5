@@ -20,6 +20,7 @@
                     <form class="needs-validation" action="/success" method="POST">
                         
                         <input type="hidden" name="_csrf" value="{{token}}">
+                        <input type="hidden" name="price" value="{{totalPrice}}">
 
                         <div class="row g-3">
                             <div class="col-sm-6">
@@ -75,7 +76,7 @@
                                         <span class="text-white fw-bold">Cuenta de PayPal</span>
                                     </div>
                                     <label class="form-label text-white-50">Correo electrónico de PayPal</label>
-                                    <input type="email" name="paypalEmail" id="paypalEmail" class="form-control form-control-lg" placeholder="usuario@ejemplo.com">
+                                    <input type="email" name="paypalEmail" id="paypalEmail" class="form-control form-control-lg" placeholder="usuario@ejemplo.com" >
                                 </div>
                             </div>
 
