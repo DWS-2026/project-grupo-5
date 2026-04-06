@@ -158,4 +158,7 @@ public class Product {
         }
         this.rating/=newSize;
     }
+    public void decreaseStock(){
+        this.stock-=1;
+    }
 }

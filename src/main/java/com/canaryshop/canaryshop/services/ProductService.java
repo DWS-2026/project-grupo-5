@@ -77,4 +77,12 @@ public class ProductService {
             return products.findReportedProduct(page);
         }
     }
+    public void productPurchased(Product product){
+        if(product.getStock()<1){
+            return;
+        }else{
+            product.decreaseStock();
+            this.products.save(product);
+        }
+    }
 }
