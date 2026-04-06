@@ -40,11 +40,13 @@ public class PaymentManager {
         User user = userService.getUser(principal.getName());
         Order cart= new Order();
         if(productID!=null){    
+            /* Race condition in here fix in future */
             cart.setProductQuantity(this.productService.getProduct(productID), 1);
             cart.setUser(user);
         }else{
-            cart = user.getCart();
+            cart = this.orderService.getUserCart(user);
         }
+
         session.setAttribute("cart", cart);
         model.addAttribute("cart", cart);
 

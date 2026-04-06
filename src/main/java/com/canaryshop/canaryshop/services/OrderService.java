@@ -76,4 +76,14 @@ public class OrderService {
             this.productService.productPurchased(op.getProduct());
         }
     }
+    public Order getUserCart(User u){
+        Order newCart = u.getCart();
+        List<OrderProduct> products = newCart.getProducts();
+        for(OrderProduct op: products){
+            if(!op.getProduct().isAvailable()){
+                products.remove(op);
+            }
+        }
+        return newCart;
+    }
 }
