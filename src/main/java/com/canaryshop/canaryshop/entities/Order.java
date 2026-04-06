@@ -99,6 +99,6 @@ public class Order {
         this.products=list;
     }
     public void setDiscount(float price){
-        this.price=price;
+        this.price=Math.min(this.price, price);
     }
 }
