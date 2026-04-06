@@ -169,6 +169,7 @@ public class ProductManager {
         }
         Product p =this.products.getProduct(id);
         p.report(report);
+        this.products.addProduct(p);
         return "redirect:/product/"+id;
     }
 }
