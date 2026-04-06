@@ -30,8 +30,6 @@ public class OrderService {
     private UserService userService;
     @Autowired
     private ProductService productService;
-    @Autowired
-    private ProductsRepository productsRepository;
 
     public Order getOrder(long id){
         Optional<Order> order = orderProductRepository.findById(id);
@@ -56,17 +54,17 @@ public class OrderService {
         return discount;
     }
 
-    public void closeCart(User u, float price){
-        this.closeOrder(u, u.getCart(), price);
+    public void closeCart(User u, float discount){
+        this.closeOrder(u, u.getCart(), discount);
         Order newCart = new Order();
         u.setCart(newCart);
         this.orderRepository.save(newCart);
         this.userService.addUser(u);
     }
 
-    public void closeOrder(User u, Order order, float price){
+    public void closeOrder(User u, Order order, float discount){
         order.closeOrder();
-        order.setDiscount(price);
+        order.setDiscount(discount);
         this.productsPurchased(order);
         u.addOrder(order);
         this.orderRepository.save(order);

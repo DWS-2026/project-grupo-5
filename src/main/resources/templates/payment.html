@@ -20,25 +20,25 @@
                     <form class="needs-validation" action="/success" method="post">
                         <div class="row g-3">
                             <div class="col-sm-6">
-                                <label class="form-label text-white-50">Nombre</label>
+                                <label class="form-label text-white-50">Name</label>
                                 <input type="text" class="form-control" placeholder="John" required>
                             </div>
                             <div class="col-sm-6">
-                                <label class="form-label text-white-50">Apellido</label>
+                                <label class="form-label text-white-50">Last Name</label>
                                 <input type="text" class="form-control" placeholder="Doe" required>
                             </div>
                             <div class="col-12">
-                                <label class="form-label text-white-50">Dirección de Envío</label>
+                                <label class="form-label text-white-50">Shipping Address</label>
                                 <input type="text" class="form-control" placeholder="Calle Principal 123" required>
                             </div>
 
                             <hr class="my-4 border-secondary">
 
-                            <h5 class="text-white mb-3">Método de Pago</h5>
+                            <h5 class="text-white mb-3">Payment Method</h5>
                             <div class="my-3 text-white">
                                 <div class="form-check mb-2">
                                     <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required onchange="actualizarMetodoPago()">
-                                    <label class="form-check-label" for="credit">Tarjeta de Crédito</label>
+                                    <label class="form-check-label" for="credit">Credit Card</label>
                                 </div>
                                 <div class="form-check mb-2">
                                     <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required onchange="actualizarMetodoPago()">
@@ -48,15 +48,15 @@
 
                             <div id="section-credit" class="row gy-3">
                                 <div class="col-md-6">
-                                    <label class="form-label text-white-50">Nombre en la tarjeta</label>
+                                    <label class="form-label text-white-50">Name on card</label>
                                     <input type="text" class="form-control input-tarjeta" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label text-white-50">Número de tarjeta</label>
+                                    <label class="form-label text-white-50">Card number</label>
                                     <input type="text" class="form-control input-tarjeta" placeholder="0000 0000 0000 0000" required>
                                 </div>
                                 <div class="col-md-3">
-                                    <label class="form-label text-white-50">Expiración</label>
+                                    <label class="form-label text-white-50">Expiration</label>
                                     <input type="text" class="form-control input-tarjeta" placeholder="MM/YY" required>
                                 </div>
                                 <div class="col-md-3">
@@ -69,12 +69,12 @@
                                 <div class="card bg-primary bg-opacity-10 border-primary border-opacity-25 p-4 rounded-4">
                                     <div class="d-flex align-items-center mb-3">
                                         <i class="bi bi-paypal text-primary fs-3 me-2"></i>
-                                        <span class="text-white fw-bold">Cuenta de PayPal</span>
+                                        <span class="text-white fw-bold">PayPal account</span>
                                     </div>
-                                    <label class="form-label text-white-50">Correo electrónico de PayPal</label>
+                                    <label class="form-label text-white-50">PayPal Email</label>
                                     <input type="email" id="paypalEmail" class="form-control form-control-lg" placeholder="usuario@ejemplo.com">
                                     <div class="form-text text-white-50 mt-2">
-                                        Se te redirigirá para confirmar la autorización tras pulsar el botón.
+                                        You will be redirected to confirm the authorization after pressing the button.
                                     </div>
                                 </div>
                             </div>
@@ -82,8 +82,9 @@
                             <hr class="my-4 border-secondary">
                             <input type="hidden" name="_csrf" value="{{token}}">
                             <input type="hidden" name="price" value="{{totalPrice}}">
+                            {{#discount}}<input type="hidden" name="discount" value="{{discount}}">{{/discount}}
                             <button class="w-100 btn btn-primary btn-lg rounded-pill py-3" type="submit" id="btn-submit">
-                                Confirmar y Pagar
+                                Confirm & Pay
                             </button>
                         </div>
                     </form>
@@ -93,7 +94,7 @@
             <div class="col-md-5 col-lg-4">
                 <div class="card bg-body-secondary border-secondary p-4 rounded-4 sticky-top" style="top: 2rem;">
                     <h4 class="d-flex justify-content-between align-items-center mb-3 text-white">
-                        <span>Tu Carrito</span>
+                        <span>Your Cart</span>
                         <span class="badge bg-success rounded-pill">{{cart.numberOfProducts}}</span>
                     </h4>
                     <ul class="list-group list-group-flush mb-3">
@@ -116,7 +117,7 @@
                         <div class="input-group">
                             <input type="text" name="code" class="form-control border-0" placeholder="Código Promo">
                             <input type="hidden" name="_csrf" value="{{token}}">
-                            <button type="submit" class="btn btn-secondary">Canjear</button>
+                            <button type="submit" class="btn btn-secondary">Redeem</button>
                         </div>
                     </form>
                 </div>

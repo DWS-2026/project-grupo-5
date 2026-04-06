@@ -98,7 +98,7 @@ public class Order {
     public void setProducts(List<OrderProduct> list){
         this.products=list;
     }
-    public void setDiscount(float price){
-        this.price=Math.min(this.price, price);
+    public void setDiscount(float discount){
+        this.price*=discount;
     }
 }

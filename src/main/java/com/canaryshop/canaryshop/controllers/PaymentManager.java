@@ -62,14 +62,16 @@ public class PaymentManager {
     @PostMapping("/payment")
         public String postCode(Model model, @RequestParam String code, HttpSession session) {
         Order cart = ((Order)session.getAttribute("cart")); 
-        model.addAttribute("cart",cart);        
+        model.addAttribute("cart",cart);  
+        float discount =this.orderService.getDiscount(code);
+        model.addAttribute("discount",discount);      
         model.addAttribute("totalPrice",
-                NumberFormatter.getFormattedNumber(cart.getPrice() * this.orderService.getDiscount(code)));
+                NumberFormatter.getFormattedNumber(cart.getPrice() * discount));
         return "payment";
     }
 
     @PostMapping("/success")
-    public String getSuccessPage(Model model, Principal principal, @RequestParam float price, HttpSession session){ 
+    public String getSuccessPage(Model model, Principal principal, HttpSession session, @RequestParam(required = false) Float discount){ 
 
         User user = userService.getUser(principal.getName());
         Order cart = ((Order)session.getAttribute("cart"));
@@ -77,14 +79,21 @@ public class PaymentManager {
         if(cart.getProducts().isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Some products may aren't available");
         }
-        if(cart.getId()!= null && cart.getId().equals(user.getCart().getId())){
-            this.orderService.closeCart(user,price);
+        float disc;
+        if(discount==null){
+            disc=1f;
         }else{
-            this.orderService.closeOrder(user,cart,price);
+            disc=discount.floatValue();
+        }
+        if(cart.getId()!= null && cart.getId().equals(user.getCart().getId())){
+            this.orderService.closeCart(user,disc);
+        }else{
+            this.orderService.closeOrder(user,cart,disc);
         }
         session.removeAttribute("cart");
+        session.removeAttribute("discount");
         model.addAttribute("date", LocalDate.now());
-        model.addAttribute("totalPrice", price);
+        model.addAttribute("totalPrice", cart.getPrice());
         model.addAttribute("id", user.getId());
 
         return "success";
