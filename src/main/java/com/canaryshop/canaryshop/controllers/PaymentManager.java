@@ -62,12 +62,17 @@ public class PaymentManager {
     }
 
     @PostMapping("/success")
-    public String getSuccessPage(Model model, Principal principal, @RequestParam float price){ 
+    public String getSuccessPage(Model model, Principal principal, @RequestParam float price, HttpSession session){ 
 
         User user = userService.getUser(principal.getName());
-        Order cart = user.getCart();
-        model.addAttribute("date", LocalDate.now()  );
-        model.addAttribute("cart", cart);
+        Order cart = ((Order)session.getAttribute("cart"));
+        if(cart.equals(user.getCart())){
+            this.orderService.closeCart(user);
+        }else{
+            this.orderService.closeOrder(user,cart );
+        }
+
+        model.addAttribute("date", LocalDate.now());
         model.addAttribute("totalPrice", price);
         model.addAttribute("id", user.getId());
 

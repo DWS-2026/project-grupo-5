@@ -101,11 +101,6 @@ public class User {
         order.setUser(this);
         this.orders.add(order);
     }
-    public void closeCart(){
-        this.cart.closeOrder();
-        this.cart = new Order();
-        this.cart.setUser(this);
-    }
     public boolean canEdit(User user){
         return user != null && (
                 this.id.equals(user.id) ||
