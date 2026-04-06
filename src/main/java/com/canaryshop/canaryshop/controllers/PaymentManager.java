@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import com.canaryshop.canaryshop.entities.User;
 import com.canaryshop.canaryshop.services.UserService;
 import com.canaryshop.canaryshop.entities.Order;
+import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Controller
@@ -37,4 +38,11 @@ public class PaymentManager {
                 NumberFormatter.getFormattedNumber(cart.getPrice() * discount));
         return "payment";
     }
+
+    @PostMapping("/success")
+    public String getSuccessPage(Model model) {
+        
+        return "success";
+    }
+    
 }
