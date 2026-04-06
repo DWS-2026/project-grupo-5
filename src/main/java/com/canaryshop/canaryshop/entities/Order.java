@@ -20,7 +20,7 @@ public class Order {
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<OrderProduct> products = new LinkedList<>();
+    private List<OrderProduct> products = new LinkedList<>();
 
     public Order(){}
     public boolean isClosed(){
@@ -94,5 +94,8 @@ public class Order {
             total += op.getQuantity();
         }
         return total;
+    }
+    public void setProducts(List<OrderProduct> list){
+        this.products=list;
     }
 }
