@@ -2,6 +2,7 @@ package com.canaryshop.canaryshop.services;
 
 import com.canaryshop.canaryshop.repositories.OrderProductRepository;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,8 +51,9 @@ public class OrderService {
         return discount;
     }
 
-    public void closeCart(User u){
+    public void closeCart(User u, float price){
         Order cart = u.getCart();
+        cart.setDiscount(price);
         this.productsPurchased(cart);
         cart.closeOrder();
         u.addOrder(cart);
@@ -62,8 +64,9 @@ public class OrderService {
         this.userService.addUser(u);
     }
 
-    public void closeOrder(User u, Order order){
+    public void closeOrder(User u, Order order, float price){
         order.closeOrder();
+        order.setDiscount(price);
         this.productsPurchased(order);
         u.addOrder(order);
         this.orderRepository.save(order);
@@ -77,15 +80,16 @@ public class OrderService {
             this.productService.productPurchased(op.getProduct());
         }
     }
-    public Order getUserCart(User u){
+    public void renewUserCart(User u){
         Order newCart = u.getCart();
-        List<OrderProduct> products = newCart.getProducts();
+        List<OrderProduct> products = new LinkedList<>(newCart.getProducts()); 
         for(OrderProduct op: products){
             if(!op.getProduct().isAvailable()){
                 Product p = op.getProduct();
-                newCart.setProductQuantity(p, newCart.getProductQuantity(p)-op.getQuantity());
+                newCart.setProductQuantity(p, 0);
             }
         }
-        return newCart;
+        this.orderRepository.save(newCart);
+        this.userService.addUser(u);
     }
 }

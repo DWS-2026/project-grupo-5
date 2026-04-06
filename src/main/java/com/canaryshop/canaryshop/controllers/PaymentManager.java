@@ -44,7 +44,11 @@ public class PaymentManager {
             cart.setProductQuantity(this.productService.getProduct(productID), 1);
             cart.setUser(user);
         }else{
-            cart = this.orderService.getUserCart(user);
+            this.orderService.renewUserCart(user);
+            cart = user.getCart();
+            if(cart.getProducts().isEmpty()){
+                return "redirect:/cart";
+            }
         }
 
         session.setAttribute("cart", cart);
@@ -69,9 +73,9 @@ public class PaymentManager {
         User user = userService.getUser(principal.getName());
         Order cart = ((Order)session.getAttribute("cart"));
         if(cart.getId()!= null && cart.getId().equals(user.getCart().getId())){
-            this.orderService.closeCart(user);
+            this.orderService.closeCart(user,price);
         }else{
-            this.orderService.closeOrder(user,cart );
+            this.orderService.closeOrder(user,cart,price);
         }
 
         model.addAttribute("date", LocalDate.now());

@@ -98,4 +98,7 @@ public class Order {
     public void setProducts(List<OrderProduct> list){
         this.products=list;
     }
+    public void setDiscount(float price){
+        this.price=price;
+    }
 }
