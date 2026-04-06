@@ -23,7 +23,7 @@ public class DataBaseInitializer {
     private ProductService productService;
     @Autowired
     private ImageService imageService;
-
+    // Initialize the database
     @PostConstruct
     public void initDatabase() {
             User admin = new User("Admin", "admin@canaryshop.com", passwordEncoder.encode("admin"),"USER","ADMIN");

@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 
 @Component
 public class PageHandler {
+    // Put the right pagination on all product pages that need pagination
     public void handleProductPage(Model model, Page<Product> results, Pageable page){
         model.addAttribute("products", results.getContent());
         model.addAttribute("hasprev", results.hasPrevious());
@@ -31,6 +32,7 @@ public class PageHandler {
         }
         model.addAttribute("page", page.getPageNumber());
     }
+    // Put the correct pagination on all user pages that need pagination
     public void handleUserPage(Model model, Page<User> results, Pageable page){
         model.addAttribute("users", results.getContent());
         model.addAttribute("hasprev", results.hasPrevious());

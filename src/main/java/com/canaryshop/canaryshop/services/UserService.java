@@ -26,7 +26,7 @@ public class UserService {
     private UserRepository repo;
     @Autowired
     private ProductService productService;
-    
+
     public void addUser(User user){
         this.repo.save(user);
     }
@@ -62,19 +62,21 @@ public class UserService {
     public List<User> findAll() {
         return repo.findAll();
     }
-
+    // Get a user page depending on the search
     public Page<User> getPageUser(String username, Pageable page ){
         if(username!=null){
             return this.repo.findByUsernameContaining(username, page);
         }
         return this.repo.findAll(page);
     }
+    // Get a page of reported users depending on the search
     public Page<User> getReportedUser(String username, Pageable page){
         if(username!=null){
             return this.repo.findReportedUserByUsername(username, page);
         }
         return this.repo.findReportedUser(page);
     }
+    // Get the products of an user
     public List<Product> getProductsByVendor(long id){
         User user = this.findById(id);
         return user.getProducts();

@@ -161,7 +161,7 @@ public class Product {
     public void decreaseStock(){
         this.stock-=1;
     }
-
+    // If the product has not stock is not available
     public boolean isAvailable(){
         return this.stock > 0;
     }

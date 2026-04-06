@@ -61,39 +61,35 @@ public class Order {
     public boolean owns(User user){
         return !(user==null) && (this.user.equals(user) || user.isAdmin());
     }
+    // To set the amount of a product
     public void setProductQuantity(Product product, int amount){
         Optional<OrderProduct> op = this.getOrderProduct(product);
         if (op.isEmpty()){
             if (amount > 0){
-                this.addProduct(new OrderProduct(this, product, amount));
+                this.addProduct(new OrderProduct(this, product, amount));       // Add the product in case doesn't exists and have amount
             }
             return;
         }
         OrderProduct orderProduct = op.get();
-        this.removeProduct(orderProduct);
+        this.removeProduct(orderProduct);       
         if (amount < 1) {
             return;
         }
         orderProduct.setQuantity(amount);
         this.addProduct(orderProduct);
     }
+    // Add the product
     private void addProduct(OrderProduct op){
         products.add(op);
         this.price+=op.getProduct().getPrice()*op.getQuantity();
     }
+    // Remove the product
     private void removeProduct(OrderProduct op){
         products.remove(op);
         this.price-=op.getProduct().getPrice()*op.getQuantity();
     }
     public void setUser(User user){
         this.user = user;
-    }
-    public int getNumberOfProducts(){
-        int total=0;
-        for (OrderProduct op : this.getProducts()) {
-            total += op.getQuantity();
-        }
-        return total;
     }
     public void setDiscount(float discount){
         this.price*=discount;
