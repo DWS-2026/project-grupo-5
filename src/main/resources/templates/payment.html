@@ -17,7 +17,7 @@
                 <div class="card bg-body border-secondary p-4 rounded-4 shadow">
                     <h4 class="mb-4 text-white"><i class="bi bi-credit-card-2-front me-2 text-primary"></i>Finalizar Compra</h4>
 
-                    <form class="needs-validation" novalidate id="paymentForm">
+                    <form class="needs-validation" action="/success" method="post">
                         <div class="row g-3">
                             <div class="col-sm-6">
                                 <label class="form-label text-white-50">Nombre</label>
@@ -80,7 +80,8 @@
                             </div>
 
                             <hr class="my-4 border-secondary">
-                            
+                            <input type="hidden" name="_csrf" value="{{token}}">
+                            <input type="hidden" name="price" value="{{cart.price}}">
                             <button class="w-100 btn btn-primary btn-lg rounded-pill py-3" type="submit" id="btn-submit">
                                 Confirmar y Pagar
                             </button>
