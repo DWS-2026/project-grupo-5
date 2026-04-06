@@ -80,7 +80,7 @@
                         <i class="bi bi-flag-fill"></i> Report
                     </button>
                     <div class="collapse w-100 mt-4" id="reportContainer">
-                        <form class="d-flex flex-column w-100" action="/user/{{id}}/report" method="post">
+                        <form class="d-flex flex-column w-100" action="/user/{{userView.id}}/report" method="post">
                             <textarea class="form-control mb-2" placeholder="Describe el motivo del reporte..." rows="5" name="report" required></textarea>
                             <input type="hidden" name="_csrf" value="{{token}}">
                             <button type="submit" class="btn btn-sm btn-primary align-self-center">Enviar Reporte</button>
