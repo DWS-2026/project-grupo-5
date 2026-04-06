@@ -35,8 +35,8 @@ public class UserService {
     public void addUser(User user){
         this.repo.save(user);
     }
-    public User getUser(String email){
-        Optional<User> user = repo.findByEmail(email);
+    public User getUser(String name){
+        Optional<User> user = repo.findByUsername(name);
         if (user.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
@@ -93,5 +93,13 @@ public class UserService {
     public List<Product> getProductsByVendor(long id){
         User user = this.findById(id);
         return user.getProducts();
+    }
+    public User findByEmail(String email){
+        Optional<User> u=this.repo.findByEmail(email);
+        if(!u.isPresent()){
+            return null;
+        }else{
+            return u.get();
+        }
     }
 }

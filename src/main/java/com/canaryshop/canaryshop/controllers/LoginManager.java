@@ -2,6 +2,8 @@ package com.canaryshop.canaryshop.controllers;
 
 import com.canaryshop.canaryshop.entities.User;
 import com.canaryshop.canaryshop.repositories.UserRepository;
+import com.canaryshop.canaryshop.services.UserService;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class LoginManager {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -44,7 +46,7 @@ public class LoginManager {
     @PostMapping("/register")
     public String postMethodName(@RequestParam String username, @RequestParam String email,
             @RequestParam String password, @RequestParam String confirmPassword, Model model) {
-        if (userRepository.findByEmail(email).isPresent()) {
+        if (userService.findByEmail(email)!=null) {
             model.addAttribute("showRegister", true);
             model.addAttribute("showLogin", false);
             model.addAttribute("RegisterError", "Email already in use");
@@ -58,7 +60,7 @@ public class LoginManager {
         }
 
         User entity = new User(username, email, passwordEncoder.encode(password), ("USER"));
-        userRepository.save(entity);
+        userService.addUser(entity);
         model.addAttribute("showLogin", true);
         model.addAttribute("showRegister", false);
         return "redirect:/login?registerSuccess=true";
