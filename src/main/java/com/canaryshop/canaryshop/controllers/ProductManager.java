@@ -155,7 +155,11 @@ public class ProductManager {
         return "redirect:/product/" + product_id;
     }
     @PostMapping("/product/{id}/report")
-    public String reportProduct(@PathVariable long id, @RequestParam String report) {     
+    public String reportProduct(@PathVariable long id, @RequestParam String report, Principal principal) {  
+        User u = this.users.getUser(principal);
+        if(u == null){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You must log in to report");
+        }
         Product p =this.products.getProduct(id);
         p.report(report);
         return "redirect:/product/"+id;
