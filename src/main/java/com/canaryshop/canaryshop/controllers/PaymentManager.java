@@ -66,7 +66,7 @@ public class PaymentManager {
 
         User user = userService.getUser(principal.getName());
         Order cart = ((Order)session.getAttribute("cart"));
-        if(cart.equals(user.getCart())){
+        if(cart.getId()!= null && cart.getId().equals(user.getCart().getId())){
             this.orderService.closeCart(user);
         }else{
             this.orderService.closeOrder(user,cart );
