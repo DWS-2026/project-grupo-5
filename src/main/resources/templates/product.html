@@ -87,10 +87,8 @@
             </div>
             <!-- Product Description -->
             <h2 class="text-white">Product description:</h2>
-            <div class="text-white bg-body rounded-3 my-4 w-100">
-                <p class="my-4 mx-4">
-                    {{description}}
-                </p>
+            <div class="text-white bg-body rounded-3 p-4 w-100">
+                {{{description}}}
             </div>
             <!-- Report button-->
             {{#user}}
@@ -158,8 +156,18 @@
                     <!-- Review content -->
                     <div class="my-2">
                         <label for="reviewBody" class="form-label">Content</label>
-                        <textarea id="reviewBody" name="description" class="form-control" required>{{#edit-review}}{{description}}{{/edit-review}}</textarea>
+                        <textarea id="reviewBody" name="description" class="form-control" required hidden>{{#edit-review}}{{description}}{{/edit-review}}</textarea>
+                        <div id="editor"></div>
                     </div>
+                    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.2/dist/quill.js"></script>
+                    <script>
+                        const quill = new Quill('#editor', {
+                            theme: 'snow'
+                        });
+                        quill.on('text-change', function () {
+                            document.getElementById('reviewBody').value = quill.root.innerHTML;
+                        });
+                    </script>
                     <!-- Review files -->
                     <label class="form-label">Attachments</label>
                     <div class="container-fluid px-0">
@@ -188,7 +196,7 @@
                             <i class="bi bi-star-fill"></i>
                         </span>
                         <div class="d-flex flex-column gap-2">
-                            <p class="card-text flex-grow-1">{{description}}</p>
+                            <div class="card-text flex-grow-1">{{{description}}}</div>
                             <div class="d-flex flex-row gap-2">
                                 {{#images}}
                                 <div style="height: 10em; width: 10em;">
@@ -215,7 +223,7 @@
                         <h5 class="card-title mb-2">{{name}}</h5>
                         <span class="text-primary entity-rating" rating="{{rating}}"></span>
                         <div class="d-flex flex-column gap-2">
-                            <p class="card-text flex-grow-1">{{description}}</p>
+                            <div class="card-text flex-grow-1">{{{description}}}</div>
                             <div class="d-flex flex-row gap-2">
                             {{#images}}
                             <div style="height: 10em; width: 10em;">

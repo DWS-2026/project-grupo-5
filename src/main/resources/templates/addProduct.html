@@ -44,7 +44,8 @@
                     <input type="text" name="title" class="form-control bg-body-secondary" id="exampleFormControlInput1" {{^product}}placeholder="Product name"{{/product}} {{#product}}value="{{name}}"{{/product}} required>
                     </div>
                     <div class="my-3">
-                    <textarea class="form-control bg-body-secondary" name="description" id="exampleFormControlTextarea1" rows="5" {{^product}}placeholder="Description"{{/product}} required>{{#product}}{{description}}{{/product}}</textarea>
+                    <textarea class="form-control bg-body-secondary" name="description" id="description-text" rows="5" {{^product}}placeholder="Description"{{/product}} required hidden>{{#product}}{{description}}{{/product}}</textarea>
+                    <div id="editor"></div>
                     </div>
                     <div class="my-3">
                         <input type="number" name="price" class="form-control bg-body-secondary" min="0.01" max="100000" step="0.01" {{^product}}placeholder="Price"{{/product}} {{#product}}value="{{price}}"{{/product}} required>
@@ -64,5 +65,15 @@
         </div>
 
     </main>
+    <!--    Load Quill.js interactive editor scripts-->
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.2/dist/quill.js"></script>
+    <script>
+        const quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+        quill.on('text-change', function () {
+            document.getElementById('description-text').value = quill.root.innerHTML;
+        });
+    </script>
 </body>
 </html>

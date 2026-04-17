@@ -248,3 +248,18 @@
     background-color: var(--green);
     border-color: var(--green);
 }
+.ql-toolbar.ql-snow {
+    border: none !important;
+    background: var(--bg);
+}
+.ql-container.ql-snow {
+    border: 2pt solid var(--bg);
+    color: var(--text);
+    background-color: var(--item-bg);
+}
+.ql-stroke {
+    stroke: var(--text) !important;
+}
+.ql-picker-label {
+    color: var(--text);
+}
