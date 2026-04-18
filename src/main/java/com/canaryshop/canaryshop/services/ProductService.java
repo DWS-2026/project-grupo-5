@@ -1,5 +1,6 @@
 package com.canaryshop.canaryshop.services;
 
+import java.io.InvalidObjectException;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,12 +24,8 @@ public class ProductService {
     private OrderProductRepository opp;
 
     // Gets product by product id, throws HTTP error if it doesn't exist
-    public Product getProduct(long id) throws ResponseStatusException {
-        Optional<Product> request = products.findById(id);
-        if (request.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
-        }
-        return request.get();
+    public Product getProduct(long id){
+        return products.findById(id).orElseThrow();
     }
 
     // Returns a product page based on vendor id and requested page
@@ -39,7 +36,7 @@ public class ProductService {
     // Adds a product to the database, throws HTTP error if the product given is invalid
     public void addProduct(Product product){
         if (!product.isValid()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product invalid");
+            throw new IllegalArgumentException();
         }
         products.save(product);
     }
@@ -64,7 +61,7 @@ public class ProductService {
     public void editProduct(Product product, Product modification){
         product.copy(modification);
         if (!product.isValid()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product invalid");
+            throw new IllegalArgumentException();
         }
         products.save(product);
     }

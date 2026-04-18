@@ -48,7 +48,7 @@ public class ProductManager {
         // This following part is necessary to separate all reviews from the current user's, if it exists
         Review userReview;
         try { userReview = reviews.getReview(user, product); }
-        catch (ResponseStatusException exception) { userReview = null; }
+        catch (Exception exception) { userReview = null; }
         model.addAttribute("userReview", userReview);
         model.addAttribute("productReviews", product.getReviewsExcluding(userReview));
         if(user == null){

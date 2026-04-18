@@ -6,9 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.OrderProduct;
@@ -19,8 +17,6 @@ import com.canaryshop.canaryshop.repositories.OrderRepository;
 @Service
 public class OrderService {
     @Autowired
-    private OrderRepository orderProductRepository;
-    @Autowired
     private OrderRepository orderRepository;
     @Autowired
     private UserService userService;
@@ -28,19 +24,15 @@ public class OrderService {
     private ProductService productService;
 
     public Order getOrder(long id){
-        Optional<Order> order = orderProductRepository.findById(id);
-        if (order.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found");
-        }
-        return order.get();
+        return orderRepository.findById(id).orElseThrow();
     }
 
     public void addOrder(Order o){
-        orderProductRepository.save(o);
+        orderRepository.save(o);
     }
     // To get the discount for the code
     public float getDiscount(String code){
-        float discount = switch(code == null ? "" :code){
+        float discount = switch(code == null ? "" : code){
             case "DiegoEsElMejor" -> 0;
             case "JaimeEsElMejor" -> 0.25f;
             case "VictorEsElMejor" -> 0.5f;
@@ -68,11 +60,7 @@ public class OrderService {
     }
     // To decrease the stock of the products
     private void productsPurchased(Order o){
-        List<OrderProduct> list= o.getProducts();
-
-        for (OrderProduct op : list){
-            this.productService.productPurchased(op.getProduct());
-        }
+        o.getProducts().forEach(op -> this.productService.productPurchased(op.getProduct()));
     }
     // Renew the order by removing the out-of-stock products
     public Order renewOrder(Order o){

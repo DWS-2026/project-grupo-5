@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 @Service
 public class ReviewService {
@@ -20,59 +18,45 @@ public class ReviewService {
     private ProductService products;
 
     public Review getReview(long id){
-        Optional<Review> review = reviews.findById(id);
-        if (review.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");
-        }
-        return review.get();
+        return reviews.findById(id).orElseThrow();
     }
     public Review getReview(User user, Product product){
-        if (user == null || product == null){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");
-        }
-        Optional<Review> review = reviews.findByAuthorAndProduct(user, product);
-        if (review.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");
-        }
-        return review.get();
+        return reviews.findByAuthorAndProduct(user, product).orElseThrow();
     }
     public void createReview(Review review, Product product){
         if (review == null || !review.isValid()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Review invalid");
+            throw new IllegalArgumentException();
         }
-        try {
-            getReview(review.getAuthor(), product);
+        if (reviews.existsByAuthorAndProduct(review.getAuthor(), product)){
+            throw new IllegalArgumentException();
         }
-        catch (ResponseStatusException ignored) {
-            product.addReview(review);
-            products.addProduct(product);
-            return;
-        }
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Author already has review in same product");
+        product.addReview(review);
+        products.addProduct(product);
     }
     public void deleteReview(Review review){
         Product product = review.getProduct();
         if (product == null || !product.getReviews().contains(review)){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Review or product not found");
+            throw new NoSuchElementException();
         }
-            product.removeReview(review);
-            products.addProduct(product);
-            reviews.deleteById(review.getId());
+        product.removeReview(review);
+        products.addProduct(product);
+        reviews.deleteById(review.getId());
+    }
+    public void deleteReview(long id){
+        Review review = reviews.findById(id).orElseThrow();
+        deleteReview(review);
     }
     public void editReview(Review review, Review modification){
         if (review == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Review is null");
+            throw new IllegalArgumentException();
         }
         Product product = review.getProduct();
         Review modified = review.modify(modification);
         if (!modified.isValid()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Review invalid");
+            throw new IllegalArgumentException();
         }
         product.removeReview(review);
         product.addReview(modified);
         products.addProduct(product);
-    }
-    public List<Review> getByAuthor(User user){
-        return this.reviews.findByAuthor(user);
     }
 }

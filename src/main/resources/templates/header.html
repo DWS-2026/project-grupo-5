@@ -23,10 +23,10 @@
             <!-- Log in or sign up -->
             <div class="justify-content-end d-flex flex-row flex-nowrap">
                 <a href="/login">
-                    <button type="button" class="btn btn-outline-primary rounded-end rounded-5 {{#showLogin}}active{{/showLogin}}">Log in</button>
+                    <button type="button" class="btn btn-outline-primary rounded-end-0 rounded-5 {{#showLogin}}active{{/showLogin}}">Log in</button>
                 </a>
                 <a href="/register">
-                    <button type="button" class="btn btn-outline-primary rounded-start rounded-5 {{#showRegister}}active{{/showRegister}}">Sign up</button>
+                    <button type="button" class="btn btn-outline-primary rounded-start-0 rounded-5 {{#showRegister}}active{{/showRegister}}">Sign up</button>
                 </a>
             </div>
             {{/user}}
@@ -49,23 +49,25 @@
                     <div class="offcanvas-body bg-body d-flex flex-column">
                         <img src="{{#image}}/images/{{id}}{{/image}}{{^image}}{{/image}}" alt="user image" onerror="this.src='/assets/user.jpg';"
                              class="rounded-circle align-self-center" width="150" height="150">
-                        <a class="text-decoration-none text-white" href="/"><i class="bi bi-house"></i>
-                            Home</a>
-                        <a class="text-decoration-none text-white" href="/product/new"><i class="bi bi-plus-circle"></i> Add
-                            product</a>
-                        <a class="text-decoration-none text-white" href="/cart"><i class="bi bi-cart2"></i> Shopping
-                            cart</a>
-                        <a class="text-decoration-none text-white" href="/user/{{id}}"><i class="bi bi-person-circle"></i>
-                            Show profile</a>
-                        {{#isAdmin}}
-                        <a class="bi bi-wrench link-success nav-link" href="/admin/{{id}}"> Admin panel</a>
-                        {{/isAdmin}}
-                        <form action="/logout" method="post" class="mt-auto">
-                            <input type="hidden" name="_csrf" value="{{token}}">
-                            <button type="submit" class="btn btn-link text-decoration-none text-danger py-2 w-100 text-start p-0">
-                                <i class="bi bi-box-arrow-right"></i> Log out
-                            </button>
-                        </form>
+                        <div class="d-flex flex-row flex-wrap justify-content-center">
+                            <a class="text-decoration-none text-white" href="/"><i class="bi bi-house"></i>
+                                Home</a>
+                            <a class="text-decoration-none text-white" href="/product/new"><i class="bi bi-plus-circle"></i> Add
+                                product</a>
+                            <a class="text-decoration-none text-white" href="/cart"><i class="bi bi-cart2"></i> Shopping
+                                cart</a>
+                            <a class="text-decoration-none text-white" href="/user/{{id}}"><i class="bi bi-person-circle"></i>
+                                Show profile</a>
+                            {{#isAdmin}}
+                            <a class="bi bi-wrench link-success nav-link" href="/admin/{{id}}"> Admin panel</a>
+                            {{/isAdmin}}
+                            <form action="/logout" method="post" class="mt-auto">
+                                <input type="hidden" name="_csrf" value="{{token}}">
+                                <button type="submit" class="btn btn-link text-decoration-none text-danger py-2 w-100 text-start p-0">
+                                    <i class="bi bi-box-arrow-right"></i> Log out
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -124,10 +126,10 @@
             <a class="btn btn-secondary btn-lg ms-3" href="/" role="button"><i class="bi bi-house"></i></a>
             <div class="md-3">
                 <a href="/login">
-                    <button type="button" class="btn btn-primary btn-lg rounded-end rounded-5">Log in</button>
+                    <button type="button" class="btn btn-primary btn-lg rounded-end-0 rounded-5">Log in</button>
                 </a>
                 <a href="/login">
-                    <button type="button" class="btn btn-outline-primary btn-lg rounded-start rounded-5 ">Sign up
+                    <button type="button" class="btn btn-outline-primary btn-lg rounded-start-0 rounded-5 ">Sign up
                     </button>
                 </a>
             </div>

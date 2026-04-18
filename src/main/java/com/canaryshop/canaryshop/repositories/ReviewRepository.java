@@ -12,4 +12,5 @@ import java.util.List;
 public interface ReviewRepository extends JpaRepository<Review, Long> {
     public Optional<Review> findByAuthorAndProduct(User author, Product product);
     List<Review> findByAuthor(User author);
+    boolean existsByAuthorAndProduct(User author, Product product);
 }

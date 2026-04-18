@@ -1,6 +1,5 @@
-package com.canaryshop.canaryshop.controllers;
+package com.canaryshop.canaryshop.services;
 import com.canaryshop.canaryshop.entities.User;
-import com.canaryshop.canaryshop.services.UserService;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;

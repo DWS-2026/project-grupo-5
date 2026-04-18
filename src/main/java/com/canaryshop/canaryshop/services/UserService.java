@@ -31,31 +31,20 @@ public class UserService {
         this.repo.save(user);
     }
     public User getUser(String name){
-        Optional<User> user = repo.findByUsername(name);
-        if (user.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-        }
-        return user.get();
+        return repo.findByUsername(name).orElseThrow();
     }
-    // To get the user in sesion
+    // To get the user in session
     public User getUser(Principal principal){
         return principal == null ? null : getUser(principal.getName());
     }
 
     public User findById(Long id){
-        Optional<User> user = repo.findById(id);
-        if (user.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-        }
-        return user.get();
+        return repo.findById(id).orElseThrow();
     }
 
     public void deleteUser(Long id){
         User u=this.findById(id);
-        List<Product> products = u.getProducts();
-        for (Product p : products){
-            this.productService.deleteProduct(p);
-        }
+        u.getProducts().forEach(p -> this.productService.deleteProduct(p));
         repo.deleteById(id);
     }
 
@@ -63,7 +52,7 @@ public class UserService {
         return repo.findAll();
     }
     // Get a user page depending on the search
-    public Page<User> getPageUser(String username, Pageable page ){
+    public Page<User> getPageUser(String username, Pageable page){
         if(username!=null){
             return this.repo.findByUsernameContaining(username, page);
         }
@@ -76,17 +65,8 @@ public class UserService {
         }
         return this.repo.findReportedUser(page);
     }
-    // Get the products of an user
-    public List<Product> getProductsByVendor(long id){
-        User user = this.findById(id);
-        return user.getProducts();
-    }
     public User findByEmail(String email){
         Optional<User> u=this.repo.findByEmail(email);
-        if(!u.isPresent()){
-            return null;        // Returns null to show that the user doesn't exist
-        }else{
-            return u.get();
-        }
+        return repo.findByEmail(email).orElse(null);
     }
 }
