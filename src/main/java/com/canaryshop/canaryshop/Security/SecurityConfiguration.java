@@ -79,12 +79,11 @@ public class SecurityConfiguration {
 	public SecurityFilterChain WebfilterChain(HttpSecurity http) {
         http.authenticationProvider(authenticationProvider());
         http.authorizeHttpRequests(authorize -> {
-                String[] guestPages = { "/", "/index", "/product/**", "/products/**", "/login", "/register", "/images/**", "/js/**", "/css/**", "/assets/**", "/error", "/logout", "/user/**" };
                 String[] userPages = { "/product/new", "/product/*/edit", "/product/*/delete", "/product/*/review/**", "/cart/**", "/order/**", "/user/*/image", "/user/*/edit", "/user/*/delete", "/logout", "/payment", "/success" };
                 String[] adminPages = { "/admin/**" };
                 for (String page: adminPages) { authorize.requestMatchers(page).hasAnyRole("ADMIN"); }
                 for (String page: userPages) { authorize.requestMatchers(page).authenticated(); }
-                for (String page: guestPages) { authorize.requestMatchers(page).permitAll(); }
+                authorize.anyRequest().permitAll();
             }
         ).formLogin(formLogin -> formLogin
             .loginPage("/login")
