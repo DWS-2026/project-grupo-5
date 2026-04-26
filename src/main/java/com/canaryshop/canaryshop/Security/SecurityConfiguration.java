@@ -1,11 +1,16 @@
 package com.canaryshop.canaryshop.Security;
 
+import com.canaryshop.canaryshop.Security.jwt.JwtRequestFilter;
+import com.canaryshop.canaryshop.Security.jwt.JwtTokenProvider;
+import com.canaryshop.canaryshop.Security.jwt.UnauthorizedHandlerJwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -18,12 +23,20 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfiguration {
 
+	@Autowired
+	private UnauthorizedHandlerJwt unauthorizedHandlerJwt;
+	@Autowired
+	private JwtTokenProvider jwtTokenProvider;
     @Autowired
     private RepositoryUserDetailsService userDetailService;
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+		return authConfig.getAuthenticationManager();
+	}
     @Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailService);
@@ -36,12 +49,11 @@ public class SecurityConfiguration {
 
 		http.authenticationProvider(authenticationProvider());
 
-		http
-				.securityMatcher("/api/**");
-				//.exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
+		http.securityMatcher("/api/v1/**")
+				.exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
 
-		http
-				.authorizeHttpRequests(authorize -> authorize
+		http.authorizeHttpRequests(authorize -> authorize
+
 						// PRIVATE ENDPOINTS
 						// Images
 						//.requestMatchers(HttpMethod.PUT, "/api/images/*/media").hasRole("USER")
@@ -55,7 +67,8 @@ public class SecurityConfiguration {
 						//.requestMatchers(HttpMethod.PUT, "/api/shops/**").hasRole("ADMIN")
 						//.requestMatchers(HttpMethod.DELETE, "/api/shops/**").hasRole("ADMIN")
 						// PUBLIC ENDPOINTS
-						.anyRequest().permitAll());
+						.anyRequest().permitAll()
+		);
 
 		// Disable Form login Authentication
 		http.formLogin(formLogin -> formLogin.disable());
@@ -70,7 +83,7 @@ public class SecurityConfiguration {
 		http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
 		// Add JWT Token filter
-		//http.addFilterBefore(new JwtRequestFilter(userDetailService, jwtTokenProvider),UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(new JwtRequestFilter(userDetailService, jwtTokenProvider),UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 	}
