@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.MediaTypeFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -60,7 +62,9 @@ public class ImageService {
         }
         return imageList;
     }
-
+    public Image getImageEntity(long id){
+        return images.findById(id).orElseThrow();
+    }
     public Resource getImage(long id) throws ResponseStatusException{
         try {
             Image image = images.findById(id).orElseThrow();
@@ -76,6 +80,9 @@ public class ImageService {
             log.error("Image by id {} does not have an image file associated", id);
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Image not found");
+    }
+    public MediaType getImageMediaType(Resource image) {
+        return MediaTypeFactory.getMediaType(image).orElse(MediaType.IMAGE_JPEG);
     }
     // Create an image from an static rute that the developers used
     public Image createImage(String filePath){
@@ -94,7 +101,7 @@ public class ImageService {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         Thumbnails.of(imageFile.getInputStream())
-                .forceSize(800, 800) // Force size to 800x800 
+                .forceSize(800, 800) // Force size to 800x800
                 .outputFormat("png") // Force format to png
                 .toOutputStream(outputStream);
 
@@ -105,7 +112,7 @@ public class ImageService {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         Thumbnails.of(path.toFile())
-                .forceSize(800, 800) // Force size to 800x800 
+                .forceSize(800, 800) // Force size to 800x800
                 .outputFormat("png") // Force format to png
                 .toOutputStream(outputStream);
 

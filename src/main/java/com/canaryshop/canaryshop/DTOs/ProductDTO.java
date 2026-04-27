@@ -9,5 +9,6 @@ public record ProductDTO(
     Double price,
     Integer stock,
     String description,
-    List<ReviewSummaryDTO> reviews
+    List<ReviewSummaryDTO> reviews,
+    List<ImageDTO> images
 ) {}
