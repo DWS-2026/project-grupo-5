@@ -67,6 +67,9 @@ public class ProductManager {
     @PostMapping("/product/new")
     public String createNewProduct(List<MultipartFile> imageFiles, @RequestParam String title, @RequestParam String description, @RequestParam Double price, @RequestParam Integer stock, Principal principal){
         List<Image> imageList = images.createImages(imageFiles);
+        if (imageList.isEmpty()){
+            throw new IllegalArgumentException("Image list in HTML form is empty");
+        }
         User user = users.getUser(principal);
         Product product = new Product(user, title, description, price, stock, imageList);
         products.addProduct(product);

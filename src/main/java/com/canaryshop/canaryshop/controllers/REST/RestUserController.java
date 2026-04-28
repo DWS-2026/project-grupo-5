@@ -54,7 +54,7 @@ public class RestUserController {
     @PostMapping("/")
     public ResponseEntity<UserBasicDTO> register(@RequestBody UserLoginDTO user){
         users.addUser(userMapper.toDomain(user));
-        User entityUser = users.getUser(user.username());
+        User entityUser = users.getUser(user.email());
         URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(entityUser.getId()).toUri();
         return ResponseEntity.created(path).body(userMapper.toBasicDTO(entityUser));
     }

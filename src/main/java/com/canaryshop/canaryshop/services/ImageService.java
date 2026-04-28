@@ -38,15 +38,16 @@ public class ImageService {
     // Create an image from a MultipartFile sent by the users
     public Image createImage(MultipartFile imageFile){
         if (imageFile == null || imageFile.isEmpty()){
-            return null;
+            log.error("Can't load image");
+            throw new IllegalArgumentException();
         }
         try {
             SerialBlob imageFileBlob = new SerialBlob(this.resizeMultipartFile(imageFile));
             Image image = new Image(imageFileBlob);
             return image;
         } catch (Exception e){
-            log.error("Couldn't load image");
-            return null;
+            log.error("Couldn't create image from blob");
+            throw new IllegalArgumentException();
         }
     }
     

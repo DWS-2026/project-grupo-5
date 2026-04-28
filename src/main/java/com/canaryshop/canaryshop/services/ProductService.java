@@ -1,5 +1,6 @@
 package com.canaryshop.canaryshop.services;
 
+import com.canaryshop.canaryshop.entities.Image;
 import com.canaryshop.canaryshop.entities.OrderProduct;
 import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.User;
@@ -97,5 +98,16 @@ public class ProductService {
             product.decreaseStock();
             this.products.save(product);
         }
+    }
+
+    public long addImage(Product product, Image image){
+        if (image==null || product==null){
+            throw new IllegalArgumentException();
+        }
+        List<Image> images = product.getProductImages();
+        image.setIndexInList(images.size());
+        images.add(image);
+        products.save(product);
+        return images.getLast().getId();
     }
 }

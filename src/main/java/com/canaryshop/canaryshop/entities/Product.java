@@ -33,7 +33,7 @@ public class Product {
     @ElementCollection
     private List<String> reports = new LinkedList<>();
 
-    protected Product() {}
+    public Product() {}
     public Product(User vendor, String name, String description, Double price, Integer stock, List<Image> images) {
         this.vendor = vendor;
         this.name= name;
@@ -45,6 +45,30 @@ public class Product {
     }
     public Product(User vendor, String name, String description, Double price, Integer stock, Image... images) {
         this(vendor, name, description, price, stock, new LinkedList<>(List.of(images)));
+    }
+
+    public void setVendor(User user){
+        this.vendor = user;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public void setProductImages(List<Image> productImages) {
+        this.productImages = productImages;
     }
 
     public List<Image> getProductImages() {
@@ -93,9 +117,10 @@ public class Product {
         description = product.description;
         price = product.price;
         stock = product.stock;
-        if (!product.productImages.isEmpty()){
-            productImages = product.productImages;
+        if (product.getProductImages() == null || product.getProductImages().isEmpty()){
+            return;
         }
+        productImages = product.productImages;
     }
 
     public float getRating() {
@@ -114,8 +139,7 @@ public class Product {
                 !name.isBlank() &&
                 !description.isBlank() &&
                 price >= 0.01 &&
-                stock > 0 &&
-                !productImages.isEmpty()
+                stock > 0
         );
     }
     // Returns whether a given user can edit the current product

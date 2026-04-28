@@ -24,7 +24,7 @@ public class UserService {
         this.repo.save(user);
     }
     public User getUser(String name){
-        return repo.findByUsername(name).orElseThrow();
+        return repo.findByEmail(name).orElseThrow();
     }
     // To get the user in session
     public User getUser(Principal principal){
@@ -59,7 +59,6 @@ public class UserService {
         return this.repo.findReportedUser(page);
     }
     public User findByEmail(String email){
-        Optional<User> u=this.repo.findByEmail(email);
         return repo.findByEmail(email).orElse(null);
     }
 }

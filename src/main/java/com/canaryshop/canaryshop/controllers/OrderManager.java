@@ -28,7 +28,7 @@ public class OrderManager {
 
     @GetMapping("/cart")
     public String serveCart(Model model, Principal principal) {
-        User user = userService.getUser(principal.getName());
+        User user = userService.getUser(principal);
         Order cart = user.getCart();
         this.os.renewOrder(cart);
         model.addAttribute("order", cart);
@@ -62,7 +62,7 @@ public class OrderManager {
 
     @PostMapping("/cart/decrease/{id}")
     public String decreaseItem(@PathVariable long id, Principal principal) {
-        User user = userService.getUser(principal.getName());
+        User user = userService.getUser(principal);
         Order cart = user.getCart();
         Product product = products.getProduct(id);
         cart.setProductQuantity(product, cart.getProductQuantity(product)-1);

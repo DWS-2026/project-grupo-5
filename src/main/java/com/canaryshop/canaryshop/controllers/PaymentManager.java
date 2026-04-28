@@ -35,7 +35,7 @@ public class PaymentManager {
     // Get the cart o the product that the user want to buy
     @GetMapping("/payment")
     public String getPaymentPage(Model model, Principal principal, @RequestParam(required = false) Long productID, HttpSession session){
-        User user = userService.getUser(principal.getName());
+        User user = userService.getUser(principal);
         Order cart= new Order();
         if(productID!=null){    
             cart.setProductQuantity(this.productService.getProduct(productID), 1);
@@ -70,7 +70,7 @@ public class PaymentManager {
     @PostMapping("/success")
     public String getSuccessPage(Model model, Principal principal, HttpSession session, @RequestParam(required = false) Float discount){ 
 
-        User user = userService.getUser(principal.getName());
+        User user = userService.getUser(principal);
         Order cart = ((Order)session.getAttribute("cart"));
         cart=this.orderService.renewOrder(cart);
         if(cart.getProducts().isEmpty()){
