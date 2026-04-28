@@ -50,7 +50,17 @@ public class ImageService {
             throw new IllegalArgumentException();
         }
     }
-    
+
+    public void replaceImage(Image image, MultipartFile imageFile){
+        Image replacement = createImage(imageFile);
+        image.setImageFile(replacement.getImageFile());
+        images.save(image);
+    }
+
+    public void deleteImage(Image image){
+        images.delete(image);
+    }
+
     public List<Image> createImages(List<MultipartFile> imageFiles){
         List<Image> imageList = new LinkedList<>();
         for (MultipartFile imageFile: imageFiles){
@@ -122,5 +132,4 @@ public class ImageService {
     public void addImage(Image img){
         this.images.save(img);
     }
-
 }

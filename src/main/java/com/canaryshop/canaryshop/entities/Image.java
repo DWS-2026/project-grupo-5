@@ -21,6 +21,9 @@ public class Image {
     public Blob getImageFile(){
         return this.imageFile;
     }
+    public void setImageFile(Blob imageFile){
+        this.imageFile = imageFile;
+    }
     public void setIndexInList(int index){
         this.indexInList = index;
     }

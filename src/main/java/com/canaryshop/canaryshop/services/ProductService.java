@@ -22,6 +22,8 @@ public class ProductService {
     private ProductsRepository products;
     @Autowired
     private OrderProductRepository opp;
+    @Autowired
+    private ImageService images;
 
     public void modifyCheck(User user, Product product){
         if (!product.canEdit(user)){
@@ -100,14 +102,30 @@ public class ProductService {
         }
     }
 
-    public long addImage(Product product, Image image){
+    public void addImage(User user, Product product, Image image){
         if (image==null || product==null){
             throw new IllegalArgumentException();
         }
+        modifyCheck(user, product);
         List<Image> images = product.getProductImages();
         image.setIndexInList(images.size());
         images.add(image);
         products.save(product);
-        return images.getLast().getId();
+    }
+
+    public void deleteImage(User user, Product product, Image image){
+        if (image==null || product==null){
+            throw new IllegalArgumentException();
+        }
+        modifyCheck(user, product);
+        List<Image> images = product.getProductImages();
+        if (!images.remove(image)){
+            throw new NoSuchElementException();
+        }
+        for (int i = 0; i<images.size(); i++) {
+            images.get(i).setIndexInList(i);
+        }
+        products.save(product);
+        this.images.deleteImage(image);
     }
 }

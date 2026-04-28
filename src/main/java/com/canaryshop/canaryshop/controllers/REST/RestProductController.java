@@ -24,6 +24,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -36,6 +37,7 @@ public class RestProductController {
     private UserService users;
     @Autowired
     private ImageService imageService;
+    @Autowired
     private ImageMapper imageMapper;
 
     @Operation(summary = "Get products with an optional query")
@@ -112,15 +114,39 @@ public class RestProductController {
         return ResponseEntity.ok(mapper.toDTO(product));
     }
 
+    @GetMapping("/{id}/images")
+    public List<ImageDTO> getProductImages(@PathVariable long id){
+        return imageMapper.toDTOs(productService.getProduct(id).getProductImages());
+    }
+
     @PostMapping("/{id}/images")
     public ResponseEntity<ImageDTO> uploadImage(Principal principal, @PathVariable long id, @RequestParam MultipartFile imageFile){
         Product product = productService.getProduct(id);
         User user = users.getUser(principal);
-        productService.modifyCheck(user, product);
         Image image = imageService.createImage(imageFile);
-        productService.addImage(product, image);
+        productService.addImage(user, product, image);
         image = product.getProductImages().getLast();
         URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(image.getId()).toUri();
-        return ResponseEntity.created(path).body(new ImageDTO(image.getId()));
+        return ResponseEntity.created(path).body(imageMapper.toDTO(image));
+    }
+
+    @PutMapping("/{productId}/images/{imageId}")
+    public ResponseEntity<Object> editProductImage(Principal principal, @PathVariable long productId, @PathVariable long imageId, @RequestParam MultipartFile imageFile){
+        Product product = productService.getProduct(productId);
+        User user = users.getUser(principal);
+        productService.modifyCheck(user, product);
+        Image image = imageService.getImageEntity(imageId);
+        imageService.replaceImage(image, imageFile);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{productId}/images/{imageId}")
+    public ResponseEntity<ImageDTO> deleteProductImage(Principal principal, @PathVariable long productId, @PathVariable long imageId){
+        Product product = productService.getProduct(productId);
+        User user = users.getUser(principal);
+        productService.modifyCheck(user, product);
+        Image image = imageService.getImageEntity(imageId);
+        productService.deleteImage(user, product, image);
+        return ResponseEntity.ok().body(imageMapper.toDTO(image));
     }
 }

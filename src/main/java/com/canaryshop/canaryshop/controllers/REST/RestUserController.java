@@ -74,7 +74,7 @@ public class RestUserController {
     @GetMapping("/{id}/reviews")
     public Page<ReviewDTO> getReviewsByUser(@PathVariable long id, Pageable pageable) {
         User u = this.users.findById(id);
-        return this.reviewService.getReviewsByAuthor(u).map(reviewMapper::toDTO);
+        return this.reviewService.getReviewsByAuthor(u, pageable).map(reviewMapper::toDTO);
     }
     @GetMapping("/{id}/orders")
     public List<OrderBasicDTO> getOrdersFromAnUser(@PathVariable long id) {
