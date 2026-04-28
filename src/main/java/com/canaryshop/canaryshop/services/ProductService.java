@@ -1,9 +1,10 @@
 package com.canaryshop.canaryshop.services;
 
-import java.io.InvalidObjectException;
-import java.util.List;
-import java.util.Optional;
-
+import com.canaryshop.canaryshop.entities.OrderProduct;
+import com.canaryshop.canaryshop.entities.Product;
+import com.canaryshop.canaryshop.entities.User;
+import com.canaryshop.canaryshop.repositories.OrderProductRepository;
+import com.canaryshop.canaryshop.repositories.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,10 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.canaryshop.canaryshop.entities.OrderProduct;
-import com.canaryshop.canaryshop.entities.Product;
-import com.canaryshop.canaryshop.repositories.OrderProductRepository;
-import com.canaryshop.canaryshop.repositories.ProductsRepository;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class ProductService {
@@ -22,6 +21,12 @@ public class ProductService {
     private ProductsRepository products;
     @Autowired
     private OrderProductRepository opp;
+
+    public void modifyCheck(User user, Product product){
+        if (!product.canEdit(user)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User cannot modify product");
+        }
+    }
 
     // Gets product by product id, throws HTTP error if it doesn't exist
     public Product getProduct(long id){
@@ -43,22 +48,32 @@ public class ProductService {
 
     // Gets products in a page filtered by name or description, or all products if either are null
     public Page<Product> getPageProducts(String name, String description, Pageable page){
-        if (name!=null && description!=null){
-            return products.findByNameContainingOrDescriptionContaining(name, description, page);
-        }else{
-            return products.findAll(page);
+        Page<Product> productsPage;
+        if (name==null && description==null){
+            productsPage = products.findAll(page);
+        } else{
+            productsPage = products.findByNameContainingOrDescriptionContaining(name, description, page);
         }
+        if (page.getPageNumber() >= productsPage.getTotalPages()){
+            throw new IllegalArgumentException();
+        }
+        if (productsPage.isEmpty()){
+            throw new NoSuchElementException();
+        }
+        return productsPage;
     }
 
     // Deletes all intermediate OrderProduct entities associated with the product, then the product itself
-    public void deleteProduct(Product product){
+    public void deleteProduct(User user, Product product){
+        this.modifyCheck(user, product);
         List<OrderProduct> list= opp.findByProduct(product);
         opp.deleteAll(list);
         products.deleteById(product.getId());
     }
 
     // Edits the product and adds it to the database, throws HTTP error if the modified product is invalid
-    public void editProduct(Product product, Product modification){
+    public void editProduct(User user, Product product, Product modification){
+        this.modifyCheck(user, product);
         product.copy(modification);
         if (!product.isValid()){
             throw new IllegalArgumentException();

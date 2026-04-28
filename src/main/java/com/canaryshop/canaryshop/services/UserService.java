@@ -1,22 +1,15 @@
 package com.canaryshop.canaryshop.services;
 
-import java.security.Principal;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-
+import com.canaryshop.canaryshop.entities.User;
+import com.canaryshop.canaryshop.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
-import com.canaryshop.canaryshop.entities.Order;
-import com.canaryshop.canaryshop.entities.OrderProduct;
-import com.canaryshop.canaryshop.entities.Product;
-import com.canaryshop.canaryshop.entities.User;
-import com.canaryshop.canaryshop.repositories.UserRepository;
+import java.security.Principal;
+import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -44,7 +37,7 @@ public class UserService {
 
     public void deleteUser(Long id){
         User u=this.findById(id);
-        u.getProducts().forEach(p -> this.productService.deleteProduct(p));
+        u.getProducts().forEach(p -> this.productService.deleteProduct(u, p));
         repo.deleteById(id);
     }
 

@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -38,12 +41,7 @@ public class ProductManager {
         User user = users.getUser(principal);
         model.addAttribute("product", product);
         model.addAttribute("canEditProduct", product.canEdit(user));
-
-        if (product.isAvailable()) {
-            model.addAttribute("isProductAvailable", true);
-        } else {
-            model.addAttribute("isProductAvailable", false);
-        }
+        model.addAttribute("isProductAvailable", product.isAvailable());
         
         // This following part is necessary to separate all reviews from the current user's, if it exists
         Review userReview;
@@ -80,10 +78,7 @@ public class ProductManager {
     public String deleteProduct(@PathVariable long id, Principal principal) {
         Product product = products.getProduct(id);
         User user = users.getUser(principal);
-        if (!product.canEdit(user)){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User cannot modify product");
-        }
-        products.deleteProduct(product);
+        products.deleteProduct(user, product);
         return "redirect:/";
     }
 
@@ -92,9 +87,7 @@ public class ProductManager {
     public String serveEditProductForm(@PathVariable long id, Model model, Principal principal){
         Product product = products.getProduct(id);
         User user = users.getUser(principal);
-        if (!product.canEdit(user)){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User cannot modify product");
-        }
+        products.modifyCheck(user, product);
         model.addAttribute("product", product);
         return "addProduct";
     }
@@ -104,11 +97,8 @@ public class ProductManager {
     public String editProduct(@PathVariable long id, List<MultipartFile> imageFiles, @RequestParam String title, @RequestParam String description, @RequestParam Double price, @RequestParam Integer stock, Principal principal){
         Product product = products.getProduct(id);
         User user = users.getUser(principal);
-        if (!product.canEdit(user)){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User cannot modify product");
-        }
         Product modification = new Product(user, title, description, price, stock, images.createImages(imageFiles));
-        products.editProduct(product, modification);
+        products.editProduct(user, product, modification);
         return "redirect:/product/" + product.getId();
     }
 
@@ -128,11 +118,8 @@ public class ProductManager {
     public String deleteReview(@PathVariable long product_id, @PathVariable long review_id, Principal principal){
         Review review = reviews.getReview(review_id);
         User user = users.getUser(principal);
-        if (!review.canEdit(user)){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User cannot modify review");
-        }
         Product product = products.getProduct(product_id);
-        reviews.deleteReview(review);
+        reviews.deleteReview(user, review);
         return "redirect:/product/" + product.getId();
     }
 
@@ -141,9 +128,7 @@ public class ProductManager {
     public String serveEditReviewForm(@PathVariable long product_id, @PathVariable long review_id, Model model, Principal principal){
         Review review = reviews.getReview(review_id);
         User user = users.getUser(principal);
-        if (!review.canEdit(user)){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User cannot modify review");
-        }
+        reviews.modifyCheck(user, review);
         model.addAttribute("edit-review", review);
         model.addAttribute("product", products.getProduct(product_id));
         return "product";
@@ -154,11 +139,8 @@ public class ProductManager {
     public String editReview(@PathVariable long product_id, @PathVariable long review_id, @RequestParam String title, @RequestParam int stars, @RequestParam String description, List<MultipartFile> imageFiles, Principal principal){
         Review review = reviews.getReview(review_id);
         User user = users.getUser(principal);
-        if (!review.canEdit(user)){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User cannot modify review");
-        }
         Review modification = new Review(user, description, stars, title, images.createImages(imageFiles));
-        reviews.editReview(review, modification);
+        reviews.editReview(user, review, modification);
         return "redirect:/product/" + product_id;
     }
     // To report the products

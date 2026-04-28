@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -18,6 +20,16 @@ public class ReviewService {
     @Autowired
     private ProductService products;
 
+    public void modifyCheck(User user, Review review){
+        if (!review.canEdit(user)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User cannot modify review");
+        }
+    }
+    public List<Review> getReviews(long product_id) {
+        List<Review> reviews = products.getProduct(product_id).getReviews();
+        if (reviews.isEmpty()){ throw new NoSuchElementException(); }
+        return reviews;
+    }
     public Review getReview(long id){
         return reviews.findById(id).orElseThrow();
     }
@@ -34,7 +46,8 @@ public class ReviewService {
         product.addReview(review);
         products.addProduct(product);
     }
-    public void deleteReview(Review review){
+    public void deleteReview(User user, Review review){
+        this.modifyCheck(user, review);
         Product product = review.getProduct();
         if (product == null || !product.getReviews().contains(review)){
             throw new NoSuchElementException();
@@ -43,11 +56,8 @@ public class ReviewService {
         products.addProduct(product);
         reviews.deleteById(review.getId());
     }
-    public void deleteReview(long id){
-        Review review = reviews.findById(id).orElseThrow();
-        deleteReview(review);
-    }
-    public void editReview(Review review, Review modification){
+    public void editReview(User user, Review review, Review modification){
+        this.modifyCheck(user, review);
         if (review == null) {
             throw new IllegalArgumentException();
         }
