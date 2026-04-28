@@ -2,6 +2,7 @@ package com.canaryshop.canaryshop.services;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.coyote.Request;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,14 +14,19 @@ import java.util.NoSuchElementException;
 public class WebExceptionHandler{
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NoSuchElementException.class)
-    public String handleNotFound(HttpServletRequest request){
-        request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, 404);
-        return "forward:/error";
+    public Object handleNotFound(HttpServletRequest request){
+        return redirect(request, HttpStatus.NOT_FOUND);
     }
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
-    public String handleBadRequest(HttpServletRequest request){
-        request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, 400);
+    public Object handleBadRequest(HttpServletRequest request){
+        return redirect(request, HttpStatus.BAD_REQUEST);
+    }
+    private Object redirect(HttpServletRequest request, HttpStatus status){
+        if (request.getRequestURI().contains("/api/v1/")){
+            return null;
+        }
+        request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, status.value());
         return "forward:/error";
     }
 }
