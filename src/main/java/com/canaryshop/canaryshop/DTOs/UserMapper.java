@@ -1,6 +1,10 @@
 package com.canaryshop.canaryshop.DTOs;
 
 import com.canaryshop.canaryshop.entities.User;
+
+import java.util.Collection;
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +16,8 @@ public abstract class UserMapper {
     PasswordEncoder passwordEncoder;
 
     public abstract UserBasicDTO toBasicDTO(User user);
+    public abstract List<UserBasicDTO> toDTOs(Collection<User> users);
+    public abstract UserDTO toDTO(User user);
     @Mapping(target = "password", expression = "java(passwordEncoder.encode(user.password()))")
     @Mapping(target = "image", ignore = true)
     @Mapping(target = "cart", ignore = true)
@@ -20,4 +26,5 @@ public abstract class UserMapper {
     @Mapping(target = "products", ignore = true)
     @Mapping(target = "reported", ignore = true)
     public abstract User toDomain(UserLoginDTO user);
+    
 }
