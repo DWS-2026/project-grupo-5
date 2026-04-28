@@ -1,5 +1,7 @@
 package com.canaryshop.canaryshop.controllers.REST;
 
+import com.canaryshop.canaryshop.DTOs.OrderBasicDTO;
+import com.canaryshop.canaryshop.DTOs.OrderMapper;
 import com.canaryshop.canaryshop.DTOs.ProductDTO;
 import com.canaryshop.canaryshop.DTOs.ProductMapper;
 import com.canaryshop.canaryshop.DTOs.ReviewDTO;
@@ -25,6 +27,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -42,6 +48,8 @@ public class RestUserController {
     ReviewService reviewService;
     @Autowired
     ReviewMapper reviewMapper;
+    @Autowired
+    OrderMapper orderMapper;
 
     @PostMapping("/")
     public ResponseEntity<UserBasicDTO> register(@RequestBody UserLoginDTO user){
@@ -68,6 +76,12 @@ public class RestUserController {
         User u = this.users.findById(id);
         return this.reviewService.getReviewsByAuthor(u).map(reviewMapper::toDTO);
     }
+    @GetMapping("/{id}/orders")
+    public List<OrderBasicDTO> getOrdersFromAnUser(@PathVariable long id) {
+        User u = this.users.findById(id);
+        return this.orderMapper.toDTOs(u.getOrders());
+    }
+    
     
     
 }
