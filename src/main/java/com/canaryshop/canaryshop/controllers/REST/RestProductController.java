@@ -8,11 +8,14 @@ import com.canaryshop.canaryshop.services.ImageService;
 import com.canaryshop.canaryshop.services.ProductService;
 import com.canaryshop.canaryshop.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +31,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/products")
+@Tag(name="Products", description = "Endpoints related to manipulating products")
 public class RestProductController {
     @Autowired
     private ProductMapper mapper;
@@ -64,7 +68,9 @@ public class RestProductController {
         )
     })
     @GetMapping("/")
-    public Page<ProductSummaryDTO> getProducts(@RequestParam(required = false) String search, @PageableDefault(size=12) Pageable page){
+    public Page<ProductSummaryDTO> getProducts(
+            @Parameter(description = "Optional query")
+            @RequestParam(required = false) String search, @PageableDefault(size=12) @ParameterObject Pageable page){
         return productService.getPageProducts(search, search, page).map(product -> mapper.toSummaryDTO(product));
     }
     @Operation(summary="Returns a product with a given id")
@@ -88,6 +94,27 @@ public class RestProductController {
         return mapper.toDTO(productService.getProduct(id));
     }
 
+    @Operation(summary = "Upload a product to the page")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Product was created successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ProductDTO.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Invalid object was passed",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "The session token is not present or has expired",
+                    content = @Content
+            )
+    })
     @PostMapping("/")
     public ResponseEntity<ProductDTO> uploadProduct(Principal principal, @RequestBody ProductUploadDTO product){
         User user = users.getUser(principal);
@@ -96,7 +123,32 @@ public class RestProductController {
         URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(entityProduct.getId()).toUri();
         return ResponseEntity.created(path).body(mapper.toDTO(entityProduct));
     }
-
+    @Operation(summary = "Modify a product")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Product was updated successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ProductDTO.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Object passed is invalid",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "User does not have permission to edit the product",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Product with id was not found",
+                    content = @Content
+            )
+    })
     @PutMapping("/{id}")
     public ResponseEntity<ProductDTO> editProduct(Principal principal, @PathVariable long id, @RequestBody ProductUploadDTO modification){
         User user = users.getUser(principal);
@@ -105,7 +157,27 @@ public class RestProductController {
         productService.editProduct(user, product, entityProductModified);
         return ResponseEntity.ok(mapper.toDTO(product));
     }
-
+    @Operation(summary = "Delete a product with a given id")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Product was deleted successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ProductDTO.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "User does not have permission to delete product",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Product was not found",
+                    content = @Content
+            )
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<ProductDTO> deleteProduct(Principal principal, @PathVariable long id){
         User user = users.getUser(principal);
