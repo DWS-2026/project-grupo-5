@@ -4,6 +4,7 @@ import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.Review;
 import com.canaryshop.canaryshop.entities.User;
 import com.canaryshop.canaryshop.repositories.ReviewRepository;
+import org.owasp.html.PolicyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,8 @@ public class ReviewService {
     private ReviewRepository reviews;
     @Autowired
     private ProductService products;
+    @Autowired
+    private PolicyFactory enrichedTextSanitizer;
 
     public void modifyCheck(User user, Review review){
         if (!review.canEdit(user)){
@@ -38,7 +41,11 @@ public class ReviewService {
         return reviews.findByAuthorAndProduct(user, product).orElseThrow();
     }
     public void createReview(Review review, Product product){
-        if (review == null || !review.isValid()){
+        if (review == null){
+            throw new IllegalArgumentException();
+        }
+        review.setDescription(enrichedTextSanitizer.sanitize(review.getDescription()));
+        if (!review.isValid()){
             throw new IllegalArgumentException();
         }
         if (reviews.existsByAuthorAndProduct(review.getAuthor(), product)){
@@ -58,12 +65,13 @@ public class ReviewService {
         reviews.deleteById(review.getId());
     }
     public void editReview(User user, Review review, Review modification){
-        this.modifyCheck(user, review);
         if (review == null) {
             throw new IllegalArgumentException();
         }
+        this.modifyCheck(user, review);
         Product product = review.getProduct();
         Review modified = review.modify(modification);
+        modified.setDescription(enrichedTextSanitizer.sanitize(modified.getDescription()));
         if (!modified.isValid()){
             throw new IllegalArgumentException();
         }

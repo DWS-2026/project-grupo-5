@@ -3,6 +3,8 @@ package com.canaryshop.canaryshop.Security;
 import com.canaryshop.canaryshop.Security.jwt.JwtRequestFilter;
 import com.canaryshop.canaryshop.Security.jwt.JwtTokenProvider;
 import com.canaryshop.canaryshop.Security.jwt.UnauthorizedHandlerJwt;
+import org.owasp.html.PolicyFactory;
+import org.owasp.html.Sanitizers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,6 +38,10 @@ public class SecurityConfiguration {
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
 		return authConfig.getAuthenticationManager();
+	}
+	@Bean
+	public PolicyFactory enrichedTextSanitizer(){
+		return Sanitizers.FORMATTING;
 	}
     @Bean
 	public DaoAuthenticationProvider authenticationProvider() {

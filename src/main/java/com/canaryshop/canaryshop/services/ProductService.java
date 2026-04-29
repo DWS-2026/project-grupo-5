@@ -6,6 +6,7 @@ import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.User;
 import com.canaryshop.canaryshop.repositories.OrderProductRepository;
 import com.canaryshop.canaryshop.repositories.ProductsRepository;
+import org.owasp.html.PolicyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +25,8 @@ public class ProductService {
     private OrderProductRepository opp;
     @Autowired
     private ImageService images;
+    @Autowired
+    private PolicyFactory enrichedTextSanitizer;
 
     public void modifyCheck(User user, Product product){
         if (!product.canEdit(user)){
@@ -43,6 +46,7 @@ public class ProductService {
 
     // Adds a product to the database, throws HTTP error if the product given is invalid
     public void addProduct(Product product){
+        product.setDescription(enrichedTextSanitizer.sanitize(product.getDescription()));
         if (!product.isValid()){
             throw new IllegalArgumentException();
         }
@@ -78,10 +82,7 @@ public class ProductService {
     public void editProduct(User user, Product product, Product modification){
         this.modifyCheck(user, product);
         product.copy(modification);
-        if (!product.isValid()){
-            throw new IllegalArgumentException();
-        }
-        products.save(product);
+        addProduct(product);
     }
 
     // Gets reported products in a page by name or description, or all reported products if either are null
