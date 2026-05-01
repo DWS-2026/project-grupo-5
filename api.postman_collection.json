@@ -288,6 +288,95 @@
       "response": []
     },
     {
+      "name": "Create Product Review",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"name\": \"Malísimo\", \"rating\": 1, \"description\": \"Muy mala calidad. Pésimo.\" }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/api/v1/products/1/reviews",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "products",
+            "1",
+            "reviews"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Edit Product Review",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"name\": \"Perfecto\", \"rating\": 5, \"description\": \"Producto sin defectos\" }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/api/v1/products/1/reviews/45",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "products",
+            "1",
+            "reviews",
+            "45"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Product Review",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseURL}}/api/v1/products/1/reviews/45",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "products",
+            "1",
+            "reviews",
+            "45"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "Create Product",
       "request": {
         "auth": {

@@ -79,6 +79,33 @@ public class RestReviewController {
     public ReviewDTO getReviews(@PathVariable long pid, @PathVariable long rid){
         return reviewMapper.toDTO(reviews.getReview(rid));
     }
+
+    @Operation(summary = "Creates a new review for a product")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Review was created successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ReviewDTO.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Review contents are invalid",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "User is not logged in or cannot edit review",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Product with given ID was not found",
+                    content = @Content
+            )
+    })
     @PostMapping("/{id}/reviews")
     public ResponseEntity<ReviewDTO> addReview(Principal principal, @PathVariable long id, @RequestBody ReviewUploadDTO review){
         User user = users.getUser(principal);
@@ -89,6 +116,33 @@ public class RestReviewController {
         URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(entityReview.getId()).toUri();
         return ResponseEntity.created(path).body(reviewMapper.toDTO(entityReview));
     }
+
+    @Operation(summary = "Edits a product review")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Product was edited successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ReviewDTO.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Edited review contents are invalid",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "User is not logged in or cannot edit review",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Product or review with given ID was not found",
+                    content = @Content
+            )
+    })
     @PutMapping("/{productId}/reviews/{reviewId}")
     public ResponseEntity<ReviewDTO> editReview(Principal principal, @PathVariable long productId, @PathVariable long reviewId, @RequestBody ReviewUploadDTO modification){
         User user = users.getUser(principal);
@@ -96,6 +150,28 @@ public class RestReviewController {
         reviews.editReview(user, entityReview, reviewMapper.toDomain(modification, user));
         return ResponseEntity.ok().body(reviewMapper.toDTO(entityReview));
     }
+
+    @Operation(summary = "Deletes a product review")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Review was deleted successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ReviewDTO.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "User is not logged in or cannot delete review",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Product or review with given ID was not found",
+                    content = @Content
+            )
+    })
     @DeleteMapping("/{productId}/reviews/{reviewId}")
     public ResponseEntity<ReviewDTO> deleteReview(Principal principal, @PathVariable long productId, @PathVariable long reviewId){
         User user = users.getUser(principal);
