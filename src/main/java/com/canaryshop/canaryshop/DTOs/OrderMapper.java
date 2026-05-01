@@ -12,7 +12,7 @@ import com.canaryshop.canaryshop.entities.Order;
 public interface OrderMapper {
 
     @Mapping(source = "user", target = "user")
-    @Mapping(source = "products", target = "orderProducts")
+    @Mapping(source = "products", target = "products")
     OrderDTO toDTO(Order o);
 
     OrderBasicDTO toBasicDTO(Order o);
@@ -23,5 +23,4 @@ public interface OrderMapper {
     @Mapping(target = "products", ignore = true)
     @Mapping(target = "isClosed", ignore = true)
     Order toDomain(OrderBasicDTO o);
-
 }

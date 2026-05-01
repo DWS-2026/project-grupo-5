@@ -24,7 +24,7 @@ public class Order {
     public Order() {
     }
 
-    public boolean isClosed() {
+    public boolean getIsClosed() {
         return this.isClosed;
     }
 

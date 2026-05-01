@@ -13,7 +13,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 
-
 @Controller
 public class OrderManager {
 
@@ -22,7 +21,7 @@ public class OrderManager {
 
     @Autowired
     private UserService userService;
-    
+
     @Autowired
     private OrderService os;
 
@@ -36,27 +35,27 @@ public class OrderManager {
     }
 
     @GetMapping("/order/{order_id}")
-    public String serveClosedOrder(Model model, Principal principal, @PathVariable long order_id){
+    public String serveClosedOrder(Model model, Principal principal, @PathVariable long order_id) {
         User user = userService.getUser(principal);
         Order order = os.getOrder(order_id);
-        if (!order.owns(user)){
+        if (!order.owns(user)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User does not own order");
         }
-        if (!order.isClosed()){
+        if (!order.getIsClosed()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order is not closed");
         }
         model.addAttribute("order", order);
         return "cart";
     }
 
-   @PostMapping("/cart/increase/{id}")
+    @PostMapping("/cart/increase/{id}")
     public String increaseItem(@PathVariable long id, Principal principal) {
         User user = userService.getUser(principal);
         Order cart = user.getCart();
         Product product = products.getProduct(id);
-        cart.setProductQuantity(product, cart.getProductQuantity(product)+1);
-        os.addOrder(cart); 
-        userService.addUser(user); 
+        cart.setProductQuantity(product, cart.getProductQuantity(product) + 1);
+        os.addOrder(cart);
+        userService.addUser(user);
         return "redirect:/cart";
     }
 
@@ -65,7 +64,7 @@ public class OrderManager {
         User user = userService.getUser(principal);
         Order cart = user.getCart();
         Product product = products.getProduct(id);
-        cart.setProductQuantity(product, cart.getProductQuantity(product)-1);
+        cart.setProductQuantity(product, cart.getProductQuantity(product) - 1);
         os.addOrder(cart);
         userService.addUser(user);
         return "redirect:/cart";
