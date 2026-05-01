@@ -1,9 +1,12 @@
 package com.canaryshop.canaryshop.controllers.REST;
 
 import com.canaryshop.canaryshop.DTOs.*;
+import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.Review;
+import com.canaryshop.canaryshop.entities.User;
 import com.canaryshop.canaryshop.services.ProductService;
 import com.canaryshop.canaryshop.services.ReviewService;
+import com.canaryshop.canaryshop.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -11,11 +14,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
+import java.security.Principal;
 import java.util.Collection;
 
 @RestController
@@ -29,6 +33,8 @@ public class RestReviewController {
     private ReviewMapper reviewMapper;
     @Autowired
     private ProductMapper productMapper;
+    @Autowired
+    private UserService users;
 
     @Operation(summary = "Get reviews for a given product id")
     @ApiResponses(value = {
@@ -72,5 +78,29 @@ public class RestReviewController {
     @GetMapping("/{pid}/reviews/{rid}")
     public ReviewDTO getReviews(@PathVariable long pid, @PathVariable long rid){
         return reviewMapper.toDTO(reviews.getReview(rid));
+    }
+    @PostMapping("/{id}/reviews")
+    public ResponseEntity<ReviewDTO> addReview(Principal principal, @PathVariable long id, @RequestBody ReviewUploadDTO review){
+        User user = users.getUser(principal);
+        Product product = products.getProduct(id);
+        Review entityReview = reviewMapper.toDomain(review, user);
+        reviews.createReview(entityReview, product);
+        entityReview = product.getReviews().getLast();
+        URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(entityReview.getId()).toUri();
+        return ResponseEntity.created(path).body(reviewMapper.toDTO(entityReview));
+    }
+    @PutMapping("/{productId}/reviews/{reviewId}")
+    public ResponseEntity<ReviewDTO> editReview(Principal principal, @PathVariable long productId, @PathVariable long reviewId, @RequestBody ReviewUploadDTO modification){
+        User user = users.getUser(principal);
+        Review entityReview = reviews.getReview(reviewId);
+        reviews.editReview(user, entityReview, reviewMapper.toDomain(modification, user));
+        return ResponseEntity.ok().body(reviewMapper.toDTO(entityReview));
+    }
+    @DeleteMapping("/{productId}/reviews/{reviewId}")
+    public ResponseEntity<ReviewDTO> deleteReview(Principal principal, @PathVariable long productId, @PathVariable long reviewId){
+        User user = users.getUser(principal);
+        Review entityReview = reviews.getReview(reviewId);
+        reviews.deleteReview(user, entityReview);
+        return ResponseEntity.ok().body(reviewMapper.toDTO(entityReview));
     }
 }

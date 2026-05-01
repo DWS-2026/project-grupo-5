@@ -23,7 +23,7 @@ public class Review {
     private Product product;
 
     
-    protected Review() {}
+    public Review() {}
 
     public Review(User author, String description, Integer rating, String name, List<Image> images) {
         this.author = author;
@@ -78,7 +78,7 @@ public class Review {
         copy.description = review.description;
         copy.rating = review.rating;
         copy.name = review.name;
-        if (!review.images.isEmpty()){
+        if (review.images!=null && !review.images.isEmpty()){
             copy.images = review.images;
         }
         return copy;
