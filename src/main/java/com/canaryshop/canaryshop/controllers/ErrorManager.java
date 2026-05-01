@@ -9,16 +9,19 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-public class ErrorManager implements ErrorController{
+public class ErrorManager implements ErrorController {
 
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request, Model model) {
         Integer statusCode = (Integer) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-        if (statusCode == null){
+        String errorMessage = (String) request.getAttribute(RequestDispatcher.ERROR_MESSAGE);
+        if (statusCode == null) {
             return "redirect:/";
         }
+        model.addAttribute("errorMessage", errorMessage);
+
         HttpStatus status = HttpStatus.valueOf(statusCode);
-        String attribute = switch (status){
+        String attribute = switch (status) {
             case BAD_REQUEST -> "error400";
             case FORBIDDEN -> "error403";
             case NOT_FOUND -> "error404";
@@ -28,5 +31,5 @@ public class ErrorManager implements ErrorController{
         model.addAttribute(attribute, true);
         return "error";
     }
-    
+
 }

@@ -78,6 +78,9 @@
             <button onclick="history.back()" class="btn btn-secondary btn-lg px-4">Volver</button>
         </div>
         {{/errorDefault}}
+        {{#errorMessage}}
+        <h2 class="text-white fw-bold">{{errorMessage}}</h2>
+        {{/errorMessage}}
 
         
     </main>
