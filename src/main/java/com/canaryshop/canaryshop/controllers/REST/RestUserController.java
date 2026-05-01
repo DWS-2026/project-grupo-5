@@ -31,58 +31,59 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-
 @RestController
 @RequestMapping("/api/v1/users")
 public class RestUserController {
     @Autowired
-    UserService users;
+    private UserService users;
     @Autowired
-    UserMapper userMapper;
+    private UserMapper userMapper;
     @Autowired
-    ProductMapper productMapper;
+    private ProductMapper productMapper;
     @Autowired
-    ProductService productService;
+    private ProductService productService;
     @Autowired
-    ReviewService reviewService;
+    private ReviewService reviewService;
     @Autowired
-    ReviewMapper reviewMapper;
+    private ReviewMapper reviewMapper;
     @Autowired
-    OrderMapper orderMapper;
+    private OrderMapper orderMapper;
 
     @PostMapping("/")
-    public ResponseEntity<UserBasicDTO> register(@RequestBody UserLoginDTO user){
+    public ResponseEntity<UserBasicDTO> register(@RequestBody UserLoginDTO user) {
         users.addUser(userMapper.toDomain(user));
         User entityUser = users.getUser(user.email());
-        URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(entityUser.getId()).toUri();
+        URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(entityUser.getId())
+                .toUri();
         return ResponseEntity.created(path).body(userMapper.toBasicDTO(entityUser));
     }
+
     @GetMapping("/{id}")
     public UserDTO getUser(@PathVariable long id) {
         return userMapper.toDTO(users.findById(id));
     }
+
     @GetMapping("/")
     public Page<UserBasicDTO> getAllUsers(Pageable pageable) {
-        return users.getPageUser(null,pageable).map(userMapper::toBasicDTO);
+        return users.getPageUser(null, pageable).map(userMapper::toBasicDTO);
     }
+
     @GetMapping("/{id}/products")
     public Page<ProductDTO> getProductsByUser(@PathVariable long id, Pageable pageable) {
 
         return productService.getProductsByVendor(id, pageable).map(productMapper::toDTO);
     }
+
     @GetMapping("/{id}/reviews")
     public Page<ReviewDTO> getReviewsByUser(@PathVariable long id, Pageable pageable) {
         User u = this.users.findById(id);
         return this.reviewService.getReviewsByAuthor(u, pageable).map(reviewMapper::toDTO);
     }
+
     @GetMapping("/{id}/orders")
     public List<OrderBasicDTO> getOrdersFromAnUser(@PathVariable long id) {
         User u = this.users.findById(id);
         return this.orderMapper.toDTOs(u.getOrders());
     }
-    
-    
-    
+
 }
-    
