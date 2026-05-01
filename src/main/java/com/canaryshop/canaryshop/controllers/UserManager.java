@@ -92,12 +92,9 @@ public class UserManager {
             Principal principal) {
         User user = this.userService.findById(id);
         User currentUser = userService.getUser(principal);
-        if (!user.canEdit(currentUser)) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User cannot modify this user");
-        }
         user.setEmail(email);
         user.setUsername(userName);
-        this.userService.addUser(user);
+        this.userService.updateUser(currentUser, user);
         return "redirect:/user/" + id;
     }
 
@@ -107,10 +104,7 @@ public class UserManager {
             throws ServletException {
         User user = userService.findById(id);
         User currentUser = userService.getUser(principal);
-        if (!user.canEdit(currentUser)) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User cannot modify this user");
-        }
-        userService.deleteUser(id);
+        userService.deleteUser(currentUser, user);
         if (currentUser.getId().equals(id)) {
             request.logout();
         }

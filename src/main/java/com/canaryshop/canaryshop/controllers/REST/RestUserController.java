@@ -10,6 +10,7 @@ import com.canaryshop.canaryshop.DTOs.UserBasicDTO;
 import com.canaryshop.canaryshop.DTOs.UserDTO;
 import com.canaryshop.canaryshop.DTOs.UserLoginDTO;
 import com.canaryshop.canaryshop.DTOs.UserMapper;
+import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.User;
 import com.canaryshop.canaryshop.services.ProductService;
 import com.canaryshop.canaryshop.services.ReviewService;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,9 +29,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -84,6 +88,23 @@ public class RestUserController {
     public List<OrderBasicDTO> getOrdersFromAnUser(@PathVariable long id) {
         User u = this.users.findById(id);
         return this.orderMapper.toDTOs(u.getOrders());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<UserDTO> deleteUser(Principal principal, @PathVariable long id) {
+        User currentUser = users.getUser(principal);
+        User user = users.findById(id);
+        this.users.deleteUser(currentUser, user);
+        return ResponseEntity.ok(userMapper.toDTO(user));
+    }
+
+    @PutMapping("/")
+    public ResponseEntity<UserBasicDTO> putMethodName(@RequestBody UserBasicDTO user,
+            Principal principal) {
+        User currentUser = this.users.getUser(principal);
+        User u = this.userMapper.toDomainID(user);
+        this.users.updateUser(currentUser, u);
+        return ResponseEntity.ok(user);
     }
 
 }
