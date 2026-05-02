@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
-import java.security.Principal;
-
 @Controller
 public class OrderManager {
 
@@ -49,8 +47,8 @@ public class OrderManager {
     }
 
     @PostMapping("/cart/increase/{id}")
-    public String increaseItem(@PathVariable long id, Principal principal) {
-        User user = userService.getUser(principal);
+    public String increaseItem(@PathVariable long id, @AuthenticationPrincipal UserDetails userDetails) {
+        User user = userService.getUser(userDetails.getUsername());
         Order cart = user.getCart();
         Product product = products.getProduct(id);
         cart.setProductQuantity(product, cart.getProductQuantity(product) + 1);
@@ -60,8 +58,8 @@ public class OrderManager {
     }
 
     @PostMapping("/cart/decrease/{id}")
-    public String decreaseItem(@PathVariable long id, Principal principal) {
-        User user = userService.getUser(principal);
+    public String decreaseItem(@PathVariable long id, @AuthenticationPrincipal UserDetails userDetails) {
+        User user = userService.getUser(userDetails.getUsername());
         Order cart = user.getCart();
         Product product = products.getProduct(id);
         cart.setProductQuantity(product, cart.getProductQuantity(product) - 1);

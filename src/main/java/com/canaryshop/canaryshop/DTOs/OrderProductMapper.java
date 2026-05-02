@@ -10,16 +10,13 @@ import com.canaryshop.canaryshop.entities.OrderProduct;
 
 @Mapper(componentModel = "spring")
 public interface OrderProductMapper {
-    @Mapping(source = "order", target = "order")
+
     @Mapping(source = "product", target = "product")
     OrderProductDTO toDTO(OrderProduct op);
 
-    OrderProductBasicDTO toBasicDTO(OrderProduct op);
-
-    List<OrderProductBasicDTO> toDTOs(Collection<OrderProduct> orderProducts);
+    List<OrderProductDTO> toDTOs(Collection<OrderProduct> orderProducts);
 
     @Mapping(target = "order", ignore = true)
-    @Mapping(target = "product", ignore = true)
-    OrderProduct toDomain(OrderProductBasicDTO op);
+    OrderProduct toDomain(OrderProductDTO op);
 
 }

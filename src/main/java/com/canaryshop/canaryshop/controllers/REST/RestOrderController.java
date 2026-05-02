@@ -23,6 +23,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/v1/orders")
@@ -74,6 +75,17 @@ public class RestOrderController {
         User u = userService.getUser(userDetails.getUsername());
         return this.orderProductService.getPageOrderProductsByOrder(id, pageable, u)
                 .map(orderProductMapper::toBasicDTO);
+    }
+
+    @Operation(summary = "Get the cart from an user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the cart of the user", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Could not found the user", content = @Content)
+    })
+    @GetMapping("/cart")
+    public OrderDTO getCart(@AuthenticationPrincipal UserDetails userDetails) {
+        User u = userService.getUser(userDetails.getUsername());
+        return orderMapper.toDTO(u.getCart());
     }
 
 }

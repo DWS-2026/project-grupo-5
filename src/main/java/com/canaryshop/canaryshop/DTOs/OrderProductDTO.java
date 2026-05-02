@@ -1,8 +1,7 @@
 package com.canaryshop.canaryshop.DTOs;
 
 public record OrderProductDTO(
-        Long id,
-        int quantity,
-        ProductSummaryDTO product,
-        OrderBasicDTO order) {
+                Long id,
+                int quantity,
+                ProductSummaryDTO product) {
 }
