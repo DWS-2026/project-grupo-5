@@ -6,7 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.OrderProduct;
@@ -23,8 +26,13 @@ public class OrderService {
     @Autowired
     private ProductService productService;
 
-    public Order getOrder(long id) {
-        return orderRepository.findById(id).orElseThrow();
+    public Order getOrder(long id, User u) {
+        Order o = orderRepository.findById(id).orElseThrow();
+        if (!u.getOrders().contains(o)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "This user can not access to this order");
+        }
+        return o;
     }
 
     public void addOrder(Order o) {
@@ -83,7 +91,7 @@ public class OrderService {
         return this.orderRepository.findAll();
     }
 
-    public Page<Order> getPageOrders(Pageable pageable) {
-        return this.orderRepository.findAll(pageable);
+    public Page<Order> getPageOrders(Pageable pageable, User u) {
+        return this.orderRepository.findByUser(u, pageable);
     }
 }

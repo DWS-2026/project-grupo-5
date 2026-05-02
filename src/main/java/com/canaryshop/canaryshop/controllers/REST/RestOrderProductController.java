@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.canaryshop.canaryshop.DTOs.*;
-import com.canaryshop.canaryshop.DTOs.OrderProductMapper;
 import com.canaryshop.canaryshop.services.OrderProductService;
 
 @RestController

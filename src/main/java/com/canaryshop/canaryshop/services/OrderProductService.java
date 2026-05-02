@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.canaryshop.canaryshop.entities.Order;
 import com.canaryshop.canaryshop.entities.OrderProduct;
+import com.canaryshop.canaryshop.entities.User;
 import com.canaryshop.canaryshop.repositories.OrderProductRepository;
 
 @Service
@@ -30,8 +31,8 @@ public class OrderProductService {
         return orderProductRepository.findById(id).orElseThrow();
     }
 
-    public Page<OrderProduct> getPageOrderProductsByOrder(long id, Pageable pageable) {
-        Order o = this.orderService.getOrder(id);
+    public Page<OrderProduct> getPageOrderProductsByOrder(long id, Pageable pageable, User u) {
+        Order o = this.orderService.getOrder(id, u);
         return this.orderProductRepository.findByOrder(o, pageable);
     }
 }
