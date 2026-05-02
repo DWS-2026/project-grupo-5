@@ -1,24 +1,24 @@
 package com.canaryshop.canaryshop.controllers.REST;
 
-import com.canaryshop.canaryshop.DTOs.OrderBasicDTO;
-import com.canaryshop.canaryshop.DTOs.OrderMapper;
-import com.canaryshop.canaryshop.DTOs.ProductDTO;
-import com.canaryshop.canaryshop.DTOs.ProductMapper;
-import com.canaryshop.canaryshop.DTOs.ReviewDTO;
-import com.canaryshop.canaryshop.DTOs.ReviewMapper;
-import com.canaryshop.canaryshop.DTOs.UserBasicDTO;
-import com.canaryshop.canaryshop.DTOs.UserDTO;
-import com.canaryshop.canaryshop.DTOs.UserLoginDTO;
-import com.canaryshop.canaryshop.DTOs.UserMapper;
-import com.canaryshop.canaryshop.entities.Product;
+import com.canaryshop.canaryshop.DTOs.*;
 import com.canaryshop.canaryshop.entities.User;
 import com.canaryshop.canaryshop.services.ProductService;
 import com.canaryshop.canaryshop.services.ReviewService;
 import com.canaryshop.canaryshop.services.UserService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,10 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.security.Principal;
-import java.util.List;
 
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
@@ -50,8 +47,6 @@ public class RestUserController {
     private ReviewService reviewService;
     @Autowired
     private ReviewMapper reviewMapper;
-    @Autowired
-    private OrderMapper orderMapper;
 
     @PostMapping("/")
     public ResponseEntity<UserBasicDTO> register(@RequestBody UserLoginDTO user) {
@@ -62,46 +57,73 @@ public class RestUserController {
         return ResponseEntity.created(path).body(userMapper.toBasicDTO(entityUser));
     }
 
+    @Operation(summary = "Get an user from the ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found user", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserBasicDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Could not found any user with the ID given", content = @Content)
+    })
     @GetMapping("/{id}")
     public UserDTO getUser(@PathVariable long id) {
         return userMapper.toDTO(users.findById(id));
     }
 
+    @Operation(summary = "Get all users")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found users", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = UserBasicDTO.class)))),
+            @ApiResponse(responseCode = "404", description = "Could not found any user", content = @Content)
+    })
     @GetMapping("/")
     public Page<UserBasicDTO> getAllUsers(Pageable pageable) {
         return users.getPageUser(null, pageable).map(userMapper::toBasicDTO);
     }
 
+    @Operation(summary = "Get all products from an user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found products from an user", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ProductDTO.class)))),
+            @ApiResponse(responseCode = "404", description = "Either could not find products from the user id, or the user has no products", content = @Content)
+    })
     @GetMapping("/{id}/products")
     public Page<ProductDTO> getProductsByUser(@PathVariable long id, Pageable pageable) {
 
         return productService.getProductsByVendor(id, pageable).map(productMapper::toDTO);
     }
 
+    @Operation(summary = "Get all reviews from an user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found reviews from an user", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ReviewDTO.class)))),
+            @ApiResponse(responseCode = "404", description = "Either no reviews could be found for the user ID, or the user has not uploaded any reviews", content = @Content)
+    })
     @GetMapping("/{id}/reviews")
     public Page<ReviewDTO> getReviewsByUser(@PathVariable long id, Pageable pageable) {
         User u = this.users.findById(id);
         return this.reviewService.getReviewsByAuthor(u, pageable).map(reviewMapper::toDTO);
     }
 
-    @GetMapping("/{id}/orders")
-    public List<OrderBasicDTO> getOrdersFromAnUser(@PathVariable long id) {
-        User u = this.users.findById(id);
-        return this.orderMapper.toDTOs(u.getOrders());
-    }
-
+    @Operation(summary = "Delete an user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User has been deleted", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class))),
+            @ApiResponse(responseCode = "404", description = "There is no user with the given ID", content = @Content),
+            @ApiResponse(responseCode = "403", description = "The user does not have the required permissions to delete this user", content = @Content)
+    })
     @DeleteMapping("/{id}")
-    public ResponseEntity<UserDTO> deleteUser(Principal principal, @PathVariable long id) {
-        User currentUser = users.getUser(principal);
+    public ResponseEntity<UserDTO> deleteUser(@AuthenticationPrincipal UserDetails userDetails, @PathVariable long id) {
+        User currentUser = users.getUser(userDetails.getUsername());
         User user = users.findById(id);
         this.users.deleteUser(currentUser, user);
         return ResponseEntity.ok(userMapper.toDTO(user));
     }
 
+    @Operation(summary = "Update an user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User has been updated", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserBasicDTO.class))),
+            @ApiResponse(responseCode = "404", description = "There is no user with the given ID", content = @Content),
+            @ApiResponse(responseCode = "403", description = "You do not have permission to update the user", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Invalid request body", content = @Content)
+    })
     @PutMapping("/")
     public ResponseEntity<UserBasicDTO> putMethodName(@RequestBody UserBasicDTO user,
-            Principal principal) {
-        User currentUser = this.users.getUser(principal);
+            @AuthenticationPrincipal UserDetails userDetails) {
+        User currentUser = this.users.getUser(userDetails.getUsername());
         User u = this.userMapper.toDomainID(user);
         this.users.updateUser(currentUser, u);
         return ResponseEntity.ok(user);
