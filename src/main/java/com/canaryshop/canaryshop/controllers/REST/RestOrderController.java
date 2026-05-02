@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.canaryshop.canaryshop.DTOs.*;
 import com.canaryshop.canaryshop.entities.User;
-import com.canaryshop.canaryshop.services.OrderProductService;
 import com.canaryshop.canaryshop.services.OrderService;
 import com.canaryshop.canaryshop.services.UserService;
 
@@ -36,8 +35,6 @@ public class RestOrderController {
     private OrderProductMapper orderProductMapper;
     @Autowired
     private UserMapper userMapper;
-    @Autowired
-    private OrderProductService orderProductService;
 
     @Autowired
     private UserService userService;
@@ -66,15 +63,15 @@ public class RestOrderController {
 
     @Operation(summary = "Get the products from an order by its ID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found the products from the order", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OrderProductBasicDTO.class)))),
+            @ApiResponse(responseCode = "200", description = "Found the products from the order", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OrderProductDTO.class)))),
             @ApiResponse(responseCode = "404", description = "Could not found any products by the ID from the order", content = @Content)
     })
     @GetMapping("/{id}/products")
-    public Page<OrderProductBasicDTO> getOrderProductsByOrder(@AuthenticationPrincipal UserDetails userDetails,
+    public Page<OrderProductDTO> getOrderProductsByOrder(@AuthenticationPrincipal UserDetails userDetails,
             @PathVariable long id, Pageable pageable) {
         User u = userService.getUser(userDetails.getUsername());
-        return this.orderProductService.getPageOrderProductsByOrder(id, pageable, u)
-                .map(orderProductMapper::toBasicDTO);
+        return this.orderService.getPageOrderProductsByOrder(id, pageable, u)
+                .map(orderProductMapper::toDTO);
     }
 
     @Operation(summary = "Get the cart from an user")

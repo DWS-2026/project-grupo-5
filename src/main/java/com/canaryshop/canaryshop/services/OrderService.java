@@ -8,13 +8,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.OrderProduct;
 import com.canaryshop.canaryshop.entities.Order;
 import com.canaryshop.canaryshop.entities.User;
+import com.canaryshop.canaryshop.repositories.OrderProductRepository;
 import com.canaryshop.canaryshop.repositories.OrderRepository;
 
 @Service
@@ -25,6 +25,8 @@ public class OrderService {
     private UserService userService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private OrderProductRepository orderProductRepository;
 
     public Order getOrder(long id, User u) {
         Order o = orderRepository.findById(id).orElseThrow();
@@ -93,5 +95,10 @@ public class OrderService {
 
     public Page<Order> getPageOrders(Pageable pageable, User u) {
         return this.orderRepository.findByUser(u, pageable);
+    }
+
+    public Page<OrderProduct> getPageOrderProductsByOrder(long id, Pageable pageable, User u) {
+        Order o = this.getOrder(id, u);
+        return this.orderProductRepository.findByOrder(o, pageable);
     }
 }
