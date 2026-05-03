@@ -7,6 +7,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
+
     @Mapping(source = "productImages", target = "images")
     ProductDTO toDTO(Product product);
 
@@ -16,4 +17,5 @@ public interface ProductMapper {
     @Mapping(target = "productImages", ignore = true)
     @Mapping(target = "reported", ignore = true)
     Product toDomain(ProductUploadDTO product, User user);
+    ProductReportDTO toReportProductDTO(Product Product);
 }

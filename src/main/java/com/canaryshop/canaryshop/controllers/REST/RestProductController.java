@@ -20,9 +20,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -220,5 +224,19 @@ public class RestProductController {
         Image image = imageService.getImageEntity(imageId);
         productService.deleteImage(user, product, image);
         return ResponseEntity.ok().body(imageMapper.toDTO(image));
+    }
+     @PostMapping("/{id}/{report}")
+    public ResponseEntity<ProductSummaryDTO> postMethodName(@PathVariable long id,@PathVariable String report) {
+        Product product = productService.getProduct(id);
+        product.report(report);
+        return ResponseEntity.ok(mapper.toSummaryDTO(product));
+    }
+    @GetMapping("/reports")
+    public Page<ProductReportDTO> getMethodName(@AuthenticationPrincipal UserDetails ud, Pageable pageable) {
+        User user = this.users.getUser(ud.getUsername());
+        if(!user.getRoles().contains("ADMIN")){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User is not admin");
+        }
+        return productService.getReportedProducts(null,null,pageable).map(mapper::toReportProductDTO);
     }
 }
