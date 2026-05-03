@@ -29,27 +29,32 @@ public class SecurityConfiguration {
 	private UnauthorizedHandlerJwt unauthorizedHandlerJwt;
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
-    @Autowired
-    private RepositoryUserDetailsService userDetailService;
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+	@Autowired
+	private RepositoryUserDetailsService userDetailService;
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
 		return authConfig.getAuthenticationManager();
 	}
+
 	@Bean
-	public PolicyFactory enrichedTextSanitizer(){
+	public PolicyFactory enrichedTextSanitizer() {
 		return Sanitizers.FORMATTING;
 	}
-    @Bean
+
+	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailService);
-        authProvider.setPasswordEncoder(passwordEncoder());
+		authProvider.setPasswordEncoder(passwordEncoder());
 		return authProvider;
 	}
-    @Bean
+
+	@Bean
 	@Order(1)
 	public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
 
@@ -60,21 +65,22 @@ public class SecurityConfiguration {
 
 		http.authorizeHttpRequests(authorize -> authorize
 
-						// PRIVATE ENDPOINTS
-						// Images
-						//.requestMatchers(HttpMethod.PUT, "/api/images/*/media").hasRole("USER")
-						//.requestMatchers(HttpMethod.DELETE, "/api/books/*/images/*").hasRole("USER")
-						// Books
-						//.requestMatchers(HttpMethod.POST, "/api/books/**").hasRole("USER")
-						//.requestMatchers(HttpMethod.PUT, "/api/books/**").hasRole("USER")
-						//.requestMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("ADMIN")
-						// Shops
-						//.requestMatchers(HttpMethod.PUT, "/api/shops/**").hasRole("ADMIN")
-						//.requestMatchers(HttpMethod.PUT, "/api/shops/**").hasRole("ADMIN")
-						//.requestMatchers(HttpMethod.DELETE, "/api/shops/**").hasRole("ADMIN")
-						// PUBLIC ENDPOINTS
-						.anyRequest().permitAll()
-		);
+				// PRIVATE ENDPOINTS
+				// Orders
+				.requestMatchers(HttpMethod.GET, "/api/v1/orders/**").hasRole("USER")
+				// Images
+				// .requestMatchers(HttpMethod.PUT, "/api/images/*/media").hasRole("USER")
+				// .requestMatchers(HttpMethod.DELETE, "/api/books/*/images/*").hasRole("USER")
+				// Books
+				// .requestMatchers(HttpMethod.POST, "/api/books/**").hasRole("USER")
+				// .requestMatchers(HttpMethod.PUT, "/api/books/**").hasRole("USER")
+				// .requestMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("ADMIN")
+				// Shops
+				// .requestMatchers(HttpMethod.PUT, "/api/shops/**").hasRole("ADMIN")
+				// .requestMatchers(HttpMethod.PUT, "/api/shops/**").hasRole("ADMIN")
+				// .requestMatchers(HttpMethod.DELETE, "/api/shops/**").hasRole("ADMIN")
+				// PUBLIC ENDPOINTS
+				.anyRequest().permitAll());
 
 		// Disable Form login Authentication
 		http.formLogin(formLogin -> formLogin.disable());
@@ -89,32 +95,37 @@ public class SecurityConfiguration {
 		http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
 		// Add JWT Token filter
-		http.addFilterBefore(new JwtRequestFilter(userDetailService, jwtTokenProvider),UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(new JwtRequestFilter(userDetailService, jwtTokenProvider),
+				UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 	}
+
 	@Bean
-    @Order(2)
+	@Order(2)
 	public SecurityFilterChain WebfilterChain(HttpSecurity http) {
-        http.authenticationProvider(authenticationProvider());
-        http.authorizeHttpRequests(authorize -> {
-                String[] userPages = { "/product/new", "/product/*/edit", "/product/*/delete", "/product/*/review/**", "/cart/**", "/order/**", "/user/*/image", "/user/*/edit", "/user/*/delete", "/logout", "/payment", "/success" };
-                String[] adminPages = { "/admin/**" };
-                for (String page: adminPages) { authorize.requestMatchers(page).hasAnyRole("ADMIN"); }
-                for (String page: userPages) { authorize.requestMatchers(page).authenticated(); }
-                authorize.anyRequest().permitAll();
-            }
-        ).formLogin(formLogin -> formLogin
-            .loginPage("/login")
-            .usernameParameter("email")
-            .defaultSuccessUrl("/")
-            .failureUrl("/loginerror")
-            .permitAll()
-        ).logout(logout -> logout
-            .logoutUrl("/logout")
-            .logoutSuccessUrl("/")
-            .permitAll()
-        );
-        return http.build();
+		http.authenticationProvider(authenticationProvider());
+		http.authorizeHttpRequests(authorize -> {
+			String[] userPages = { "/product/new", "/product/*/edit", "/product/*/delete", "/product/*/review/**",
+					"/cart/**", "/order/**", "/user/*/image", "/user/*/edit", "/user/*/delete", "/logout", "/payment",
+					"/success" };
+			String[] adminPages = { "/admin/**" };
+			for (String page : adminPages) {
+				authorize.requestMatchers(page).hasAnyRole("ADMIN");
+			}
+			for (String page : userPages) {
+				authorize.requestMatchers(page).authenticated();
+			}
+			authorize.anyRequest().permitAll();
+		}).formLogin(formLogin -> formLogin
+				.loginPage("/login")
+				.usernameParameter("email")
+				.defaultSuccessUrl("/")
+				.failureUrl("/loginerror")
+				.permitAll()).logout(logout -> logout
+						.logoutUrl("/logout")
+						.logoutSuccessUrl("/")
+						.permitAll());
+		return http.build();
 	}
 }

@@ -101,4 +101,14 @@ public class OrderService {
         Order o = this.getOrder(id, u);
         return this.orderProductRepository.findByOrder(o, pageable);
     }
+
+    public OrderProduct getOrderProductByProductAndCart(Product p, Order cart) {
+        return this.orderProductRepository.findByProductAndOrder(p, cart).orElseThrow();
+    }
+
+    public void clearOder(Order o) {
+        List<OrderProduct> products = o.getProducts();
+        products.clear();
+        this.orderRepository.save(o);
+    }
 }

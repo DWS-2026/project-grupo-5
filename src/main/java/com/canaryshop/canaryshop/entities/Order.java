@@ -113,4 +113,5 @@ public class Order {
     public void setDiscount(float discount) {
         this.price *= discount;
     }
+
 }
