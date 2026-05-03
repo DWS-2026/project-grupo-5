@@ -72,17 +72,13 @@ public class SecurityConfiguration {
 				.requestMatchers(HttpMethod.DELETE, "/api/v1/orders/**").hasRole("USER")
 				// Payment
 				.requestMatchers(HttpMethod.POST, "/api/v1/payment/**").hasRole("USER")
-				// Images
-				// .requestMatchers(HttpMethod.PUT, "/api/images/*/media").hasRole("USER")
-				// .requestMatchers(HttpMethod.DELETE, "/api/books/*/images/*").hasRole("USER")
-				// Books
-				// .requestMatchers(HttpMethod.POST, "/api/books/**").hasRole("USER")
-				// .requestMatchers(HttpMethod.PUT, "/api/books/**").hasRole("USER")
-				// .requestMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("ADMIN")
-				// Shops
-				// .requestMatchers(HttpMethod.PUT, "/api/shops/**").hasRole("ADMIN")
-				// .requestMatchers(HttpMethod.PUT, "/api/shops/**").hasRole("ADMIN")
-				// .requestMatchers(HttpMethod.DELETE, "/api/shops/**").hasRole("ADMIN")
+				// Products 
+				.requestMatchers(HttpMethod.POST, "/api/v1/products/**").hasRole("USER")
+				.requestMatchers(HttpMethod.DELETE, "/api/v1/products/**").hasRole("USER")
+				.requestMatchers(HttpMethod.PUT, "/api/v1/products/**").hasRole("USER")
+				// Users
+				.requestMatchers(HttpMethod.PUT, "/api/v1/users/**").hasRole("USER")
+				.requestMatchers(HttpMethod.DELETE, "/api/v1/users/**").hasRole("USER")
 				// PUBLIC ENDPOINTS
 				.anyRequest().permitAll());
 

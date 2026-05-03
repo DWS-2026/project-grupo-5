@@ -225,12 +225,51 @@ public class RestProductController {
         productService.deleteImage(user, product, image);
         return ResponseEntity.ok().body(imageMapper.toDTO(image));
     }
+    @Operation(summary = "Get a product from the ID")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Product was successfully reported",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ProductSummaryDTO.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Product was not found",
+                    content = @Content
+            )
+    })
      @PostMapping("/{id}/{report}")
     public ResponseEntity<ProductSummaryDTO> postMethodName(@PathVariable long id,@PathVariable String report) {
         Product product = productService.getProduct(id);
         product.report(report);
         return ResponseEntity.ok(mapper.toSummaryDTO(product));
     }
+    @Operation(summary = "Get reported products")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Reports were successfully earned",
+                    content = @Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema(
+                            schema = @Schema(implementation = ProductReportDTO.class)
+                        )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "User does not have permission to get the reports",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Reported products were not found",
+                    content = @Content
+            )
+    })
     @GetMapping("/reports")
     public Page<ProductReportDTO> getMethodName(@AuthenticationPrincipal UserDetails ud, Pageable pageable) {
         User user = this.users.getUser(ud.getUsername());

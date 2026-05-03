@@ -132,12 +132,51 @@ public class RestUserController {
         this.users.updateUser(currentUser, u);
         return ResponseEntity.ok(user);
     }
+    @Operation(summary = "Report an user from the ID")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "User was successfully reported",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = UserBasicDTO.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "User was not found",
+                    content = @Content
+            )
+    })
     @PostMapping("/{id}/{report}")
     public ResponseEntity <UserBasicDTO> postMethodName(@PathVariable long id,@PathVariable String report) {
         User user = users.findById(id);
         user.report(report);
         return ResponseEntity.ok(userMapper.toBasicDTO(user));
     }
+    @Operation(summary = "Get Reported users")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Reports were successfully earned",
+                    content = @Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema(
+                            schema = @Schema(implementation = UserReportDTO.class)
+                        )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "User does not have permission to get the reports",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Reported users were not found",
+                    content = @Content
+            )
+    })
     @GetMapping("/reports")
     public Page<UserReportDTO> getMethodName(@AuthenticationPrincipal UserDetails ud, Pageable pageable) {
         User user = this.users.getUser(ud.getUsername());
