@@ -38,5 +38,6 @@ public abstract class UserMapper {
     @Mapping(target = "products", ignore = true)
     @Mapping(target = "reported", ignore = true)
     public abstract User toDomainID(UserBasicDTO user);
-
+    @Mapping(target = "reports", source = "reports")
+    public abstract UserReportDTO toReportUserDTO(User user);
 }

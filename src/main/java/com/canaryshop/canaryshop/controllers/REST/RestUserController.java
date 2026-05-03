@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,11 +27,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -128,5 +132,18 @@ public class RestUserController {
         this.users.updateUser(currentUser, u);
         return ResponseEntity.ok(user);
     }
-
+    @PostMapping("/{id}/{report}")
+    public ResponseEntity <UserBasicDTO> postMethodName(@PathVariable long id,@PathVariable String report) {
+        User user = users.findById(id);
+        user.report(report);
+        return ResponseEntity.ok(userMapper.toBasicDTO(user));
+    }
+    @GetMapping("/reports")
+    public Page<UserReportDTO> getMethodName(@AuthenticationPrincipal UserDetails ud, Pageable pageable) {
+        User user = this.users.getUser(ud.getUsername());
+        if(!user.getRoles().contains("ADMIN")){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User is not admin");
+        }
+        return users.getReportedUser(null,pageable).map(userMapper::toReportUserDTO);
+    }
 }
