@@ -114,4 +114,11 @@ public class Order {
         this.price *= discount;
     }
 
+    public int getNumberOfProducts() {
+        if (this.products == null) {
+            return 0;
+        }
+        return this.products.stream().mapToInt(OrderProduct::getQuantity).sum();
+    }
+
 }
