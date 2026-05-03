@@ -82,7 +82,8 @@
                             <hr class="my-4 border-secondary">
                             <input type="hidden" name="_csrf" value="{{token}}">
                             <input type="hidden" name="price" value="{{totalPrice}}">
-                            {{#discount}}<input type="hidden" name="discount" value="{{discount}}">{{/discount}}
+                            {{#code}}<input type="hidden" name="code" value="{{code}}">{{/code}}
+                            {{#productID}}<input type="hidden" name="productID" value="{{productID}}">{{/productID}}
                             <button class="w-100 btn btn-primary btn-lg rounded-pill py-3" type="submit" id="btn-submit">
                                 Confirm & Pay
                             </button>
@@ -117,6 +118,7 @@
                         <div class="input-group">
                             <input type="text" name="code" class="form-control border-0" placeholder="Código Promo">
                             <input type="hidden" name="_csrf" value="{{token}}">
+                            {{#productID}}<input type="hidden" name="productID" value="{{productID}}">{{/productID}}
                             <button type="submit" class="btn btn-secondary">Redeem</button>
                         </div>
                     </form>

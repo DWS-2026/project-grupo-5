@@ -68,6 +68,10 @@ public class SecurityConfiguration {
 				// PRIVATE ENDPOINTS
 				// Orders
 				.requestMatchers(HttpMethod.GET, "/api/v1/orders/**").hasRole("USER")
+				.requestMatchers(HttpMethod.POST, "/api/v1/orders/**").hasRole("USER")
+				.requestMatchers(HttpMethod.DELETE, "/api/v1/orders/**").hasRole("USER")
+				// Payment
+				.requestMatchers(HttpMethod.POST, "/api/v1/payment/**").hasRole("USER")
 				// Images
 				// .requestMatchers(HttpMethod.PUT, "/api/images/*/media").hasRole("USER")
 				// .requestMatchers(HttpMethod.DELETE, "/api/books/*/images/*").hasRole("USER")

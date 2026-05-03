@@ -111,4 +111,17 @@ public class OrderService {
         products.clear();
         this.orderRepository.save(o);
     }
+
+    public Order createTempCart(User user, Long productID) {
+        Order temp = new Order();
+        if (productID != null) {
+            temp.setProductQuantity(this.productService.getProduct(productID), 1);
+            temp.setUser(user);
+        } else {
+            temp = user.getCart();
+            temp = this.renewOrder(temp);
+        }
+
+        return temp;
+    }
 }
