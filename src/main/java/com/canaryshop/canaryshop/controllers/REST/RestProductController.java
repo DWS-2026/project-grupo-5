@@ -22,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -93,6 +94,7 @@ public class RestProductController {
             content = @Content
         )
     })
+    
     @GetMapping("/{id}")
     public ProductDTO getProduct(@PathVariable long id){
         return mapper.toDTO(productService.getProduct(id));
@@ -119,6 +121,7 @@ public class RestProductController {
                     content = @Content
             )
     })
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/")
     public ResponseEntity<ProductDTO> uploadProduct(Principal principal, @RequestBody ProductUploadDTO product){
         User user = users.getUser(principal);
@@ -153,6 +156,7 @@ public class RestProductController {
                     content = @Content
             )
     })
+    @PreAuthorize("isAuthenticated()")
     @PutMapping("/{id}")
     public ResponseEntity<ProductDTO> editProduct(Principal principal, @PathVariable long id, @RequestBody ProductUploadDTO modification){
         User user = users.getUser(principal);
@@ -182,6 +186,7 @@ public class RestProductController {
                     content = @Content
             )
     })
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/{id}")
     public ResponseEntity<ProductDTO> deleteProduct(Principal principal, @PathVariable long id){
         User user = users.getUser(principal);
@@ -195,6 +200,7 @@ public class RestProductController {
         return imageMapper.toDTOs(productService.getProduct(id).getProductImages());
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/{id}/images")
     public ResponseEntity<ImageDTO> uploadImage(Principal principal, @PathVariable long id, @RequestParam MultipartFile imageFile){
         Product product = productService.getProduct(id);
@@ -206,6 +212,7 @@ public class RestProductController {
         return ResponseEntity.created(path).body(imageMapper.toDTO(image));
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PutMapping("/{productId}/images/{imageId}")
     public ResponseEntity<Object> editProductImage(Principal principal, @PathVariable long productId, @PathVariable long imageId, @RequestParam MultipartFile imageFile){
         Product product = productService.getProduct(productId);
@@ -216,6 +223,7 @@ public class RestProductController {
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/{productId}/images/{imageId}")
     public ResponseEntity<ImageDTO> deleteProductImage(Principal principal, @PathVariable long productId, @PathVariable long imageId){
         Product product = productService.getProduct(productId);
@@ -241,7 +249,8 @@ public class RestProductController {
                     content = @Content
             )
     })
-     @PostMapping("/{id}/{report}")
+    
+    @PostMapping("/{id}/{report}")
     public ResponseEntity<ProductSummaryDTO> postMethodName(@PathVariable long id,@PathVariable String report) {
         Product product = productService.getProduct(id);
         product.report(report);
@@ -270,12 +279,10 @@ public class RestProductController {
                     content = @Content
             )
     })
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/reports")
-    public Page<ProductReportDTO> getMethodName(@AuthenticationPrincipal UserDetails ud, Pageable pageable) {
-        User user = this.users.getUser(ud.getUsername());
-        if(!user.getRoles().contains("ADMIN")){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User is not admin");
-        }
+    public Page<ProductReportDTO> getMethodName(Pageable pageable) {
         return productService.getReportedProducts(null,null,pageable).map(mapper::toReportProductDTO);
     }
 }

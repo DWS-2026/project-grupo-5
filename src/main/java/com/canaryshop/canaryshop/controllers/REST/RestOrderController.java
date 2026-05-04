@@ -1,5 +1,6 @@
 package com.canaryshop.canaryshop.controllers.REST;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import java.net.URI;
@@ -101,6 +102,7 @@ public class RestOrderController {
                         @ApiResponse(responseCode = "200", description = "Product have been uploaded", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderProductDTO.class))),
                         @ApiResponse(responseCode = "404", description = "Could not found the product", content = @Content)
         })
+        @PreAuthorize("isAuthenticated()")
         @PostMapping("/cart/increase/{id}")
         public ResponseEntity<OrderProductDTO> addProductToCart(@PathVariable long id,
                         @AuthenticationPrincipal UserDetails userDetails) {
@@ -121,6 +123,7 @@ public class RestOrderController {
                         @ApiResponse(responseCode = "200", description = "Product have been decreased", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderProductDTO.class))),
                         @ApiResponse(responseCode = "404", description = "Could not found the product", content = @Content)
         })
+        @PreAuthorize("isAuthenticated()")
         @PostMapping("/cart/decrease/{id}")
         public ResponseEntity<OrderProductDTO> decreaseProductToCart(@PathVariable long id,
                         @AuthenticationPrincipal UserDetails userDetails) {
@@ -140,7 +143,8 @@ public class RestOrderController {
                         @ApiResponse(responseCode = "200", description = "Product have been deleted from the cart", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderProductDTO.class))),
                         @ApiResponse(responseCode = "404", description = "Could not found the product", content = @Content)
         })
-        @DeleteMapping("/cart/delete/{id}")
+        @PreAuthorize("isAuthenticated()")
+        @DeleteMapping("/cart/{id}")
         public ResponseEntity<OrderProductDTO> removeProductFromCart(@PathVariable long id,
                         @AuthenticationPrincipal UserDetails userDetails) {
                 User u = userService.getUser(userDetails.getUsername());
@@ -159,7 +163,8 @@ public class RestOrderController {
                         @ApiResponse(responseCode = "200", description = "The cart has been cleared", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDTO.class))),
                         @ApiResponse(responseCode = "404", description = "Could not found the cart", content = @Content)
         })
-        @DeleteMapping("/cart/delete")
+        @PreAuthorize("isAuthenticated()")
+        @DeleteMapping("/cart")
         public ResponseEntity<OrderDTO> clearCart(@AuthenticationPrincipal UserDetails userDetails) {
                 User u = userService.getUser(userDetails.getUsername());
                 Order cart = u.getCart();

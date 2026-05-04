@@ -18,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,7 +34,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -52,6 +52,7 @@ public class RestUserController {
     @Autowired
     private ReviewMapper reviewMapper;
 
+    @PreAuthorize("isAnonymous()")
     @PostMapping("/")
     public ResponseEntity<UserBasicDTO> register(@RequestBody UserLoginDTO user) {
         users.addUser(userMapper.toDomain(user));
@@ -109,6 +110,7 @@ public class RestUserController {
             @ApiResponse(responseCode = "404", description = "There is no user with the given ID", content = @Content),
             @ApiResponse(responseCode = "403", description = "The user does not have the required permissions to delete this user", content = @Content)
     })
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/{id}")
     public ResponseEntity<UserDTO> deleteUser(@AuthenticationPrincipal UserDetails userDetails, @PathVariable long id) {
         User currentUser = users.getUser(userDetails.getUsername());
@@ -124,6 +126,7 @@ public class RestUserController {
             @ApiResponse(responseCode = "403", description = "You do not have permission to update the user", content = @Content),
             @ApiResponse(responseCode = "400", description = "Invalid request body", content = @Content)
     })
+    @PreAuthorize("isAuthenticated()")
     @PutMapping("/")
     public ResponseEntity<UserBasicDTO> putMethodName(@RequestBody UserBasicDTO user,
             @AuthenticationPrincipal UserDetails userDetails) {
@@ -177,12 +180,13 @@ public class RestUserController {
                     content = @Content
             )
     })
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/reports")
     public Page<UserReportDTO> getMethodName(@AuthenticationPrincipal UserDetails ud, Pageable pageable) {
         User user = this.users.getUser(ud.getUsername());
         if(!user.getRoles().contains("ADMIN")){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User is not admin");
         }
-        return users.getReportedUser(null,pageable).map(userMapper::toReportUserDTO);
+        return users.getReportedUser(null,pageable).map(userMapper::toUserReportDTO);
     }
 }

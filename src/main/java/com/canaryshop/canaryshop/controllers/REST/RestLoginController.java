@@ -6,6 +6,7 @@ import com.canaryshop.canaryshop.Security.jwt.UserLoginService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,6 +15,7 @@ public class RestLoginController {
     @Autowired
     UserLoginService userService;
 
+    @PreAuthorize("isAnonymous()")
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request, HttpServletResponse response){
         return userService.login(response, request);
@@ -24,6 +26,7 @@ public class RestLoginController {
         return userService.refresh(response, refreshToken);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/logout")
     public ResponseEntity<AuthResponse> logout(HttpServletResponse response){
         return ResponseEntity.ok(new AuthResponse(AuthResponse.Status.SUCCESS, userService.logout(response)));

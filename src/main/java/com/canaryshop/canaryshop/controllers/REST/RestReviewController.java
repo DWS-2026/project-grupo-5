@@ -13,8 +13,10 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -23,6 +25,7 @@ import java.security.Principal;
 import java.util.Collection;
 
 @RestController
+@Tag(name="Reviews", description = "Endpoints related to manipulating product reviews")
 @RequestMapping("/api/v1/products")
 public class RestReviewController {
     @Autowired
@@ -31,8 +34,6 @@ public class RestReviewController {
     private ReviewService reviews;
     @Autowired
     private ReviewMapper reviewMapper;
-    @Autowired
-    private ProductMapper productMapper;
     @Autowired
     private UserService users;
 
@@ -106,6 +107,7 @@ public class RestReviewController {
                     content = @Content
             )
     })
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/{id}/reviews")
     public ResponseEntity<ReviewDTO> addReview(Principal principal, @PathVariable long id, @RequestBody ReviewUploadDTO review){
         User user = users.getUser(principal);
@@ -143,6 +145,7 @@ public class RestReviewController {
                     content = @Content
             )
     })
+    @PreAuthorize("isAuthenticated()")
     @PutMapping("/{productId}/reviews/{reviewId}")
     public ResponseEntity<ReviewDTO> editReview(Principal principal, @PathVariable long productId, @PathVariable long reviewId, @RequestBody ReviewUploadDTO modification){
         User user = users.getUser(principal);
@@ -172,6 +175,7 @@ public class RestReviewController {
                     content = @Content
             )
     })
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/{productId}/reviews/{reviewId}")
     public ResponseEntity<ReviewDTO> deleteReview(Principal principal, @PathVariable long productId, @PathVariable long reviewId){
         User user = users.getUser(principal);
