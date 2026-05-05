@@ -203,11 +203,8 @@ public class RestReviewController {
     }
     
     @PostMapping("/reviews/{rid}/files")
-    public ResponseEntity<?> postMethodName(@PathVariable long rid, @RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> postFile(@PathVariable long rid, @RequestParam("file") MultipartFile file) {
 
-        if (file.isEmpty()){
-                return ResponseEntity.badRequest().body("File is empty");
-        }
         return reviewRepository.findById(rid).map(review -> {
                 fileService.storeFile(file);
                 reviews.addFile(review, file.getOriginalFilename());

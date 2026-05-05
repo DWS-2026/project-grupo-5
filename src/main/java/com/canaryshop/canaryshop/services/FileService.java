@@ -5,7 +5,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.util.StringUtils;
 
+import java.util.Objects;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -23,7 +25,12 @@ public class FileService {
     }
 
     public void storeFile(MultipartFile file) {
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         try {
+            if (fileName.contains("..")) {
+                throw new RuntimeException("Invalid file path: " + fileName);
+            }
+
             if (!Files.exists(rootLocation)) {
                 Files.createDirectories(rootLocation);
             }
