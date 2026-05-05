@@ -18,7 +18,6 @@ public class FileService {
 
     private final Path rootLocation;
 
-    // Usamos la propiedad que tienes en application.properties
     public FileService(@Value("${file.upload-dir}") String uploadDir) {
         this.rootLocation = Paths.get(uploadDir);
     }
