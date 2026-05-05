@@ -4,6 +4,7 @@ import com.canaryshop.canaryshop.DTOs.*;
 import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.Review;
 import com.canaryshop.canaryshop.entities.User;
+import com.canaryshop.canaryshop.repositories.ReviewRepository;
 import com.canaryshop.canaryshop.services.ProductService;
 import com.canaryshop.canaryshop.services.ReviewService;
 import com.canaryshop.canaryshop.services.UserService;
@@ -19,20 +20,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.core.io.Resource;
 
 import java.net.URI;
 import java.security.Principal;
 import java.util.Collection;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
 @Tag(name="Reviews", description = "Endpoints related to manipulating product reviews")
 @RequestMapping("/api/v1/products")
 public class RestReviewController {
+    private final ReviewRepository reviewRepository;
     @Autowired
     private ProductService products;
     @Autowired
@@ -43,6 +44,10 @@ public class RestReviewController {
     private UserService users;
     @Autowired
     private FileService fileService;
+
+    RestReviewController(ReviewRepository reviewRepository) {
+        this.reviewRepository = reviewRepository;
+    }
 
     @Operation(summary = "Get reviews for a given product id")
     @ApiResponses(value = {
@@ -192,12 +197,20 @@ public class RestReviewController {
     }
 
     @GetMapping("/reviews/{rid}/files/{filename}")
-    public ResponseEntity<Resource> getFile(@PathVariable String filename) {
+    public ResponseEntity<Resource> getFile(@PathVariable String filename, @PathVariable long rid){
         Resource file = fileService.loadFile(filename);
         return ResponseEntity.ok().body(file);
     }
-
-
     
+    @PostMapping("/reviews/{rid}/files")
+    public ResponseEntity<?> postFile(@PathVariable long rid, @RequestParam("file") MultipartFile file) {
 
+        return reviewRepository.findById(rid).map(review -> {
+                fileService.storeFile(file);
+                reviews.addFile(review, file.getOriginalFilename());
+                return ResponseEntity.ok().body("File uploaded successfully");
+
+        }).orElseGet(() -> ResponseEntity.notFound().build());
+    }
 }
+

@@ -22,6 +22,8 @@ public class Review {
     @ManyToOne
     private Product product;
 
+    private List<String> files;
+
     
     public Review() {}
 
@@ -98,5 +100,12 @@ public class Review {
     public void setName(String name) {
         this.name = name;
     }
-    
+
+    public List<String> getFiles() {
+        return files;
+    }
+    public void setFiles(List<String> files) {
+        this.files = files;
+    }
+
 }

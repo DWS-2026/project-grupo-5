@@ -82,4 +82,14 @@ public class ReviewService {
     public Page<Review> getReviewsByAuthor(User u, Pageable page){
         return this.reviews.findByAuthor(u, page);
     }
+
+    public void addFile(Review review, String fileName){
+        List<String> files = review.getFiles();
+        if (files == null){
+            files = new java.util.LinkedList<>();
+        }
+        files.add(fileName);
+        review.setFiles(files);
+        reviews.save(review);
+    }
 }
