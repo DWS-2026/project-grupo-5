@@ -7,6 +7,7 @@ import com.canaryshop.canaryshop.entities.User;
 import com.canaryshop.canaryshop.services.ProductService;
 import com.canaryshop.canaryshop.services.ReviewService;
 import com.canaryshop.canaryshop.services.UserService;
+import com.canaryshop.canaryshop.services.FileService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -19,10 +20,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.core.io.Resource;
 
 import java.net.URI;
 import java.security.Principal;
 import java.util.Collection;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @Tag(name="Reviews", description = "Endpoints related to manipulating product reviews")
@@ -36,6 +41,8 @@ public class RestReviewController {
     private ReviewMapper reviewMapper;
     @Autowired
     private UserService users;
+    @Autowired
+    private FileService fileService;
 
     @Operation(summary = "Get reviews for a given product id")
     @ApiResponses(value = {
@@ -183,4 +190,14 @@ public class RestReviewController {
         reviews.deleteReview(user, entityReview);
         return ResponseEntity.ok().body(reviewMapper.toDTO(entityReview));
     }
+
+    @GetMapping("/reviews/{rid}/files/{filename}")
+    public ResponseEntity<Resource> getFile(@PathVariable String filename) {
+        Resource file = fileService.loadFile(filename);
+        return ResponseEntity.ok().body(file);
+    }
+
+
+    
+
 }
