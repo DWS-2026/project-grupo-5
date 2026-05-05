@@ -92,4 +92,14 @@ public class ReviewService {
         review.setFiles(files);
         reviews.save(review);
     }
+
+        public void removeFile(Review review, String fileName){
+            List<String> files = review.getFiles();
+            if (files == null || !files.contains(fileName)){
+                throw new NoSuchElementException();
+            }
+            files.remove(fileName);
+            review.setFiles(files);
+            reviews.save(review);
+        }
 }

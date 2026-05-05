@@ -79,4 +79,13 @@ public String storeFile(MultipartFile file) {
             throw new RuntimeException("Error: " + e.getMessage());
         }
     }
+
+    public void deleteFile(String fileName) {
+        try {
+            Path file = rootLocation.resolve(fileName);
+            Files.deleteIfExists(file);
+        } catch (IOException e) {
+            throw new RuntimeException("Error deleting file: " + e.getMessage());
+        }
+    }
 }

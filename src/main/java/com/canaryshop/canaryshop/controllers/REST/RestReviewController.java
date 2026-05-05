@@ -210,5 +210,17 @@ public class RestReviewController {
 
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }  
+
+
+    @DeleteMapping("/reviews/{rid}/files/{filename}")
+    public ResponseEntity<?> deleteFile(@PathVariable long rid, @PathVariable String filename){
+        return Optional.ofNullable(reviews.getReview(rid)).map(review -> {
+                fileService.deleteFile(filename);
+                reviews.removeFile(review, filename);
+                return ResponseEntity.ok().body("File deleted successfully");
+
+        }).orElseGet(() -> ResponseEntity.notFound().build());
+
+    }  
 }
 
