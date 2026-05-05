@@ -77,12 +77,8 @@ public class UserManager {
     public String postMethodName(@RequestParam MultipartFile image, @PathVariable long id, Principal principal) {
         User user = userService.findById(id);
         User currentUser = userService.getUser(principal);
-        if (!user.canEdit(currentUser)) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User cannot modify this user");
-        }
         Image img = this.imageService.createImage(image);
-        user.setImage(img);
-        this.userService.addUser(user);
+        this.userService.updateUserImage(currentUser, user, img);
         return "redirect:/user/" + id;
     }
 

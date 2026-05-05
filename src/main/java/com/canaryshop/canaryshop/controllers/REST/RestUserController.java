@@ -1,7 +1,9 @@
 package com.canaryshop.canaryshop.controllers.REST;
 
 import com.canaryshop.canaryshop.DTOs.*;
+import com.canaryshop.canaryshop.entities.Image;
 import com.canaryshop.canaryshop.entities.User;
+import com.canaryshop.canaryshop.services.ImageService;
 import com.canaryshop.canaryshop.services.ProductService;
 import com.canaryshop.canaryshop.services.ReviewService;
 import com.canaryshop.canaryshop.services.UserService;
@@ -27,7 +29,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -51,6 +55,10 @@ public class RestUserController {
     private ReviewService reviewService;
     @Autowired
     private ReviewMapper reviewMapper;
+    @Autowired
+    private ImageService imageService;
+    @Autowired
+    private ImageMapper imageMapper;
 
     @PreAuthorize("isAnonymous()")
     @PostMapping("/")
@@ -61,6 +69,7 @@ public class RestUserController {
                 .toUri();
         return ResponseEntity.created(path).body(userMapper.toBasicDTO(entityUser));
     }
+
 
     @Operation(summary = "Get an user from the ID")
     @ApiResponses(value = {
@@ -128,12 +137,21 @@ public class RestUserController {
     })
     @PreAuthorize("isAuthenticated()")
     @PutMapping("/")
-    public ResponseEntity<UserBasicDTO> putMethodName(@RequestBody UserBasicDTO user,
-            @AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<UserBasicDTO> updateUserEmailorUsername(@RequestBody UserBasicDTO user,@AuthenticationPrincipal UserDetails userDetails) {
         User currentUser = this.users.getUser(userDetails.getUsername());
         User u = this.userMapper.toDomainID(user);
         this.users.updateUser(currentUser, u);
         return ResponseEntity.ok(user);
+    }
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/{id}/image")
+    public ResponseEntity<ImageDTO> updateUserImage(@PathVariable Long id,@AuthenticationPrincipal UserDetails userDetails,@RequestParam MultipartFile imageFile) {
+        User currentUser = this.users.getUser(userDetails.getUsername());
+        User user = this.users.findById(id);
+        Image image = this.imageService.createImage(imageFile);
+        users.updateUserImage(currentUser, user, image);
+        URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(image.getId()).toUri();
+        return ResponseEntity.created(path).body(imageMapper.toDTO(image));
     }
     @Operation(summary = "Report an user from the ID")
     @ApiResponses({
@@ -151,6 +169,7 @@ public class RestUserController {
                     content = @Content
             )
     })
+    @PreAuthorize("\"isAuthenticated()\"")
     @PostMapping("/{id}/{report}")
     public ResponseEntity <UserBasicDTO> postMethodName(@PathVariable long id,@PathVariable String report) {
         User user = users.findById(id);
@@ -183,10 +202,6 @@ public class RestUserController {
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/reports")
     public Page<UserReportDTO> getMethodName(@AuthenticationPrincipal UserDetails ud, Pageable pageable) {
-        User user = this.users.getUser(ud.getUsername());
-        if(!user.getRoles().contains("ADMIN")){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User is not admin");
-        }
         return users.getReportedUser(null,pageable).map(userMapper::toUserReportDTO);
     }
 }
