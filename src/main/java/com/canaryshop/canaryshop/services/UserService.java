@@ -77,20 +77,11 @@ public class UserService {
         return repo.findByEmail(email).orElse(null);
     }
 
+    public User findByUsername(String username){
+        return this.repo.findByUsername(username).orElse(null);
+    }
+
     public void updateUser(User currentUser, User user) {
-        this.modifyCheck(currentUser, user);
-        // Verify if the email is already in use.
-        User emailVerf = this.findByEmail(user.getEmail());
-        if (emailVerf != null && user.getId() != emailVerf.getId()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "This email is already registered. Please use a different one.");
-        }
-        // Verify if the username is already in use.
-        User nameVerf = this.repo.findByUsername(user.getUsername()).orElse(null);
-        if (nameVerf != null && user.getId() != nameVerf.getId()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "This username is already registered. Please use a different one.");
-        }
         this.modifyCheck(currentUser, user);
         this.repo.save(user);
     }

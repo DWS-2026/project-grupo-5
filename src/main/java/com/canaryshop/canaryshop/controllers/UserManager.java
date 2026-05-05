@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class UserManager {
@@ -37,8 +38,6 @@ public class UserManager {
     private UserService userService;
     @Autowired
     private ProductService productService;
-    @Autowired
-    private ImageService imageService;
     @Autowired
     private PageHandler pageHandler;
 
@@ -84,9 +83,22 @@ public class UserManager {
     // To edit the users
     @PostMapping("/user/{id}/edit")
     public String postMethodName(@RequestParam String userName, @RequestParam String email, @PathVariable long id,
-            Principal principal) {
+            Principal principal, RedirectAttributes redirectAttributes) {
         User user = this.userService.findById(id);
         User currentUser = userService.getUser(principal);
+
+        // Verify if the email is already in use.
+        User emailVerf = this.userService.findByEmail(user.getEmail());
+        if (emailVerf != null && user.getId() != emailVerf.getId()) {
+            redirectAttributes.addFlashAttribute("updateError","This email is already in use");
+            return "redirect:/user/" + id;
+        }
+        // Verify if the username is already in use.
+        User nameVerf = this.userService.findByUsername(user.getUsername());
+        if (nameVerf != null && user.getId() != nameVerf.getId()) {
+            redirectAttributes.addFlashAttribute("updateError","This username is already in use");
+            return "redirect:/user/" + id;
+        }
         user.setEmail(email);
         user.setUsername(userName);
         this.userService.updateUser(currentUser, user);

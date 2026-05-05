@@ -14,12 +14,9 @@ public class ErrorManager implements ErrorController {
     @RequestMapping(value="/error", produces = "text/html")
     public String handleError(HttpServletRequest request, Model model) {
         Integer statusCode = (Integer) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-        String errorMessage = (String) request.getAttribute(RequestDispatcher.ERROR_MESSAGE);
         if (statusCode == null) {
             return "redirect:/";
         }
-        model.addAttribute("errorMessage", errorMessage);
-
         HttpStatus status = HttpStatus.valueOf(statusCode);
         String attribute = switch (status) {
             case BAD_REQUEST -> "error400";
