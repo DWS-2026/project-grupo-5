@@ -8,5 +8,5 @@ public record ReviewDTO(
         String description,
         int rating,
         UserBasicDTO author,
-        List<ImageDTO> images
+        List<String> files
 ) {}

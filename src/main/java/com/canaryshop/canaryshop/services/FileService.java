@@ -5,8 +5,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.util.StringUtils;
 
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,54 +26,46 @@ public class FileService {
         this.rootLocation = Paths.get(uploadDir);
     }
 
-public String storeFile(MultipartFile file) {
-
-    if (file.isEmpty()) {
-        throw new RuntimeException("Failed to store empty file.");
+    private String sanitizeName(String fileName){
+        return fileName.replace("/", "_")
+                .replace("\\", "_")
+                .replace("..", "");
     }
 
-    try {
-
-        String originalName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-        String extension = "";
-        int i = originalName.lastIndexOf('.');
-        if (i > 0) {
-            extension = originalName.substring(i);
+    public String storeFile(MultipartFile file) {
+        if (file==null || file.isEmpty()) {
+            throw new IllegalArgumentException();
         }
-        
-        String newFileName = UUID.randomUUID().toString() + extension;
-
-        Path destinationFile = this.rootLocation.resolve(Paths.get(newFileName))
-                .normalize().toAbsolutePath();
-
-        if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
-            throw new RuntimeException("Cannot store file outside current directory.");
-        }
-
-        if (!Files.exists(rootLocation)) {
+        try {
+            String sanitizedName = sanitizeName(Objects.requireNonNull(file.getOriginalFilename()));
+            Path destination = this.rootLocation.resolve(Paths.get(sanitizedName));
+            if (!destination.getParent().equals(this.rootLocation)) {
+                throw new RuntimeException("Cannot store file outside current directory.");
+            }
             Files.createDirectories(rootLocation);
-        }
+            InputStream fileInputStream = file.getInputStream();
+            if (Files.exists(destination)){
+                sanitizedName = "(%s) ".formatted(UUID.randomUUID()) + sanitizedName;
+                destination = this.rootLocation.resolve(Paths.get(sanitizedName));
+            }
+            Files.copy(fileInputStream, destination, StandardCopyOption.REPLACE_EXISTING);
+            return sanitizedName;
 
-        try (InputStream inputStream = file.getInputStream()) {
-            Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to store file", e);
         }
-        
-        return newFileName;
-
-    } catch (IOException e) {
-        throw new RuntimeException("Failed to store file", e);
     }
-}
 
     public Resource loadFile(String fileName) {
+        String sanitizedName = sanitizeName(fileName);
         try {
-            Path file = rootLocation.resolve(fileName);
+            Path file = rootLocation.resolve(sanitizedName);
             Resource resource = new UrlResource(file.toUri());
 
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             } else {
-                throw new RuntimeException("File not found: " + fileName);
+                throw new NoSuchElementException();
             }
         } catch (MalformedURLException e) {
             throw new RuntimeException("Error: " + e.getMessage());

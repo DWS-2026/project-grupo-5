@@ -194,21 +194,19 @@ public class RestReviewController {
         return ResponseEntity.ok().body(reviewMapper.toDTO(entityReview));
     }
 
-    @GetMapping("/reviews/{rid}/files/{filename}")
-    public ResponseEntity<Resource> getFile(@PathVariable String filename, @PathVariable long rid){
+    @GetMapping("/{productId}/reviews/{rid}/files/{filename}")
+    public ResponseEntity<Resource> getFile(@PathVariable String filename, @PathVariable long rid, @PathVariable String productId){
         Resource file = fileService.loadFile(filename);
         return ResponseEntity.ok().body(file);
     }
-    
-    @PostMapping("/reviews/{rid}/files")
-    public ResponseEntity<?> postFile(@PathVariable long rid, @RequestParam("file") MultipartFile file) {
 
-        return Optional.ofNullable(reviews.getReview(rid)).map(review -> {
-                fileService.storeFile(file);
-                reviews.addFile(review, file.getOriginalFilename());
-                return ResponseEntity.ok().body("File uploaded successfully");
-
-        }).orElseGet(() -> ResponseEntity.notFound().build());
+    @PostMapping("/{productId}/reviews/{rid}/files")
+    public ResponseEntity<?> postFile(Principal principal, @PathVariable long rid, @RequestParam("file") MultipartFile file, @PathVariable String productId) {
+        Review review = reviews.getReview(rid);
+        User user = users.getUser(principal);
+        String filename = reviews.addFile(user, review, file);
+        URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fileName}").buildAndExpand(filename).toUri();
+        return ResponseEntity.created(path).body(filename);
     }  
 }
 

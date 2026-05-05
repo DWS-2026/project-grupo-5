@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -23,6 +24,8 @@ public class ReviewService {
     private ProductService products;
     @Autowired
     private PolicyFactory enrichedTextSanitizer;
+    @Autowired
+    private FileService fileService;
 
     public void modifyCheck(User user, Review review){
         if (!review.canEdit(user)){
@@ -83,13 +86,11 @@ public class ReviewService {
         return this.reviews.findByAuthor(u, page);
     }
 
-    public void addFile(Review review, String fileName){
-        List<String> files = review.getFiles();
-        if (files == null){
-            files = new java.util.LinkedList<>();
-        }
-        files.add(fileName);
-        review.setFiles(files);
+    public String addFile(User user, Review review, MultipartFile file){
+        this.modifyCheck(user, review);
+        String fileName = fileService.storeFile(file);
+        review.getFiles().add(fileName);
         reviews.save(review);
+        return fileName;
     }
 }
