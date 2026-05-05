@@ -9,11 +9,13 @@ import org.springframework.util.StringUtils;
 
 import java.util.Objects;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.UUID;
 
 @Service
 public class FileService {
@@ -24,23 +26,44 @@ public class FileService {
         this.rootLocation = Paths.get(uploadDir);
     }
 
-    public void storeFile(MultipartFile file) {
-        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-        try {
-            if (fileName.contains("..")) {
-                throw new RuntimeException("Invalid file path: " + fileName);
-            }
+public String storeFile(MultipartFile file) {
 
-            if (!Files.exists(rootLocation)) {
-                Files.createDirectories(rootLocation);
-            }
-            Files.copy(file.getInputStream(), 
-                       this.rootLocation.resolve(file.getOriginalFilename()), 
-                       StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    if (file.isEmpty()) {
+        throw new RuntimeException("Failed to store empty file.");
     }
+
+    try {
+
+        String originalName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+        String extension = "";
+        int i = originalName.lastIndexOf('.');
+        if (i > 0) {
+            extension = originalName.substring(i);
+        }
+        
+        String newFileName = UUID.randomUUID().toString() + extension;
+
+        Path destinationFile = this.rootLocation.resolve(Paths.get(newFileName))
+                .normalize().toAbsolutePath();
+
+        if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
+            throw new RuntimeException("Cannot store file outside current directory.");
+        }
+
+        if (!Files.exists(rootLocation)) {
+            Files.createDirectories(rootLocation);
+        }
+
+        try (InputStream inputStream = file.getInputStream()) {
+            Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
+        }
+        
+        return newFileName;
+
+    } catch (IOException e) {
+        throw new RuntimeException("Failed to store file", e);
+    }
+}
 
     public Resource loadFile(String fileName) {
         try {
