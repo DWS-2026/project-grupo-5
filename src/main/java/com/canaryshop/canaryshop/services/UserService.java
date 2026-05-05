@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
@@ -20,6 +21,8 @@ public class UserService {
     private UserRepository repo;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private ImageService imageService;
 
     public void modifyCheck(User currentUser, User user) {
         if (!user.canEdit(currentUser)) {
@@ -91,9 +94,14 @@ public class UserService {
         this.modifyCheck(currentUser, user);
         this.repo.save(user);
     }
-    public void updateUserImage(User currentUser, User newUser, Image image){
+    public void updateUserImage(User currentUser, User newUser, MultipartFile image){
         this.modifyCheck(currentUser, newUser);
-        newUser.setImage(image);
+        if(newUser.getImage() == null){
+            Image img = this.imageService.createImage(image);
+            newUser.setImage(img);
+        }else{
+            this.imageService.replaceImage(newUser.getImage(),image);
+        }
         this.repo.save(newUser);
     }
 }

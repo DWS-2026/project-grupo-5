@@ -148,8 +148,8 @@ public class RestUserController {
     public ResponseEntity<ImageDTO> updateUserImage(@PathVariable Long id,@AuthenticationPrincipal UserDetails userDetails,@RequestParam MultipartFile imageFile) {
         User currentUser = this.users.getUser(userDetails.getUsername());
         User user = this.users.findById(id);
-        Image image = this.imageService.createImage(imageFile);
-        users.updateUserImage(currentUser, user, image);
+        users.updateUserImage(currentUser, user, imageFile);
+        Image image = user.getImage();
         URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(image.getId()).toUri();
         return ResponseEntity.created(path).body(imageMapper.toDTO(image));
     }

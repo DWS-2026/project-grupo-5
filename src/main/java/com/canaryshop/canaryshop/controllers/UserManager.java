@@ -77,8 +77,7 @@ public class UserManager {
     public String postMethodName(@RequestParam MultipartFile image, @PathVariable long id, Principal principal) {
         User user = userService.findById(id);
         User currentUser = userService.getUser(principal);
-        Image img = this.imageService.createImage(image);
-        this.userService.updateUserImage(currentUser, user, img);
+        this.userService.updateUserImage(currentUser, user, image);
         return "redirect:/user/" + id;
     }
 
