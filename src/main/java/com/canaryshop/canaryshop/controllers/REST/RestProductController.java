@@ -249,7 +249,7 @@ public class RestProductController {
                     content = @Content
             )
     })
-    
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/{id}/{report}")
     public ResponseEntity<ProductSummaryDTO> postMethodName(@PathVariable long id,@PathVariable String report) {
         Product product = productService.getProduct(id);

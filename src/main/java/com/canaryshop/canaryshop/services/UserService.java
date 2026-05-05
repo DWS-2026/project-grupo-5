@@ -1,5 +1,6 @@
 package com.canaryshop.canaryshop.services;
 
+import com.canaryshop.canaryshop.entities.Image;
 import com.canaryshop.canaryshop.entities.User;
 import com.canaryshop.canaryshop.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,5 +90,10 @@ public class UserService {
         }
         this.modifyCheck(currentUser, user);
         this.repo.save(user);
+    }
+    public void updateUserImage(User currentUser, User newUser, Image image){
+        this.modifyCheck(currentUser, newUser);
+        newUser.setImage(image);
+        this.repo.save(newUser);
     }
 }
