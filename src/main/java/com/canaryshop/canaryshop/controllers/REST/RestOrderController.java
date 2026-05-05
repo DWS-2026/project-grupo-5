@@ -7,11 +7,13 @@ import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.canaryshop.canaryshop.DTOs.*;
 import com.canaryshop.canaryshop.entities.Order;
@@ -108,6 +110,11 @@ public class RestOrderController {
                 User u = userService.getUser(userDetails.getUsername());
                 Order cart = u.getCart();
                 Product product = productService.getProduct(id);
+        
+                if (cart.getProductQuantity(product) + 1 > product.getStock()) {
+                        throw new ResponseStatusException(HttpStatus.CONFLICT, "Not enough stock available for this product");
+                }
+
                 cart.setProductQuantity(product, cart.getProductQuantity(product) + 1);
                 orderService.addOrder(cart);
                 userService.addUser(u);
@@ -129,12 +136,20 @@ public class RestOrderController {
                 User u = userService.getUser(userDetails.getUsername());
                 Order cart = u.getCart();
                 Product product = productService.getProduct(id);
-                cart.setProductQuantity(product, cart.getProductQuantity(product) - 1);
-                orderService.addOrder(cart);
-                userService.addUser(u);
-                OrderProduct ret = orderService.getOrderProductByProductAndCart(product, cart);
-                URI location = fromCurrentRequest().path("/{id}").buildAndExpand(ret.getId()).toUri();
-                return ResponseEntity.created(location).body(orderProductMapper.toDTO(ret));
+                if (cart.getProductQuantity(product) <= 1) {
+                        cart.setProductQuantity(product, 0);
+                        orderService.addOrder(cart);
+                        userService.addUser(u);
+                        
+                        return ResponseEntity.noContent().build(); 
+                } else {
+                        cart.setProductQuantity(product, cart.getProductQuantity(product) - 1);
+                        orderService.addOrder(cart);
+                        userService.addUser(u);
+                        
+                        OrderProduct ret = orderService.getOrderProductByProductAndCart(product, cart);
+                        return ResponseEntity.ok(orderProductMapper.toDTO(ret));
+                }
         }
 
         @Operation(summary = "Delete a product from the cart")
@@ -144,7 +159,7 @@ public class RestOrderController {
         })
         @PreAuthorize("isAuthenticated()")
         @DeleteMapping("/cart/{id}")
-        public ResponseEntity<OrderProductDTO> removeProductFromCart(@PathVariable long id,
+        public ResponseEntity<Void> removeProductFromCart(@PathVariable long id,
                         @AuthenticationPrincipal UserDetails userDetails) {
                 User u = userService.getUser(userDetails.getUsername());
                 Order cart = u.getCart();
@@ -152,9 +167,8 @@ public class RestOrderController {
                 cart.setProductQuantity(product, 0);
                 orderService.addOrder(cart);
                 userService.addUser(u);
-                OrderProduct ret = orderService.getOrderProductByProductAndCart(product, cart);
-                URI location = fromCurrentRequest().path("/{id}").buildAndExpand(ret.getId()).toUri();
-                return ResponseEntity.created(location).body(orderProductMapper.toDTO(ret));
+
+                return ResponseEntity.noContent().build();
         }
 
         @Operation(summary = "Clear all the cart")

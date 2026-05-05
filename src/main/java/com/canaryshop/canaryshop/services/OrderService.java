@@ -94,7 +94,7 @@ public class OrderService {
     }
 
     public Page<Order> getPageOrders(Pageable pageable, User u) {
-        return this.orderRepository.findByUser(u, pageable);
+        return this.orderRepository.findByUserAndIsClosedTrue(u, pageable);
     }
 
     public Page<OrderProduct> getPageOrderProductsByOrder(long id, Pageable pageable, User u) {
