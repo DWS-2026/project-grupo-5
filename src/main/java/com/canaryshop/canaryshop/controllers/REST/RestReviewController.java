@@ -209,14 +209,10 @@ public class RestReviewController {
                 return ResponseEntity.badRequest().body("File is empty");
         }
         return reviewRepository.findById(rid).map(review -> {
-                try{
-                        fileService.storeFile(file);
-                        reviews.addFile(review, file.getOriginalFilename());
-                        return ResponseEntity.ok().body("File uploaded successfully");
-                } catch (Exception e){
-                        return ResponseEntity.internalServerError().body("Could not upload file");
+                fileService.storeFile(file);
+                reviews.addFile(review, file.getOriginalFilename());
+                return ResponseEntity.ok().body("File uploaded successfully");
 
-                }
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
