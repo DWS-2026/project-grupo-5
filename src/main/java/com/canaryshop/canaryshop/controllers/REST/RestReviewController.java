@@ -27,13 +27,14 @@ import org.springframework.core.io.Resource;
 import java.net.URI;
 import java.security.Principal;
 import java.util.Collection;
+import java.util.Optional;
 
 
 @RestController
 @Tag(name="Reviews", description = "Endpoints related to manipulating product reviews")
 @RequestMapping("/api/v1/products")
 public class RestReviewController {
-    private final ReviewRepository reviewRepository;
+   
     @Autowired
     private ProductService products;
     @Autowired
@@ -45,9 +46,6 @@ public class RestReviewController {
     @Autowired
     private FileService fileService;
 
-    RestReviewController(ReviewRepository reviewRepository) {
-        this.reviewRepository = reviewRepository;
-    }
 
     @Operation(summary = "Get reviews for a given product id")
     @ApiResponses(value = {
@@ -205,12 +203,12 @@ public class RestReviewController {
     @PostMapping("/reviews/{rid}/files")
     public ResponseEntity<?> postFile(@PathVariable long rid, @RequestParam("file") MultipartFile file) {
 
-        return reviewRepository.findById(rid).map(review -> {
+        return Optional.ofNullable(reviews.getReview(rid)).map(review -> {
                 fileService.storeFile(file);
                 reviews.addFile(review, file.getOriginalFilename());
                 return ResponseEntity.ok().body("File uploaded successfully");
 
         }).orElseGet(() -> ResponseEntity.notFound().build());
-    }
+    }  
 }
 
