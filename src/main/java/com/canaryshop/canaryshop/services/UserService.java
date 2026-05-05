@@ -81,8 +81,10 @@ public class UserService {
         return this.repo.findByUsername(username).orElse(null);
     }
 
-    public void updateUser(User currentUser, User user) {
+    public void updateUser(User currentUser, User user,String username, String email) {
         this.modifyCheck(currentUser, user);
+        user.setEmail(email);
+        user.setUsername(username);
         this.repo.save(user);
     }
     public void updateUserImage(User currentUser, User newUser, MultipartFile image){

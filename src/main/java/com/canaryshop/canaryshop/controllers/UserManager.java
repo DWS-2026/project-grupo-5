@@ -99,9 +99,7 @@ public class UserManager {
             redirectAttributes.addFlashAttribute("updateError","This username is already in use");
             return "redirect:/user/" + id;
         }
-        user.setEmail(email);
-        user.setUsername(userName);
-        this.userService.updateUser(currentUser, user);
+        this.userService.updateUser(currentUser, user,userName,email);
         return "redirect:/user/" + id;
     }
 

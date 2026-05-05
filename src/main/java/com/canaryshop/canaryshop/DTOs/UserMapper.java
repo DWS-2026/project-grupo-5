@@ -30,15 +30,6 @@ public abstract class UserMapper {
     @Mapping(target = "reported", ignore = true)
     public abstract User toDomain(UserLoginDTO user);
 
-    @Mapping(target = "password", ignore = true)
-    @Mapping(target = "image", ignore = true)
-    @Mapping(target = "cart", ignore = true)
-    @Mapping(target = "roles", expression = "java({\"USER\"})")
-    @Mapping(target = "orders", ignore = true)
-    @Mapping(target = "products", ignore = true)
-    @Mapping(target = "reported", ignore = true)
-    public abstract User toDomainID(UserBasicDTO user);
-
     @Mapping(target = "reports", source = "reported")
     public abstract UserReportDTO toUserReportDTO(User user);
 }

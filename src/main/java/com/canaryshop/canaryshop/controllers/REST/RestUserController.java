@@ -139,7 +139,8 @@ public class RestUserController {
     @PutMapping("/")
     public ResponseEntity<UserBasicDTO> updateUserEmailorUsername(@RequestBody UserBasicDTO user,@AuthenticationPrincipal UserDetails userDetails) {
         User currentUser = this.users.getUser(userDetails.getUsername());
-        User u = this.userMapper.toDomainID(user);
+        User u = this.users.findById(user.id());
+        
         // Verify if the email is already in use.
         User emailVerf = this.users.findByEmail(u.getEmail());
         if (emailVerf != null && u.getId() != emailVerf.getId()) {
@@ -150,7 +151,7 @@ public class RestUserController {
         if (nameVerf != null && u.getId() != nameVerf.getId()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,"This username is already in use");
         }
-        this.users.updateUser(currentUser, u);
+        this.users.updateUser(currentUser, this.users.findById(u.getId()), u.getUsername(), u.getEmail());
         return ResponseEntity.ok(user);
     }
     @PreAuthorize("isAuthenticated()")
