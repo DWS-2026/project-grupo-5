@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 @Controller
 public class ErrorManager implements ErrorController {
 
-    @RequestMapping("/error")
+    @RequestMapping(value="/error", produces = "text/html")
     public String handleError(HttpServletRequest request, Model model) {
         Integer statusCode = (Integer) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         String errorMessage = (String) request.getAttribute(RequestDispatcher.ERROR_MESSAGE);
