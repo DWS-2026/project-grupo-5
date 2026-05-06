@@ -4,6 +4,7 @@ import com.canaryshop.canaryshop.DTOs.*;
 import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.Review;
 import com.canaryshop.canaryshop.entities.User;
+
 import com.canaryshop.canaryshop.services.ProductService;
 import com.canaryshop.canaryshop.services.ReviewService;
 import com.canaryshop.canaryshop.services.UserService;
@@ -201,20 +202,33 @@ public class RestReviewController {
     }
 
     @PostMapping("/{productId}/reviews/{rid}/files")
-    public ResponseEntity<String> postFile(Principal principal, @PathVariable long rid, @RequestParam("file") MultipartFile file, @PathVariable String productId) {
+    public ResponseEntity<?> storeFile(Principal principal, @PathVariable long rid, @RequestParam("file") MultipartFile file, @PathVariable String productId) {
         Review review = reviews.getReview(rid);
         User user = users.getUser(principal);
         String filename = reviews.addFile(user, review, file);
         URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fileName}").buildAndExpand(filename).toUri();
         return ResponseEntity.created(path).body(filename);
-    }
+    }  
+
 
     @DeleteMapping("/reviews/{rid}/files/{filename}")
-    public ResponseEntity<String> deleteFile(Principal principal, @PathVariable long rid, @PathVariable String filename){
+    public ResponseEntity<?> deleteFile(Principal principal, @PathVariable long rid, @PathVariable String filename){
+        
+        Review r = reviews.getReview(rid);
         User user = users.getUser(principal);
-        Review review = reviews.getReview(rid);
-        reviews.removeFile(user, review, filename);
-        return ResponseEntity.ok().body("File deleted successfully");
+
+        List<String> files = r.getFiles();
+        if (!files.contains(filename)){
+                return Optional.ofNullable(reviews.getReview(rid)).map(review -> {
+                fileService.deleteFile(filename);
+                reviews.removeFile(user, review, filename);
+                return ResponseEntity.ok().body("File deleted successfully");
+
+        }).orElseGet(() -> ResponseEntity.notFound().build());
+
+        }else{
+            return ResponseEntity.notFound().build();
+        }
     }  
 }
 
