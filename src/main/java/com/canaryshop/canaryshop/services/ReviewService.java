@@ -94,8 +94,13 @@ public class ReviewService {
         return fileName;
     }
 
-    public void removeFile(User user, Review review, String fileName){
+    public void removeFile(User user, Product product, Review review, String fileName){
         this.modifyCheck(user, review);
+        
+        Product reviewProduct = review.getProduct();
+        if (reviewProduct == null || !reviewProduct.equals(product)){
+            throw new NoSuchElementException();
+        }
         List<String> files = review.getFiles();
         if (files == null || !files.contains(fileName)){
             throw new NoSuchElementException();
