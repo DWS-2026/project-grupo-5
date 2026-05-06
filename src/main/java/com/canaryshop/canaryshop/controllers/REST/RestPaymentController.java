@@ -1,5 +1,6 @@
 package com.canaryshop.canaryshop.controllers.REST;
 
+import com.canaryshop.canaryshop.DTOs.StringDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

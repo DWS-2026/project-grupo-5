@@ -4,7 +4,6 @@ import com.canaryshop.canaryshop.DTOs.*;
 import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.Review;
 import com.canaryshop.canaryshop.entities.User;
-import com.canaryshop.canaryshop.repositories.ReviewRepository;
 import com.canaryshop.canaryshop.services.ProductService;
 import com.canaryshop.canaryshop.services.ReviewService;
 import com.canaryshop.canaryshop.services.UserService;
@@ -208,8 +207,7 @@ public class RestReviewController {
         String filename = reviews.addFile(user, review, file);
         URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fileName}").buildAndExpand(filename).toUri();
         return ResponseEntity.created(path).body(filename);
-    }  
-
+    }
 
     @DeleteMapping("/reviews/{rid}/files/{filename}")
     public ResponseEntity<String> deleteFile(Principal principal, @PathVariable long rid, @PathVariable String filename){

@@ -3,6 +3,7 @@ package com.canaryshop.canaryshop.Security;
 import com.canaryshop.canaryshop.Security.jwt.JwtRequestFilter;
 import com.canaryshop.canaryshop.Security.jwt.JwtTokenProvider;
 import com.canaryshop.canaryshop.Security.jwt.UnauthorizedHandlerJwt;
+import com.canaryshop.canaryshop.services.RateLimitFilter;
 import org.owasp.html.PolicyFactory;
 import org.owasp.html.Sanitizers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +96,9 @@ public class SecurityConfiguration {
 
 		// Stateless session
 		http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+		// Add rate limiting filter
+		http.addFilterBefore(new RateLimitFilter(), UsernamePasswordAuthenticationFilter.class);
 
 		// Add JWT Token filter
 		http.addFilterBefore(new JwtRequestFilter(userDetailService, jwtTokenProvider),
