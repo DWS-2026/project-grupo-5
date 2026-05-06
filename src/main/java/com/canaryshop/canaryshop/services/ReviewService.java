@@ -94,13 +94,14 @@ public class ReviewService {
         return fileName;
     }
 
-        public void removeFile(Review review, String fileName){
-            List<String> files = review.getFiles();
-            if (files == null || !files.contains(fileName)){
-                throw new NoSuchElementException();
-            }
-            files.remove(fileName);
-            review.setFiles(files);
-            reviews.save(review);
+    public void removeFile(User user, Review review, String fileName){
+        this.modifyCheck(user, review);
+        List<String> files = review.getFiles();
+        if (files == null || !files.contains(fileName)){
+            throw new NoSuchElementException();
         }
+        fileService.deleteFile(fileName);
+        files.remove(fileName);
+        reviews.save(review);
+    }
 }

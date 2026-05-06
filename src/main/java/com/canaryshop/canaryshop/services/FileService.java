@@ -73,9 +73,12 @@ public class FileService {
     }
 
     public void deleteFile(String fileName) {
+        String sanitizedName = sanitizeName(fileName);
         try {
-            Path file = rootLocation.resolve(fileName);
-            Files.deleteIfExists(file);
+            Path file = rootLocation.resolve(sanitizedName);
+            if (!Files.deleteIfExists(file)){
+                throw new NoSuchElementException();
+            }
         } catch (IOException e) {
             throw new RuntimeException("Error deleting file: " + e.getMessage());
         }
