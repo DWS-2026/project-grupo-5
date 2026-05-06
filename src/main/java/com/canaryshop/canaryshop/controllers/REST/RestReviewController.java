@@ -27,6 +27,7 @@ import org.springframework.core.io.Resource;
 import java.net.URI;
 import java.security.Principal;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -212,13 +213,21 @@ public class RestReviewController {
 
     @DeleteMapping("/reviews/{rid}/files/{filename}")
     public ResponseEntity<?> deleteFile(@PathVariable long rid, @PathVariable String filename){
-        return Optional.ofNullable(reviews.getReview(rid)).map(review -> {
+        
+        Review r = reviews.getReview(rid);
+
+        List<String> files = r.getFiles();
+        if (!files.contains(filename)){
+                return Optional.ofNullable(reviews.getReview(rid)).map(review -> {
                 fileService.deleteFile(filename);
                 reviews.removeFile(review, filename);
                 return ResponseEntity.ok().body("File deleted successfully");
 
         }).orElseGet(() -> ResponseEntity.notFound().build());
 
+        }else{
+            return ResponseEntity.notFound().build();
+        }
     }  
 }
 
