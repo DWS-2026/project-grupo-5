@@ -211,24 +211,15 @@ public class RestReviewController {
     }  
 
 
-    @DeleteMapping("/reviews/{rid}/files/{filename}")
+    @DeleteMapping("/{productId}/reviews/{rid}/files/{filename}")
     public ResponseEntity<?> deleteFile(Principal principal, @PathVariable long rid, @PathVariable String filename){
         
-        Review r = reviews.getReview(rid);
         User user = users.getUser(principal);
-
-        List<String> files = r.getFiles();
-        if (!files.contains(filename)){
-                return Optional.ofNullable(reviews.getReview(rid)).map(review -> {
-                fileService.deleteFile(filename);
+        return Optional.ofNullable(reviews.getReview(rid)).map(review -> {
                 reviews.removeFile(user, review, filename);
                 return ResponseEntity.ok().body("File deleted successfully");
 
         }).orElseGet(() -> ResponseEntity.notFound().build());
-
-        }else{
-            return ResponseEntity.notFound().build();
-        }
     }  
 }
 
