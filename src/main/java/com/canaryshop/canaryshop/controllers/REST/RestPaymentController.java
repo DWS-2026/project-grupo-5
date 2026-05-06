@@ -23,6 +23,7 @@ import com.canaryshop.canaryshop.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
@@ -39,76 +40,34 @@ public class RestPaymentController {
     private OrderMapper orderMapper;
     @Autowired
     private UserService userService;
-    @Autowired
-    private ProductService productService;
 
-    @Operation(summary = "Pay the cart")
+    
+    @Operation(summary = "Pay the cart with or without a code")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The cart have been paid", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDTO.class))),
             @ApiResponse(responseCode = "404", description = "Could not found the cart", content = @Content)
     })
     @PostMapping("/cart")
-    public ResponseEntity<OrderDTO> payCart(@AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<OrderDTO> payCart(@AuthenticationPrincipal UserDetails userDetails, @RequestBody(required = false) StringDTO code) {
         User user = userService.getUser(userDetails.getUsername());
-        Order cart = user.getCart();
-        cart = this.orderService.renewOrder(cart);
+        Order cart = this.orderService.createTempCart(user, null);
         if (cart.getProducts().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cart is empty");
         }
-        this.orderService.closeCart(user, 1f);
+        this.orderService.closeOrder(user, cart,this.orderService.getDiscount(code.str()));
         return ResponseEntity.ok(orderMapper.toDTO(cart));
     }
 
-    @Operation(summary = "Pay the cart with a code")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "The cart have been paid", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDTO.class))),
-            @ApiResponse(responseCode = "404", description = "Could not found the cart", content = @Content)
-    })
-    @PostMapping("/cart/{code}")
-    public ResponseEntity<OrderDTO> payCartWithCode(@AuthenticationPrincipal UserDetails userDetails,
-            @PathVariable String code) {
-        User user = userService.getUser(userDetails.getUsername());
-        Order cart = user.getCart();
-        cart = this.orderService.renewOrder(cart);
-        if (cart.getProducts().isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cart is empty");
-        }
-        this.orderService.closeCart(user, this.orderService.getDiscount(code));
-        return ResponseEntity.ok(orderMapper.toDTO(cart));
-    }
-
-    @Operation(summary = "Pay a product")
+    @Operation(summary = "Pay a product with or without a code")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The product have been paid", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDTO.class))),
             @ApiResponse(responseCode = "404", description = "Could not found the product", content = @Content)
     })
     @PostMapping("/{id}")
-    public ResponseEntity<OrderDTO> payProduct(@AuthenticationPrincipal UserDetails userDetails,
-            @PathVariable long productID) {
+    public ResponseEntity<OrderDTO> payProduct(@AuthenticationPrincipal UserDetails userDetails, @PathVariable long productID, @RequestBody(required = false) StringDTO code) {
         User user = userService.getUser(userDetails.getUsername());
-        Product product = productService.getProduct(productID);
-        Order temp = new Order();
-        temp.setProductQuantity(product, 1);
-        temp.setUser(user);
-        this.orderService.closeOrder(user, temp, 1f);
+        Order temp = this.orderService.createTempCart(user, productID);
+        this.orderService.closeOrder(user, temp, this.orderService.getDiscount(code.str()));
         return ResponseEntity.ok(orderMapper.toDTO(temp));
     }
-
-    @Operation(summary = "Pay a product with a code")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "The product have been paid", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDTO.class))),
-            @ApiResponse(responseCode = "404", description = "Could not found the product", content = @Content)
-    })
-    @PostMapping("/{id}/{code}")
-    public ResponseEntity<OrderDTO> applyDiscount(@AuthenticationPrincipal UserDetails userDetails,
-            @PathVariable long productID, @RequestParam String code) {
-        User user = userService.getUser(userDetails.getUsername());
-        Product product = productService.getProduct(productID);
-        Order temp = new Order();
-        temp.setProductQuantity(product, 1);
-        temp.setUser(user);
-        this.orderService.closeOrder(user, temp, this.orderService.getDiscount(code));
-        return ResponseEntity.ok(orderMapper.toDTO(temp));
-    }
-
 }

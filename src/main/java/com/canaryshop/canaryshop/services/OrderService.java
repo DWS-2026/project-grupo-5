@@ -53,14 +53,6 @@ public class OrderService {
         return discount;
     }
 
-    // To create a new cart for the user
-    public void closeCart(User u, float discount) {
-        this.closeOrder(u, u.getCart(), discount);
-        Order newCart = new Order();
-        u.setCart(newCart);
-        this.orderRepository.save(newCart);
-        this.userService.addUser(u);
-    }
 
     // To close and order with the discount
     public void closeOrder(User u, Order order, float discount) {
@@ -68,6 +60,11 @@ public class OrderService {
         order.setDiscount(discount);
         this.productsPurchased(order);
         u.addOrder(order);
+        if (order.getId()!=null && u.getCart().getId().equals(order.getId())){
+            Order newCart = new Order();
+            u.setCart(newCart);
+            this.orderRepository.save(newCart);
+        }
         this.orderRepository.save(order);
         this.userService.addUser(u);
     }
@@ -115,8 +112,9 @@ public class OrderService {
     public Order createTempCart(User user, Long productID) {
         Order temp = new Order();
         if (productID != null) {
-            temp.setProductQuantity(this.productService.getProduct(productID), 1);
+            Product p = this.productService.getProduct(productID);
             temp.setUser(user);
+            temp.setProductQuantity(p, 1);
         } else {
             temp = user.getCart();
             temp = this.renewOrder(temp);
