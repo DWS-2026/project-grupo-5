@@ -71,17 +71,10 @@ public class PaymentManager {
         if (cart.getProducts().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cart is empty");
         }
-        float disc;
-        if (code == null) {
-            disc = 1f;
-        } else {
-            disc = this.orderService.getDiscount(code);
-        }
-        if (cart.getId() != null && cart.getId().equals(user.getCart().getId())) {
-            this.orderService.closeCart(user, disc);
-        } else {
-            this.orderService.closeOrder(user, cart, disc);
-        }
+        float disc = this.orderService.getDiscount(code);
+        
+        this.orderService.closeOrder(user, cart, disc);
+        
         model.addAttribute("date", LocalDate.now());
         model.addAttribute("totalPrice", cart.getPrice());
         model.addAttribute("id", user.getId());
