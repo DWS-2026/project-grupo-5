@@ -22,7 +22,7 @@ public class Review {
     @ManyToOne
     private Product product;
 
-    private List<String> files;
+    private List<String> files = new LinkedList<>();
 
     
     public Review() {}
