@@ -1,11 +1,11 @@
 {
   "info": {
-    "_postman_id": "f8e1b177-6229-4f54-8055-adddbb6ceb35",
-    "name": "api",
+    "_postman_id": "9cef9a33-421f-4920-a305-4fe3a76d5d52",
+    "name": "api Copy",
     "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "54524798",
-    "_collection_link": "https://go.postman.co/collection/54524798-f8e1b177-6229-4f54-8055-adddbb6ceb35?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/54524798-9cef9a33-421f-4920-a305-4fe3a76d5d52?source=collection_link"
   },
   "item": [
     {
@@ -976,6 +976,208 @@
             "products",
             "2",
             "report"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Orders",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseURL}}/api/v1/orders/",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "orders",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Products In Order",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"username\": \"admin@canaryshop.com\", \"password\": \"admin\" }"
+        },
+        "url": {
+          "raw": "{{baseURL}}/api/v1/orders/3/products",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "orders",
+            "3",
+            "products"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Cart",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseURL}}/api/v1/orders/cart",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "orders",
+            "cart"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add Product to Cart",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseURL}}/api/v1/orders/cart/increase/3",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "orders",
+            "cart",
+            "increase",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Decrease Product from Cart",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseURL}}/api/v1/orders/cart/decrease/3",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "orders",
+            "cart",
+            "decrease",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Product from Cart",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseURL}}/api/v1/orders/cart/3",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "orders",
+            "cart",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Clear cart",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseURL}}/api/v1/orders/cart",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "orders",
+            "cart"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Pay Cart",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"str\": \"JorgeEsElMejor\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/api/v1/payment/cart",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "payment",
+            "cart"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Pay a Product",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseURL}}/api/v1/payment/7",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "payment",
+            "7"
           ]
         }
       },
