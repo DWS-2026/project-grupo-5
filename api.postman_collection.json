@@ -1,11 +1,11 @@
 {
   "info": {
-    "_postman_id": "7d5b6dd4-bb6a-4d50-9a74-9478d3968498",
+    "_postman_id": "f8e1b177-6229-4f54-8055-adddbb6ceb35",
     "name": "api",
     "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "54409712",
-    "_collection_link": "https://go.postman.co/collection/54409712-7d5b6dd4-bb6a-4d50-9a74-9478d3968498?source=collection_link"
+    "_exporter_id": "54524798",
+    "_collection_link": "https://go.postman.co/collection/54524798-f8e1b177-6229-4f54-8055-adddbb6ceb35?source=collection_link"
   },
   "item": [
     {
@@ -626,6 +626,376 @@
             "v1",
             "products",
             "55"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get all users",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseURL}}/api/v1/users/",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "users",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get products of an user",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseURL}}/api/v1/users/1/products",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "users",
+            "1",
+            "products"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get reviews of an user",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseURL}}/api/v1/users/1/reviews",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "users",
+            "1",
+            "reviews"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Edit user",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"id\": 1,\r\n  \"email\": \"nuevoemail@test.com\",\r\n  \"username\": \"nuevoUsuario\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/api/v1/users/",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "users",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get user",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseURL}}/api/v1/users/1",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "users",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Change image",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "imageFile",
+              "type": "file",
+              "uuid": "90a26cbf-e2d1-4270-b4cd-36ff11775f9b",
+              "src": "/C:/Users/Jaime/Downloads/WhatsApp Image 2026-05-04 at 09.32.46.jpeg"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseURL}}/api/v1/users/1/image",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "users",
+            "1",
+            "image"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Report user",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"reason\": \"hola\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/api/v1/users/2/report",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "users",
+            "2",
+            "report"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get all reported users",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{baseURL}}/api/v1/users/reports",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "users",
+            "reports"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete retport from user",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"str\": \"hola\"\r\n}"
+        },
+        "url": {
+          "raw": "{{baseURL}}/api/v1/users/2/report",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "users",
+            "2",
+            "report"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Report product",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"str\": \"hola\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/api/v1/products/2/report",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "products",
+            "2",
+            "report"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get reported products",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"str\": \"hola\"\r\n}"
+        },
+        "url": {
+          "raw": "{{baseURL}}/api/v1/products/reports",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "products",
+            "reports"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete report from product",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"str\": \"hola\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/api/v1/products/2/report",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "products",
+            "2",
+            "report"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete user",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseURL}}/api/v1/users/2",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "users",
+            "2"
           ]
         }
       },
