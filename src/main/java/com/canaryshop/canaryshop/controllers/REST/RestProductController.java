@@ -250,10 +250,11 @@ public class RestProductController {
             )
     })
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/{id}/{report}")
-    public ResponseEntity<ProductSummaryDTO> postMethodName(@PathVariable long id,@PathVariable String report) {
+    @PostMapping("/{id}/report")
+    public ResponseEntity<ProductSummaryDTO> postMethodName(@PathVariable long id,@RequestBody StringDTO report) {
         Product product = productService.getProduct(id);
-        product.report(report);
+        product.report(report.str());
+        productService.addProduct(product);
         return ResponseEntity.ok(mapper.toSummaryDTO(product));
     }
     @Operation(summary = "Get reported products")
@@ -282,7 +283,15 @@ public class RestProductController {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/reports")
-    public Page<ProductReportDTO> getMethodName(Pageable pageable) {
+    public Page<ProductReportDTO> getRports(Pageable pageable) {
+        return productService.getReportedProducts(null,null,pageable).map(mapper::toReportProductDTO);
+    }
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping("/{id}/report")
+    public Page<ProductReportDTO> deleteReport(Pageable pageable,@RequestBody StringDTO report,@PathVariable long id) {
+        Product product = this.productService.getProduct(id);
+        product.getReported().remove(report.str());
+        productService.addProduct(product);
         return productService.getReportedProducts(null,null,pageable).map(mapper::toReportProductDTO);
     }
 }

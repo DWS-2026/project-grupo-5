@@ -140,7 +140,7 @@ public class RestUserController {
     public ResponseEntity<UserBasicDTO> updateUserEmailorUsername(@RequestBody UserBasicDTO user,@AuthenticationPrincipal UserDetails userDetails) {
         User currentUser = this.users.getUser(userDetails.getUsername());
         User u = this.users.findById(user.id());
-        
+
         // Verify if the email is already in use.
         User emailVerf = this.users.findByEmail(u.getEmail());
         if (emailVerf != null && u.getId() != emailVerf.getId()) {
@@ -180,12 +180,13 @@ public class RestUserController {
                     content = @Content
             )
     })
-    @PreAuthorize("\"isAuthenticated()\"")
-    @PostMapping("/{id}/{report}")
-    public ResponseEntity <UserBasicDTO> postMethodName(@PathVariable long id,@PathVariable String report) {
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/{id}/report")
+    public ResponseEntity <StringDTO> report(@PathVariable long id,@RequestBody StringDTO report ) {
         User user = users.findById(id);
-        user.report(report);
-        return ResponseEntity.ok(userMapper.toBasicDTO(user));
+        user.report(report.str());
+        users.addUser(user);
+        return ResponseEntity.ok(report);
     }
     @Operation(summary = "Get Reported users")
     @ApiResponses({
@@ -212,7 +213,14 @@ public class RestUserController {
     })
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/reports")
-    public Page<UserReportDTO> getMethodName(@AuthenticationPrincipal UserDetails ud, Pageable pageable) {
+    public Page<UserReportDTO> getReports(@AuthenticationPrincipal UserDetails ud, Pageable pageable) {
         return users.getReportedUser(null,pageable).map(userMapper::toUserReportDTO);
+    }
+    @DeleteMapping("/{id}/report")
+    public UserReportDTO deleteReport(@RequestBody StringDTO report,@PathVariable Long id) {
+        User user = users.findById(id);
+        user.getReported().remove(report.str());
+        users.addUser(user);
+        return userMapper.toUserReportDTO(user);
     }
 }
