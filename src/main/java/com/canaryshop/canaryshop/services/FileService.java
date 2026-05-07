@@ -3,12 +3,13 @@ package com.canaryshop.canaryshop.services;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.util.StringUtils;
 
 import java.util.NoSuchElementException;
-import java.util.Objects;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -16,7 +17,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.UUID;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class FileService {
@@ -43,44 +45,59 @@ public class FileService {
     }
 
     public String storeFile(MultipartFile file) {
-        if (file.isEmpty()) {
-            throw new RuntimeException("Failed to store empty file.");
+        if (file == null || file.isEmpty()) {
+            throw new RuntimeException("Archivo no válido o vacío.");
         }
 
         try {
-            String originalName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+            String rawName = file.getOriginalFilename();
+            if (rawName == null) throw new RuntimeException("Nombre de archivo nulo.");
             
-            // 1. Extract and validate extension
+            String originalName = StringUtils.cleanPath(rawName);
+            
+            if (originalName.contains("..") || originalName.contains("/") || originalName.contains("\\")) {
+                throw new RuntimeException();
+            }
+
             String extension = "";
-            int i = originalName.lastIndexOf('.');
-            if (i > 0) {
-                extension = originalName.substring(i).toLowerCase();
+            int lastDot = originalName.lastIndexOf('.');
+            if (lastDot > 0) {
+                extension = originalName.substring(lastDot).toLowerCase();
             }
 
-            // Optional: Security whitelist for extensions
-            if (!extension.matches("\\.(jpg|jpeg|png|gif|pdf)")) {
-                throw new RuntimeException("File type not allowed.");
+            List<String> allowedExtensions = Arrays.asList(".jpg", ".jpeg", ".png", ".gif", ".pdf");
+            if (!allowedExtensions.contains(extension)) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unsupported file type. Allowed types: " + String.join(", ", allowedExtensions));
             }
 
-            // 2. Generate a unique name to prevent collisions and enumeration attacks
-            String newFileName = UUID.randomUUID().toString() + extension;
-            Path destinationFile = getSafePath(newFileName);
+            String contentType = file.getContentType();
+            if (contentType == null || !isSupportedContentType(contentType)) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unsupported content type. Allowed types: " + String.join(", ", Arrays.asList("image/jpeg", "image/png", "image/gif", "application/pdf")));
+            }
 
-            // 3. Create directories if they don't exist
+            Path destinationFile = this.rootLocation.resolve(originalName).normalize().toAbsolutePath();
+            
+            if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Security breach attempt: Cannot access files outside the target directory.");
+            }
+
             if (!Files.exists(rootLocation)) {
                 Files.createDirectories(rootLocation);
             }
 
-            // 4. Save the file using try-with-resources to ensure the stream is closed
             try (InputStream inputStream = file.getInputStream()) {
                 Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
             }
             
-            return newFileName;
+            return originalName;
 
         } catch (IOException e) {
-            throw new RuntimeException("Could not store file", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error occurred while storing file: " + e.getMessage());
         }
+    }
+
+    private boolean isSupportedContentType(String contentType) {
+        return Arrays.asList("image/jpeg", "image/png", "image/gif", "application/pdf").contains(contentType);
     }
 
     public Resource loadFile(String fileName) {
