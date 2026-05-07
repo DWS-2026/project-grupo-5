@@ -1,0 +1,1893 @@
+openapi: 3.1.0
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: https://localhost:8443
+  description: Generated server url
+tags:
+- name: Products
+  description: Endpoints related to manipulating products
+- name: Reviews
+  description: Endpoints related to manipulating product reviews
+paths:
+  /api/v1/users/:
+    get:
+      tags:
+      - rest-user-controller
+      summary: Get all users
+      operationId: getAllUsers
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "404":
+          description: Could not found any user
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Found users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserBasicDTO"
+    put:
+      tags:
+      - rest-user-controller
+      summary: Update an user
+      operationId: updateUserEmailorUsername
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserBasicDTO"
+        required: true
+      responses:
+        "404":
+          description: There is no user with the given ID
+          content: {}
+        "400":
+          description: Invalid request body
+          content: {}
+        "200":
+          description: User has been updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserBasicDTO"
+        "403":
+          description: You do not have permission to update the user
+    post:
+      tags:
+      - rest-user-controller
+      operationId: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserLoginDTO"
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserBasicDTO"
+  /api/v1/products/{productId}/reviews/{reviewId}:
+    put:
+      tags:
+      - Reviews
+      summary: Edits a product review
+      operationId: editReview
+      parameters:
+      - name: productId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: reviewId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReviewUploadDTO"
+        required: true
+      responses:
+        "404":
+          description: Product or review with given ID was not found
+          content: {}
+        "400":
+          description: Edited review contents are invalid
+          content: {}
+        "200":
+          description: Product was edited successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReviewDTO"
+        "403":
+          description: User is not logged in or cannot edit review
+    delete:
+      tags:
+      - Reviews
+      summary: Deletes a product review
+      operationId: deleteReview
+      parameters:
+      - name: productId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: reviewId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Product or review with given ID was not found
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Review was deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReviewDTO"
+        "403":
+          description: User is not logged in or cannot delete review
+  /api/v1/products/{productId}/images/{imageId}:
+    put:
+      tags:
+      - Products
+      operationId: editProductImage
+      parameters:
+      - name: productId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: imageId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
+              required:
+              - imageFile
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    delete:
+      tags:
+      - Products
+      operationId: deleteProductImage
+      parameters:
+      - name: productId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: imageId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ImageDTO"
+  /api/v1/products/{id}:
+    get:
+      tags:
+      - Products
+      summary: Returns a product with a given id
+      operationId: getProduct
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Product with given id could not be found
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Found the product
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+    put:
+      tags:
+      - Products
+      summary: Modify a product
+      operationId: editProduct
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductUploadDTO"
+        required: true
+      responses:
+        "404":
+          description: Product with id was not found
+          content: {}
+        "400":
+          description: Object passed is invalid
+          content: {}
+        "200":
+          description: Product was updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "403":
+          description: User does not have permission to edit the product
+    delete:
+      tags:
+      - Products
+      summary: Delete a product with a given id
+      operationId: deleteProduct
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Product was not found
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Product was deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "403":
+          description: User does not have permission to delete product
+  /api/v1/users/{id}/report:
+    post:
+      tags:
+      - rest-user-controller
+      summary: Report an user from the ID
+      operationId: report
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StringDTO"
+        required: true
+      responses:
+        "404":
+          description: User was not found
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: User was successfully reported
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserBasicDTO"
+    delete:
+      tags:
+      - rest-user-controller
+      operationId: deleteReport
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StringDTO"
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserReportDTO"
+  /api/v1/users/{id}/image:
+    post:
+      tags:
+      - rest-user-controller
+      operationId: updateUserImage
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
+              required:
+              - imageFile
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ImageDTO"
+  /api/v1/refresh:
+    post:
+      tags:
+      - rest-login-controller
+      operationId: refresh
+      parameters:
+      - name: RefreshToken
+        in: cookie
+        required: false
+        schema:
+          type: string
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+  /api/v1/products/{productId}/reviews/{rid}/files:
+    post:
+      tags:
+      - Reviews
+      operationId: storeFile
+      parameters:
+      - name: rid
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: productId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+              required:
+              - file
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/products/{id}/reviews:
+    post:
+      tags:
+      - Reviews
+      summary: Creates a new review for a product
+      operationId: addReview
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReviewUploadDTO"
+        required: true
+      responses:
+        "404":
+          description: Product with given ID was not found
+          content: {}
+        "400":
+          description: Review contents are invalid
+          content: {}
+        "200":
+          description: Review was created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReviewDTO"
+        "403":
+          description: User is not logged in or cannot edit review
+  /api/v1/products/{id}/report:
+    post:
+      tags:
+      - Products
+      summary: Get a product from the ID
+      operationId: postMethodName
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StringDTO"
+        required: true
+      responses:
+        "404":
+          description: Product was not found
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Product was successfully reported
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductSummaryDTO"
+    delete:
+      tags:
+      - Products
+      operationId: deleteReport_1
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StringDTO"
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductReportDTO"
+  /api/v1/products/{id}/images:
+    get:
+      tags:
+      - Products
+      operationId: getProductImages
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ImageDTO"
+    post:
+      tags:
+      - Products
+      operationId: uploadImage
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
+              required:
+              - imageFile
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ImageDTO"
+  /api/v1/products/:
+    get:
+      tags:
+      - Products
+      summary: Get products with an optional query
+      operationId: getProducts
+      parameters:
+      - name: search
+        in: query
+        description: Optional query
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Zero-based page index (0..N)
+        required: false
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+      - name: size
+        in: query
+        description: The size of the page to be returned
+        required: false
+        schema:
+          type: integer
+          default: 12
+          minimum: 1
+      - name: sort
+        in: query
+        description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "404":
+          description: Could not find products with given query
+          content: {}
+        "400":
+          description: Page number is out of bounds
+          content: {}
+        "200":
+          description: Found products to display
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProductSummaryDTO"
+    post:
+      tags:
+      - Products
+      summary: Upload a product to the page
+      operationId: uploadProduct
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductUploadDTO"
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Invalid object was passed
+          content: {}
+        "201":
+          description: Product was created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "403":
+          description: The session token is not present or has expired
+  /api/v1/payment/{productID}:
+    post:
+      tags:
+      - rest-payment-controller
+      summary: Pay a product with or without a code
+      operationId: payProduct
+      parameters:
+      - name: productID
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StringDTO"
+      responses:
+        "404":
+          description: Could not found the product
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: The product have been paid
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderDTO"
+  /api/v1/payment/cart:
+    post:
+      tags:
+      - rest-payment-controller
+      summary: Pay the cart with or without a code
+      operationId: payCart
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StringDTO"
+      responses:
+        "404":
+          description: Could not found the cart
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: The cart have been paid
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderDTO"
+  /api/v1/orders/cart/increase/{id}:
+    post:
+      tags:
+      - rest-order-controller
+      summary: Add a product to the cart
+      operationId: addProductToCart
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Could not found the product
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Product have been uploaded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderProductDTO"
+  /api/v1/orders/cart/decrease/{id}:
+    post:
+      tags:
+      - rest-order-controller
+      summary: Decrease a product from the cart
+      operationId: decreaseProductToCart
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Could not found the product
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Product have been decreased
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderProductDTO"
+  /api/v1/logout:
+    post:
+      tags:
+      - rest-login-controller
+      operationId: logout
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+  /api/v1/login:
+    post:
+      tags:
+      - rest-login-controller
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+  /api/v1/users/{id}:
+    get:
+      tags:
+      - rest-user-controller
+      summary: Get an user from the ID
+      operationId: getUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Could not found any user with the ID given
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Found user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserBasicDTO"
+    delete:
+      tags:
+      - rest-user-controller
+      summary: Delete an user
+      operationId: deleteUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: There is no user with the given ID
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: User has been deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDTO"
+        "403":
+          description: The user does not have the required permissions to delete this
+            user
+  /api/v1/users/{id}/reviews:
+    get:
+      tags:
+      - rest-user-controller
+      summary: Get all reviews from an user
+      operationId: getReviewsByUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "404":
+          description: "Either no reviews could be found for the user ID, or the user\
+            \ has not uploaded any reviews"
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Found reviews from an user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ReviewDTO"
+  /api/v1/users/{id}/products:
+    get:
+      tags:
+      - rest-user-controller
+      summary: Get all products from an user
+      operationId: getProductsByUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "404":
+          description: "Either could not find products from the user id, or the user\
+            \ has no products"
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Found products from an user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProductDTO"
+  /api/v1/users/reports:
+    get:
+      tags:
+      - rest-user-controller
+      summary: Get Reported users
+      operationId: getReports
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "404":
+          description: Reported users were not found
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Reports were successfully earned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserReportDTO"
+        "403":
+          description: User does not have permission to get the reports
+  /api/v1/products/{productId}/reviews/{rid}/files/{filename}:
+    get:
+      tags:
+      - Reviews
+      operationId: getFile
+      parameters:
+      - name: filename
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: rid
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: productId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+    delete:
+      tags:
+      - Reviews
+      operationId: deleteFile
+      parameters:
+      - name: productId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: rid
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: filename
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/products/{pid}/reviews:
+    get:
+      tags:
+      - Reviews
+      summary: Get reviews for a given product id
+      operationId: getReviews
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: "Either could not find product with given id, or the product\
+            \ has no reviews"
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Found reviews in product
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ReviewDTO"
+  /api/v1/products/{pid}/reviews/{rid}:
+    get:
+      tags:
+      - Reviews
+      summary: Returns a specific review within a given product
+      operationId: getReviews_1
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: rid
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Product or review could not be found
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Found the review
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReviewDTO"
+  /api/v1/products/reports:
+    get:
+      tags:
+      - Products
+      summary: Get reported products
+      operationId: getRports
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "404":
+          description: Reported products were not found
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Reports were successfully earned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProductReportDTO"
+        "403":
+          description: User does not have permission to get the reports
+  /api/v1/orders/{id}:
+    get:
+      tags:
+      - rest-order-controller
+      summary: Get an order by its ID for an user
+      operationId: getOrder
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Could not found any orders by the ID for the user
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Found order by its ID for the user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderDTO"
+  /api/v1/orders/{id}/products:
+    get:
+      tags:
+      - rest-order-controller
+      summary: Get the products from an order by its ID
+      operationId: getOrderProductsByOrder
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "404":
+          description: Could not found any products by the ID from the order
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Found the products from the order
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrderProductDTO"
+  /api/v1/orders/cart:
+    get:
+      tags:
+      - rest-order-controller
+      summary: Get the cart from an user
+      operationId: getCart
+      responses:
+        "404":
+          description: Could not found the user
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Found the cart of the user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderDTO"
+    delete:
+      tags:
+      - rest-order-controller
+      summary: Clear all the cart
+      operationId: clearCart
+      responses:
+        "404":
+          description: Could not found the cart
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: The cart has been cleared
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderDTO"
+  /api/v1/orders/:
+    get:
+      tags:
+      - rest-order-controller
+      summary: Get all orders for an user
+      operationId: getAllOrders
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "404":
+          description: Could not found any orders for the user
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Found orders for the user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrderBasicDTO"
+  /api/v1/images/{id}:
+    get:
+      tags:
+      - rest-image-controller
+      operationId: getImageData
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/orders/cart/{id}:
+    delete:
+      tags:
+      - rest-order-controller
+      summary: Delete a product from the cart
+      operationId: removeProductFromCart
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Could not found the product
+          content: {}
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Product have been deleted from the cart
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderProductDTO"
+  /error:
+    get:
+      tags:
+      - rest-error-controller
+      operationId: handleError
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+    put:
+      tags:
+      - rest-error-controller
+      operationId: handleError_2
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+    post:
+      tags:
+      - rest-error-controller
+      operationId: handleError_1
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+    delete:
+      tags:
+      - rest-error-controller
+      operationId: handleError_3
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+    options:
+      tags:
+      - rest-error-controller
+      operationId: handleError_6
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+    head:
+      tags:
+      - rest-error-controller
+      operationId: handleError_5
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+    patch:
+      tags:
+      - rest-error-controller
+      operationId: handleError_4
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: OK
+components:
+  schemas:
+    UserBasicDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        email:
+          type: string
+    ReviewUploadDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        rating:
+          type: integer
+          format: int32
+        description:
+          type: string
+    ReviewDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        description:
+          type: string
+        rating:
+          type: integer
+          format: int32
+        author:
+          $ref: "#/components/schemas/UserBasicDTO"
+        files:
+          type: array
+          items:
+            type: string
+    ProductUploadDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+          format: double
+        stock:
+          type: integer
+          format: int32
+    ImageDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+    ProductDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        vendor:
+          $ref: "#/components/schemas/UserBasicDTO"
+        price:
+          type: number
+          format: double
+        stock:
+          type: integer
+          format: int32
+        description:
+          type: string
+        reviews:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReviewSummaryDTO"
+        images:
+          type: array
+          items:
+            $ref: "#/components/schemas/ImageDTO"
+    ReviewSummaryDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        rating:
+          type: integer
+          format: int32
+    StringDTO:
+      type: object
+      properties:
+        str:
+          type: string
+    UserLoginDTO:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    AuthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - SUCCESS
+          - FAILURE
+        message:
+          type: string
+        error:
+          type: string
+    ProductSummaryDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+    OrderDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        price:
+          type: number
+          format: double
+        user:
+          $ref: "#/components/schemas/UserBasicDTO"
+        isClosed:
+          type: boolean
+        products:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrderProductDTO"
+    OrderProductDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        quantity:
+          type: integer
+          format: int32
+        product:
+          $ref: "#/components/schemas/ProductSummaryDTO"
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    Pageable:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+          minimum: 0
+        size:
+          type: integer
+          format: int32
+          minimum: 1
+        sort:
+          type: array
+          items:
+            type: string
+    UserReportDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        email:
+          type: string
+        reports:
+          type: array
+          items:
+            type: string
+    ProductReportDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        reports:
+          type: array
+          items:
+            type: string
+    OrderBasicDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        price:
+          type: number
+          format: double
+    UserDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        email:
+          type: string
+        image:
+          $ref: "#/components/schemas/ImageDTO"
+        products:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductSummaryDTO"
