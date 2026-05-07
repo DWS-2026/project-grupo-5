@@ -20,14 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -36,262 +32,170 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/products")
-@Tag(name="Products", description = "Endpoints related to manipulating products")
+@Tag(name = "Products", description = "Endpoints related to manipulating products")
 public class RestProductController {
-    @Autowired
-    private ProductMapper mapper;
-    @Autowired
-    private ProductService productService;
-    @Autowired
-    private UserService users;
-    @Autowired
-    private ImageService imageService;
-    @Autowired
-    private ImageMapper imageMapper;
+        @Autowired
+        private ProductMapper mapper;
+        @Autowired
+        private ProductService productService;
+        @Autowired
+        private UserService users;
+        @Autowired
+        private ImageService imageService;
+        @Autowired
+        private ImageMapper imageMapper;
 
-    @Operation(summary = "Get products with an optional query")
-    @ApiResponses(value = {
-        @ApiResponse(
-            responseCode = "200",
-            description = "Found products to display",
-            content = @Content(
-                mediaType = "application/json",
-                array = @ArraySchema(
-                    schema = @Schema(implementation = ProductSummaryDTO.class)
-                )
-            )
-        ),
-        @ApiResponse(
-            responseCode = "400",
-            description = "Page number is out of bounds",
-            content = @Content
-        ),
-        @ApiResponse(
-            responseCode = "404",
-            description = "Could not find products with given query",
-            content = @Content
-        )
-    })
-    @GetMapping("/")
-    public Page<ProductSummaryDTO> getProducts(
-            @Parameter(description = "Optional query")
-            @RequestParam(required = false) String search, @PageableDefault(size=12) @ParameterObject Pageable page){
-        return productService.getPageProducts(search, search, page).map(product -> mapper.toSummaryDTO(product));
-    }
-    @Operation(summary="Returns a product with a given id")
-    @ApiResponses({
-        @ApiResponse(
-            responseCode = "200",
-            description = "Found the product",
-            content = @Content(
-                mediaType = "application/json",
-                schema = @Schema(implementation = ProductDTO.class)
-            )
-        ),
-        @ApiResponse(
-            responseCode = "404",
-            description = "Product with given id could not be found",
-            content = @Content
-        )
-    })
-    
-    @GetMapping("/{id}")
-    public ProductDTO getProduct(@PathVariable long id){
-        return mapper.toDTO(productService.getProduct(id));
-    }
+        @Operation(summary = "Get products with an optional query")
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "200", description = "Found products to display", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ProductSummaryDTO.class)))),
+                        @ApiResponse(responseCode = "400", description = "Page number is out of bounds", content = @Content),
+                        @ApiResponse(responseCode = "404", description = "Could not find products with given query", content = @Content)
+        })
+        @GetMapping("/")
+        public Page<ProductSummaryDTO> getProducts(
+                        @Parameter(description = "Optional query") @RequestParam(required = false) String search,
+                        @PageableDefault(size = 12) @ParameterObject Pageable page) {
+                return productService.getPageProducts(search, search, page)
+                                .map(product -> mapper.toSummaryDTO(product));
+        }
 
-    @Operation(summary = "Upload a product to the page")
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "201",
-                    description = "Product was created successfully",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = ProductDTO.class)
-                    )
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Invalid object was passed",
-                    content = @Content
-            ),
-            @ApiResponse(
-                    responseCode = "403",
-                    description = "The session token is not present or has expired",
-                    content = @Content
-            )
-    })
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping("/")
-    public ResponseEntity<ProductDTO> uploadProduct(Principal principal, @RequestBody ProductUploadDTO product){
-        User user = users.getUser(principal);
-        Product entityProduct = mapper.toDomain(product, user);
-        productService.addProduct(entityProduct);
-        URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(entityProduct.getId()).toUri();
-        return ResponseEntity.created(path).body(mapper.toDTO(entityProduct));
-    }
-    @Operation(summary = "Modify a product")
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Product was updated successfully",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = ProductDTO.class)
-                    )
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Object passed is invalid",
-                    content = @Content
-            ),
-            @ApiResponse(
-                    responseCode = "403",
-                    description = "User does not have permission to edit the product",
-                    content = @Content
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "Product with id was not found",
-                    content = @Content
-            )
-    })
-    @PreAuthorize("isAuthenticated()")
-    @PutMapping("/{id}")
-    public ResponseEntity<ProductDTO> editProduct(Principal principal, @PathVariable long id, @RequestBody ProductUploadDTO modification){
-        User user = users.getUser(principal);
-        Product product = productService.getProduct(id);
-        Product entityProductModified = mapper.toDomain(modification, user);
-        productService.editProduct(user, product, entityProductModified);
-        return ResponseEntity.ok(mapper.toDTO(product));
-    }
-    @Operation(summary = "Delete a product with a given id")
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Product was deleted successfully",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = ProductDTO.class)
-                    )
-            ),
-            @ApiResponse(
-                    responseCode = "403",
-                    description = "User does not have permission to delete product",
-                    content = @Content
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "Product was not found",
-                    content = @Content
-            )
-    })
-    @PreAuthorize("isAuthenticated()")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ProductDTO> deleteProduct(Principal principal, @PathVariable long id){
-        User user = users.getUser(principal);
-        Product product = productService.getProduct(id);
-        productService.deleteProduct(user, product);
-        return ResponseEntity.ok(mapper.toDTO(product));
-    }
+        @Operation(summary = "Returns a product with a given id")
+        @ApiResponses({
+                        @ApiResponse(responseCode = "200", description = "Found the product", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProductDTO.class))),
+                        @ApiResponse(responseCode = "404", description = "Product with given id could not be found", content = @Content)
+        })
 
-    @GetMapping("/{id}/images")
-    public List<ImageDTO> getProductImages(@PathVariable long id){
-        return imageMapper.toDTOs(productService.getProduct(id).getProductImages());
-    }
+        @GetMapping("/{id}")
+        public ProductDTO getProduct(@PathVariable long id) {
+                return mapper.toDTO(productService.getProduct(id));
+        }
 
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping("/{id}/images")
-    public ResponseEntity<ImageDTO> uploadImage(Principal principal, @PathVariable long id, @RequestParam MultipartFile imageFile){
-        Product product = productService.getProduct(id);
-        User user = users.getUser(principal);
-        Image image = imageService.createImage(imageFile);
-        productService.addImage(user, product, image);
-        image = product.getProductImages().getLast();
-        URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(image.getId()).toUri();
-        return ResponseEntity.created(path).body(imageMapper.toDTO(image));
-    }
+        @Operation(summary = "Upload a product to the page")
+        @ApiResponses({
+                        @ApiResponse(responseCode = "201", description = "Product was created successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProductDTO.class))),
+                        @ApiResponse(responseCode = "400", description = "Invalid object was passed", content = @Content),
+                        @ApiResponse(responseCode = "403", description = "The session token is not present or has expired", content = @Content)
+        })
+        @PreAuthorize("isAuthenticated()")
+        @PostMapping("/")
+        public ResponseEntity<ProductDTO> uploadProduct(Principal principal, @RequestBody ProductUploadDTO product) {
+                User user = users.getUser(principal);
+                Product entityProduct = mapper.toDomain(product, user);
+                productService.addProduct(entityProduct);
+                URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                                .buildAndExpand(entityProduct.getId()).toUri();
+                return ResponseEntity.created(path).body(mapper.toDTO(entityProduct));
+        }
 
-    @PreAuthorize("isAuthenticated()")
-    @PutMapping("/{productId}/images/{imageId}")
-    public ResponseEntity<Object> editProductImage(Principal principal, @PathVariable long productId, @PathVariable long imageId, @RequestParam MultipartFile imageFile){
-        Product product = productService.getProduct(productId);
-        User user = users.getUser(principal);
-        productService.modifyCheck(user, product);
-        Image image = imageService.getImageEntity(imageId);
-        imageService.replaceImage(image, imageFile);
-        return ResponseEntity.noContent().build();
-    }
+        @Operation(summary = "Modify a product")
+        @ApiResponses({
+                        @ApiResponse(responseCode = "200", description = "Product was updated successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProductDTO.class))),
+                        @ApiResponse(responseCode = "400", description = "Object passed is invalid", content = @Content),
+                        @ApiResponse(responseCode = "403", description = "User does not have permission to edit the product", content = @Content),
+                        @ApiResponse(responseCode = "404", description = "Product with id was not found", content = @Content)
+        })
+        @PreAuthorize("isAuthenticated()")
+        @PutMapping("/{id}")
+        public ResponseEntity<ProductDTO> editProduct(Principal principal, @PathVariable long id,
+                        @RequestBody ProductUploadDTO modification) {
+                User user = users.getUser(principal);
+                Product product = productService.getProduct(id);
+                Product entityProductModified = mapper.toDomain(modification, user);
+                productService.editProduct(user, product, entityProductModified);
+                return ResponseEntity.ok(mapper.toDTO(product));
+        }
 
-    @PreAuthorize("isAuthenticated()")
-    @DeleteMapping("/{productId}/images/{imageId}")
-    public ResponseEntity<ImageDTO> deleteProductImage(Principal principal, @PathVariable long productId, @PathVariable long imageId){
-        Product product = productService.getProduct(productId);
-        User user = users.getUser(principal);
-        productService.modifyCheck(user, product);
-        Image image = imageService.getImageEntity(imageId);
-        productService.deleteImage(user, product, image);
-        return ResponseEntity.ok().body(imageMapper.toDTO(image));
-    }
-    @Operation(summary = "Get a product from the ID")
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Product was successfully reported",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = ProductSummaryDTO.class)
-                    )
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "Product was not found",
-                    content = @Content
-            )
-    })
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping("/{id}/report")
-    public ResponseEntity<StringDTO> createReport(@PathVariable long id,@RequestBody StringDTO report) {
-        Product product = productService.getProduct(id);
-        product.report(report.str());
-        productService.addProduct(product);
-        return ResponseEntity.ok(report);
-    }
-    @Operation(summary = "Get reported products")
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Reports were successfully earned",
-                    content = @Content(
-                            mediaType = "application/json",
-                            array = @ArraySchema(
-                            schema = @Schema(implementation = ProductReportDTO.class)
-                        )
-                    )
-            ),
-            @ApiResponse(
-                    responseCode = "403",
-                    description = "User does not have permission to get the reports",
-                    content = @Content
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "Reported products were not found",
-                    content = @Content
-            )
-    })
+        @Operation(summary = "Delete a product with a given id")
+        @ApiResponses({
+                        @ApiResponse(responseCode = "200", description = "Product was deleted successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProductDTO.class))),
+                        @ApiResponse(responseCode = "403", description = "User does not have permission to delete product", content = @Content),
+                        @ApiResponse(responseCode = "404", description = "Product was not found", content = @Content)
+        })
+        @PreAuthorize("isAuthenticated()")
+        @DeleteMapping("/{id}")
+        public ResponseEntity<ProductDTO> deleteProduct(Principal principal, @PathVariable long id) {
+                User user = users.getUser(principal);
+                Product product = productService.getProduct(id);
+                productService.deleteProduct(user, product);
+                return ResponseEntity.ok(mapper.toDTO(product));
+        }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
-    @GetMapping("/reports")
-    public Page<ProductReportDTO> getReports(Pageable pageable) {
-        return productService.getReportedProducts(null,null,pageable).map(mapper::toReportProductDTO);
-    }
-    @PreAuthorize("hasAnyRole('ADMIN')")
-    @DeleteMapping("/{id}/report")
-    public ProductReportDTO deleteReport(Pageable pageable,@RequestBody StringDTO report,@PathVariable long id) {
-        Product product = this.productService.getProduct(id);
-        product.getReported().remove(report.str());
-        productService.addProduct(product);
-        return mapper.toReportProductDTO(product);
-    }
+        @GetMapping("/{id}/images")
+        public List<ImageDTO> getProductImages(@PathVariable long id) {
+                return imageMapper.toDTOs(productService.getProduct(id).getProductImages());
+        }
+
+        @PreAuthorize("isAuthenticated()")
+        @PostMapping("/{id}/images")
+        public ResponseEntity<ImageDTO> uploadImage(Principal principal, @PathVariable long id,
+                        @RequestParam MultipartFile imageFile) {
+                Product product = productService.getProduct(id);
+                User user = users.getUser(principal);
+                Image image = imageService.createImage(imageFile);
+                productService.addImage(user, product, image);
+                image = product.getProductImages().getLast();
+                URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(image.getId())
+                                .toUri();
+                return ResponseEntity.created(path).body(imageMapper.toDTO(image));
+        }
+
+        @PreAuthorize("isAuthenticated()")
+        @PutMapping("/{productId}/images/{imageId}")
+        public ResponseEntity<Object> editProductImage(Principal principal, @PathVariable long productId,
+                        @PathVariable long imageId, @RequestParam MultipartFile imageFile) {
+                Product product = productService.getProduct(productId);
+                User user = users.getUser(principal);
+                productService.modifyCheck(user, product);
+                Image image = imageService.getImageEntity(imageId);
+                imageService.replaceImage(image, imageFile);
+                return ResponseEntity.noContent().build();
+        }
+
+        @PreAuthorize("isAuthenticated()")
+        @DeleteMapping("/{productId}/images/{imageId}")
+        public ResponseEntity<ImageDTO> deleteProductImage(Principal principal, @PathVariable long productId,
+                        @PathVariable long imageId) {
+                Product product = productService.getProduct(productId);
+                User user = users.getUser(principal);
+                productService.modifyCheck(user, product);
+                Image image = imageService.getImageEntity(imageId);
+                productService.deleteImage(user, product, image);
+                return ResponseEntity.ok().body(imageMapper.toDTO(image));
+        }
+
+        @Operation(summary = "Get a product from the ID")
+        @ApiResponses({
+                        @ApiResponse(responseCode = "200", description = "Product was successfully reported", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProductSummaryDTO.class))),
+                        @ApiResponse(responseCode = "404", description = "Product was not found", content = @Content)
+        })
+        @PreAuthorize("isAuthenticated()")
+        @PostMapping("/{id}/report")
+        public ResponseEntity<StringDTO> createReport(@PathVariable long id, @RequestBody StringDTO report) {
+                Product product = productService.getProduct(id);
+                product.report(report.str());
+                productService.addProduct(product);
+                return ResponseEntity.ok(report);
+        }
+
+        @Operation(summary = "Get reported products")
+        @ApiResponses({
+                        @ApiResponse(responseCode = "200", description = "Reports were successfully earned", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ProductReportDTO.class)))),
+                        @ApiResponse(responseCode = "403", description = "User does not have permission to get the reports", content = @Content),
+                        @ApiResponse(responseCode = "404", description = "Reported products were not found", content = @Content)
+        })
+
+        @PreAuthorize("hasAnyRole('ADMIN')")
+        @GetMapping("/reports")
+        public Page<ProductReportDTO> getReports(Pageable pageable) {
+                return productService.getReportedProducts(null, null, pageable).map(mapper::toReportProductDTO);
+        }
+
+        @PreAuthorize("hasAnyRole('ADMIN')")
+        @DeleteMapping("/{id}/report")
+        public ProductReportDTO deleteReport(Pageable pageable, @RequestBody StringDTO report, @PathVariable long id) {
+                Product product = this.productService.getProduct(id);
+                product.getReported().remove(report.str());
+                productService.addProduct(product);
+                return mapper.toReportProductDTO(product);
+        }
 }

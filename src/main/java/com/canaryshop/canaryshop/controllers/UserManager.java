@@ -14,10 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
-import com.canaryshop.canaryshop.entities.Image;
 import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.User;
-import com.canaryshop.canaryshop.services.ImageService;
 import com.canaryshop.canaryshop.services.UserService;
 
 import jakarta.servlet.ServletException;
@@ -90,16 +88,16 @@ public class UserManager {
         // Verify if the email is already in use.
         User emailVerf = this.userService.findByEmail(user.getEmail());
         if (emailVerf != null && user.getId() != emailVerf.getId()) {
-            redirectAttributes.addFlashAttribute("updateError","This email is already in use");
+            redirectAttributes.addFlashAttribute("updateError", "This email is already in use");
             return "redirect:/user/" + id;
         }
         // Verify if the username is already in use.
         User nameVerf = this.userService.findByUsername(user.getUsername());
         if (nameVerf != null && user.getId() != nameVerf.getId()) {
-            redirectAttributes.addFlashAttribute("updateError","This username is already in use");
+            redirectAttributes.addFlashAttribute("updateError", "This username is already in use");
             return "redirect:/user/" + id;
         }
-        this.userService.updateUser(currentUser, user,userName,email);
+        this.userService.updateUser(currentUser, user, userName, email);
         return "redirect:/user/" + id;
     }
 

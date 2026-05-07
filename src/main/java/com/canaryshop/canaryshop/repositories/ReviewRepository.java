@@ -9,11 +9,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
-import java.util.List;
-
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
     public Optional<Review> findByAuthorAndProduct(User author, Product product);
+
     Page<Review> findByAuthor(User author, Pageable page);
+
     boolean existsByAuthorAndProduct(User author, Product product);
 }

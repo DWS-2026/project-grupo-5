@@ -7,10 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.server.ResponseStatusException;
-
 @Entity
 public class Order {
 
@@ -96,7 +92,7 @@ public class Order {
 
     // Add the product
     private void addProduct(OrderProduct op) {
-        if(this.user != null && op.getProduct().getVendor().equals(this.user)){
+        if (this.user != null && op.getProduct().getVendor().equals(this.user)) {
             throw new IllegalArgumentException("Is not possible to buy your own product");
         }
         products.add(op);

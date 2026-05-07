@@ -14,7 +14,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.canaryshop.canaryshop.DTOs.OrderDTO;
 import com.canaryshop.canaryshop.DTOs.OrderMapper;
-import com.canaryshop.canaryshop.DTOs.StringDTO;
 import com.canaryshop.canaryshop.entities.Order;
 import com.canaryshop.canaryshop.entities.User;
 import com.canaryshop.canaryshop.services.OrderService;
@@ -40,21 +39,21 @@ public class RestPaymentController {
     @Autowired
     private UserService userService;
 
-    
     @Operation(summary = "Pay the cart with or without a code")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The cart have been paid", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDTO.class))),
             @ApiResponse(responseCode = "404", description = "Could not found the cart", content = @Content)
     })
     @PostMapping("/cart")
-    public ResponseEntity<OrderDTO> payCart(@AuthenticationPrincipal UserDetails userDetails, @RequestBody(required = false) StringDTO code) {
+    public ResponseEntity<OrderDTO> payCart(@AuthenticationPrincipal UserDetails userDetails,
+            @RequestBody(required = false) StringDTO code) {
         User user = userService.getUser(userDetails.getUsername());
         Order cart = this.orderService.createTempCart(user, null);
         if (cart.getProducts().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cart is empty");
         }
         String discountCode = (code != null) ? code.str() : null;
-        this.orderService.closeOrder(user, cart,this.orderService.getDiscount(discountCode));
+        this.orderService.closeOrder(user, cart, this.orderService.getDiscount(discountCode));
         return ResponseEntity.ok(orderMapper.toDTO(cart));
     }
 
@@ -64,7 +63,8 @@ public class RestPaymentController {
             @ApiResponse(responseCode = "404", description = "Could not found the product", content = @Content)
     })
     @PostMapping("/{productID}")
-    public ResponseEntity<OrderDTO> payProduct(@AuthenticationPrincipal UserDetails userDetails, @PathVariable long productID, @RequestBody(required = false) StringDTO code) {
+    public ResponseEntity<OrderDTO> payProduct(@AuthenticationPrincipal UserDetails userDetails,
+            @PathVariable long productID, @RequestBody(required = false) StringDTO code) {
         User user = userService.getUser(userDetails.getUsername());
         Order temp = this.orderService.createTempCart(user, productID);
         String discountCode = (code != null) ? code.str() : null;
