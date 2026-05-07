@@ -151,7 +151,7 @@ public class RestUserController {
         if (nameVerf != null && u.getId() != nameVerf.getId()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,"This username is already in use");
         }
-        this.users.updateUser(currentUser, this.users.findById(u.getId()), u.getUsername(), u.getEmail());
+        this.users.updateUser(currentUser, u, user.username(), user.email());
         return ResponseEntity.ok(user);
     }
     @PreAuthorize("isAuthenticated()")
