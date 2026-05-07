@@ -194,12 +194,40 @@ public class RestReviewController {
         return ResponseEntity.ok().body(reviewMapper.toDTO(entityReview));
     }
 
+    @Operation(summary = "Downloads a file attached to a review")
+    @ApiResponses({
+            @ApiResponse(
+                        responseCode = "200",
+                        description = "File was found and is being returned",
+                        content = @Content(
+                                mediaType = "application/octet-stream"
+                        )
+                ),
+                @ApiResponse(
+                                responseCode = "404",
+                                description = "Product, review, or file with given ID was not found",
+                                content = @Content
+                        )
+        })
     @GetMapping("/{productId}/reviews/{rid}/files/{filename}")
     public ResponseEntity<Resource> getFile(@PathVariable String filename, @PathVariable long rid, @PathVariable String productId){
         Resource file = fileService.loadFile(filename);
         return ResponseEntity.ok().body(file);
     }
 
+    @Operation(summary = "Uploads a file to be attached to a review")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "File was uploaded successfully",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Product or review with given ID was not found",
+                    content = @Content
+            )
+    }) 
     @PostMapping("/{productId}/reviews/{rid}/files")
     public ResponseEntity<?> storeFile(Principal principal, @PathVariable long rid, @RequestParam("file") MultipartFile file, @PathVariable String productId) {
         Review review = reviews.getReview(rid);
@@ -208,8 +236,25 @@ public class RestReviewController {
         URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fileName}").buildAndExpand(filename).toUri();
         return ResponseEntity.created(path).body(filename);
     }  
-
-
+    
+    @Operation(summary = "Deletes a file attached to a review")
+        @ApiResponses({
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "File was deleted successfully",
+                        content = @Content
+                ),
+                @ApiResponse(
+                        responseCode = "403",
+                        description = "User is not logged in or cannot delete file",
+                        content = @Content
+                ),
+                @ApiResponse(
+                        responseCode = "404",
+                        description = "Product, review, or file with given ID was not found",
+                        content = @Content
+                )
+        })
     @DeleteMapping("/{productId}/reviews/{rid}/files/{filename}")
     public ResponseEntity<?> deleteFile(Principal principal, @PathVariable long productId, @PathVariable long rid, @PathVariable String filename){
         
