@@ -369,17 +369,17 @@ Diagrama actualizado incluyendo los @RestController y su relación con los @Serv
 
 ### **Participación de Miembros en la Práctica 3**
 
-#### **Alumno 1 - [Nombre Completo]**
+#### **Alumno 1 - Diego Coello López**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+En esta parte del proyecto me he encargado de crear la función de poder subir archivos al servidor y almacenarlos en el disco. A su vez también me he proporcionado seguridad a dicha función.
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Implement FileService for file upload handling](https://github.com/DWS-2026/project-grupo-5/commit/c900354ed6abb70a96c249a667f2f6fbfefa4236)  | [FileService.java](https://github.com/DWS-2026/project-grupo-5/commit/c900354ed6abb70a96c249a667f2f6fbfefa4236#diff-0aff3ddd0b104cd59e9fee3b00ce5471724254f1b37574796f61e3a7a750fe0e)   |
+|2| [Enhance FileService and RestReviewController to support file retrieval and improve file storage logic](https://github.com/DWS-2026/project-grupo-5/commit/89029addb98c77a80fecb170e3ab17823ee7c1d3)  | [RestReviewController.java](https://github.com/DWS-2026/project-grupo-5/commit/89029addb98c77a80fecb170e3ab17823ee7c1d3#diff-df0f60227038438b3ec4d15f9843459d4bdc988f41ceba0a2f4e755025a1b7e6), [FileService.java](https://github.com/DWS-2026/project-grupo-5/commit/89029addb98c77a80fecb170e3ab17823ee7c1d3#diff-0aff3ddd0b104cd59e9fee3b00ce5471724254f1b37574796f61e3a7a750fe0e)   |
+|3| [Add file upload functionality to reviews and enhance Review entity](https://github.com/DWS-2026/project-grupo-5/commit/404a6264f2470318a6c7116a73950fe1b495e33e)  | [RestReviewController.java](https://github.com/DWS-2026/project-grupo-5/commit/404a6264f2470318a6c7116a73950fe1b495e33e#diff-df0f60227038438b3ec4d15f9843459d4bdc988f41ceba0a2f4e755025a1b7e6), [Review.java](https://github.com/DWS-2026/project-grupo-5/commit/404a6264f2470318a6c7116a73950fe1b495e33e#diff-0ed145474dfa1e8a2585e453d7ae2d7b7eaee12681d6bac67dc82494fe501060), [FileService.java](https://github.com/DWS-2026/project-grupo-5/commit/404a6264f2470318a6c7116a73950fe1b495e33e#diff-0aff3ddd0b104cd59e9fee3b00ce5471724254f1b37574796f61e3a7a750fe0e), [ReviewService.java](https://github.com/DWS-2026/project-grupo-5/commit/404a6264f2470318a6c7116a73950fe1b495e33e#diff-f141b454b819c9bdfc6ca511a31098dfdf69dfc7c3a5ea66d8d713f954c9b7dd)   |
+|4| [New delete file function](https://github.com/DWS-2026/project-grupo-5/commit/8f6943dcbce29568c6e3d5ef34a30ee32d1ad172)  | [RestReviewController.java](https://github.com/DWS-2026/project-grupo-5/commit/8f6943dcbce29568c6e3d5ef34a30ee32d1ad172#diff-df0f60227038438b3ec4d15f9843459d4bdc988f41ceba0a2f4e755025a1b7e6), [FileService.java](https://github.com/DWS-2026/project-grupo-5/commit/8f6943dcbce29568c6e3d5ef34a30ee32d1ad172#diff-0aff3ddd0b104cd59e9fee3b00ce5471724254f1b37574796f61e3a7a750fe0e), [ReviewService.java](https://github.com/DWS-2026/project-grupo-5/commit/8f6943dcbce29568c6e3d5ef34a30ee32d1ad172#diff-f141b454b819c9bdfc6ca511a31098dfdf69dfc7c3a5ea66d8d713f954c9b7dd)   |
+|5| [IDOR deleteFile fixed](https://github.com/DWS-2026/project-grupo-5/commit/c7ce55aa794f609acdb221cda9b9b3d794fa2b65)  | [RestReviewController.java](https://github.com/DWS-2026/project-grupo-5/commit/c7ce55aa794f609acdb221cda9b9b3d794fa2b65#diff-df0f60227038438b3ec4d15f9843459d4bdc988f41ceba0a2f4e755025a1b7e6), [FileService.java](https://github.com/DWS-2026/project-grupo-5/commit/c7ce55aa794f609acdb221cda9b9b3d794fa2b65#diff-f141b454b819c9bdfc6ca511a31098dfdf69dfc7c3a5ea66d8d713f954c9b7dd)   |
 
 ---
 
