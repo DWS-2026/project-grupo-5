@@ -53,14 +53,13 @@ public class OrderService {
         return discount;
     }
 
-
     // To close and order with the discount
     public void closeOrder(User u, Order order, float discount) {
         order.closeOrder();
         order.setDiscount(discount);
         this.productsPurchased(order);
         u.addOrder(order);
-        if (order.getId()!=null && u.getCart().getId().equals(order.getId())){
+        if (order.getId() != null && u.getCart().getId().equals(order.getId())) {
             Order newCart = new Order();
             u.setCart(newCart);
             this.orderRepository.save(newCart);
@@ -103,12 +102,14 @@ public class OrderService {
         return this.orderProductRepository.findByProductAndOrder(p, cart).orElseThrow();
     }
 
+    // Clear the cart
     public void clearOder(Order o) {
         List<OrderProduct> products = o.getProducts();
         products.clear();
         this.orderRepository.save(o);
     }
 
+    // Create a cart if an product is purchased
     public Order createTempCart(User user, Long productID) {
         Order temp = new Order();
         if (productID != null) {
