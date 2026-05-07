@@ -228,6 +228,8 @@ public class RestReviewController {
                     content = @Content
             )
     }) 
+
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/{productId}/reviews/{rid}/files")
     public ResponseEntity<?> storeFile(Principal principal, @PathVariable long rid, @RequestParam("file") MultipartFile file, @PathVariable String productId) {
         Review review = reviews.getReview(rid);
@@ -238,23 +240,25 @@ public class RestReviewController {
     }  
     
     @Operation(summary = "Deletes a file attached to a review")
-        @ApiResponses({
-                @ApiResponse(
-                        responseCode = "200",
-                        description = "File was deleted successfully",
-                        content = @Content
-                ),
-                @ApiResponse(
-                        responseCode = "403",
-                        description = "User is not logged in or cannot delete file",
-                        content = @Content
-                ),
-                @ApiResponse(
-                        responseCode = "404",
-                        description = "Product, review, or file with given ID was not found",
-                        content = @Content
-                )
-        })
+    @ApiResponses({
+        @ApiResponse(
+                responseCode = "200",
+                description = "File was deleted successfully",
+                content = @Content
+        ),
+        @ApiResponse(
+                responseCode = "403",
+                description = "User is not logged in or cannot delete file",
+                content = @Content
+        ),
+        @ApiResponse(
+                responseCode = "404",
+                description = "Product, review, or file with given ID was not found",
+                content = @Content
+        )
+    })
+
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/{productId}/reviews/{rid}/files/{filename}")
     public ResponseEntity<?> deleteFile(Principal principal, @PathVariable long productId, @PathVariable long rid, @PathVariable String filename){
         

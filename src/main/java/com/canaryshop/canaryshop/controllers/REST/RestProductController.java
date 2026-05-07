@@ -251,7 +251,7 @@ public class RestProductController {
     })
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/{id}/report")
-    public ResponseEntity<StringDTO> postMethodName(@PathVariable long id,@RequestBody StringDTO report) {
+    public ResponseEntity<StringDTO> createReport(@PathVariable long id,@RequestBody StringDTO report) {
         Product product = productService.getProduct(id);
         product.report(report.str());
         productService.addProduct(product);
@@ -283,7 +283,7 @@ public class RestProductController {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/reports")
-    public Page<ProductReportDTO> getRports(Pageable pageable) {
+    public Page<ProductReportDTO> getReports(Pageable pageable) {
         return productService.getReportedProducts(null,null,pageable).map(mapper::toReportProductDTO);
     }
     @PreAuthorize("hasAnyRole('ADMIN')")
