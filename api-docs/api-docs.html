@@ -1204,6 +1204,9 @@ ul.nav-tabs {
             <li class="nav-fixed nav-header active" data-group="_"><a href="#api-_">API Summary</a></li>
 
                   <li class="nav-header" data-group="Products"><a href="#api-Products">API Methods - Products</a></li>
+                    <li data-group="Products" data-name="createReport" class="">
+                      <a href="#api-Products-createReport">createReport</a>
+                    </li>
                     <li data-group="Products" data-name="deleteProduct" class="">
                       <a href="#api-Products-deleteProduct">deleteProduct</a>
                     </li>
@@ -1228,11 +1231,8 @@ ul.nav-tabs {
                     <li data-group="Products" data-name="getProducts" class="">
                       <a href="#api-Products-getProducts">getProducts</a>
                     </li>
-                    <li data-group="Products" data-name="getRports" class="">
-                      <a href="#api-Products-getRports">getRports</a>
-                    </li>
-                    <li data-group="Products" data-name="postMethodName" class="">
-                      <a href="#api-Products-postMethodName">postMethodName</a>
+                    <li data-group="Products" data-name="getReports1" class="">
+                      <a href="#api-Products-getReports1">getReports1</a>
                     </li>
                     <li data-group="Products" data-name="uploadImage" class="">
                       <a href="#api-Products-uploadImage">uploadImage</a>
@@ -1390,6 +1390,579 @@ ul.nav-tabs {
         <div id="sections">
                 <section id="api-Products">
                   <h1>Products</h1>
+                    <div id="api-Products-createReport">
+                      <article id="api-Products-createReport-0" data-group="User" data-name="createReport" data-version="0">
+                        <div class="pull-left">
+                          <h1>createReport</h1>
+                          <p>Get a product from the ID</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/products/{id}/report</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Products-createReport-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Products-createReport-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Products-createReport-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Products-createReport-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Products-createReport-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Products-createReport-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Products-createReport-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Products-createReport-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Products-createReport-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Products-createReport-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Products-createReport-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Products-createReport-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Products-createReport-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Products-createReport-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST \
+ -H "Accept: */*,application/json" \
+ -H "Content-Type: application/json" \
+ "https://localhost:8443/api/v1/products/{id}/report" \
+ -d '{
+  &quot;str&quot; : &quot;str&quot;
+}'
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Products-createReport-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.ProductsApi;
+
+import java.io.File;
+import java.util.*;
+
+public class ProductsApiExample {
+    public static void main(String[] args) {
+
+        // Create an instance of the API class
+        ProductsApi apiInstance = new ProductsApi();
+        Long id = 789; // Long | 
+        StringDTO stringDTO = ; // StringDTO | 
+
+        try {
+            ProductSummaryDTO result = apiInstance.createReport(id, stringDTO);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ProductsApi#createReport");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Products-createReport-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final Long id = new Long(); // Long | 
+final StringDTO stringDTO = new StringDTO(); // StringDTO | 
+
+try {
+    final result = await api_instance.createReport(id, stringDTO);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->createReport: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Products-createReport-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.ProductsApi;
+
+public class ProductsApiExample {
+    public static void main(String[] args) {
+        ProductsApi apiInstance = new ProductsApi();
+        Long id = 789; // Long | 
+        StringDTO stringDTO = ; // StringDTO | 
+
+        try {
+            ProductSummaryDTO result = apiInstance.createReport(id, stringDTO);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ProductsApi#createReport");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Products-createReport-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Products-createReport-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">
+
+// Create an instance of the API class
+ProductsApi *apiInstance = [[ProductsApi alloc] init];
+Long *id = 789; //  (default to null)
+StringDTO *stringDTO = ; // 
+
+// Get a product from the ID
+[apiInstance createReportWith:id
+    stringDTO:stringDTO
+              completionHandler: ^(ProductSummaryDTO output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Products-createReport-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var OpenApiDefinition = require('open_api_definition');
+
+// Create an instance of the API class
+var api = new OpenApiDefinition.ProductsApi()
+var id = 789; // {Long} 
+var stringDTO = ; // {StringDTO} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.createReport(id, stringDTO, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Products-createReport-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Products-createReport-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class createReportExample
+    {
+        public void main()
+        {
+
+            // Create an instance of the API class
+            var apiInstance = new ProductsApi();
+            var id = 789;  // Long |  (default to null)
+            var stringDTO = new StringDTO(); // StringDTO | 
+
+            try {
+                // Get a product from the ID
+                ProductSummaryDTO result = apiInstance.createReport(id, stringDTO);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling ProductsApi.createReport: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Products-createReport-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\ProductsApi();
+$id = 789; // Long | 
+$stringDTO = ; // StringDTO | 
+
+try {
+    $result = $api_instance->createReport($id, $stringDTO);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ProductsApi->createReport: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Products-createReport-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::ProductsApi;
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::ProductsApi->new();
+my $id = 789; # Long | 
+my $stringDTO = WWW::OPenAPIClient::Object::StringDTO->new(); # StringDTO | 
+
+eval {
+    my $result = $api_instance->createReport(id => $id, stringDTO => $stringDTO);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling ProductsApi->createReport: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Products-createReport-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Create an instance of the API class
+api_instance = openapi_client.ProductsApi()
+id = 789 # Long |  (default to null)
+stringDTO =  # StringDTO | 
+
+try:
+    # Get a product from the ID
+    api_response = api_instance.create_report(id, stringDTO)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ProductsApi->createReport: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Products-createReport-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate ProductsApi;
+
+pub fn main() {
+    let id = 789; // Long
+    let stringDTO = ; // StringDTO
+
+    let mut context = ProductsApi::Context::default();
+    let result = client.createReport(id, stringDTO, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">id*</td>
+<td>
+
+
+    <div id="d2e199_createReport_id">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Long
+                </span>
+                    <span class="format">
+                        (int64)
+                    </span>
+
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">stringDTO <span style="color:red;">*</span></td>
+<td>
+<p class="marked"></p>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/StringDTO"
+      }
+    }
+  },
+  "required" : true
+};
+
+  var schema = findNode('schema',schemaWrapper).schema;
+  if (!schema) {
+    schema = schemaWrapper.schema;
+  }
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else if (schema.items != null && schema.items.$ref != null) {
+    schema.items = defsParser.$refs.get(schema.items.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_createReport_stringDTO');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_createReport_stringDTO"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Products-createReport-title-404"></h3>
+                            <p id="examples-Products-createReport-description-404" class="marked"></p>
+                            <script>
+                              var responseProducts404_description = `Product was not found`;
+                              var responseProducts404_description_break = responseProducts404_description.indexOf('\n');
+                              if (responseProducts404_description_break == -1) {
+                                $("#examples-Products-createReport-title-404").text("Status: 404 - " + responseProducts404_description);
+                              } else {
+                                $("#examples-Products-createReport-title-404").text("Status: 404 - " + responseProducts404_description.substring(0, responseProducts404_description_break));
+                                $("#examples-Products-createReport-description-404").html(responseProducts404_description.substring(responseProducts404_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Products-createReport-404" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Products-createReport-404-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Products-createReport-404-schema">
+                                <div id="responses-Products-createReport-schema-404" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "Product was not found",
+  "content" : { }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Products-createReport-404-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Products-createReport-schema-404');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Products-createReport-404-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                            <h3 id="examples-Products-createReport-title-400"></h3>
+                            <p id="examples-Products-createReport-description-400" class="marked"></p>
+                            <script>
+                              var responseProducts400_description = `Bad Request`;
+                              var responseProducts400_description_break = responseProducts400_description.indexOf('\n');
+                              if (responseProducts400_description_break == -1) {
+                                $("#examples-Products-createReport-title-400").text("Status: 400 - " + responseProducts400_description);
+                              } else {
+                                $("#examples-Products-createReport-title-400").text("Status: 400 - " + responseProducts400_description.substring(0, responseProducts400_description_break));
+                                $("#examples-Products-createReport-description-400").html(responseProducts400_description.substring(responseProducts400_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Products-createReport-400" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Products-createReport-400-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Products-createReport-400-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Products-createReport-400-schema">
+                                <div id="responses-Products-createReport-schema-400" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "Bad Request",
+  "content" : {
+    "*/*" : {
+      "schema" : {
+        "type" : "object"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Products-createReport-400-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Products-createReport-schema-400');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Products-createReport-400-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                            <h3 id="examples-Products-createReport-title-200"></h3>
+                            <p id="examples-Products-createReport-description-200" class="marked"></p>
+                            <script>
+                              var responseProducts200_description = `Product was successfully reported`;
+                              var responseProducts200_description_break = responseProducts200_description.indexOf('\n');
+                              if (responseProducts200_description_break == -1) {
+                                $("#examples-Products-createReport-title-200").text("Status: 200 - " + responseProducts200_description);
+                              } else {
+                                $("#examples-Products-createReport-title-200").text("Status: 200 - " + responseProducts200_description.substring(0, responseProducts200_description_break));
+                                $("#examples-Products-createReport-description-200").html(responseProducts200_description.substring(responseProducts200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Products-createReport-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Products-createReport-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Products-createReport-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Products-createReport-200-schema">
+                                <div id="responses-Products-createReport-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "Product was successfully reported",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ProductSummaryDTO"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Products-createReport-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Products-createReport-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Products-createReport-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
                     <div id="api-Products-deleteProduct">
                       <article id="api-Products-deleteProduct-0" data-group="User" data-name="deleteProduct" data-version="0">
                         <div class="pull-left">
@@ -6003,10 +6576,10 @@ Sorting criteria in the format: property,(asc|desc). Default sort order is ascen
                         </article>
                       </div>
                       <hr>
-                    <div id="api-Products-getRports">
-                      <article id="api-Products-getRports-0" data-group="User" data-name="getRports" data-version="0">
+                    <div id="api-Products-getReports1">
+                      <article id="api-Products-getReports1-0" data-group="User" data-name="getReports1" data-version="0">
                         <div class="pull-left">
-                          <h1>getRports</h1>
+                          <h1>getReports1</h1>
                           <p>Get reported products</p>
                         </div>
                         <div class="pull-right"></div>
@@ -6020,29 +6593,29 @@ Sorting criteria in the format: property,(asc|desc). Default sort order is ascen
                           <h3>Usage and SDK Samples</h3>
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-Products-getRports-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-Products-getRports-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Products-getRports-0-dart">Dart</a></li>
-                          <li class=""><a href="#examples-Products-getRports-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-Products-getRports-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-Products-getRports-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-Products-getRports-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-Products-getRports-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-Products-getRports-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-Products-getRports-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-Products-getRports-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-Products-getRports-0-python">Python</a></li>
-                          <li class=""><a href="#examples-Products-getRports-0-rust">Rust</a></li>
+                          <li class="active"><a href="#examples-Products-getReports1-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Products-getReports1-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Products-getReports1-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Products-getReports1-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Products-getReports1-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Products-getReports1-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Products-getReports1-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Products-getReports1-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Products-getReports1-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Products-getReports1-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Products-getReports1-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Products-getReports1-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Products-getReports1-0-rust">Rust</a></li>
                         </ul>
 
                         <div class="tab-content">
-                          <div class="tab-pane active" id="examples-Products-getRports-0-curl">
+                          <div class="tab-pane active" id="examples-Products-getReports1-0-curl">
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
  -H "Accept: */*,application/json" \
  "https://localhost:8443/api/v1/products/reports?pageable="
 </code></pre>
                           </div>
-                          <div class="tab-pane" id="examples-Products-getRports-0-java">
+                          <div class="tab-pane" id="examples-Products-getReports1-0-java">
                             <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
 import org.openapitools.client.auth.*;
 import org.openapitools.client.model.*;
@@ -6059,10 +6632,10 @@ public class ProductsApiExample {
         Pageable pageable = ; // Pageable | 
 
         try {
-            array[ProductReportDTO] result = apiInstance.getRports(pageable);
+            array[ProductReportDTO] result = apiInstance.getReports1(pageable);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ProductsApi#getRports");
+            System.err.println("Exception when calling ProductsApi#getReports1");
             e.printStackTrace();
         }
     }
@@ -6070,7 +6643,7 @@ public class ProductsApiExample {
 </code></pre>
                           </div>
 
-                          <div class="tab-pane" id="examples-Products-getRports-0-dart">
+                          <div class="tab-pane" id="examples-Products-getReports1-0-dart">
                             <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
 
 final api_instance = DefaultApi();
@@ -6078,16 +6651,16 @@ final api_instance = DefaultApi();
 final Pageable pageable = new Pageable(); // Pageable | 
 
 try {
-    final result = await api_instance.getRports(pageable);
+    final result = await api_instance.getReports1(pageable);
     print(result);
 } catch (e) {
-    print('Exception when calling DefaultApi->getRports: $e\n');
+    print('Exception when calling DefaultApi->getReports1: $e\n');
 }
 
 </code></pre>
                           </div>
 
-                          <div class="tab-pane" id="examples-Products-getRports-0-android">
+                          <div class="tab-pane" id="examples-Products-getReports1-0-android">
                             <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.ProductsApi;
 
 public class ProductsApiExample {
@@ -6096,20 +6669,20 @@ public class ProductsApiExample {
         Pageable pageable = ; // Pageable | 
 
         try {
-            array[ProductReportDTO] result = apiInstance.getRports(pageable);
+            array[ProductReportDTO] result = apiInstance.getReports1(pageable);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ProductsApi#getRports");
+            System.err.println("Exception when calling ProductsApi#getReports1");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
   <!--
-  <div class="tab-pane" id="examples-Products-getRports-0-groovy">
+  <div class="tab-pane" id="examples-Products-getReports1-0-groovy">
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
-                            <div class="tab-pane" id="examples-Products-getRports-0-objc">
+                            <div class="tab-pane" id="examples-Products-getReports1-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">
 
 // Create an instance of the API class
@@ -6117,7 +6690,7 @@ ProductsApi *apiInstance = [[ProductsApi alloc] init];
 Pageable *pageable = ; //  (default to null)
 
 // Get reported products
-[apiInstance getRportsWith:pageable
+[apiInstance getReports1With:pageable
               completionHandler: ^(array[ProductReportDTO] output, NSError* error) {
     if (output) {
         NSLog(@"%@", output);
@@ -6129,7 +6702,7 @@ Pageable *pageable = ; //  (default to null)
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Products-getRports-0-javascript">
+                            <div class="tab-pane" id="examples-Products-getReports1-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var OpenApiDefinition = require('open_api_definition');
 
 // Create an instance of the API class
@@ -6143,14 +6716,14 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.getRports(pageable, callback);
+api.getReports1(pageable, callback);
 </code></pre>
                             </div>
 
-                            <!--<div class="tab-pane" id="examples-Products-getRports-0-angular">
+                            <!--<div class="tab-pane" id="examples-Products-getReports1-0-angular">
               <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
             </div>-->
-                            <div class="tab-pane" id="examples-Products-getRports-0-csharp">
+                            <div class="tab-pane" id="examples-Products-getReports1-0-csharp">
                               <pre class="prettyprint"><code class="language-cs">using System;
 using System.Diagnostics;
 using Org.OpenAPITools.Api;
@@ -6159,7 +6732,7 @@ using Org.OpenAPITools.Model;
 
 namespace Example
 {
-    public class getRportsExample
+    public class getReports1Example
     {
         public void main()
         {
@@ -6170,10 +6743,10 @@ namespace Example
 
             try {
                 // Get reported products
-                array[ProductReportDTO] result = apiInstance.getRports(pageable);
+                array[ProductReportDTO] result = apiInstance.getReports1(pageable);
                 Debug.WriteLine(result);
             } catch (Exception e) {
-                Debug.Print("Exception when calling ProductsApi.getRports: " + e.Message );
+                Debug.Print("Exception when calling ProductsApi.getReports1: " + e.Message );
             }
         }
     }
@@ -6181,7 +6754,7 @@ namespace Example
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Products-getRports-0-php">
+                            <div class="tab-pane" id="examples-Products-getReports1-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
@@ -6190,15 +6763,15 @@ $api_instance = new OpenAPITools\Client\Api\ProductsApi();
 $pageable = ; // Pageable | 
 
 try {
-    $result = $api_instance->getRports($pageable);
+    $result = $api_instance->getReports1($pageable);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling ProductsApi->getRports: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling ProductsApi->getReports1: ', $e->getMessage(), PHP_EOL;
 }
 ?></code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Products-getRports-0-perl">
+                            <div class="tab-pane" id="examples-Products-getReports1-0-perl">
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::OPenAPIClient::Configuration;
 use WWW::OPenAPIClient::ProductsApi;
@@ -6208,15 +6781,15 @@ my $api_instance = WWW::OPenAPIClient::ProductsApi->new();
 my $pageable = ; # Pageable | 
 
 eval {
-    my $result = $api_instance->getRports(pageable => $pageable);
+    my $result = $api_instance->getReports1(pageable => $pageable);
     print Dumper($result);
 };
 if ($@) {
-    warn "Exception when calling ProductsApi->getRports: $@\n";
+    warn "Exception when calling ProductsApi->getReports1: $@\n";
 }</code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Products-getRports-0-python">
+                            <div class="tab-pane" id="examples-Products-getReports1-0-python">
                               <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
 import time
 import openapi_client
@@ -6229,20 +6802,20 @@ pageable =  # Pageable |  (default to null)
 
 try:
     # Get reported products
-    api_response = api_instance.get_rports(pageable)
+    api_response = api_instance.get_reports1(pageable)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling ProductsApi->getRports: %s\n" % e)</code></pre>
+    print("Exception when calling ProductsApi->getReports1: %s\n" % e)</code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Products-getRports-0-rust">
+                            <div class="tab-pane" id="examples-Products-getReports1-0-rust">
                               <pre class="prettyprint"><code class="language-rust">extern crate ProductsApi;
 
 pub fn main() {
     let pageable = ; // Pageable
 
     let mut context = ProductsApi::Context::default();
-    let result = client.getRports(pageable, &context).wait();
+    let result = client.getReports1(pageable, &context).wait();
 
     println!("{:?}", result);
 }
@@ -6271,7 +6844,7 @@ pub fn main() {
 <td>
 
 
-    <div id="d2e199_getRports_pageable">
+    <div id="d2e199_getReports1_pageable">
         <div class="json-schema-view">
             <div class="primitive">
                 <span class="type">
@@ -6290,29 +6863,29 @@ pub fn main() {
                             </table>
 
                           <h2>Responses</h2>
-                            <h3 id="examples-Products-getRports-title-404"></h3>
-                            <p id="examples-Products-getRports-description-404" class="marked"></p>
+                            <h3 id="examples-Products-getReports1-title-404"></h3>
+                            <p id="examples-Products-getReports1-description-404" class="marked"></p>
                             <script>
                               var responseProducts404_description = `Reported products were not found`;
                               var responseProducts404_description_break = responseProducts404_description.indexOf('\n');
                               if (responseProducts404_description_break == -1) {
-                                $("#examples-Products-getRports-title-404").text("Status: 404 - " + responseProducts404_description);
+                                $("#examples-Products-getReports1-title-404").text("Status: 404 - " + responseProducts404_description);
                               } else {
-                                $("#examples-Products-getRports-title-404").text("Status: 404 - " + responseProducts404_description.substring(0, responseProducts404_description_break));
-                                $("#examples-Products-getRports-description-404").html(responseProducts404_description.substring(responseProducts404_description_break));
+                                $("#examples-Products-getReports1-title-404").text("Status: 404 - " + responseProducts404_description.substring(0, responseProducts404_description_break));
+                                $("#examples-Products-getReports1-description-404").html(responseProducts404_description.substring(responseProducts404_description_break));
                               }
                             </script>
 
 
-                            <ul id="responses-detail-Products-getRports-404" class="nav nav-tabs nav-tabs-examples" >
+                            <ul id="responses-detail-Products-getReports1-404" class="nav nav-tabs nav-tabs-examples" >
 
 
                             </ul>
 
 
-                            <div class="tab-content" id="responses-Products-getRports-404-wrapper" style='margin-bottom: 10px;'>
-                              <div class="tab-pane active" id="responses-Products-getRports-404-schema">
-                                <div id="responses-Products-getRports-schema-404" class="exampleStyle">
+                            <div class="tab-content" id="responses-Products-getReports1-404-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Products-getReports1-404-schema">
+                                <div id="responses-Products-getReports1-schema-404" class="exampleStyle">
                                   <script>
                                     $(document).ready(function() {
                                       var schemaWrapper = {
@@ -6345,33 +6918,33 @@ pub fn main() {
                                       }
 
                                       var view = new JSONSchemaView(schema, 3);
-                                      $('#responses-Products-getRports-404-schema-data').val(JSON.stringify(schema));
-                                      var result = $('#responses-Products-getRports-schema-404');
+                                      $('#responses-Products-getReports1-404-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Products-getReports1-schema-404');
                                       result.empty();
                                       result.append(view.render());
                                     });
                                   </script>
                                 </div>
-                                <input id='responses-Products-getRports-404-schema-data' type='hidden' value=''></input>
+                                <input id='responses-Products-getReports1-404-schema-data' type='hidden' value=''></input>
                               </div>
                             </div>
-                            <h3 id="examples-Products-getRports-title-400"></h3>
-                            <p id="examples-Products-getRports-description-400" class="marked"></p>
+                            <h3 id="examples-Products-getReports1-title-400"></h3>
+                            <p id="examples-Products-getReports1-description-400" class="marked"></p>
                             <script>
                               var responseProducts400_description = `Bad Request`;
                               var responseProducts400_description_break = responseProducts400_description.indexOf('\n');
                               if (responseProducts400_description_break == -1) {
-                                $("#examples-Products-getRports-title-400").text("Status: 400 - " + responseProducts400_description);
+                                $("#examples-Products-getReports1-title-400").text("Status: 400 - " + responseProducts400_description);
                               } else {
-                                $("#examples-Products-getRports-title-400").text("Status: 400 - " + responseProducts400_description.substring(0, responseProducts400_description_break));
-                                $("#examples-Products-getRports-description-400").html(responseProducts400_description.substring(responseProducts400_description_break));
+                                $("#examples-Products-getReports1-title-400").text("Status: 400 - " + responseProducts400_description.substring(0, responseProducts400_description_break));
+                                $("#examples-Products-getReports1-description-400").html(responseProducts400_description.substring(responseProducts400_description_break));
                               }
                             </script>
 
 
-                            <ul id="responses-detail-Products-getRports-400" class="nav nav-tabs nav-tabs-examples" >
+                            <ul id="responses-detail-Products-getReports1-400" class="nav nav-tabs nav-tabs-examples" >
                                 <li class="active">
-                                  <a data-toggle="tab" href="#responses-Products-getRports-400-schema">Schema</a>
+                                  <a data-toggle="tab" href="#responses-Products-getReports1-400-schema">Schema</a>
                                 </li>
 
 
@@ -6380,9 +6953,9 @@ pub fn main() {
                             </ul>
 
 
-                            <div class="tab-content" id="responses-Products-getRports-400-wrapper" style='margin-bottom: 10px;'>
-                              <div class="tab-pane active" id="responses-Products-getRports-400-schema">
-                                <div id="responses-Products-getRports-schema-400" class="exampleStyle">
+                            <div class="tab-content" id="responses-Products-getReports1-400-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Products-getReports1-400-schema">
+                                <div id="responses-Products-getReports1-schema-400" class="exampleStyle">
                                   <script>
                                     $(document).ready(function() {
                                       var schemaWrapper = {
@@ -6421,33 +6994,33 @@ pub fn main() {
                                       }
 
                                       var view = new JSONSchemaView(schema, 3);
-                                      $('#responses-Products-getRports-400-schema-data').val(JSON.stringify(schema));
-                                      var result = $('#responses-Products-getRports-schema-400');
+                                      $('#responses-Products-getReports1-400-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Products-getReports1-schema-400');
                                       result.empty();
                                       result.append(view.render());
                                     });
                                   </script>
                                 </div>
-                                <input id='responses-Products-getRports-400-schema-data' type='hidden' value=''></input>
+                                <input id='responses-Products-getReports1-400-schema-data' type='hidden' value=''></input>
                               </div>
                             </div>
-                            <h3 id="examples-Products-getRports-title-200"></h3>
-                            <p id="examples-Products-getRports-description-200" class="marked"></p>
+                            <h3 id="examples-Products-getReports1-title-200"></h3>
+                            <p id="examples-Products-getReports1-description-200" class="marked"></p>
                             <script>
                               var responseProducts200_description = `Reports were successfully earned`;
                               var responseProducts200_description_break = responseProducts200_description.indexOf('\n');
                               if (responseProducts200_description_break == -1) {
-                                $("#examples-Products-getRports-title-200").text("Status: 200 - " + responseProducts200_description);
+                                $("#examples-Products-getReports1-title-200").text("Status: 200 - " + responseProducts200_description);
                               } else {
-                                $("#examples-Products-getRports-title-200").text("Status: 200 - " + responseProducts200_description.substring(0, responseProducts200_description_break));
-                                $("#examples-Products-getRports-description-200").html(responseProducts200_description.substring(responseProducts200_description_break));
+                                $("#examples-Products-getReports1-title-200").text("Status: 200 - " + responseProducts200_description.substring(0, responseProducts200_description_break));
+                                $("#examples-Products-getReports1-description-200").html(responseProducts200_description.substring(responseProducts200_description_break));
                               }
                             </script>
 
 
-                            <ul id="responses-detail-Products-getRports-200" class="nav nav-tabs nav-tabs-examples" >
+                            <ul id="responses-detail-Products-getReports1-200" class="nav nav-tabs nav-tabs-examples" >
                                 <li class="active">
-                                  <a data-toggle="tab" href="#responses-Products-getRports-200-schema">Schema</a>
+                                  <a data-toggle="tab" href="#responses-Products-getReports1-200-schema">Schema</a>
                                 </li>
 
 
@@ -6456,9 +7029,9 @@ pub fn main() {
                             </ul>
 
 
-                            <div class="tab-content" id="responses-Products-getRports-200-wrapper" style='margin-bottom: 10px;'>
-                              <div class="tab-pane active" id="responses-Products-getRports-200-schema">
-                                <div id="responses-Products-getRports-schema-200" class="exampleStyle">
+                            <div class="tab-content" id="responses-Products-getReports1-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Products-getReports1-200-schema">
+                                <div id="responses-Products-getReports1-schema-200" class="exampleStyle">
                                   <script>
                                     $(document).ready(function() {
                                       var schemaWrapper = {
@@ -6500,39 +7073,39 @@ pub fn main() {
                                       }
 
                                       var view = new JSONSchemaView(schema, 3);
-                                      $('#responses-Products-getRports-200-schema-data').val(JSON.stringify(schema));
-                                      var result = $('#responses-Products-getRports-schema-200');
+                                      $('#responses-Products-getReports1-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Products-getReports1-schema-200');
                                       result.empty();
                                       result.append(view.render());
                                     });
                                   </script>
                                 </div>
-                                <input id='responses-Products-getRports-200-schema-data' type='hidden' value=''></input>
+                                <input id='responses-Products-getReports1-200-schema-data' type='hidden' value=''></input>
                               </div>
                             </div>
-                            <h3 id="examples-Products-getRports-title-403"></h3>
-                            <p id="examples-Products-getRports-description-403" class="marked"></p>
+                            <h3 id="examples-Products-getReports1-title-403"></h3>
+                            <p id="examples-Products-getReports1-description-403" class="marked"></p>
                             <script>
                               var responseProducts403_description = `User does not have permission to get the reports`;
                               var responseProducts403_description_break = responseProducts403_description.indexOf('\n');
                               if (responseProducts403_description_break == -1) {
-                                $("#examples-Products-getRports-title-403").text("Status: 403 - " + responseProducts403_description);
+                                $("#examples-Products-getReports1-title-403").text("Status: 403 - " + responseProducts403_description);
                               } else {
-                                $("#examples-Products-getRports-title-403").text("Status: 403 - " + responseProducts403_description.substring(0, responseProducts403_description_break));
-                                $("#examples-Products-getRports-description-403").html(responseProducts403_description.substring(responseProducts403_description_break));
+                                $("#examples-Products-getReports1-title-403").text("Status: 403 - " + responseProducts403_description.substring(0, responseProducts403_description_break));
+                                $("#examples-Products-getReports1-description-403").html(responseProducts403_description.substring(responseProducts403_description_break));
                               }
                             </script>
 
 
-                            <ul id="responses-detail-Products-getRports-403" class="nav nav-tabs nav-tabs-examples" >
+                            <ul id="responses-detail-Products-getReports1-403" class="nav nav-tabs nav-tabs-examples" >
 
 
                             </ul>
 
 
-                            <div class="tab-content" id="responses-Products-getRports-403-wrapper" style='margin-bottom: 10px;'>
-                              <div class="tab-pane active" id="responses-Products-getRports-403-schema">
-                                <div id="responses-Products-getRports-schema-403" class="exampleStyle">
+                            <div class="tab-content" id="responses-Products-getReports1-403-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Products-getReports1-403-schema">
+                                <div id="responses-Products-getReports1-schema-403" class="exampleStyle">
                                   <script>
                                     $(document).ready(function() {
                                       var schemaWrapper = {
@@ -6564,587 +7137,14 @@ pub fn main() {
                                       }
 
                                       var view = new JSONSchemaView(schema, 3);
-                                      $('#responses-Products-getRports-403-schema-data').val(JSON.stringify(schema));
-                                      var result = $('#responses-Products-getRports-schema-403');
+                                      $('#responses-Products-getReports1-403-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Products-getReports1-schema-403');
                                       result.empty();
                                       result.append(view.render());
                                     });
                                   </script>
                                 </div>
-                                <input id='responses-Products-getRports-403-schema-data' type='hidden' value=''></input>
-                              </div>
-                            </div>
-                        </article>
-                      </div>
-                      <hr>
-                    <div id="api-Products-postMethodName">
-                      <article id="api-Products-postMethodName-0" data-group="User" data-name="postMethodName" data-version="0">
-                        <div class="pull-left">
-                          <h1>postMethodName</h1>
-                          <p>Get a product from the ID</p>
-                        </div>
-                        <div class="pull-right"></div>
-                        <div class="clearfix"></div>
-                        <p></p>
-                        <p class="marked"></p>
-                        <p></p>
-                        <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/products/{id}/report</span></code></pre>
-                        <p>
-                          <h3>Usage and SDK Samples</h3>
-                        </p>
-                        <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-Products-postMethodName-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-Products-postMethodName-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Products-postMethodName-0-dart">Dart</a></li>
-                          <li class=""><a href="#examples-Products-postMethodName-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-Products-postMethodName-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-Products-postMethodName-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-Products-postMethodName-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-Products-postMethodName-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-Products-postMethodName-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-Products-postMethodName-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-Products-postMethodName-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-Products-postMethodName-0-python">Python</a></li>
-                          <li class=""><a href="#examples-Products-postMethodName-0-rust">Rust</a></li>
-                        </ul>
-
-                        <div class="tab-content">
-                          <div class="tab-pane active" id="examples-Products-postMethodName-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X POST \
- -H "Accept: */*,application/json" \
- -H "Content-Type: application/json" \
- "https://localhost:8443/api/v1/products/{id}/report" \
- -d '{
-  &quot;str&quot; : &quot;str&quot;
-}'
-</code></pre>
-                          </div>
-                          <div class="tab-pane" id="examples-Products-postMethodName-0-java">
-                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.model.*;
-import org.openapitools.client.api.ProductsApi;
-
-import java.io.File;
-import java.util.*;
-
-public class ProductsApiExample {
-    public static void main(String[] args) {
-
-        // Create an instance of the API class
-        ProductsApi apiInstance = new ProductsApi();
-        Long id = 789; // Long | 
-        StringDTO stringDTO = ; // StringDTO | 
-
-        try {
-            ProductSummaryDTO result = apiInstance.postMethodName(id, stringDTO);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ProductsApi#postMethodName");
-            e.printStackTrace();
-        }
-    }
-}
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Products-postMethodName-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final Long id = new Long(); // Long | 
-final StringDTO stringDTO = new StringDTO(); // StringDTO | 
-
-try {
-    final result = await api_instance.postMethodName(id, stringDTO);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->postMethodName: $e\n');
-}
-
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Products-postMethodName-0-android">
-                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.ProductsApi;
-
-public class ProductsApiExample {
-    public static void main(String[] args) {
-        ProductsApi apiInstance = new ProductsApi();
-        Long id = 789; // Long | 
-        StringDTO stringDTO = ; // StringDTO | 
-
-        try {
-            ProductSummaryDTO result = apiInstance.postMethodName(id, stringDTO);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling ProductsApi#postMethodName");
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-                          </div>
-  <!--
-  <div class="tab-pane" id="examples-Products-postMethodName-0-groovy">
-  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-  </div> -->
-                            <div class="tab-pane" id="examples-Products-postMethodName-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">
-
-// Create an instance of the API class
-ProductsApi *apiInstance = [[ProductsApi alloc] init];
-Long *id = 789; //  (default to null)
-StringDTO *stringDTO = ; // 
-
-// Get a product from the ID
-[apiInstance postMethodNameWith:id
-    stringDTO:stringDTO
-              completionHandler: ^(ProductSummaryDTO output, NSError* error) {
-    if (output) {
-        NSLog(@"%@", output);
-    }
-    if (error) {
-        NSLog(@"Error: %@", error);
-    }
-}];
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Products-postMethodName-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var OpenApiDefinition = require('open_api_definition');
-
-// Create an instance of the API class
-var api = new OpenApiDefinition.ProductsApi()
-var id = 789; // {Long} 
-var stringDTO = ; // {StringDTO} 
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.postMethodName(id, stringDTO, callback);
-</code></pre>
-                            </div>
-
-                            <!--<div class="tab-pane" id="examples-Products-postMethodName-0-angular">
-              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-            </div>-->
-                            <div class="tab-pane" id="examples-Products-postMethodName-0-csharp">
-                              <pre class="prettyprint"><code class="language-cs">using System;
-using System.Diagnostics;
-using Org.OpenAPITools.Api;
-using Org.OpenAPITools.Client;
-using Org.OpenAPITools.Model;
-
-namespace Example
-{
-    public class postMethodNameExample
-    {
-        public void main()
-        {
-
-            // Create an instance of the API class
-            var apiInstance = new ProductsApi();
-            var id = 789;  // Long |  (default to null)
-            var stringDTO = new StringDTO(); // StringDTO | 
-
-            try {
-                // Get a product from the ID
-                ProductSummaryDTO result = apiInstance.postMethodName(id, stringDTO);
-                Debug.WriteLine(result);
-            } catch (Exception e) {
-                Debug.Print("Exception when calling ProductsApi.postMethodName: " + e.Message );
-            }
-        }
-    }
-}
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Products-postMethodName-0-php">
-                              <pre class="prettyprint"><code class="language-php"><&#63;php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Create an instance of the API class
-$api_instance = new OpenAPITools\Client\Api\ProductsApi();
-$id = 789; // Long | 
-$stringDTO = ; // StringDTO | 
-
-try {
-    $result = $api_instance->postMethodName($id, $stringDTO);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling ProductsApi->postMethodName: ', $e->getMessage(), PHP_EOL;
-}
-?></code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Products-postMethodName-0-perl">
-                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
-use WWW::OPenAPIClient::Configuration;
-use WWW::OPenAPIClient::ProductsApi;
-
-# Create an instance of the API class
-my $api_instance = WWW::OPenAPIClient::ProductsApi->new();
-my $id = 789; # Long | 
-my $stringDTO = WWW::OPenAPIClient::Object::StringDTO->new(); # StringDTO | 
-
-eval {
-    my $result = $api_instance->postMethodName(id => $id, stringDTO => $stringDTO);
-    print Dumper($result);
-};
-if ($@) {
-    warn "Exception when calling ProductsApi->postMethodName: $@\n";
-}</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Products-postMethodName-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Create an instance of the API class
-api_instance = openapi_client.ProductsApi()
-id = 789 # Long |  (default to null)
-stringDTO =  # StringDTO | 
-
-try:
-    # Get a product from the ID
-    api_response = api_instance.post_method_name(id, stringDTO)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ProductsApi->postMethodName: %s\n" % e)</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Products-postMethodName-0-rust">
-                              <pre class="prettyprint"><code class="language-rust">extern crate ProductsApi;
-
-pub fn main() {
-    let id = 789; // Long
-    let stringDTO = ; // StringDTO
-
-    let mut context = ProductsApi::Context::default();
-    let result = client.postMethodName(id, stringDTO, &context).wait();
-
-    println!("{:?}", result);
-}
-</code></pre>
-                            </div>
-                          </div>
-
-                          <h2>Scopes</h2>
-                          <table>
-                            
-                          </table>
-
-                          <h2>Parameters</h2>
-
-                            <div class="methodsubtabletitle">Path parameters</div>
-                            <table id="methodsubtable">
-                                <tr>
-                                  <th width="150px">Name</th>
-                                  <th>Description</th>
-                                </tr>
-                                  <tr><td style="width:150px;">id*</td>
-<td>
-
-
-    <div id="d2e199_postMethodName_id">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    Long
-                </span>
-                    <span class="format">
-                        (int64)
-                    </span>
-
-            </div>
-                <div class="inner required">
-                    Required
-                </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                            </table>
-
-
-                            <div class="methodsubtabletitle">Body parameters</div>
-                            <table id="methodsubtable">
-                              <tr>
-                                <th width="150px">Name</th>
-                                <th>Description</th>
-                              </tr>
-                                <tr><td style="width:150px;">stringDTO <span style="color:red;">*</span></td>
-<td>
-<p class="marked"></p>
-<script>
-$(document).ready(function() {
-  var schemaWrapper = {
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/StringDTO"
-      }
-    }
-  },
-  "required" : true
-};
-
-  var schema = findNode('schema',schemaWrapper).schema;
-  if (!schema) {
-    schema = schemaWrapper.schema;
-  }
-  if (schema.$ref != null) {
-    schema = defsParser.$refs.get(schema.$ref);
-  } else if (schema.items != null && schema.items.$ref != null) {
-    schema.items = defsParser.$refs.get(schema.items.$ref);
-  } else {
-    schemaWrapper.definitions = Object.assign({}, defs);
-    $RefParser.dereference(schemaWrapper).catch(function(err) {
-      console.log(err);
-    });
-  }
-
-  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
-  var result = $('#d2e199_postMethodName_stringDTO');
-  result.empty();
-  result.append(view.render());
-});
-</script>
-<div id="d2e199_postMethodName_stringDTO"></div>
-</td>
-</tr>
-
-                            </table>
-
-
-
-                          <h2>Responses</h2>
-                            <h3 id="examples-Products-postMethodName-title-404"></h3>
-                            <p id="examples-Products-postMethodName-description-404" class="marked"></p>
-                            <script>
-                              var responseProducts404_description = `Product was not found`;
-                              var responseProducts404_description_break = responseProducts404_description.indexOf('\n');
-                              if (responseProducts404_description_break == -1) {
-                                $("#examples-Products-postMethodName-title-404").text("Status: 404 - " + responseProducts404_description);
-                              } else {
-                                $("#examples-Products-postMethodName-title-404").text("Status: 404 - " + responseProducts404_description.substring(0, responseProducts404_description_break));
-                                $("#examples-Products-postMethodName-description-404").html(responseProducts404_description.substring(responseProducts404_description_break));
-                              }
-                            </script>
-
-
-                            <ul id="responses-detail-Products-postMethodName-404" class="nav nav-tabs nav-tabs-examples" >
-
-
-                            </ul>
-
-
-                            <div class="tab-content" id="responses-Products-postMethodName-404-wrapper" style='margin-bottom: 10px;'>
-                              <div class="tab-pane active" id="responses-Products-postMethodName-404-schema">
-                                <div id="responses-Products-postMethodName-schema-404" class="exampleStyle">
-                                  <script>
-                                    $(document).ready(function() {
-                                      var schemaWrapper = {
-  "description" : "Product was not found",
-  "content" : { }
-};
-                                      var schema = findNode('schema',schemaWrapper).schema;
-                                      if (!schema) {
-                                        schema = schemaWrapper.schema;
-                                      }
-                                      if (schema == null) {
-                                        return;
-                                      }
-                                      if (schema.$ref != null) {
-                                        schema = defsParser.$refs.get(schema.$ref);
-                                        if (schema.properties != null) {
-                                          Object.keys(schema.properties).forEach( (item) => {
-                                            if (schema.properties[item].$ref != null) {
-                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                            }
-                                          });
-                                        }
-                                      } else if (schema.items != null && schema.items.$ref != null) {
-                                        schema.items = defsParser.$refs.get(schema.items.$ref);
-                                      } else {
-                                        schemaWrapper.definitions = Object.assign({}, defs);
-                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                          console.log(err);
-                                        });
-                                      }
-
-                                      var view = new JSONSchemaView(schema, 3);
-                                      $('#responses-Products-postMethodName-404-schema-data').val(JSON.stringify(schema));
-                                      var result = $('#responses-Products-postMethodName-schema-404');
-                                      result.empty();
-                                      result.append(view.render());
-                                    });
-                                  </script>
-                                </div>
-                                <input id='responses-Products-postMethodName-404-schema-data' type='hidden' value=''></input>
-                              </div>
-                            </div>
-                            <h3 id="examples-Products-postMethodName-title-400"></h3>
-                            <p id="examples-Products-postMethodName-description-400" class="marked"></p>
-                            <script>
-                              var responseProducts400_description = `Bad Request`;
-                              var responseProducts400_description_break = responseProducts400_description.indexOf('\n');
-                              if (responseProducts400_description_break == -1) {
-                                $("#examples-Products-postMethodName-title-400").text("Status: 400 - " + responseProducts400_description);
-                              } else {
-                                $("#examples-Products-postMethodName-title-400").text("Status: 400 - " + responseProducts400_description.substring(0, responseProducts400_description_break));
-                                $("#examples-Products-postMethodName-description-400").html(responseProducts400_description.substring(responseProducts400_description_break));
-                              }
-                            </script>
-
-
-                            <ul id="responses-detail-Products-postMethodName-400" class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-Products-postMethodName-400-schema">Schema</a>
-                                </li>
-
-
-
-
-                            </ul>
-
-
-                            <div class="tab-content" id="responses-Products-postMethodName-400-wrapper" style='margin-bottom: 10px;'>
-                              <div class="tab-pane active" id="responses-Products-postMethodName-400-schema">
-                                <div id="responses-Products-postMethodName-schema-400" class="exampleStyle">
-                                  <script>
-                                    $(document).ready(function() {
-                                      var schemaWrapper = {
-  "description" : "Bad Request",
-  "content" : {
-    "*/*" : {
-      "schema" : {
-        "type" : "object"
-      }
-    }
-  }
-};
-                                      var schema = findNode('schema',schemaWrapper).schema;
-                                      if (!schema) {
-                                        schema = schemaWrapper.schema;
-                                      }
-                                      if (schema == null) {
-                                        return;
-                                      }
-                                      if (schema.$ref != null) {
-                                        schema = defsParser.$refs.get(schema.$ref);
-                                        if (schema.properties != null) {
-                                          Object.keys(schema.properties).forEach( (item) => {
-                                            if (schema.properties[item].$ref != null) {
-                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                            }
-                                          });
-                                        }
-                                      } else if (schema.items != null && schema.items.$ref != null) {
-                                        schema.items = defsParser.$refs.get(schema.items.$ref);
-                                      } else {
-                                        schemaWrapper.definitions = Object.assign({}, defs);
-                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                          console.log(err);
-                                        });
-                                      }
-
-                                      var view = new JSONSchemaView(schema, 3);
-                                      $('#responses-Products-postMethodName-400-schema-data').val(JSON.stringify(schema));
-                                      var result = $('#responses-Products-postMethodName-schema-400');
-                                      result.empty();
-                                      result.append(view.render());
-                                    });
-                                  </script>
-                                </div>
-                                <input id='responses-Products-postMethodName-400-schema-data' type='hidden' value=''></input>
-                              </div>
-                            </div>
-                            <h3 id="examples-Products-postMethodName-title-200"></h3>
-                            <p id="examples-Products-postMethodName-description-200" class="marked"></p>
-                            <script>
-                              var responseProducts200_description = `Product was successfully reported`;
-                              var responseProducts200_description_break = responseProducts200_description.indexOf('\n');
-                              if (responseProducts200_description_break == -1) {
-                                $("#examples-Products-postMethodName-title-200").text("Status: 200 - " + responseProducts200_description);
-                              } else {
-                                $("#examples-Products-postMethodName-title-200").text("Status: 200 - " + responseProducts200_description.substring(0, responseProducts200_description_break));
-                                $("#examples-Products-postMethodName-description-200").html(responseProducts200_description.substring(responseProducts200_description_break));
-                              }
-                            </script>
-
-
-                            <ul id="responses-detail-Products-postMethodName-200" class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-Products-postMethodName-200-schema">Schema</a>
-                                </li>
-
-
-
-
-                            </ul>
-
-
-                            <div class="tab-content" id="responses-Products-postMethodName-200-wrapper" style='margin-bottom: 10px;'>
-                              <div class="tab-pane active" id="responses-Products-postMethodName-200-schema">
-                                <div id="responses-Products-postMethodName-schema-200" class="exampleStyle">
-                                  <script>
-                                    $(document).ready(function() {
-                                      var schemaWrapper = {
-  "description" : "Product was successfully reported",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/ProductSummaryDTO"
-      }
-    }
-  }
-};
-                                      var schema = findNode('schema',schemaWrapper).schema;
-                                      if (!schema) {
-                                        schema = schemaWrapper.schema;
-                                      }
-                                      if (schema == null) {
-                                        return;
-                                      }
-                                      if (schema.$ref != null) {
-                                        schema = defsParser.$refs.get(schema.$ref);
-                                        if (schema.properties != null) {
-                                          Object.keys(schema.properties).forEach( (item) => {
-                                            if (schema.properties[item].$ref != null) {
-                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                            }
-                                          });
-                                        }
-                                      } else if (schema.items != null && schema.items.$ref != null) {
-                                        schema.items = defsParser.$refs.get(schema.items.$ref);
-                                      } else {
-                                        schemaWrapper.definitions = Object.assign({}, defs);
-                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                          console.log(err);
-                                        });
-                                      }
-
-                                      var view = new JSONSchemaView(schema, 3);
-                                      $('#responses-Products-postMethodName-200-schema-data').val(JSON.stringify(schema));
-                                      var result = $('#responses-Products-postMethodName-schema-200');
-                                      result.empty();
-                                      result.append(view.render());
-                                    });
-                                  </script>
-                                </div>
-                                <input id='responses-Products-postMethodName-200-schema-data' type='hidden' value=''></input>
+                                <input id='responses-Products-getReports1-403-schema-data' type='hidden' value=''></input>
                               </div>
                             </div>
                         </article>
@@ -25479,7 +25479,7 @@ $(document).ready(function() {
                       <article id="api-Reviews-deleteFile-0" data-group="User" data-name="deleteFile" data-version="0">
                         <div class="pull-left">
                           <h1>deleteFile</h1>
-                          <p></p>
+                          <p>Deletes a file attached to a review</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -25533,8 +25533,7 @@ public class ReviewsApiExample {
         String filename = filename_example; // String | 
 
         try {
-            Object result = apiInstance.deleteFile(productId, rid, filename);
-            System.out.println(result);
+            apiInstance.deleteFile(productId, rid, filename);
         } catch (ApiException e) {
             System.err.println("Exception when calling ReviewsApi#deleteFile");
             e.printStackTrace();
@@ -25574,8 +25573,7 @@ public class ReviewsApiExample {
         String filename = filename_example; // String | 
 
         try {
-            Object result = apiInstance.deleteFile(productId, rid, filename);
-            System.out.println(result);
+            apiInstance.deleteFile(productId, rid, filename);
         } catch (ApiException e) {
             System.err.println("Exception when calling ReviewsApi#deleteFile");
             e.printStackTrace();
@@ -25596,13 +25594,11 @@ Long *productId = 789; //  (default to null)
 Long *rid = 789; //  (default to null)
 String *filename = filename_example; //  (default to null)
 
+// Deletes a file attached to a review
 [apiInstance deleteFileWith:productId
     rid:rid
     filename:filename
-              completionHandler: ^(Object output, NSError* error) {
-    if (output) {
-        NSLog(@"%@", output);
-    }
+              completionHandler: ^(NSError* error) {
     if (error) {
         NSLog(@"Error: %@", error);
     }
@@ -25623,7 +25619,7 @@ var callback = function(error, data, response) {
   if (error) {
     console.error(error);
   } else {
-    console.log('API called successfully. Returned data: ' + data);
+    console.log('API called successfully.');
   }
 };
 api.deleteFile(productId, rid, filename, callback);
@@ -25654,8 +25650,8 @@ namespace Example
             var filename = filename_example;  // String |  (default to null)
 
             try {
-                Object result = apiInstance.deleteFile(productId, rid, filename);
-                Debug.WriteLine(result);
+                // Deletes a file attached to a review
+                apiInstance.deleteFile(productId, rid, filename);
             } catch (Exception e) {
                 Debug.Print("Exception when calling ReviewsApi.deleteFile: " + e.Message );
             }
@@ -25676,8 +25672,7 @@ $rid = 789; // Long |
 $filename = filename_example; // String | 
 
 try {
-    $result = $api_instance->deleteFile($productId, $rid, $filename);
-    print_r($result);
+    $api_instance->deleteFile($productId, $rid, $filename);
 } catch (Exception $e) {
     echo 'Exception when calling ReviewsApi->deleteFile: ', $e->getMessage(), PHP_EOL;
 }
@@ -25696,8 +25691,7 @@ my $rid = 789; # Long |
 my $filename = filename_example; # String | 
 
 eval {
-    my $result = $api_instance->deleteFile(productId => $productId, rid => $rid, filename => $filename);
-    print Dumper($result);
+    $api_instance->deleteFile(productId => $productId, rid => $rid, filename => $filename);
 };
 if ($@) {
     warn "Exception when calling ReviewsApi->deleteFile: $@\n";
@@ -25718,8 +25712,8 @@ rid = 789 # Long |  (default to null)
 filename = filename_example # String |  (default to null)
 
 try:
-    api_response = api_instance.delete_file(productId, rid, filename)
-    pprint(api_response)
+    # Deletes a file attached to a review
+    api_instance.delete_file(productId, rid, filename)
 except ApiException as e:
     print("Exception when calling ReviewsApi->deleteFile: %s\n" % e)</code></pre>
                             </div>
@@ -25830,7 +25824,7 @@ pub fn main() {
                             <h3 id="examples-Reviews-deleteFile-title-404"></h3>
                             <p id="examples-Reviews-deleteFile-description-404" class="marked"></p>
                             <script>
-                              var responseReviews404_description = `Not Found`;
+                              var responseReviews404_description = `Product, review, or file with given ID was not found`;
                               var responseReviews404_description_break = responseReviews404_description.indexOf('\n');
                               if (responseReviews404_description_break == -1) {
                                 $("#examples-Reviews-deleteFile-title-404").text("Status: 404 - " + responseReviews404_description);
@@ -25842,11 +25836,6 @@ pub fn main() {
 
 
                             <ul id="responses-detail-Reviews-deleteFile-404" class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-Reviews-deleteFile-404-schema">Schema</a>
-                                </li>
-
-
 
 
                             </ul>
@@ -25858,14 +25847,8 @@ pub fn main() {
                                   <script>
                                     $(document).ready(function() {
                                       var schemaWrapper = {
-  "description" : "Not Found",
-  "content" : {
-    "*/*" : {
-      "schema" : {
-        "type" : "object"
-      }
-    }
-  }
+  "description" : "Product, review, or file with given ID was not found",
+  "content" : { }
 };
                                       var schema = findNode('schema',schemaWrapper).schema;
                                       if (!schema) {
@@ -25982,7 +25965,7 @@ pub fn main() {
                             <h3 id="examples-Reviews-deleteFile-title-200"></h3>
                             <p id="examples-Reviews-deleteFile-description-200" class="marked"></p>
                             <script>
-                              var responseReviews200_description = `OK`;
+                              var responseReviews200_description = `File was deleted successfully`;
                               var responseReviews200_description_break = responseReviews200_description.indexOf('\n');
                               if (responseReviews200_description_break == -1) {
                                 $("#examples-Reviews-deleteFile-title-200").text("Status: 200 - " + responseReviews200_description);
@@ -25994,11 +25977,6 @@ pub fn main() {
 
 
                             <ul id="responses-detail-Reviews-deleteFile-200" class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-Reviews-deleteFile-200-schema">Schema</a>
-                                </li>
-
-
 
 
                             </ul>
@@ -26010,14 +25988,7 @@ pub fn main() {
                                   <script>
                                     $(document).ready(function() {
                                       var schemaWrapper = {
-  "description" : "OK",
-  "content" : {
-    "*/*" : {
-      "schema" : {
-        "type" : "object"
-      }
-    }
-  }
+  "description" : "File was deleted successfully"
 };
                                       var schema = findNode('schema',schemaWrapper).schema;
                                       if (!schema) {
@@ -26053,6 +26024,70 @@ pub fn main() {
                                   </script>
                                 </div>
                                 <input id='responses-Reviews-deleteFile-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                            <h3 id="examples-Reviews-deleteFile-title-403"></h3>
+                            <p id="examples-Reviews-deleteFile-description-403" class="marked"></p>
+                            <script>
+                              var responseReviews403_description = `User is not logged in or cannot delete file`;
+                              var responseReviews403_description_break = responseReviews403_description.indexOf('\n');
+                              if (responseReviews403_description_break == -1) {
+                                $("#examples-Reviews-deleteFile-title-403").text("Status: 403 - " + responseReviews403_description);
+                              } else {
+                                $("#examples-Reviews-deleteFile-title-403").text("Status: 403 - " + responseReviews403_description.substring(0, responseReviews403_description_break));
+                                $("#examples-Reviews-deleteFile-description-403").html(responseReviews403_description.substring(responseReviews403_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Reviews-deleteFile-403" class="nav nav-tabs nav-tabs-examples" >
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Reviews-deleteFile-403-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Reviews-deleteFile-403-schema">
+                                <div id="responses-Reviews-deleteFile-schema-403" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "User is not logged in or cannot delete file"
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Reviews-deleteFile-403-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Reviews-deleteFile-schema-403');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Reviews-deleteFile-403-schema-data' type='hidden' value=''></input>
                               </div>
                             </div>
                         </article>
@@ -27332,7 +27367,7 @@ $(document).ready(function() {
                       <article id="api-Reviews-getFile-0" data-group="User" data-name="getFile" data-version="0">
                         <div class="pull-left">
                           <h1>getFile</h1>
-                          <p></p>
+                          <p>Downloads a file attached to a review</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -27363,7 +27398,7 @@ $(document).ready(function() {
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Reviews-getFile-0-curl">
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
- -H "Accept: */*" \
+ -H "Accept: */*,application/octet-stream" \
  "https://localhost:8443/api/v1/products/{productId}/reviews/{rid}/files/{filename}"
 </code></pre>
                           </div>
@@ -27386,8 +27421,7 @@ public class ReviewsApiExample {
         String productId = productId_example; // String | 
 
         try {
-            File result = apiInstance.getFile(filename, rid, productId);
-            System.out.println(result);
+            apiInstance.getFile(filename, rid, productId);
         } catch (ApiException e) {
             System.err.println("Exception when calling ReviewsApi#getFile");
             e.printStackTrace();
@@ -27427,8 +27461,7 @@ public class ReviewsApiExample {
         String productId = productId_example; // String | 
 
         try {
-            File result = apiInstance.getFile(filename, rid, productId);
-            System.out.println(result);
+            apiInstance.getFile(filename, rid, productId);
         } catch (ApiException e) {
             System.err.println("Exception when calling ReviewsApi#getFile");
             e.printStackTrace();
@@ -27449,13 +27482,11 @@ String *filename = filename_example; //  (default to null)
 Long *rid = 789; //  (default to null)
 String *productId = productId_example; //  (default to null)
 
+// Downloads a file attached to a review
 [apiInstance getFileWith:filename
     rid:rid
     productId:productId
-              completionHandler: ^(File output, NSError* error) {
-    if (output) {
-        NSLog(@"%@", output);
-    }
+              completionHandler: ^(NSError* error) {
     if (error) {
         NSLog(@"Error: %@", error);
     }
@@ -27476,7 +27507,7 @@ var callback = function(error, data, response) {
   if (error) {
     console.error(error);
   } else {
-    console.log('API called successfully. Returned data: ' + data);
+    console.log('API called successfully.');
   }
 };
 api.getFile(filename, rid, productId, callback);
@@ -27507,8 +27538,8 @@ namespace Example
             var productId = productId_example;  // String |  (default to null)
 
             try {
-                File result = apiInstance.getFile(filename, rid, productId);
-                Debug.WriteLine(result);
+                // Downloads a file attached to a review
+                apiInstance.getFile(filename, rid, productId);
             } catch (Exception e) {
                 Debug.Print("Exception when calling ReviewsApi.getFile: " + e.Message );
             }
@@ -27529,8 +27560,7 @@ $rid = 789; // Long |
 $productId = productId_example; // String | 
 
 try {
-    $result = $api_instance->getFile($filename, $rid, $productId);
-    print_r($result);
+    $api_instance->getFile($filename, $rid, $productId);
 } catch (Exception $e) {
     echo 'Exception when calling ReviewsApi->getFile: ', $e->getMessage(), PHP_EOL;
 }
@@ -27549,8 +27579,7 @@ my $rid = 789; # Long |
 my $productId = productId_example; # String | 
 
 eval {
-    my $result = $api_instance->getFile(filename => $filename, rid => $rid, productId => $productId);
-    print Dumper($result);
+    $api_instance->getFile(filename => $filename, rid => $rid, productId => $productId);
 };
 if ($@) {
     warn "Exception when calling ReviewsApi->getFile: $@\n";
@@ -27571,8 +27600,8 @@ rid = 789 # Long |  (default to null)
 productId = productId_example # String |  (default to null)
 
 try:
-    api_response = api_instance.get_file(filename, rid, productId)
-    pprint(api_response)
+    # Downloads a file attached to a review
+    api_instance.get_file(filename, rid, productId)
 except ApiException as e:
     print("Exception when calling ReviewsApi->getFile: %s\n" % e)</code></pre>
                             </div>
@@ -27680,7 +27709,7 @@ pub fn main() {
                             <h3 id="examples-Reviews-getFile-title-404"></h3>
                             <p id="examples-Reviews-getFile-description-404" class="marked"></p>
                             <script>
-                              var responseReviews404_description = `Not Found`;
+                              var responseReviews404_description = `Product, review, or file with given ID was not found`;
                               var responseReviews404_description_break = responseReviews404_description.indexOf('\n');
                               if (responseReviews404_description_break == -1) {
                                 $("#examples-Reviews-getFile-title-404").text("Status: 404 - " + responseReviews404_description);
@@ -27692,11 +27721,6 @@ pub fn main() {
 
 
                             <ul id="responses-detail-Reviews-getFile-404" class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-Reviews-getFile-404-schema">Schema</a>
-                                </li>
-
-
 
 
                             </ul>
@@ -27708,14 +27732,8 @@ pub fn main() {
                                   <script>
                                     $(document).ready(function() {
                                       var schemaWrapper = {
-  "description" : "Not Found",
-  "content" : {
-    "*/*" : {
-      "schema" : {
-        "type" : "object"
-      }
-    }
-  }
+  "description" : "Product, review, or file with given ID was not found",
+  "content" : { }
 };
                                       var schema = findNode('schema',schemaWrapper).schema;
                                       if (!schema) {
@@ -27832,7 +27850,7 @@ pub fn main() {
                             <h3 id="examples-Reviews-getFile-title-200"></h3>
                             <p id="examples-Reviews-getFile-description-200" class="marked"></p>
                             <script>
-                              var responseReviews200_description = `OK`;
+                              var responseReviews200_description = `File was found and is being returned`;
                               var responseReviews200_description_break = responseReviews200_description.indexOf('\n');
                               if (responseReviews200_description_break == -1) {
                                 $("#examples-Reviews-getFile-title-200").text("Status: 200 - " + responseReviews200_description);
@@ -27844,11 +27862,6 @@ pub fn main() {
 
 
                             <ul id="responses-detail-Reviews-getFile-200" class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-Reviews-getFile-200-schema">Schema</a>
-                                </li>
-
-
 
 
                             </ul>
@@ -27860,14 +27873,9 @@ pub fn main() {
                                   <script>
                                     $(document).ready(function() {
                                       var schemaWrapper = {
-  "description" : "OK",
+  "description" : "File was found and is being returned",
   "content" : {
-    "*/*" : {
-      "schema" : {
-        "type" : "string",
-        "format" : "binary"
-      }
-    }
+    "application/octet-stream" : { }
   }
 };
                                       var schema = findNode('schema',schemaWrapper).schema;
@@ -28970,7 +28978,7 @@ pub fn main() {
                       <article id="api-Reviews-storeFile-0" data-group="User" data-name="storeFile" data-version="0">
                         <div class="pull-left">
                           <h1>storeFile</h1>
-                          <p></p>
+                          <p>Uploads a file to be attached to a review</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -29026,8 +29034,7 @@ public class ReviewsApiExample {
         StoreFileRequest storeFileRequest = ; // StoreFileRequest | 
 
         try {
-            Object result = apiInstance.storeFile(rid, productId, storeFileRequest);
-            System.out.println(result);
+            apiInstance.storeFile(rid, productId, storeFileRequest);
         } catch (ApiException e) {
             System.err.println("Exception when calling ReviewsApi#storeFile");
             e.printStackTrace();
@@ -29067,8 +29074,7 @@ public class ReviewsApiExample {
         StoreFileRequest storeFileRequest = ; // StoreFileRequest | 
 
         try {
-            Object result = apiInstance.storeFile(rid, productId, storeFileRequest);
-            System.out.println(result);
+            apiInstance.storeFile(rid, productId, storeFileRequest);
         } catch (ApiException e) {
             System.err.println("Exception when calling ReviewsApi#storeFile");
             e.printStackTrace();
@@ -29089,13 +29095,11 @@ Long *rid = 789; //  (default to null)
 String *productId = productId_example; //  (default to null)
 StoreFileRequest *storeFileRequest = ; //  (optional)
 
+// Uploads a file to be attached to a review
 [apiInstance storeFileWith:rid
     productId:productId
     storeFileRequest:storeFileRequest
-              completionHandler: ^(Object output, NSError* error) {
-    if (output) {
-        NSLog(@"%@", output);
-    }
+              completionHandler: ^(NSError* error) {
     if (error) {
         NSLog(@"Error: %@", error);
     }
@@ -29118,7 +29122,7 @@ var callback = function(error, data, response) {
   if (error) {
     console.error(error);
   } else {
-    console.log('API called successfully. Returned data: ' + data);
+    console.log('API called successfully.');
   }
 };
 api.storeFile(rid, productId, opts, callback);
@@ -29149,8 +29153,8 @@ namespace Example
             var storeFileRequest = new StoreFileRequest(); // StoreFileRequest |  (optional) 
 
             try {
-                Object result = apiInstance.storeFile(rid, productId, storeFileRequest);
-                Debug.WriteLine(result);
+                // Uploads a file to be attached to a review
+                apiInstance.storeFile(rid, productId, storeFileRequest);
             } catch (Exception e) {
                 Debug.Print("Exception when calling ReviewsApi.storeFile: " + e.Message );
             }
@@ -29171,8 +29175,7 @@ $productId = productId_example; // String |
 $storeFileRequest = ; // StoreFileRequest | 
 
 try {
-    $result = $api_instance->storeFile($rid, $productId, $storeFileRequest);
-    print_r($result);
+    $api_instance->storeFile($rid, $productId, $storeFileRequest);
 } catch (Exception $e) {
     echo 'Exception when calling ReviewsApi->storeFile: ', $e->getMessage(), PHP_EOL;
 }
@@ -29191,8 +29194,7 @@ my $productId = productId_example; # String |
 my $storeFileRequest = WWW::OPenAPIClient::Object::StoreFileRequest->new(); # StoreFileRequest | 
 
 eval {
-    my $result = $api_instance->storeFile(rid => $rid, productId => $productId, storeFileRequest => $storeFileRequest);
-    print Dumper($result);
+    $api_instance->storeFile(rid => $rid, productId => $productId, storeFileRequest => $storeFileRequest);
 };
 if ($@) {
     warn "Exception when calling ReviewsApi->storeFile: $@\n";
@@ -29213,8 +29215,8 @@ productId = productId_example # String |  (default to null)
 storeFileRequest =  # StoreFileRequest |  (optional)
 
 try:
-    api_response = api_instance.store_file(rid, productId, storeFileRequest=storeFileRequest)
-    pprint(api_response)
+    # Uploads a file to be attached to a review
+    api_instance.store_file(rid, productId, storeFileRequest=storeFileRequest)
 except ApiException as e:
     print("Exception when calling ReviewsApi->storeFile: %s\n" % e)</code></pre>
                             </div>
@@ -29349,7 +29351,7 @@ $(document).ready(function() {
                             <h3 id="examples-Reviews-storeFile-title-404"></h3>
                             <p id="examples-Reviews-storeFile-description-404" class="marked"></p>
                             <script>
-                              var responseReviews404_description = `Not Found`;
+                              var responseReviews404_description = `Product or review with given ID was not found`;
                               var responseReviews404_description_break = responseReviews404_description.indexOf('\n');
                               if (responseReviews404_description_break == -1) {
                                 $("#examples-Reviews-storeFile-title-404").text("Status: 404 - " + responseReviews404_description);
@@ -29361,11 +29363,6 @@ $(document).ready(function() {
 
 
                             <ul id="responses-detail-Reviews-storeFile-404" class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-Reviews-storeFile-404-schema">Schema</a>
-                                </li>
-
-
 
 
                             </ul>
@@ -29377,14 +29374,8 @@ $(document).ready(function() {
                                   <script>
                                     $(document).ready(function() {
                                       var schemaWrapper = {
-  "description" : "Not Found",
-  "content" : {
-    "*/*" : {
-      "schema" : {
-        "type" : "object"
-      }
-    }
-  }
+  "description" : "Product or review with given ID was not found",
+  "content" : { }
 };
                                       var schema = findNode('schema',schemaWrapper).schema;
                                       if (!schema) {
@@ -29498,45 +29489,33 @@ $(document).ready(function() {
                                 <input id='responses-Reviews-storeFile-400-schema-data' type='hidden' value=''></input>
                               </div>
                             </div>
-                            <h3 id="examples-Reviews-storeFile-title-200"></h3>
-                            <p id="examples-Reviews-storeFile-description-200" class="marked"></p>
+                            <h3 id="examples-Reviews-storeFile-title-201"></h3>
+                            <p id="examples-Reviews-storeFile-description-201" class="marked"></p>
                             <script>
-                              var responseReviews200_description = `OK`;
-                              var responseReviews200_description_break = responseReviews200_description.indexOf('\n');
-                              if (responseReviews200_description_break == -1) {
-                                $("#examples-Reviews-storeFile-title-200").text("Status: 200 - " + responseReviews200_description);
+                              var responseReviews201_description = `File was uploaded successfully`;
+                              var responseReviews201_description_break = responseReviews201_description.indexOf('\n');
+                              if (responseReviews201_description_break == -1) {
+                                $("#examples-Reviews-storeFile-title-201").text("Status: 201 - " + responseReviews201_description);
                               } else {
-                                $("#examples-Reviews-storeFile-title-200").text("Status: 200 - " + responseReviews200_description.substring(0, responseReviews200_description_break));
-                                $("#examples-Reviews-storeFile-description-200").html(responseReviews200_description.substring(responseReviews200_description_break));
+                                $("#examples-Reviews-storeFile-title-201").text("Status: 201 - " + responseReviews201_description.substring(0, responseReviews201_description_break));
+                                $("#examples-Reviews-storeFile-description-201").html(responseReviews201_description.substring(responseReviews201_description_break));
                               }
                             </script>
 
 
-                            <ul id="responses-detail-Reviews-storeFile-200" class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-Reviews-storeFile-200-schema">Schema</a>
-                                </li>
-
-
+                            <ul id="responses-detail-Reviews-storeFile-201" class="nav nav-tabs nav-tabs-examples" >
 
 
                             </ul>
 
 
-                            <div class="tab-content" id="responses-Reviews-storeFile-200-wrapper" style='margin-bottom: 10px;'>
-                              <div class="tab-pane active" id="responses-Reviews-storeFile-200-schema">
-                                <div id="responses-Reviews-storeFile-schema-200" class="exampleStyle">
+                            <div class="tab-content" id="responses-Reviews-storeFile-201-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Reviews-storeFile-201-schema">
+                                <div id="responses-Reviews-storeFile-schema-201" class="exampleStyle">
                                   <script>
                                     $(document).ready(function() {
                                       var schemaWrapper = {
-  "description" : "OK",
-  "content" : {
-    "*/*" : {
-      "schema" : {
-        "type" : "object"
-      }
-    }
-  }
+  "description" : "File was uploaded successfully"
 };
                                       var schema = findNode('schema',schemaWrapper).schema;
                                       if (!schema) {
@@ -29564,14 +29543,14 @@ $(document).ready(function() {
                                       }
 
                                       var view = new JSONSchemaView(schema, 3);
-                                      $('#responses-Reviews-storeFile-200-schema-data').val(JSON.stringify(schema));
-                                      var result = $('#responses-Reviews-storeFile-schema-200');
+                                      $('#responses-Reviews-storeFile-201-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Reviews-storeFile-schema-201');
                                       result.empty();
                                       result.append(view.render());
                                     });
                                   </script>
                                 </div>
-                                <input id='responses-Reviews-storeFile-200-schema-data' type='hidden' value=''></input>
+                                <input id='responses-Reviews-storeFile-201-schema-data' type='hidden' value=''></input>
                               </div>
                             </div>
                         </article>

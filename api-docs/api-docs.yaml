@@ -495,6 +495,7 @@ paths:
     post:
       tags:
       - Reviews
+      summary: Uploads a file to be attached to a review
       operationId: storeFile
       parameters:
       - name: rid
@@ -521,23 +522,16 @@ paths:
               - file
       responses:
         "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                type: object
+          description: Product or review with given ID was not found
+          content: {}
         "400":
           description: Bad Request
           content:
             '*/*':
               schema:
                 type: object
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: object
+        "201":
+          description: File was uploaded successfully
   /api/v1/products/{id}/reviews:
     post:
       tags:
@@ -577,7 +571,7 @@ paths:
       tags:
       - Products
       summary: Get a product from the ID
-      operationId: postMethodName
+      operationId: createReport
       parameters:
       - name: id
         in: path
@@ -1147,6 +1141,7 @@ paths:
     get:
       tags:
       - Reviews
+      summary: Downloads a file attached to a review
       operationId: getFile
       parameters:
       - name: filename
@@ -1167,11 +1162,8 @@ paths:
           type: string
       responses:
         "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                type: object
+          description: "Product, review, or file with given ID was not found"
+          content: {}
         "400":
           description: Bad Request
           content:
@@ -1179,15 +1171,13 @@ paths:
               schema:
                 type: object
         "200":
-          description: OK
+          description: File was found and is being returned
           content:
-            '*/*':
-              schema:
-                type: string
-                format: binary
+            application/octet-stream: {}
     delete:
       tags:
       - Reviews
+      summary: Deletes a file attached to a review
       operationId: deleteFile
       parameters:
       - name: productId
@@ -1209,11 +1199,8 @@ paths:
           type: string
       responses:
         "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                type: object
+          description: "Product, review, or file with given ID was not found"
+          content: {}
         "400":
           description: Bad Request
           content:
@@ -1221,11 +1208,9 @@ paths:
               schema:
                 type: object
         "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: object
+          description: File was deleted successfully
+        "403":
+          description: User is not logged in or cannot delete file
   /api/v1/products/{pid}/reviews:
     get:
       tags:
@@ -1298,7 +1283,7 @@ paths:
       tags:
       - Products
       summary: Get reported products
-      operationId: getRports
+      operationId: getReports_1
       parameters:
       - name: pageable
         in: query
