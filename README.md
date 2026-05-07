@@ -383,17 +383,17 @@ En esta parte del proyecto me he encargado de crear la función de poder subir a
 
 ---
 
-#### **Alumno 2 - [Nombre Completo]**
+#### **Alumno 2 - Jorge Crespo Lucas**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+Hice los DTOs de los pedidos y su propia API, implemente algunos endpoints en la API de usuarios, implemente la API del pago, cambie el pago del controlador web para hacerlo stateless y refactorize algunas cosas como borrar usuario o actualizarlo y el propio pago.
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Implements the order API to view the orders and the cart](https://github.com/DWS-2026/project-grupo-5/commit/e0fd1138b7b7abf01c11a70e5edd1b285f469b74#diff-715b8dbb582042391e18c7db1bd9ef71e8b815b3b1c8520cad60a0fdf62834a7)  | [RestOrderController.java](src/main/java/com/canaryshop/canaryshop/controllers/REST/RestOrderController.java)   |
+|2| [Implements the payment API to pay the cart or a product and refactorize the payment in the web controller](https://github.com/DWS-2026/project-grupo-5/commit/a0e281603025cc620951ec4828e4614d94f00bef#diff-498c0f8ec0478386806da50052180aa6687e0395b0ad5b82b29149704e98bcc9)  | [RestPaymentController.java](src/main/java/com/canaryshop/canaryshop/controllers/REST/RestPaymentController.java)[PaymentManager.java](src/main/java/com/canaryshop/canaryshop/controllers/PaymentManager.java)   |
+|3| [Change to a statless controller the payment controller](https://github.com/DWS-2026/project-grupo-5/commit/355bccc7fce8d3e2135d69e86481a07835cfebe4)  | [PaymentManager.java](src/main/java/com/canaryshop/canaryshop/controllers/PaymentManager.java)   |
+|4| [User API to view the user products reviews and the user](https://github.com/DWS-2026/project-grupo-5/commit/e3aa6800ff96b7bc4a680582237476ff9bcde0bf#diff-491f020b5e5ac183f4b39f3029e2b2720be8b82ac80270ad8ba53428b45ce292)  | [RestUserController.java](src/main/java/com/canaryshop/canaryshop/controllers/REST/RestUserController.java)   |
+|5| [Refactor delete user and update user and I do the endpoints for these in the API]([URL_commit_5](https://github.com/DWS-2026/project-grupo-5/commit/373274f413831ffdf7f6b5d039d302f42e321277#diff-ce904d24cf719cc3a450967ab8accef2b14fd8a7afb06b46653b6c45455c619c))  | [RestUserController.java](src/main/java/com/canaryshop/canaryshop/controllers/REST/RestUserController.java) [UserService.java](src/main/java/com/canaryshop/canaryshop/services/UserService.java)   |
 
 ---
 
