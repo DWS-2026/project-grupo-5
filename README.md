@@ -410,14 +410,14 @@ He implementado los DTOs de productos y reseñas y he añadido a la API endpoint
 
 ---
 
-#### **Alumno 4 - [Nombre Completo]**
+#### **Alumno 4 - Jaime Gordaliza de la Rosa**
 
-[Descripción de las tareas y responsabilidades principales del alumno en el proyecto]
+He implementado las apis de los reporte tanto de usuarios como de productos, ademas de arreglar errores tanto de los que han ido surgiendo como de practicas anteriores como por ejemplo verificar si un usuario existe  cuando se edita el perfil, además de la documentacion de las apis con postman.
 
 | Nº    | Commits      | Files      |
 |:------------: |:------------:| :------------:|
-|1| [Descripción commit 1](URL_commit_1)  | [Archivo1](URL_archivo_1)   |
-|2| [Descripción commit 2](URL_commit_2)  | [Archivo2](URL_archivo_2)   |
-|3| [Descripción commit 3](URL_commit_3)  | [Archivo3](URL_archivo_3)   |
-|4| [Descripción commit 4](URL_commit_4)  | [Archivo4](URL_archivo_4)   |
-|5| [Descripción commit 5](URL_commit_5)  | [Archivo5](URL_archivo_5)   |
+|1| [Reported users for api](https://github.com/DWS-2026/project-grupo-5/commit/91f1d15e104122051d8ff8b9bb61297711dc22e2)  | [RestUserController.java](src/main/java/com/canaryshop/canaryshop/DTOs/UserReportDTO.java)   |
+|2| [Reported products for api](https://github.com/DWS-2026/project-grupo-5/commit/ad794f1f994d935c2271c7ea58dc419272caf57f)  | [ProductReportDTO.java](src/main/java/com/canaryshop/canaryshop/DTOs/ProductReportDTO.java)   |
+|3| [Documentation and security of reports](https://github.com/DWS-2026/project-grupo-5/commit/ea82c02785c3586c1b37d0452aa247d3eaab3fd0)  | [RestProductController.java](src/main/java/com/canaryshop/canaryshop/controllers/REST/RestProductController.java)   |
+|4| [Create image endpoint in user]((https://github.com/DWS-2026/project-grupo-5/commit/be4fdd267652485861e0c2f4ff811ad4152d0041))  | [RestUserController.java](src/main/java/com/canaryshop/canaryshop/controllers/REST/RestUserController.java)   |
+|5| [Documentation of apis](https://github.com/DWS-2026/project-grupo-5/commit/96a19e1cea9f6d2ede1ac4c23d1743e4ab1599f9)  | [api.postman_collection.json](api.postman_collection.json)   |
