@@ -357,7 +357,8 @@ He desarrollado las entidades de producto y reseña y sus páginas, he ayudado c
 
 Diagrama actualizado incluyendo los @RestController y su relación con los @Service compartidos:
 
-![Diagrama de Clases Actualizado](images/complete-classes-diagram.png)
+![Diagrama de Clases Antiguo](images/classes-diagram.png)
+![Diagrama de Clases Actualizado](images/complete-classes-diagram.jpeg)
 
 #### **Credenciales de Usuarios de Ejemplo**
 
