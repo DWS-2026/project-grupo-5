@@ -20,10 +20,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -146,7 +148,12 @@ public class RestProductController {
                 Product product = productService.getProduct(productId);
                 User user = users.getUser(principal);
                 productService.modifyCheck(user, product);
+
                 Image image = imageService.getImageEntity(imageId);
+                if (!product.getProductImages().contains(image)) {
+                        throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                                        "That image does not belong to this product");
+                }
                 imageService.replaceImage(image, imageFile);
                 return ResponseEntity.noContent().build();
         }
