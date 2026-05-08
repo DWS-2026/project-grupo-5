@@ -340,7 +340,7 @@ He desarrollado las entidades de producto y reseña y sus páginas, he ayudado c
 ## 🛠 **Práctica 3: Incorporación de una API REST a la aplicación web, análisis de vulnerabilidades y contramedidas**
 
 ### **Vídeo de Demostración**
-📹 **[Enlace al vídeo en YouTube](https://youtu.be/dFnIHsIY2KU)**
+📹 **[Enlace al vídeo en YouTube](https://youtu.be/PbEWwALkN3Q)**
 > Vídeo mostrando las principales funcionalidades de la aplicación web.
 
 ### **Documentación de la API REST**
