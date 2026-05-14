@@ -122,7 +122,7 @@ public class ProductManager {
             @RequestParam String description, List<MultipartFile> files, Principal principal) {
         User user = users.getUser(principal);
         Product product = products.getProduct(id);
-        if(user.getProducts().contains(product)){
+        if (user.getProducts().contains(product)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "It is your product");
         }
         Review review = new Review(user, description, stars, title);
@@ -148,7 +148,13 @@ public class ProductManager {
             Principal principal) {
         Review review = reviews.getReview(review_id);
         User user = users.getUser(principal);
+        Product product = this.products.getProduct(review_id);
         reviews.modifyCheck(user, review);
+        if (user == null) {
+            model.addAttribute("canBuyProduct", false);
+        } else {
+            model.addAttribute("canBuyProduct", !user.equals(product.getVendor()));
+        }
         model.addAttribute("edit-review", review);
         model.addAttribute("product", products.getProduct(product_id));
         return "product";
