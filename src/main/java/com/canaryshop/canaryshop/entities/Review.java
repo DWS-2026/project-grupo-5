@@ -27,15 +27,14 @@ public class Review {
     
     public Review() {}
 
-    public Review(User author, String description, Integer rating, String name, List<Image> images) {
+    public Review(User author, String description, Integer rating, String name) {
         this.author = author;
         this.description = description;
         this.rating=rating;
         this.name=name;
-        this.images=images;
     }
-    public Review(User author, String description, Integer rating, String name, Image... images) {
-        this(author, description, rating, name, new LinkedList<>(List.of(images)));
+    public Review(User author, String description, Integer rating, String name, String... files) {
+        this(author, description, rating, name);
     }
     public Review(Review review){
         this.id = review.id;
@@ -43,7 +42,7 @@ public class Review {
         this.rating = review.rating;
         this.name = review.name;
         this.author = review.author;
-        this.images = review.images;
+        this.files = review.files;
         this.product = review.product;
     }
 
@@ -80,8 +79,8 @@ public class Review {
         copy.description = review.description;
         copy.rating = review.rating;
         copy.name = review.name;
-        if (review.images!=null && !review.images.isEmpty()){
-            copy.images = review.images;
+        if (review.files!=null && !review.files.isEmpty()){
+            copy.files = review.files;
         }
         return copy;
     }

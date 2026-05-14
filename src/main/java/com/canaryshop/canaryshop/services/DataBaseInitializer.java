@@ -23,6 +23,8 @@ public class DataBaseInitializer {
     private ProductService productService;
     @Autowired
     private ImageService imageService;
+    @Autowired
+    
     // Initialize the database
     @PostConstruct
     public void initDatabase() {
@@ -66,23 +68,23 @@ public class DataBaseInitializer {
                 switch(i%4){
                     case 0 -> {
                         product = new Product(admin, "Iphone"+i, "Buena calidad", 40.00*i, 12, image2);
-                        product.addReview(new Review(user1, "Ta bien", 3, "Hater de iphones", image3));
+                        product.addReview(new Review(user1, "Ta bien", 3, "Hater de iphones"));
                         order.setProductQuantity(product, 1);
                     }
                     case 1 -> {
 
                         product = new Product(admin, "Iphone "+i, "Seminuevo", 30.00*i, 1, image2);
-                        product.addReview(new Review(user1, "meh", 2, "Hater de iphones", image3));
+                        product.addReview(new Review(user1, "meh", 2, "Hater de iphones"));
                     }
                     case 2 -> {
 
                         product = new Product(admin, "Iphone "+i, "Usado", 20.00*i, 1, image2);
-                        product.addReview(new Review(user1, "puff", 1, "Hater de iphones", image3));
+                        product.addReview(new Review(user1, "puff", 1, "Hater de iphones"));
                     }
                     case 3 -> {
 
                         product = new Product(user1, "Iphone "+i, "Roto", 10.00*i, 1, image2);
-                        product.addReview(new Review(admin, "Mierdon", 0, "Hater de iphones", image3));
+                        product.addReview(new Review(admin, "Mierdon", 0, "Hater de iphones"));
                     }
                 }
                 productService.addProduct(product);

@@ -125,4 +125,11 @@ public class FileService {
             throw new RuntimeException("Error occurred while deleting file: " + e.getMessage());
         }
     }
+
+    public List<String> getFilesNames(List<MultipartFile> files) {
+        return files.stream()
+                .map(MultipartFile::getOriginalFilename)
+                .filter(name -> name != null && !name.isBlank())
+                .toList();
+    }
 }

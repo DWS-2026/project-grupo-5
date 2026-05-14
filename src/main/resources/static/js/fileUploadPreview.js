@@ -1,12 +1,20 @@
 document.getElementById("file-input").onchange = function(event) {
     const target = event.target || window.event.srcElement;
-    const previewImages = document.getElementById("preview-grid");
-    previewImages.innerHTML = "";
+    const previewGrid = document.getElementById("preview-grid");
+    previewGrid.innerHTML = "";
     Array.from(target.files).forEach((file) => {
-        previewImages.innerHTML +=
+        const isImage = file.type.startsWith("image/");
+        const previewContent = isImage
+            ? `<img src="${URL.createObjectURL(file)}" alt="Preview of ${file.name}">`
+            : `<div class="file-preview non-image-file">
+                    <i class="bi bi-file-earmark-text"></i>
+                    <span>${file.name}</span>
+               </div>`;
+
+        previewGrid.innerHTML +=
         `<div class="col-6 col-sm-4 col-md-3 col-lg-2">
             <div class="preview-card">
-                <img src=${URL.createObjectURL(file)}>
+                ${previewContent}
             </div>
         </div>`;
     })

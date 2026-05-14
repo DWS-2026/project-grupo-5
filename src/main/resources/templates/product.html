@@ -172,13 +172,14 @@
                     <label class="form-label">Attachments</label>
                     <div class="container-fluid px-0">
                         <div class="pb-2">
-                            <input type="file" id="file-input" name="imageFiles" accept="image/*" hidden multiple>
+                            <input type="file" id="file-input" name="files" accept="image/*,application/pdf" hidden multiple>
                             <label for="file-input" class="upload-label h-100 rounded">
                                 <div class="upload-content d-flex align-items-center">
                                     <i class="bi bi-plus-square-dotted"></i>
                                 </div>
                             </label>
                         </div>
+                        <div class="form-text mb-2">Supported formats: images and PDF files.</div>
                         <div id="preview-grid" class="my-2 row g-3"></div>
                         <script src="/js/fileUploadPreview.js"></script>
                     </div>
@@ -204,6 +205,34 @@
                                 </div>
                                 {{/images}}
                             </div>
+                            {{#files}}
+                            <div class="d-flex flex-row gap-2 flex-wrap" data-files-container>
+                                {{#files}}
+                                <a href="/api/v1/products/{{product.id}}/reviews/{{id}}/files/{{.}}" class="file-attachment" data-filename="{{.}}" data-review-id="{{id}}" data-product-id="{{product.id}}" style="text-decoration: none;">
+                                </a>
+                                {{/files}}
+                            </div>
+                            <script>
+                            (function() {
+                                document.querySelectorAll('.file-attachment').forEach(function(link) {
+                                    const filename = link.dataset.filename;
+                                    const isPdf = filename.toLowerCase().endsWith('.pdf');
+                                    
+                                    if (isPdf) {
+                                        link.download = filename;
+                                        link.innerHTML = '<div style="height: 10em; width: 10em;" class="bg-secondary rounded d-flex align-items-center justify-content-center flex-column p-2 cursor-pointer">' +
+                                            '<i class="bi bi-file-earmark-pdf text-danger" style="font-size: 2.5rem;"></i>' +
+                                            '<small class="text-white text-center mt-2 text-truncate" title="' + filename + '">' + filename + '</small>' +
+                                        '</div>';
+                                    } else {
+                                        link.innerHTML = '<div style="height: 10em; width: 10em;">' +
+                                            '<img class="rounded" style="height: 10em; width: 10em; object-fit: cover;" src="' + link.href + '" alt="Review attachment">' +
+                                        '</div>';
+                                    }
+                                });
+                            })();
+                            </script>
+                            {{/files}}
                         </div>
                     </div>
                     <div class="card-footer d-flex align-items-center gap-4 py-3">
@@ -231,6 +260,34 @@
                             </div>
                             {{/images}}
                             </div>
+                            {{#files}}
+                            <div class="d-flex flex-row gap-2 flex-wrap" data-files-container>
+                                {{#files}}
+                                <a href="/api/v1/products/{{product.id}}/reviews/{{id}}/files/{{.}}" class="file-attachment" data-filename="{{.}}" data-review-id="{{id}}" data-product-id="{{product.id}}" style="text-decoration: none;">
+                                </a>
+                                {{/files}}
+                            </div>
+                            <script>
+                            (function() {
+                                document.querySelectorAll('.file-attachment').forEach(function(link) {
+                                    const filename = link.dataset.filename;
+                                    const isPdf = filename.toLowerCase().endsWith('.pdf');
+                                    
+                                    if (isPdf) {
+                                        link.download = filename;
+                                        link.innerHTML = '<div style="height: 10em; width: 10em;" class="bg-secondary rounded d-flex align-items-center justify-content-center flex-column p-2 cursor-pointer">' +
+                                            '<i class="bi bi-file-earmark-pdf text-danger" style="font-size: 2.5rem;"></i>' +
+                                            '<small class="text-white text-center mt-2 text-truncate" title="' + filename + '">' + filename + '</small>' +
+                                        '</div>';
+                                    } else {
+                                        link.innerHTML = '<div style="height: 10em; width: 10em;">' +
+                                            '<img class="rounded" style="height: 10em; width: 10em; object-fit: cover;" src="' + link.href + '" alt="Review attachment">' +
+                                        '</div>';
+                                    }
+                                });
+                            })();
+                            </script>
+                            {{/files}}
                         </div>
                     </div>
                     <div class="card-footer d-flex align-items-center gap-4 py-3">
