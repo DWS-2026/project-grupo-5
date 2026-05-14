@@ -213,24 +213,27 @@
                                 {{/files}}
                             </div>
                             <script>
-                            (function() {
-                                document.querySelectorAll('.file-attachment').forEach(function(link) {
-                                    const filename = link.dataset.filename;
-                                    const isPdf = filename.toLowerCase().endsWith('.pdf');
-                                    
-                                    if (isPdf) {
-                                        link.download = filename;
-                                        link.innerHTML = '<div style="height: 10em; width: 10em;" class="bg-secondary rounded d-flex align-items-center justify-content-center flex-column p-2 cursor-pointer">' +
-                                            '<i class="bi bi-file-earmark-pdf text-danger" style="font-size: 2.5rem;"></i>' +
-                                            '<small class="text-white text-center mt-2 text-truncate" title="' + filename + '">' + filename + '</small>' +
-                                        '</div>';
-                                    } else {
-                                        link.innerHTML = '<div style="height: 10em; width: 10em;">' +
-                                            '<img class="rounded" style="height: 10em; width: 10em; object-fit: cover;" src="' + link.href + '" alt="Review attachment">' +
-                                        '</div>';
-                                    }
-                                });
-                            })();
+                                (function () {
+                                    document.querySelectorAll('.file-attachment').forEach(function (link) {
+                                        const filename = link.dataset.filename;
+                                        const isPdf = filename.toLowerCase().endsWith('.pdf');
+                                        if (isPdf) {
+                                            link.download = filename;
+                                            link.innerHTML = '<div style="height: 10em; width: 10em;" class="bg-secondary rounded d-flex align-items-center justify-content-center flex-column p-2 cursor-pointer">' +
+                                                '<i class="bi bi-file-earmark-pdf text-danger" style="font-size: 2.5rem;"></i>' +
+                                                '<small class="text-white text-center mt-2 text-truncate filename-container"></small>' +
+                                                '</div>';
+                                            const smallElement = link.querySelector('.filename-container');
+                                            smallElement.textContent = filename;
+                                            smallElement.title = filename;
+
+                                        } else {
+                                            link.innerHTML = '<div style="height: 10em; width: 10em;">' +
+                                                '<img class="rounded" style="height: 10em; width: 10em; object-fit: cover;" src="' + link.href + '" alt="Review attachment">' +
+                                                '</div>';
+                                        }
+                                    });
+                                })();
                             </script>
                             {{/files}}
                         </div>
@@ -268,24 +271,28 @@
                                 {{/files}}
                             </div>
                             <script>
-                            (function() {
-                                document.querySelectorAll('.file-attachment').forEach(function(link) {
-                                    const filename = link.dataset.filename;
-                                    const isPdf = filename.toLowerCase().endsWith('.pdf');
-                                    
-                                    if (isPdf) {
-                                        link.download = filename;
-                                        link.innerHTML = '<div style="height: 10em; width: 10em;" class="bg-secondary rounded d-flex align-items-center justify-content-center flex-column p-2 cursor-pointer">' +
-                                            '<i class="bi bi-file-earmark-pdf text-danger" style="font-size: 2.5rem;"></i>' +
-                                            '<small class="text-white text-center mt-2 text-truncate" title="' + filename + '">' + filename + '</small>' +
-                                        '</div>';
-                                    } else {
-                                        link.innerHTML = '<div style="height: 10em; width: 10em;">' +
-                                            '<img class="rounded" style="height: 10em; width: 10em; object-fit: cover;" src="' + link.href + '" alt="Review attachment">' +
-                                        '</div>';
-                                    }
-                                });
-                            })();
+                                (function () {
+                                    document.querySelectorAll('.file-attachment').forEach(function (link) {
+                                        const filename = link.dataset.filename;
+                                        const isPdf = filename.toLowerCase().endsWith('.pdf');
+
+                                        if (isPdf) {
+                                            link.download = filename;
+                                            link.innerHTML = '<div style="height: 10em; width: 10em;" class="bg-secondary rounded d-flex align-items-center justify-content-center flex-column p-2 cursor-pointer">' +
+                                                '<i class="bi bi-file-earmark-pdf text-danger" style="font-size: 2.5rem;"></i>' +
+                                                '<small class="text-white text-center mt-2 text-truncate filename-container"></small>' +
+                                                '</div>';
+                                            const smallElement = link.querySelector('.filename-container');
+                                            smallElement.textContent = filename;
+                                            smallElement.title = filename;
+
+                                        } else {
+                                            link.innerHTML = '<div style="height: 10em; width: 10em;">' +
+                                                '<img class="rounded" style="height: 10em; width: 10em; object-fit: cover;" src="' + link.href + '" alt="Review attachment">' +
+                                                '</div>';
+                                        }
+                                    });
+                                })();
                             </script>
                             {{/files}}
                         </div>
