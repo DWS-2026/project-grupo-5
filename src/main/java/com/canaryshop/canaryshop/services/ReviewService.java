@@ -112,8 +112,15 @@ public class ReviewService {
             filesNames = this.fileService.storeFiles(files);
             modified.setFiles(filesNames);
         }
+        List<String> oldFiles = review.getFiles();
+        if (oldFiles != null && !oldFiles.isEmpty()) {
+            for (String str : oldFiles) {
+                this.fileService.deleteFile(str);
+            }
+        }
         try {
             product.removeReview(review);
+
             product.addReview(modified);
             products.addProduct(product);
         } catch (Exception e) {
