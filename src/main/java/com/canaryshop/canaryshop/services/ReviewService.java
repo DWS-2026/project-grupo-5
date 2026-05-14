@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -27,47 +28,75 @@ public class ReviewService {
     @Autowired
     private FileService fileService;
 
-    public void modifyCheck(User user, Review review){
-        if (!review.canEdit(user)){
+    public void modifyCheck(User user, Review review) {
+        if (!review.canEdit(user)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User cannot modify review");
         }
     }
+
     public List<Review> getReviews(long product_id) {
         List<Review> reviews = products.getProduct(product_id).getReviews();
-        if (reviews.isEmpty()){ throw new NoSuchElementException(); }
+        if (reviews.isEmpty()) {
+            throw new NoSuchElementException();
+        }
         return reviews;
     }
-    public Review getReview(long id){
+
+    public Review getReview(long id) {
         return reviews.findById(id).orElseThrow();
     }
-    public Review getReview(User user, Product product){
+
+    public Review getReview(User user, Product product) {
         return reviews.findByAuthorAndProduct(user, product).orElseThrow();
     }
-    public void createReview(Review review, Product product){
-        if (review == null){
+
+    public void createReview(Review review, Product product, List<MultipartFile> files) {
+        if (review == null) {
             throw new IllegalArgumentException();
         }
         review.setDescription(enrichedTextSanitizer.sanitize(review.getDescription()));
-        if (!review.isValid()){
+        if (!review.isValid()) {
             throw new IllegalArgumentException();
         }
-        if (reviews.existsByAuthorAndProduct(review.getAuthor(), product)){
+        if (reviews.existsByAuthorAndProduct(review.getAuthor(), product)) {
             throw new IllegalArgumentException();
         }
-        product.addReview(review);
-        products.addProduct(product);
+        List<String> filesNames = new LinkedList<>();
+        if (files != null && !files.isEmpty() && !files.get(0).getOriginalFilename().isBlank()) {
+            filesNames = this.fileService.storeFiles(files);
+            review.setFiles(filesNames);
+        }
+        try {
+            product.addReview(review);
+            products.addProduct(product);
+        } catch (Exception e) {
+            for (String str : filesNames) {
+                this.fileService.deleteFile(str);
+            }
+            throw e;
+        }
     }
-    public void deleteReview(User user, Review review){
+
+    public void deleteReview(User user, Review review) {
         this.modifyCheck(user, review);
         Product product = review.getProduct();
-        if (product == null || !product.getReviews().contains(review)){
+        if (product == null || !product.getReviews().contains(review)) {
             throw new NoSuchElementException();
         }
         product.removeReview(review);
         products.addProduct(product);
         reviews.deleteById(review.getId());
+        if (review.getFiles() != null) {
+            for (String fileName : review.getFiles()) {
+                try {
+                    fileService.deleteFile(fileName);
+                } catch (Exception e) {
+                }
+            }
+        }
     }
-    public void editReview(User user, Review review, Review modification){
+
+    public void editReview(User user, Review review, Review modification, List<MultipartFile> files) {
         if (review == null) {
             throw new IllegalArgumentException();
         }
@@ -75,18 +104,32 @@ public class ReviewService {
         Product product = review.getProduct();
         Review modified = review.modify(modification);
         modified.setDescription(enrichedTextSanitizer.sanitize(modified.getDescription()));
-        if (!modified.isValid()){
+        if (!modified.isValid()) {
             throw new IllegalArgumentException();
         }
-        product.removeReview(review);
-        product.addReview(modified);
-        products.addProduct(product);
+        List<String> filesNames = new LinkedList<>();
+        if (files != null && !files.isEmpty() && !files.get(0).getOriginalFilename().isBlank()) {
+            filesNames = this.fileService.storeFiles(files);
+            modified.setFiles(filesNames);
+        }
+        try {
+            product.removeReview(review);
+            product.addReview(modified);
+            products.addProduct(product);
+        } catch (Exception e) {
+            for (String str : filesNames) {
+                this.fileService.deleteFile(str);
+            }
+            throw e;
+        }
+
     }
-    public Page<Review> getReviewsByAuthor(User u, Pageable page){
+
+    public Page<Review> getReviewsByAuthor(User u, Pageable page) {
         return this.reviews.findByAuthor(u, page);
     }
 
-    public String addFile(User user, Review review, MultipartFile file){
+    public String addFile(User user, Review review, MultipartFile file) {
         this.modifyCheck(user, review);
         String fileName = fileService.storeFile(file);
         review.getFiles().add(fileName);
@@ -94,15 +137,15 @@ public class ReviewService {
         return fileName;
     }
 
-    public void removeFile(User user, Product product, Review review, String fileName){
+    public void removeFile(User user, Product product, Review review, String fileName) {
         this.modifyCheck(user, review);
-        
+
         Product reviewProduct = review.getProduct();
-        if (reviewProduct == null || !reviewProduct.equals(product)){
+        if (reviewProduct == null || !reviewProduct.equals(product)) {
             throw new NoSuchElementException();
         }
         List<String> files = review.getFiles();
-        if (files == null || !files.contains(fileName)){
+        if (files == null || !files.contains(fileName)) {
             throw new NoSuchElementException();
         }
         fileService.deleteFile(fileName);

@@ -18,6 +18,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -31,7 +32,8 @@ public class FileService {
     }
 
     /**
-     * Resolves the file path and validates that it remains within the root directory.
+     * Resolves the file path and validates that it remains within the root
+     * directory.
      * This prevents Path Traversal attacks.
      */
     private Path getSafePath(String fileName) {
@@ -51,10 +53,11 @@ public class FileService {
 
         try {
             String rawName = file.getOriginalFilename();
-            if (rawName == null) throw new RuntimeException("Nombre de archivo nulo.");
-            
+            if (rawName == null)
+                throw new RuntimeException("Nombre de archivo nulo.");
+
             String originalName = StringUtils.cleanPath(rawName);
-            
+
             if (originalName.contains("..") || originalName.contains("/") || originalName.contains("\\")) {
                 throw new RuntimeException();
             }
@@ -67,18 +70,21 @@ public class FileService {
 
             List<String> allowedExtensions = Arrays.asList(".jpg", ".jpeg", ".png", ".gif", ".pdf");
             if (!allowedExtensions.contains(extension)) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unsupported file type. Allowed types: " + String.join(", ", allowedExtensions));
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                        "Unsupported file type. Allowed types: " + String.join(", ", allowedExtensions));
             }
 
             String contentType = file.getContentType();
             if (contentType == null || !isSupportedContentType(contentType)) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unsupported content type. Allowed types: " + String.join(", ", Arrays.asList("image/jpeg", "image/png", "image/gif", "application/pdf")));
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unsupported content type. Allowed types: "
+                        + String.join(", ", Arrays.asList("image/jpeg", "image/png", "image/gif", "application/pdf")));
             }
 
             Path destinationFile = this.rootLocation.resolve(originalName).normalize().toAbsolutePath();
-            
+
             if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Security breach attempt: Cannot access files outside the target directory.");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                        "Security breach attempt: Cannot access files outside the target directory.");
             }
 
             if (!Files.exists(rootLocation)) {
@@ -88,11 +94,12 @@ public class FileService {
             try (InputStream inputStream = file.getInputStream()) {
                 Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
             }
-            
+
             return originalName;
 
         } catch (IOException e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error occurred while storing file: " + e.getMessage());
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Error occurred while storing file: " + e.getMessage());
         }
     }
 
@@ -131,5 +138,27 @@ public class FileService {
                 .map(MultipartFile::getOriginalFilename)
                 .filter(name -> name != null && !name.isBlank())
                 .toList();
+    }
+
+    public List<String> storeFiles(List<MultipartFile> files) {
+        List<String> ret = new LinkedList<>();
+        try {
+            for (MultipartFile file : files) {
+                String str = this.storeFile(file);
+                if (str == null) {
+                    continue;
+                }
+                ret.add(str);
+            }
+            return ret;
+        } catch (Exception e) {
+            for (String savedFile : ret) {
+                try {
+                    this.deleteFile(savedFile);
+                } catch (Exception ignored) {
+                }
+            }
+            throw e;
+        }
     }
 }

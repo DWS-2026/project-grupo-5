@@ -17,26 +17,27 @@ public class Review {
 
     @ManyToOne
     private User author;
-    @OneToMany(cascade=CascadeType.ALL)
-    private List<Image> images;
     @ManyToOne
     private Product product;
 
     private List<String> files = new LinkedList<>();
 
-    
-    public Review() {}
+    public Review() {
+    }
 
-    public Review(User author, String description, Integer rating, String name) {
+    public Review(User author, String description, Integer rating, String name, List<String> files) {
         this.author = author;
         this.description = description;
-        this.rating=rating;
-        this.name=name;
+        this.rating = rating;
+        this.name = name;
+        this.files = files;
     }
+
     public Review(User author, String description, Integer rating, String name, String... files) {
-        this(author, description, rating, name);
+        this(author, description, rating, name, new LinkedList<>(List.of(files)));
     }
-    public Review(Review review){
+
+    public Review(Review review) {
         this.id = review.id;
         this.description = review.description;
         this.rating = review.rating;
@@ -49,53 +50,64 @@ public class Review {
     public String getName() {
         return name;
     }
+
     public String getDescription() {
         return description;
     }
-    public Product getProduct(){
+
+    public Product getProduct() {
         return product;
     }
-    public void setProduct(Product product){
+
+    public void setProduct(Product product) {
         this.product = product;
     }
+
     public User getAuthor() {
         return author;
     }
-    public Long getId(){
+
+    public Long getId() {
         return id;
     }
-    public boolean isValid(){
-        return (
-                !description.isBlank() &&
+
+    public boolean isValid() {
+        return (!description.isBlank() &&
                 rating > 0 &&
-                !name.isBlank()
-        );
+                !name.isBlank());
     }
-    public boolean canEdit(User user){
-        return !(user==null) && (author.equals(user) || user.isAdmin());
+
+    public boolean canEdit(User user) {
+        return !(user == null) && (author.equals(user) || user.isAdmin());
     }
-    public Review modify(Review review){
+
+    public Review modify(Review review) {
         Review copy = new Review(this);
         copy.description = review.description;
         copy.rating = review.rating;
         copy.name = review.name;
-        if (review.files!=null && !review.files.isEmpty()){
+        if (review.files != null && !review.files.isEmpty()) {
             copy.files = review.files;
         }
         return copy;
     }
-    public void setAuthor(User author){
+
+    public void setAuthor(User author) {
         this.author = author;
     }
+
     public Integer getRating() {
         return rating;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
+
     public void setRating(Integer rating) {
         this.rating = rating;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -103,6 +115,7 @@ public class Review {
     public List<String> getFiles() {
         return files;
     }
+
     public void setFiles(List<String> files) {
         this.files = files;
     }

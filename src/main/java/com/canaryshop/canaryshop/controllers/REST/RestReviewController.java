@@ -29,246 +29,144 @@ import java.security.Principal;
 import java.util.Collection;
 import java.util.Optional;
 
-
 @RestController
-@Tag(name="Reviews", description = "Endpoints related to manipulating product reviews")
+@Tag(name = "Reviews", description = "Endpoints related to manipulating product reviews")
 @RequestMapping("/api/v1/products")
 public class RestReviewController {
-   
-    @Autowired
-    private ProductService products;
-    @Autowired
-    private ReviewService reviews;
-    @Autowired
-    private ReviewMapper reviewMapper;
-    @Autowired
-    private UserService users;
-    @Autowired
-    private FileService fileService;
 
+        @Autowired
+        private ProductService products;
+        @Autowired
+        private ReviewService reviews;
+        @Autowired
+        private ReviewMapper reviewMapper;
+        @Autowired
+        private UserService users;
+        @Autowired
+        private FileService fileService;
 
-    @Operation(summary = "Get reviews for a given product id")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Found reviews in product",
-                    content = @Content(
-                            mediaType = "application/json",
-                            array = @ArraySchema(
-                                    schema = @Schema(implementation = ReviewDTO.class)
-                            )
-                    )
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "Either could not find product with given id, or the product has no reviews",
-                    content = @Content
-            )
-    })
-    @GetMapping("/{pid}/reviews")
-    public Collection<ReviewDTO> getReviews(@PathVariable long pid){
-        return reviewMapper.toDTOs(reviews.getReviews(pid));
-    }
-
-    @Operation(summary="Returns a specific review within a given product")
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Found the review",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = ReviewDTO.class)
-                    )
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "Product or review could not be found",
-                    content = @Content
-            )
-    })
-    @GetMapping("/{pid}/reviews/{rid}")
-    public ReviewDTO getReviews(@PathVariable long pid, @PathVariable long rid){
-        return reviewMapper.toDTO(reviews.getReview(rid));
-    }
-
-    @Operation(summary = "Creates a new review for a product")
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Review was created successfully",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = ReviewDTO.class)
-                    )
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Review contents are invalid",
-                    content = @Content
-            ),
-            @ApiResponse(
-                    responseCode = "403",
-                    description = "User is not logged in or cannot edit review",
-                    content = @Content
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "Product with given ID was not found",
-                    content = @Content
-            )
-    })
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping("/{id}/reviews")
-    public ResponseEntity<ReviewDTO> addReview(Principal principal, @PathVariable long id, @RequestBody ReviewUploadDTO review){
-        User user = users.getUser(principal);
-        Product product = products.getProduct(id);
-        Review entityReview = reviewMapper.toDomain(review, user);
-        reviews.createReview(entityReview, product);
-        entityReview = product.getReviews().getLast();
-        URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(entityReview.getId()).toUri();
-        return ResponseEntity.created(path).body(reviewMapper.toDTO(entityReview));
-    }
-
-    @Operation(summary = "Edits a product review")
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Product was edited successfully",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = ReviewDTO.class)
-                    )
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Edited review contents are invalid",
-                    content = @Content
-            ),
-            @ApiResponse(
-                    responseCode = "403",
-                    description = "User is not logged in or cannot edit review",
-                    content = @Content
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "Product or review with given ID was not found",
-                    content = @Content
-            )
-    })
-    @PreAuthorize("isAuthenticated()")
-    @PutMapping("/{productId}/reviews/{reviewId}")
-    public ResponseEntity<ReviewDTO> editReview(Principal principal, @PathVariable long productId, @PathVariable long reviewId, @RequestBody ReviewUploadDTO modification){
-        User user = users.getUser(principal);
-        Review entityReview = reviews.getReview(reviewId);
-        reviews.editReview(user, entityReview, reviewMapper.toDomain(modification, user));
-        return ResponseEntity.ok().body(reviewMapper.toDTO(entityReview));
-    }
-
-    @Operation(summary = "Deletes a product review")
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Review was deleted successfully",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = ReviewDTO.class)
-                    )
-            ),
-            @ApiResponse(
-                    responseCode = "403",
-                    description = "User is not logged in or cannot delete review",
-                    content = @Content
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "Product or review with given ID was not found",
-                    content = @Content
-            )
-    })
-    @PreAuthorize("isAuthenticated()")
-    @DeleteMapping("/{productId}/reviews/{reviewId}")
-    public ResponseEntity<ReviewDTO> deleteReview(Principal principal, @PathVariable long productId, @PathVariable long reviewId){
-        User user = users.getUser(principal);
-        Review entityReview = reviews.getReview(reviewId);
-        reviews.deleteReview(user, entityReview);
-        return ResponseEntity.ok().body(reviewMapper.toDTO(entityReview));
-    }
-
-    @Operation(summary = "Downloads a file attached to a review")
-    @ApiResponses({
-            @ApiResponse(
-                        responseCode = "200",
-                        description = "File was found and is being returned",
-                        content = @Content(
-                                mediaType = "application/octet-stream"
-                        )
-                ),
-                @ApiResponse(
-                                responseCode = "404",
-                                description = "Product, review, or file with given ID was not found",
-                                content = @Content
-                        )
+        @Operation(summary = "Get reviews for a given product id")
+        @ApiResponses(value = {
+                        @ApiResponse(responseCode = "200", description = "Found reviews in product", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ReviewDTO.class)))),
+                        @ApiResponse(responseCode = "404", description = "Either could not find product with given id, or the product has no reviews", content = @Content)
         })
-    @GetMapping("/{productId}/reviews/{rid}/files/{filename}")
-    public ResponseEntity<Resource> getFile(@PathVariable String filename, @PathVariable long rid, @PathVariable String productId){
-        Resource file = fileService.loadFile(filename);
-        return ResponseEntity.ok().body(file);
-    }
+        @GetMapping("/{pid}/reviews")
+        public Collection<ReviewDTO> getReviews(@PathVariable long pid) {
+                return reviewMapper.toDTOs(reviews.getReviews(pid));
+        }
 
-    @Operation(summary = "Uploads a file to be attached to a review")
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "201",
-                    description = "File was uploaded successfully",
-                    content = @Content
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "Product or review with given ID was not found",
-                    content = @Content
-            )
-    }) 
+        @Operation(summary = "Returns a specific review within a given product")
+        @ApiResponses({
+                        @ApiResponse(responseCode = "200", description = "Found the review", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ReviewDTO.class))),
+                        @ApiResponse(responseCode = "404", description = "Product or review could not be found", content = @Content)
+        })
+        @GetMapping("/{pid}/reviews/{rid}")
+        public ReviewDTO getReviews(@PathVariable long pid, @PathVariable long rid) {
+                return reviewMapper.toDTO(reviews.getReview(rid));
+        }
 
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping("/{productId}/reviews/{rid}/files")
-    public ResponseEntity<?> storeFile(Principal principal, @PathVariable long rid, @RequestParam("file") MultipartFile file, @PathVariable String productId) {
-        Review review = reviews.getReview(rid);
-        User user = users.getUser(principal);
-        String filename = reviews.addFile(user, review, file);
-        URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fileName}").buildAndExpand(filename).toUri();
-        return ResponseEntity.created(path).body(filename);
-    }  
-    
-    @Operation(summary = "Deletes a file attached to a review")
-    @ApiResponses({
-        @ApiResponse(
-                responseCode = "200",
-                description = "File was deleted successfully",
-                content = @Content
-        ),
-        @ApiResponse(
-                responseCode = "403",
-                description = "User is not logged in or cannot delete file",
-                content = @Content
-        ),
-        @ApiResponse(
-                responseCode = "404",
-                description = "Product, review, or file with given ID was not found",
-                content = @Content
-        )
-    })
+        @Operation(summary = "Creates a new review for a product")
+        @ApiResponses({
+                        @ApiResponse(responseCode = "200", description = "Review was created successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ReviewDTO.class))),
+                        @ApiResponse(responseCode = "400", description = "Review contents are invalid", content = @Content),
+                        @ApiResponse(responseCode = "403", description = "User is not logged in or cannot edit review", content = @Content),
+                        @ApiResponse(responseCode = "404", description = "Product with given ID was not found", content = @Content)
+        })
+        @PreAuthorize("isAuthenticated()")
+        @PostMapping("/{id}/reviews")
+        public ResponseEntity<ReviewDTO> addReview(Principal principal, @PathVariable long id,
+                        @RequestBody ReviewUploadDTO review) {
+                User user = users.getUser(principal);
+                Product product = products.getProduct(id);
+                Review entityReview = reviewMapper.toDomain(review, user);
+                reviews.createReview(entityReview, product, null);
+                entityReview = product.getReviews().getLast();
+                URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                                .buildAndExpand(entityReview.getId()).toUri();
+                return ResponseEntity.created(path).body(reviewMapper.toDTO(entityReview));
+        }
 
-    @PreAuthorize("isAuthenticated()")
-    @DeleteMapping("/{productId}/reviews/{rid}/files/{filename}")
-    public ResponseEntity<?> deleteFile(Principal principal, @PathVariable long productId, @PathVariable long rid, @PathVariable String filename){
-        
-        User user = users.getUser(principal);
-        Product product = products.getProduct(productId);
-        return Optional.ofNullable(reviews.getReview(rid)).map(review -> {
-                reviews.removeFile(user, product, review, filename);
-                return ResponseEntity.ok().body("File deleted successfully");
+        @Operation(summary = "Edits a product review")
+        @ApiResponses({
+                        @ApiResponse(responseCode = "200", description = "Product was edited successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ReviewDTO.class))),
+                        @ApiResponse(responseCode = "400", description = "Edited review contents are invalid", content = @Content),
+                        @ApiResponse(responseCode = "403", description = "User is not logged in or cannot edit review", content = @Content),
+                        @ApiResponse(responseCode = "404", description = "Product or review with given ID was not found", content = @Content)
+        })
+        @PreAuthorize("isAuthenticated()")
+        @PutMapping("/{productId}/reviews/{reviewId}")
+        public ResponseEntity<ReviewDTO> editReview(Principal principal, @PathVariable long productId,
+                        @PathVariable long reviewId, @RequestBody ReviewUploadDTO modification) {
+                User user = users.getUser(principal);
+                Review entityReview = reviews.getReview(reviewId);
+                reviews.editReview(user, entityReview, reviewMapper.toDomain(modification, user), null);
+                return ResponseEntity.ok().body(reviewMapper.toDTO(entityReview));
+        }
 
-        }).orElseGet(() -> ResponseEntity.notFound().build());
-    }  
+        @Operation(summary = "Deletes a product review")
+        @ApiResponses({
+                        @ApiResponse(responseCode = "200", description = "Review was deleted successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ReviewDTO.class))),
+                        @ApiResponse(responseCode = "403", description = "User is not logged in or cannot delete review", content = @Content),
+                        @ApiResponse(responseCode = "404", description = "Product or review with given ID was not found", content = @Content)
+        })
+        @PreAuthorize("isAuthenticated()")
+        @DeleteMapping("/{productId}/reviews/{reviewId}")
+        public ResponseEntity<ReviewDTO> deleteReview(Principal principal, @PathVariable long productId,
+                        @PathVariable long reviewId) {
+                User user = users.getUser(principal);
+                Review entityReview = reviews.getReview(reviewId);
+                reviews.deleteReview(user, entityReview);
+                return ResponseEntity.ok().body(reviewMapper.toDTO(entityReview));
+        }
+
+        @Operation(summary = "Downloads a file attached to a review")
+        @ApiResponses({
+                        @ApiResponse(responseCode = "200", description = "File was found and is being returned", content = @Content(mediaType = "application/octet-stream")),
+                        @ApiResponse(responseCode = "404", description = "Product, review, or file with given ID was not found", content = @Content)
+        })
+        @GetMapping("/{productId}/reviews/{rid}/files/{filename}")
+        public ResponseEntity<Resource> getFile(@PathVariable String filename, @PathVariable long rid,
+                        @PathVariable String productId) {
+                Resource file = fileService.loadFile(filename);
+                return ResponseEntity.ok().body(file);
+        }
+
+        @Operation(summary = "Uploads a file to be attached to a review")
+        @ApiResponses({
+                        @ApiResponse(responseCode = "201", description = "File was uploaded successfully", content = @Content),
+                        @ApiResponse(responseCode = "404", description = "Product or review with given ID was not found", content = @Content)
+        })
+
+        @PreAuthorize("isAuthenticated()")
+        @PostMapping("/{productId}/reviews/{rid}/files")
+        public ResponseEntity<?> storeFile(Principal principal, @PathVariable long rid,
+                        @RequestParam("file") MultipartFile file, @PathVariable String productId) {
+                Review review = reviews.getReview(rid);
+                User user = users.getUser(principal);
+                String filename = reviews.addFile(user, review, file);
+                URI path = ServletUriComponentsBuilder.fromCurrentRequest().path("/{fileName}").buildAndExpand(filename)
+                                .toUri();
+                return ResponseEntity.created(path).body(filename);
+        }
+
+        @Operation(summary = "Deletes a file attached to a review")
+        @ApiResponses({
+                        @ApiResponse(responseCode = "200", description = "File was deleted successfully", content = @Content),
+                        @ApiResponse(responseCode = "403", description = "User is not logged in or cannot delete file", content = @Content),
+                        @ApiResponse(responseCode = "404", description = "Product, review, or file with given ID was not found", content = @Content)
+        })
+
+        @PreAuthorize("isAuthenticated()")
+        @DeleteMapping("/{productId}/reviews/{rid}/files/{filename}")
+        public ResponseEntity<?> deleteFile(Principal principal, @PathVariable long productId, @PathVariable long rid,
+                        @PathVariable String filename) {
+
+                User user = users.getUser(principal);
+                Product product = products.getProduct(productId);
+                return Optional.ofNullable(reviews.getReview(rid)).map(review -> {
+                        reviews.removeFile(user, product, review, filename);
+                        return ResponseEntity.ok().body("File deleted successfully");
+
+                }).orElseGet(() -> ResponseEntity.notFound().build());
+        }
 }
-

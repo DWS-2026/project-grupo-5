@@ -121,7 +121,7 @@
                 </div>
                 <!-- Review form -->
                 {{^userReview}}
-                <form action="/product/{{product.id}}/review/{{^edit-review}}new{{/edit-review}}{{#edit-review}}{{product.id}}/edit{{/edit-review}}" id="reviewForm" method="post" enctype="multipart/form-data" class="text-white container bg-body rounded p-4">
+                <form action="/product/{{product.id}}/review/{{^edit-review}}new{{/edit-review}}{{#edit-review}}{{id}}/edit{{/edit-review}}" id="reviewForm" method="post" enctype="multipart/form-data" class="text-white container bg-body rounded p-4">
                     <!-- Review title  -->
                     <div class="my-2">
                         <label for="reviewTitle" class="form-label">Review title</label>
