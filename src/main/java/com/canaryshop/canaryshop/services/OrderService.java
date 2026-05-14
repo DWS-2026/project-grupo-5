@@ -104,8 +104,10 @@ public class OrderService {
 
     // Clear the cart
     public void clearOder(Order o) {
-        List<OrderProduct> products = o.getProducts();
-        products.clear();
+        List<OrderProduct> products = new LinkedList<>(o.getProducts());
+        for (OrderProduct op : products) {
+            o.setProductQuantity(op.getProduct(), 0);
+        }
         this.orderRepository.save(o);
     }
 
