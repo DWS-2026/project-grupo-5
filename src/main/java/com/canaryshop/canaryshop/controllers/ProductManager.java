@@ -4,7 +4,6 @@ import com.canaryshop.canaryshop.entities.Image;
 import com.canaryshop.canaryshop.entities.Product;
 import com.canaryshop.canaryshop.entities.Review;
 import com.canaryshop.canaryshop.entities.User;
-import com.canaryshop.canaryshop.services.FileService;
 import com.canaryshop.canaryshop.services.ImageService;
 import com.canaryshop.canaryshop.services.ProductService;
 import com.canaryshop.canaryshop.services.ReviewService;
@@ -34,8 +33,6 @@ public class ProductManager {
     private ImageService images;
     @Autowired
     private UserService users;
-    @Autowired
-    private FileService fileService;
 
     // Gets a product page, throws HTTP error if product is not found
     @GetMapping({ "/products/{id}", "/product/{id}" })
