@@ -121,8 +121,11 @@ public class ProductManager {
     public String addNewReviewToProduct(@PathVariable long id, @RequestParam String title, @RequestParam int stars,
             @RequestParam String description, List<MultipartFile> files, Principal principal) {
         User user = users.getUser(principal);
-        Review review = new Review(user, description, stars, title);
         Product product = products.getProduct(id);
+        if(user.getProducts().contains(product)){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "It is your product");
+        }
+        Review review = new Review(user, description, stars, title);
         reviews.createReview(review, product, files);
         return "redirect:/product/" + product.getId();
     }
