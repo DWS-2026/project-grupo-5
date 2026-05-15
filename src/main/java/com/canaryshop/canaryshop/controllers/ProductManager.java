@@ -150,11 +150,7 @@ public class ProductManager {
         User user = users.getUser(principal);
         Product product = this.products.getProduct(review_id);
         reviews.modifyCheck(user, review);
-        if (user == null) {
-            model.addAttribute("canBuyProduct", false);
-        } else {
-            model.addAttribute("canBuyProduct", !user.equals(product.getVendor()));
-        }
+        model.addAttribute("canBuyProduct", true);
         model.addAttribute("edit-review", review);
         model.addAttribute("product", products.getProduct(product_id));
         return "product";
