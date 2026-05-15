@@ -207,7 +207,6 @@
                                 </div>
                                 {{/images}}
                             </div>
-                            {{#files}}
                             <div class="d-flex flex-row gap-2 flex-wrap" data-files-container>
                                 {{#files}}
                                 <a href="/api/v1/products/{{product.id}}/reviews/{{id}}/files/{{.}}" class="file-attachment" data-filename="{{.}}" data-review-id="{{id}}" data-product-id="{{product.id}}" style="text-decoration: none;">
@@ -237,7 +236,6 @@
                                     });
                                 })();
                             </script>
-                            {{/files}}
                         </div>
                     </div>
                     <div class="card-footer d-flex align-items-center gap-4 py-3">
@@ -265,7 +263,6 @@
                             </div>
                             {{/images}}
                             </div>
-                            {{#files}}
                             <div class="d-flex flex-row gap-2 flex-wrap" data-files-container>
                                 {{#files}}
                                 <a href="/api/v1/products/{{product.id}}/reviews/{{id}}/files/{{.}}" class="file-attachment" data-filename="{{.}}" data-review-id="{{id}}" data-product-id="{{product.id}}" style="text-decoration: none;">
@@ -296,7 +293,6 @@
                                     });
                                 })();
                             </script>
-                            {{/files}}
                         </div>
                     </div>
                     <div class="card-footer d-flex align-items-center gap-4 py-3">
