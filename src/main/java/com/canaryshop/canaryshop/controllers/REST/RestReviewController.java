@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -129,9 +130,15 @@ public class RestReviewController {
         public ResponseEntity<Resource> getFile(@PathVariable String filename, @PathVariable long rid,
                         @PathVariable String productId) {
                 Resource file = fileService.loadFile(filename);
-                return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "application/octet-stream")
-                                .header(HttpHeaders.CONTENT_DISPOSITION,
-                                                "attachment; filename=\"" + file.getFilename() + "\"")
+                ContentDisposition contentDisposition = ContentDisposition.attachment().filename(file.getFilename()) // To
+                                                                                                                     // downloading
+                                                                                                                     // the
+                                                                                                                     // file
+                                .build();
+
+                return ResponseEntity.ok()
+                                .header(HttpHeaders.CONTENT_TYPE, "application/octet-stream")
+                                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition.toString())
                                 .body(file);
         }
 
