@@ -108,7 +108,7 @@ public class ReviewService {
             throw new IllegalArgumentException();
         }
         List<String> filesNames = new LinkedList<>();
-        if (files != null && !files.isEmpty() && !files.get(0).getOriginalFilename().isBlank()) {
+        if (files != null && !files.isEmpty() && !files.getFirst().getOriginalFilename().isBlank()) {
             filesNames = this.fileService.storeFiles(files);
             modified.setFiles(filesNames);
         }
