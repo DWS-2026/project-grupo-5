@@ -422,3 +422,8 @@ He implementado las apis de los reporte tanto de usuarios como de productos, ade
 |3| [Documentation and security of reports](https://github.com/DWS-2026/project-grupo-5/commit/ea82c02785c3586c1b37d0452aa247d3eaab3fd0)  | [RestProductController.java](src/main/java/com/canaryshop/canaryshop/controllers/REST/RestProductController.java)   |
 |4| [Create image endpoint in user]((https://github.com/DWS-2026/project-grupo-5/commit/be4fdd267652485861e0c2f4ff811ad4152d0041))  | [RestUserController.java](src/main/java/com/canaryshop/canaryshop/controllers/REST/RestUserController.java)   |
 |5| [Documentation of apis](https://github.com/DWS-2026/project-grupo-5/commit/96a19e1cea9f6d2ede1ac4c23d1743e4ab1599f9)  | [api.postman_collection.json](api.postman_collection.json)   |
+
+
+### ** Corrección de la Práctica 3**
+
+Nos falto implementar como subir archivos desde la web. Ya está implementado se puede ver la funcionalidad al momento de crear o editar una review de un producto. Admite archivos .pdf .jpg .jpeg .gif y .png nada más. Se guardan en una carpeta llamada "uploads". Las APIs de subir, obtener y borrar archivo estan documentadas en el video y cuenta con una coleccion de postman con ellas ya implementadas. Nota: Solo se puede subir una review por producto y no se puede editar una review que no sea del usuario a menos de ser el administrador.
